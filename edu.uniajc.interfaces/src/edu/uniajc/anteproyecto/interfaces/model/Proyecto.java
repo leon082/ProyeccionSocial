@@ -15,40 +15,23 @@ import java.sql.Date;
  */
 
 public class Proyecto {
-   private int ID;
-   private int id_T_Metodologia;
-   private int id_T_Idea;
+   private int id_Proyecto;
    private String tituloProyecto;
    private String resumenProyecto;
-   private int id_T_LV_estadoProyecto;
-   private String rutaProyecto;
+   private int iD_Programa;
+   private int iD_ProgramaServicio;
+   private int estadoProyecto;
    private String creadoPor;
    private Date creadoEn;
    private String modificadoPor;
    private Date modificadoEn;
 
-    public int getID() {
-        return ID;
+    public int getId_Proyecto() {
+        return id_Proyecto;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
-    }
-
-    public int getId_T_Metodologia() {
-        return id_T_Metodologia;
-    }
-
-    public void setId_T_Metodologia(int id_T_Metodologia) {
-        this.id_T_Metodologia = id_T_Metodologia;
-    }
-
-    public int getId_T_Idea() {
-        return id_T_Idea;
-    }
-
-    public void setId_T_Idea(int id_T_Idea) {
-        this.id_T_Idea = id_T_Idea;
+    public void setId_Proyecto(int id_Proyecto) {
+        this.id_Proyecto = id_Proyecto;
     }
 
     public String getTituloProyecto() {
@@ -67,20 +50,28 @@ public class Proyecto {
         this.resumenProyecto = resumenProyecto;
     }
 
-    public int getId_T_LV_estadoProyecto() {
-        return id_T_LV_estadoProyecto;
+    public int getiD_Programa() {
+        return iD_Programa;
     }
 
-    public void setId_T_LV_estadoProyecto(int id_T_LV_estadoProyecto) {
-        this.id_T_LV_estadoProyecto = id_T_LV_estadoProyecto;
+    public void setiD_Programa(int iD_Programa) {
+        this.iD_Programa = iD_Programa;
     }
 
-    public String getRutaProyecto() {
-        return rutaProyecto;
+    public int getiD_ProgramaServicio() {
+        return iD_ProgramaServicio;
     }
 
-    public void setRutaProyecto(String rutaProyecto) {
-        this.rutaProyecto = rutaProyecto;
+    public void setiD_ProgramaServicio(int iD_ProgramaServicio) {
+        this.iD_ProgramaServicio = iD_ProgramaServicio;
+    }
+
+    public int getEstadoProyecto() {
+        return estadoProyecto;
+    }
+
+    public void setEstadoProyecto(int estadoProyecto) {
+        this.estadoProyecto = estadoProyecto;
     }
 
     public String getCreadoPor() {
@@ -114,6 +105,10 @@ public class Proyecto {
     public void setModificadoEn(Date modificadoEn) {
         this.modificadoEn = modificadoEn;
     }
+
+   
+   
+  
    
       
 }
