@@ -19,9 +19,10 @@ import org.junit.Test;
  */
 public class ProyectoDaoTest extends TestCase{
     Connection DBConnection;
+     ProyectoDao dao = new ProyectoDao(DBConnection);
     @Test
     public void crearProyecto() {
-        ProyectoDao dao = new ProyectoDao(DBConnection);
+       
         int result=dao.createProyecto(initProyecto());
         if(result == 0){
             fail("No creo el proyecto");
@@ -31,31 +32,23 @@ public class ProyectoDaoTest extends TestCase{
     
      @Test
     public void updateProyecto() {
-        ProyectoDao dao = new ProyectoDao(DBConnection);
-        boolean result=dao.updateProyecto(initProyecto());
-        if(!result){
-            fail("No actualizo el proyecto");
-        }
        
+         assertTrue(dao.updateProyecto(initProyecto()));
     }
     
       @Test
     public void deleteProyecto() {
-        ProyectoDao dao = new ProyectoDao(DBConnection);
-        boolean result=dao.deleteProyecto(initProyecto().getId_Proyecto());
-        if(!result){
-            fail("No borro el proyecto");
-        }
+      
+       assertTrue(dao.deleteProyecto(initProyecto().getId_Proyecto()));
+        
        
     }
     
         @Test
     public void getAllProyectos() {
-        ProyectoDao dao = new ProyectoDao(DBConnection);
-        ArrayList<Proyecto> list =dao.getAllProyectos();
-        if(list==null){
-            fail("No trajo todos los proyectos");
-        }
+        
+            assertNotNull(dao.getAllProyectos());
+      
        
     }
     
