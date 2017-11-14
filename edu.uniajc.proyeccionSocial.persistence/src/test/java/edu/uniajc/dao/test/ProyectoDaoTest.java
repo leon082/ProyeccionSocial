@@ -8,7 +8,6 @@ package edu.uniajc.dao.test;
 import edu.uniajc.proyeccionSocial.DAO.ProyectoDao;
 import edu.uniajc.proyeccionSocial.interfaces.model.Proyecto;
 import java.sql.Connection;
-import java.util.ArrayList;
 import junit.framework.TestCase;
 import static junit.framework.TestCase.fail;
 import org.junit.Test;
