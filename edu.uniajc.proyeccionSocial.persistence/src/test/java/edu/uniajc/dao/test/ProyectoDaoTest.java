@@ -18,6 +18,7 @@ import org.junit.Test;
  * @author luis.leon
  */
 public class ProyectoDaoTest extends TestCase{
+    //falta meter la conexion
     Connection DBConnection;
      ProyectoDao dao = new ProyectoDao(DBConnection);
     @Test

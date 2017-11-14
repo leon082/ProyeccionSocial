@@ -16,8 +16,8 @@ import org.junit.Test;
  * @author luis.leon
  */
 public class FaseProyectoDaoTest extends TestCase{
-    
-       Connection DBConnection;
+    //falta meter la conexion
+     Connection DBConnection;
      FaseProyectoDAO dao = new FaseProyectoDAO(DBConnection);
     @Test
     public void crearProyecto() {

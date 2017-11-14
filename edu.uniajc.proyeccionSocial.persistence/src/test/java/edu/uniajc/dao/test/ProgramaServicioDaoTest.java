@@ -16,6 +16,7 @@ import org.junit.Test;
  * @author luis.leon
  */
 public class ProgramaServicioDaoTest extends TestCase{
+    //falta meter la conexion
      Connection DBConnection;
      ProgramaServicioDAO dao = new ProgramaServicioDAO(DBConnection);
     @Test
