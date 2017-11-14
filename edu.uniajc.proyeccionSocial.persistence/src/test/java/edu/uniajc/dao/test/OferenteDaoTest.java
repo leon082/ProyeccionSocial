@@ -22,11 +22,12 @@ public class OferenteDaoTest extends TestCase{
     //falta meter la conexion
      Connection DBConnection;
      OferenteDao dao = new OferenteDao(DBConnection);
+     int creado;
     @Test
     public void crearOferente() {
        
-        int result=dao.createOferente(initOferente());
-        if(result == 0){
+        int creado=dao.createOferente(initOferente());
+        if(creado == 0){
             fail("No creo el proyecto");
         }
        
@@ -34,14 +35,15 @@ public class OferenteDaoTest extends TestCase{
     
      @Test
     public void updateProyecto() {
-       
-         assertTrue(dao.updateOferente(initOferente()));
+        Oferente o = initOferente();
+        o.setId_Oferente(creado);
+         assertTrue(dao.updateOferente(o));
     }
     
       @Test
     public void deleteProyecto() {
       
-       assertTrue(dao.deleteOferente(initOferente().getId_Oferente()));
+       assertTrue(dao.deleteOferente(creado));
         
        
     }

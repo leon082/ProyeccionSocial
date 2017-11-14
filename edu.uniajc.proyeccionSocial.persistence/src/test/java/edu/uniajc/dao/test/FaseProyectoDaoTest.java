@@ -19,11 +19,12 @@ public class FaseProyectoDaoTest extends TestCase{
     //falta meter la conexion
      Connection DBConnection;
      FaseProyectoDAO dao = new FaseProyectoDAO(DBConnection);
+     int creado;
     @Test
     public void crearProyecto() {
        
-        int result=dao.createFaseProyecto(initFaseProyecto());
-        if(result == 0){
+        int creado=dao.createFaseProyecto(initFaseProyecto());
+        if(creado == 0){
             fail("No creo el proyecto");
         }
        
@@ -31,14 +32,15 @@ public class FaseProyectoDaoTest extends TestCase{
     
      @Test
     public void updateProyecto() {
-       
-         assertTrue(dao.updateFaseProyecto(initFaseProyecto()));
+       FaseProyecto p =initFaseProyecto();
+       p.setId_FaseProyecto(creado);
+         assertTrue(dao.updateFaseProyecto(p));
     }
     
       @Test
     public void deleteProyecto() {
       
-       assertTrue(dao.deleteFaseProyecto(initFaseProyecto().getId_FaseProyecto()));
+       assertTrue(dao.deleteFaseProyecto(creado));
         
        
     }

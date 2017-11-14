@@ -21,11 +21,12 @@ public class ProyectoDaoTest extends TestCase{
     //falta meter la conexion
     Connection DBConnection;
      ProyectoDao dao = new ProyectoDao(DBConnection);
+     int creado;
     @Test
     public void crearProyecto() {
        
-        int result=dao.createProyecto(initProyecto());
-        if(result == 0){
+        int creado=dao.createProyecto(initProyecto());
+        if(creado == 0){
             fail("No creo el proyecto");
         }
        
@@ -33,14 +34,15 @@ public class ProyectoDaoTest extends TestCase{
     
      @Test
     public void updateProyecto() {
-       
-         assertTrue(dao.updateProyecto(initProyecto()));
+       Proyecto p = initProyecto();
+       p.setId_Proyecto(creado);
+         assertTrue(dao.updateProyecto(p));
     }
     
       @Test
     public void deleteProyecto() {
       
-       assertTrue(dao.deleteProyecto(initProyecto().getId_Proyecto()));
+       assertTrue(dao.deleteProyecto(creado));
         
        
     }
