@@ -15,8 +15,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * @author Jonathan Arteaga - IRIS 12/05/2017 Nombre Clase: ProyectoDao
- * Descripcion: Tabla que contiene el CRUD de la tabla proyecto
+ *
+ * @author luis.leon
  */
 public class ProyectoDao {
 
@@ -57,11 +57,9 @@ public class ProyectoDao {
             ps.setString(7, proyecto.getCreadoPor());
             ps.setDate(8, proyecto.getCreadoEn());
             ps.execute();
-            //Falta capturar el Id del ultimo registro
 
             ps.close();
 
-            //Le asigno el id al objeto proyecto
             System.out.println("Codigo de Proyecto" + codigo);
 
             return codigo;
@@ -78,14 +76,11 @@ public class ProyectoDao {
 
             String SQL = "DELETE FROM TB_Proyecto WHERE ID_Proyecto =" + id + " ";
 
-            //ResultSet rs = ps.executeQuery();
-            //int codigo = rs.getInt("ID");
             PreparedStatement ps = this.DBConnection.prepareStatement(SQL);
             ps.execute();
             ps.close();
             return true;
 
-            //combo.setCodigo(id);            
         } catch (SQLException e) {
             System.out.println("Error en Proyecto DAO Delete " + e.getMessage());
             Logger.getLogger(ProyectoDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
@@ -98,7 +93,7 @@ public class ProyectoDao {
         try {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
-            //lineamiento.setCreadoEn(fechaSQL);
+
             proyecto.setModificadoEn(fechaSQL);
 
             PreparedStatement ps = null;
@@ -108,7 +103,6 @@ public class ProyectoDao {
                     + "where ID_Proyecto = ?";
             ps = this.DBConnection.prepareStatement(SQL);
 
-           
             ps.setString(1, proyecto.getTituloProyecto());
             ps.setString(2, proyecto.getResumenProyecto());
             ps.setInt(3, proyecto.getiD_Programa());
@@ -122,10 +116,9 @@ public class ProyectoDao {
             ps.close();
             return true;
 
-            //combo.setCodigo(id);            
         } catch (SQLException e) {
             System.out.println("Error en Proyecto DAO UPDATE " + e.getMessage());
-            Logger.getLogger(RolDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            Logger.getLogger(ProyectoDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return false;
         }
 
@@ -164,9 +157,8 @@ public class ProyectoDao {
         }
 
     }
-    
-    
-/*
+
+    /*
     public ArrayList<ProyectoRequest> getProyectoByIdea(String idea) {
         ArrayList<ProyectoRequest> list = new ArrayList<>(0);
         try {
@@ -358,6 +350,5 @@ public class ProyectoDao {
         }
 
     }
-*/
-
+     */
 }

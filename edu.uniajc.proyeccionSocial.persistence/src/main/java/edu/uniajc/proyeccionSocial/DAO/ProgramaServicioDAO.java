@@ -19,8 +19,8 @@ import java.util.logging.Logger;
  * @author luis.leon
  */
 public class ProgramaServicioDAO {
-    
-     private Connection DBConnection = null;
+
+    private Connection DBConnection = null;
 
     public ProgramaServicioDAO(Connection openConnection) {
         this.DBConnection = openConnection;
@@ -48,7 +48,7 @@ public class ProgramaServicioDAO {
                     + "(ID_ProgramaServicio,Descripcion,ID_Programa, EstadoProgramaServicio,CreadoPor, CreadoEn) "
                     + "values(?,?,?,?,?,?)";
             ps = this.DBConnection.prepareStatement(SQL);
-            
+
             ps.setInt(1, progServi.getId_ProgramaServicio());
             ps.setString(2, progServi.getDescripcion());
             ps.setInt(3, progServi.getId_Programa());
@@ -56,14 +56,13 @@ public class ProgramaServicioDAO {
             ps.setString(5, progServi.getCreadoPor());
             ps.setDate(6, progServi.getCreadoEn());
             ps.execute();
-            //Falta capturar el Id del ultimo registro
 
             ps.close();
 
             return codigo;
         } catch (SQLException e) {
             System.out.println("Error en ProgramaServicioDAO Insert -->" + e.getMessage());
-            Logger.getLogger(ProyectoDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            Logger.getLogger(ProgramaServicioDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return 0;
         }
 
@@ -74,17 +73,14 @@ public class ProgramaServicioDAO {
 
             String SQL = "DELETE FROM TB_ProgramaServicio WHERE ID_ProgramaServicio =" + id + " ";
 
-            //ResultSet rs = ps.executeQuery();
-            //int codigo = rs.getInt("ID");
             PreparedStatement ps = this.DBConnection.prepareStatement(SQL);
             ps.execute();
             ps.close();
             return true;
 
-            //combo.setCodigo(id);            
         } catch (SQLException e) {
             System.out.println("Error en ProgramaServicio DAO Delete " + e.getMessage());
-            Logger.getLogger(ProyectoDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            Logger.getLogger(ProgramaServicioDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return false;
         }
 
@@ -94,7 +90,7 @@ public class ProgramaServicioDAO {
         try {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
-            //lineamiento.setCreadoEn(fechaSQL);
+
             progServi.setModificadoEn(fechaSQL);
 
             PreparedStatement ps = null;
@@ -103,7 +99,6 @@ public class ProgramaServicioDAO {
                     + "where ID_ProgramaServicio = ?";
             ps = this.DBConnection.prepareStatement(SQL);
 
-           
             ps.setString(1, progServi.getDescripcion());
             ps.setInt(2, progServi.getId_Programa());
             ps.setInt(3, progServi.getEstadoProgramaServicio());
@@ -115,10 +110,9 @@ public class ProgramaServicioDAO {
             ps.close();
             return true;
 
-            //combo.setCodigo(id);            
         } catch (SQLException e) {
             System.out.println("Error en ProgramaServicio DAO UPDATE " + e.getMessage());
-            Logger.getLogger(RolDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            Logger.getLogger(ProgramaServicioDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return false;
         }
 
@@ -130,7 +124,7 @@ public class ProgramaServicioDAO {
 
             PreparedStatement ps = null;
 
-            final String SQL = "SELECT * from TB_ProgramaServicio where ID_Programa = "+idPrograma+" ";
+            final String SQL = "SELECT * from TB_ProgramaServicio where ID_Programa = " + idPrograma + " ";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -138,7 +132,7 @@ public class ProgramaServicioDAO {
                 progServi.setId_ProgramaServicio(rs.getInt("ID_ProgramaServicio"));
                 progServi.setDescripcion(rs.getString("Descripcion"));
                 progServi.setId_Programa(rs.getInt("ID_Programa"));
-                progServi.setEstadoProgramaServicio(rs.getInt("EstadoProgramaServicio"));                
+                progServi.setEstadoProgramaServicio(rs.getInt("EstadoProgramaServicio"));
                 progServi.setCreadoPor(rs.getString("CREADOPOR"));
                 progServi.setModificadoPor(rs.getString("MODIFICADOPOR"));
                 progServi.setCreadoEn(rs.getDate("CREADOEN"));
@@ -150,43 +144,43 @@ public class ProgramaServicioDAO {
 
             return list;
         } catch (SQLException e) {
-             System.out.println("Error en ProgramaServicio DAO getAllProgramaServicioByPrograma " + e.getMessage());
-            Logger.getLogger(ProyectoDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            System.out.println("Error en ProgramaServicio DAO getAllProgramaServicioByPrograma " + e.getMessage());
+            Logger.getLogger(ProgramaServicioDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return null;
         }
 
     }
-    
+
     public ProgramaServicio getProgramaServicioById(int id) {
-        
+
         ProgramaServicio progServi = new ProgramaServicio();
         try {
 
             PreparedStatement ps = null;
 
-            String SQL = "select * from TB_ProgramaServicio where ID_ProgramaServicio =" +id+" ";
+            String SQL = "select * from TB_ProgramaServicio where ID_ProgramaServicio =" + id + " ";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
-            if(rs != null){
-            rs.next();
+            if (rs != null) {
+                rs.next();
                 progServi.setId_ProgramaServicio(rs.getInt("ID_ProgramaServicio"));
                 progServi.setDescripcion(rs.getString("Descripcion"));
                 progServi.setId_Programa(rs.getInt("ID_Programa"));
-                progServi.setEstadoProgramaServicio(rs.getInt("EstadoProgramaServicio"));                
+                progServi.setEstadoProgramaServicio(rs.getInt("EstadoProgramaServicio"));
                 progServi.setCreadoPor(rs.getString("CREADOPOR"));
                 progServi.setModificadoPor(rs.getString("MODIFICADOPOR"));
                 progServi.setCreadoEn(rs.getDate("CREADOEN"));
                 progServi.setModificadoEn(rs.getDate("MODIFICADOEN"));
-                
+
             }
             ps.close();
-                       
+
             return progServi;
         } catch (SQLException e) {
-            Logger.getLogger(RolDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            Logger.getLogger(ProgramaServicioDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return null;
         }
 
     }
-    
+
 }

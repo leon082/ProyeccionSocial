@@ -19,8 +19,8 @@ import java.util.logging.Logger;
  * @author luis.leon
  */
 public class FaseProyectoDAO {
-    
-     private Connection DBConnection = null;
+
+    private Connection DBConnection = null;
 
     public FaseProyectoDAO(Connection openConnection) {
         this.DBConnection = openConnection;
@@ -58,17 +58,15 @@ public class FaseProyectoDAO {
             ps.setString(8, faseProyecto.getCreadoPor());
             ps.setDate(9, faseProyecto.getCreadoEn());
             ps.execute();
-            //Falta capturar el Id del ultimo registro
 
             ps.close();
 
-            //Le asigno el id al objeto proyecto
             System.out.println("Codigo de FaseProyecto" + codigo);
 
             return codigo;
         } catch (SQLException e) {
             System.out.println("Error en FaseProyecto DAO insert -->" + e.getMessage());
-            Logger.getLogger(ProyectoDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            Logger.getLogger(FaseProyectoDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return 0;
         }
 
@@ -79,17 +77,14 @@ public class FaseProyectoDAO {
 
             String SQL = "DELETE FROM TB_FaseProyecto WHERE ID_FaseProyecto =" + id + " ";
 
-            //ResultSet rs = ps.executeQuery();
-            //int codigo = rs.getInt("ID");
             PreparedStatement ps = this.DBConnection.prepareStatement(SQL);
             ps.execute();
             ps.close();
             return true;
 
-            //combo.setCodigo(id);            
         } catch (SQLException e) {
             System.out.println("Error en FaseProyecto DAO Delete " + e.getMessage());
-            Logger.getLogger(ProyectoDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            Logger.getLogger(FaseProyectoDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return false;
         }
 
@@ -99,7 +94,7 @@ public class FaseProyectoDAO {
         try {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
-            //lineamiento.setCreadoEn(fechaSQL);
+
             faseProyecto.setModificadoEn(fechaSQL);
 
             PreparedStatement ps = null;
@@ -109,7 +104,6 @@ public class FaseProyectoDAO {
                     + "where ID_FaseProyecto = ?";
             ps = this.DBConnection.prepareStatement(SQL);
 
-           
             ps.setInt(1, faseProyecto.getId_Proyecto());
             ps.setInt(2, faseProyecto.getId_Fase());
             ps.setInt(3, faseProyecto.getEstadoFaseProyecto());
@@ -119,16 +113,14 @@ public class FaseProyectoDAO {
             ps.setString(6, faseProyecto.getModificadoPor());
             ps.setDate(7, faseProyecto.getModificadoEn());
             ps.setInt(8, faseProyecto.getId_FaseProyecto());
-           
 
             ps.execute();
             ps.close();
             return true;
 
-            //combo.setCodigo(id);            
         } catch (SQLException e) {
             System.out.println("Error en Proyecto DAO UPDATE " + e.getMessage());
-            Logger.getLogger(RolDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            Logger.getLogger(FaseProyectoDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return false;
         }
 
@@ -163,32 +155,25 @@ public class FaseProyectoDAO {
 
             return list;
         } catch (SQLException e) {
-            Logger.getLogger(ProyectoDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            Logger.getLogger(FaseProyectoDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return null;
         }
 
     }
-    
-    
-    
-    
-    
-    
-    
-     
+
     public FaseProyecto getFaseProyectoById(int id) {
-        
+
         FaseProyecto faseProyecto = new FaseProyecto();
         try {
 
             PreparedStatement ps = null;
 
-            String SQL = "select * from TB_FaseProyecto where ID_FaseProyecto =" +id+" ";
+            String SQL = "select * from TB_FaseProyecto where ID_FaseProyecto =" + id + " ";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
-            if(rs != null){
-            rs.next();
-                
+            if (rs != null) {
+                rs.next();
+
                 faseProyecto.setId_FaseProyecto(rs.getInt("ID_FaseProyecto"));
                 faseProyecto.setId_Proyecto(rs.getInt("ID_Proyecto"));
                 faseProyecto.setId_Fase(rs.getInt("ID_Fase"));
@@ -200,13 +185,13 @@ public class FaseProyectoDAO {
                 faseProyecto.setModificadoPor(rs.getString("MODIFICADOPOR"));
                 faseProyecto.setCreadoEn(rs.getDate("CREADOEN"));
                 faseProyecto.setModificadoEn(rs.getDate("MODIFICADOEN"));
-                
+
             }
             ps.close();
-                       
+
             return faseProyecto;
         } catch (SQLException e) {
-            Logger.getLogger(RolDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            Logger.getLogger(FaseProyectoDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return null;
         }
 
