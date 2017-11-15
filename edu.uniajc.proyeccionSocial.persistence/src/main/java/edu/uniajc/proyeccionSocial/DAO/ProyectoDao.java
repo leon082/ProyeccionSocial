@@ -45,7 +45,7 @@ public class ProyectoDao {
             }
 
             SQL = "INSERT INTO TB_PROYECTO"
-                    + "(ID_Proyecto,TituloProyecto,ResumenProyecto, ID_Programa, ID_ProgramaServicio,"
+                    + " (ID_Proyecto,TituloProyecto,ResumenProyecto, ID_Programa, ID_ProgramaServicio,"
                     + " EstadoProyecto,CreadoPor, CreadoEn) values(?,?,?,?,?,?,?,?)";
             ps = this.DBConnection.prepareStatement(SQL);
             ps.setInt(1, proyecto.getId_Proyecto());
@@ -98,9 +98,9 @@ public class ProyectoDao {
 
             PreparedStatement ps = null;
             String SQL = "UPDATE TB_Proyecto SET "
-                    + "TituloProyecto=?,ResumenProyecto=?, ID_Programa=?, ID_ProgramaServicio=?,"
+                    + " TituloProyecto=?,ResumenProyecto=?, ID_Programa=?, ID_ProgramaServicio=?,"
                     + " EstadoProyecto=?,ModificadoPor=?, ModificadoEn=? "
-                    + "where ID_Proyecto = ?";
+                    + " where ID_Proyecto = ?";
             ps = this.DBConnection.prepareStatement(SQL);
 
             ps.setString(1, proyecto.getTituloProyecto());

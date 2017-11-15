@@ -45,7 +45,7 @@ public class OferenteDao {
             }
 
             SQL = "INSERT INTO TB_Oferente"
-                    + "(ID_Oferente,ID_Proyecto,ID_Tercero, EstadoOferente,Observacion,CreadoPor, CreadoEn) "
+                    + " (ID_Oferente,ID_Proyecto,ID_Tercero, EstadoOferente,Observacion,CreadoPor, CreadoEn) "
                     + "values(?,?,?,?,?,?,?)";
             ps = this.DBConnection.prepareStatement(SQL);
             
@@ -57,7 +57,7 @@ public class OferenteDao {
             ps.setString(6, oferente.getCreadoPor());
             ps.setDate(7, oferente.getCreadoEn());
             ps.execute();
-            //Falta capturar el Id del ultimo registro
+           
 
             ps.close();
 
@@ -107,10 +107,10 @@ public class OferenteDao {
             ps.setInt(1, oferente.getId_Proyecto());
             ps.setInt(2, oferente.getId_Tercero());
             ps.setInt(3, oferente.getEstadoOferente());
-            ps.setString(3, oferente.getObservacion());
-            ps.setString(4, oferente.getModificadoPor());
-            ps.setDate(5, oferente.getModificadoEn());
-            ps.setInt(6, oferente.getId_Oferente());
+            ps.setString(4, oferente.getObservacion());
+            ps.setString(5, oferente.getModificadoPor());
+            ps.setDate(6, oferente.getModificadoEn());
+            ps.setInt(7, oferente.getId_Oferente());
 
             ps.execute();
             ps.close();

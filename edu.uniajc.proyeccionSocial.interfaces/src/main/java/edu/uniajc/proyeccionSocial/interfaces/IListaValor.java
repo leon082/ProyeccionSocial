@@ -5,18 +5,12 @@
  */
 package edu.uniajc.proyeccionSocial.interfaces;
 
-
-import edu.uniajc.proyeccionSocial.interfaces.model.ListaValoresDetalle;
-import java.util.List;
-
 /**
  *
  * @author Leon
  */
-public interface IListaValoresDetalle {
-    
+public interface IListaValor{
+        
 
-    public List<ListaValoresDetalle> getListaValorDetallebyID_Lista_Valor(int id_ListaValor);
     
-  
 }

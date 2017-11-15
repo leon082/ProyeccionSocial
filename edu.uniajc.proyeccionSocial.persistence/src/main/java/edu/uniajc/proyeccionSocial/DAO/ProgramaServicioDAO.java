@@ -45,8 +45,8 @@ public class ProgramaServicioDAO {
             }
 
             SQL = "INSERT INTO TB_ProgramaServicio"
-                    + "(ID_ProgramaServicio,Descripcion,ID_Programa, EstadoProgramaServicio,CreadoPor, CreadoEn) "
-                    + "values(?,?,?,?,?,?)";
+                    + " (ID_ProgramaServicio,Descripcion,ID_Programa, EstadoProgramaServicio,CreadoPor, CreadoEn) "
+                    + " values(?,?,?,?,?,?)";
             ps = this.DBConnection.prepareStatement(SQL);
 
             ps.setInt(1, progServi.getId_ProgramaServicio());
@@ -95,7 +95,7 @@ public class ProgramaServicioDAO {
 
             PreparedStatement ps = null;
             String SQL = "UPDATE TB_ProgramaServicio SET "
-                    + "Descripcion=?,ID_Programa=?, EstadoProgramaServicio=?, ModificadoPor=?, ModificadoEn=? "
+                    + " Descripcion=?,ID_Programa=?, EstadoProgramaServicio=?, ModificadoPor=?, ModificadoEn=? "
                     + "where ID_ProgramaServicio = ?";
             ps = this.DBConnection.prepareStatement(SQL);
 

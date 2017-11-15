@@ -44,9 +44,9 @@ public class FaseProyectoDAO {
                 faseProyecto.setId_FaseProyecto(codigo);
             }
 
-            SQL = "INSERT INTO TB_FaseProyecto"
+            SQL = "INSERT INTO TB_FaseProyecto "
                     + "(ID_FaseProyecto,ID_Proyecto,ID_Fase, EstadoFaseProyecto, Observacion,FechaInicio,FechaFin,"
-                    + "CreadoPor, CreadoEn) values(?,?,?,?,?,?,?,?,?)";
+                    + "CreadoPor, CreadoEn) values(?,?,?,?,?,?,?,?,?) ";
             ps = this.DBConnection.prepareStatement(SQL);
             ps.setInt(1, faseProyecto.getId_FaseProyecto());
             ps.setInt(2, faseProyecto.getId_Proyecto());
@@ -101,7 +101,7 @@ public class FaseProyectoDAO {
             String SQL = "UPDATE TB_FaseProyecto SET "
                     + "ID_Proyecto=?,ID_Fase=?, EstadoFaseProyecto=?, Observacion=?,"
                     + " FechaInicio=?,FechaFin=?,ModificadoPor=?, ModificadoEn=? "
-                    + "where ID_FaseProyecto = ?";
+                    + " where ID_FaseProyecto = ?";
             ps = this.DBConnection.prepareStatement(SQL);
 
             ps.setInt(1, faseProyecto.getId_Proyecto());
@@ -110,9 +110,9 @@ public class FaseProyectoDAO {
             ps.setString(4, faseProyecto.getObservacion());
             ps.setDate(5, faseProyecto.getFechaInicio());
             ps.setDate(6, faseProyecto.getFechaFin());
-            ps.setString(6, faseProyecto.getModificadoPor());
-            ps.setDate(7, faseProyecto.getModificadoEn());
-            ps.setInt(8, faseProyecto.getId_FaseProyecto());
+            ps.setString(7, faseProyecto.getModificadoPor());
+            ps.setDate(8, faseProyecto.getModificadoEn());
+            ps.setInt(9, faseProyecto.getId_FaseProyecto());
 
             ps.execute();
             ps.close();
@@ -155,6 +155,7 @@ public class FaseProyectoDAO {
 
             return list;
         } catch (SQLException e) {
+            System.out.println("Error en Proyecto DAO getAllFaseProyectos " + e.getMessage());
             Logger.getLogger(FaseProyectoDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return null;
         }
@@ -191,6 +192,7 @@ public class FaseProyectoDAO {
 
             return faseProyecto;
         } catch (SQLException e) {
+            System.out.println("Error en Proyecto DAO getFaseProyectosById " + e.getMessage());
             Logger.getLogger(FaseProyectoDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return null;
         }
