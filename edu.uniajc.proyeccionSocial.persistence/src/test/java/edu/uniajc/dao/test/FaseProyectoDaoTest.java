@@ -6,7 +6,7 @@
 package edu.uniajc.dao.test;
 
 import edu.uniajc.proyeccionSocial.DAO.FaseProyectoDAO;
-import edu.uniajc.proyeccionSocial.interfaces.model.FaseProyecto;
+import edu.uniajc.proyeccionSocial.Model.FaseProyecto;
 import java.sql.Connection;
 import junit.framework.TestCase;
 import org.junit.Test;

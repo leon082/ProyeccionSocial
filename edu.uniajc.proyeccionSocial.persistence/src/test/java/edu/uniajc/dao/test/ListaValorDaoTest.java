@@ -6,7 +6,7 @@
 package edu.uniajc.dao.test;
 
 import edu.uniajc.proyeccionSocial.DAO.ListaValorDao;
-import edu.uniajc.proyeccionSocial.interfaces.model.ListaValor;
+import edu.uniajc.proyeccionSocial.Model.ListaValor;
 import java.sql.Connection;
 import junit.framework.TestCase;
 import static junit.framework.TestCase.assertNotNull;

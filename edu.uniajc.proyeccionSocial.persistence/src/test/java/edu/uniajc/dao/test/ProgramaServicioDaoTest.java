@@ -6,7 +6,7 @@
 package edu.uniajc.dao.test;
 
 import edu.uniajc.proyeccionSocial.DAO.ProgramaServicioDAO;
-import edu.uniajc.proyeccionSocial.interfaces.model.ProgramaServicio;
+import edu.uniajc.proyeccionSocial.Model.ProgramaServicio;
 import java.sql.Connection;
 import junit.framework.TestCase;
 import org.junit.Test;

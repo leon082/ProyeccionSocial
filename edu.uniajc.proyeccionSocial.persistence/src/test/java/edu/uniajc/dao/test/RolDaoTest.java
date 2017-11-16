@@ -6,7 +6,7 @@
 package edu.uniajc.dao.test;
 
 import edu.uniajc.proyeccionSocial.DAO.RolDao;
-import edu.uniajc.proyeccionSocial.interfaces.model.Rol;
+import edu.uniajc.proyeccionSocial.Model.Rol;
 import java.sql.Connection;
 import junit.framework.TestCase;
 import static junit.framework.TestCase.assertNotNull;

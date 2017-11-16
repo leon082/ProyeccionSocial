@@ -5,7 +5,7 @@
  */
 package edu.uniajc.proyeccionSocial.DAO;
 
-import edu.uniajc.proyeccionSocial.interfaces.model.Rol;
+import edu.uniajc.proyeccionSocial.Model.Rol;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
