@@ -10,20 +10,17 @@ import edu.uniajc.proyeccionSocial.DAO.RolDao;
 import edu.uniajc.proyeccionSocial.Model.Rol;
 import java.util.ArrayList;
 
-
 /**
  *
  * @author luis.leon
  */
-
 public class RolServices implements IRol {
-    
-   
-     RolDao dao ;
+
+    RolDao dao;
 
     public RolServices() {
-      
-        this.dao= new RolDao();
+
+        this.dao = new RolDao();
     }
 
     @Override
@@ -31,10 +28,9 @@ public class RolServices implements IRol {
         try {
 
             // validacion de Data
-            if (rol != null) {              
+            if (rol != null) {
 
                 int flag = dao.createRol(rol);
-                
 
                 return flag;
             } else {
@@ -50,10 +46,9 @@ public class RolServices implements IRol {
 
     @Override
     public boolean deleteRol(int id) {
-          try {
-            
+        try {
+
             dao.deleteRol(id);
-           
 
             return true;
 
@@ -66,9 +61,8 @@ public class RolServices implements IRol {
     @Override
     public boolean updateRol(Rol rol) {
         try {
-           
+
             dao.updateRol(rol);
-           
 
             return true;
 
@@ -80,7 +74,7 @@ public class RolServices implements IRol {
 
     @Override
     public ArrayList<Rol> getAllRol() {
-         try {
+        try {
 
             ArrayList<Rol> list = dao.getAllRol();
 
@@ -103,8 +97,7 @@ public class RolServices implements IRol {
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
-        } 
+        }
     }
-    
-    
+
 }

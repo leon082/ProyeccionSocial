@@ -22,11 +22,10 @@ import javax.annotation.PreDestroy;
  */
 public class FaseProyectoDAO {
 
-    
     private Connection DBConnection = null;
 
     public FaseProyectoDAO() {
-       
+
         this.DBConnection = new ConexionBD().conexion();
     }
 
@@ -202,11 +201,11 @@ public class FaseProyectoDAO {
         }
 
     }
-    
-      @PreDestroy
+
+    @PreDestroy
     public void finish() {
         try {
-           
+
             DBConnection.close();
 
         } catch (SQLException sqle) {

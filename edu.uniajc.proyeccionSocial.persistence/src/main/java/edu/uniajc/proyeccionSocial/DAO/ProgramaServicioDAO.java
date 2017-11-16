@@ -23,10 +23,9 @@ import javax.annotation.PreDestroy;
 public class ProgramaServicioDAO {
 
     private Connection DBConnection = null;
-    
 
     public ProgramaServicioDAO() {
-        
+
         this.DBConnection = new ConexionBD().conexion();
     }
 
@@ -186,11 +185,11 @@ public class ProgramaServicioDAO {
         }
 
     }
-    
+
     @PreDestroy
     public void finish() {
         try {
-          
+
             DBConnection.close();
 
         } catch (SQLException sqle) {

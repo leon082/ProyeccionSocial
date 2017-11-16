@@ -10,31 +10,27 @@ import edu.uniajc.proyeccionSocial.DAO.ListaValorDao;
 import edu.uniajc.proyeccionSocial.Model.ListaValor;
 import java.util.ArrayList;
 
-
 /**
  *
  * @author luis.leon
  */
+public class ListaValorServices implements IListaValor {
 
-public class ListaValorServices implements IListaValor{
-    
-      
-     ListaValorDao dao ;
+    ListaValorDao dao;
 
     public ListaValorServices() {
-        
-        this.dao= new ListaValorDao();
+
+        this.dao = new ListaValorDao();
     }
-    
+
     @Override
     public int createListaValor(ListaValor listaValor) {
-         try {
+        try {
 
             // validacion de Data
-            if (listaValor != null) {              
+            if (listaValor != null) {
 
                 int flag = dao.createListaValor(listaValor);
-                
 
                 return flag;
             } else {
@@ -51,9 +47,8 @@ public class ListaValorServices implements IListaValor{
     @Override
     public boolean deleteListaValor(int id) {
         try {
-            
+
             dao.deleteListaValor(id);
-           
 
             return true;
 
@@ -66,9 +61,8 @@ public class ListaValorServices implements IListaValor{
     @Override
     public boolean updateListaValor(ListaValor listaValor) {
         try {
-           
+
             dao.updateListaValor(listaValor);
-           
 
             return true;
 
@@ -80,7 +74,7 @@ public class ListaValorServices implements IListaValor{
 
     @Override
     public ArrayList<ListaValor> getAllListaValor() {
-         try {
+        try {
 
             ArrayList<ListaValor> list = dao.getAllListaValor();
 
@@ -94,9 +88,8 @@ public class ListaValorServices implements IListaValor{
 
     @Override
     public ListaValor getListaValorById(int id) {
-      
 
-             try {
+        try {
 
             ListaValor listaValor = dao.getListaValorById(id);
 
@@ -105,8 +98,7 @@ public class ListaValorServices implements IListaValor{
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
-        } 
+        }
     }
-        
-    
+
 }

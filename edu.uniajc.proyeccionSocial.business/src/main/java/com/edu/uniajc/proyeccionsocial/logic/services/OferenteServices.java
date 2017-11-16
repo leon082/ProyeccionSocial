@@ -10,20 +10,17 @@ import edu.uniajc.proyeccionSocial.DAO.OferenteDao;
 import edu.uniajc.proyeccionSocial.Model.Oferente;
 import java.util.ArrayList;
 
-
 /**
  *
  * @author luis.leon
  */
+public class OferenteServices implements IOferente {
 
-public class OferenteServices implements IOferente{
-    
-    
-     OferenteDao dao ;
+    OferenteDao dao;
 
     public OferenteServices() {
-       
-        this.dao= new OferenteDao();
+
+        this.dao = new OferenteDao();
     }
 
     @Override
@@ -31,10 +28,9 @@ public class OferenteServices implements IOferente{
         try {
 
             // validacion de Data
-            if (oferente != null) {              
+            if (oferente != null) {
 
                 int flag = dao.createOferente(oferente);
-                
 
                 return flag;
             } else {
@@ -51,9 +47,8 @@ public class OferenteServices implements IOferente{
     @Override
     public boolean deleteOferente(int id) {
         try {
-            
+
             dao.deleteOferente(id);
-           
 
             return true;
 
@@ -65,10 +60,9 @@ public class OferenteServices implements IOferente{
 
     @Override
     public boolean updateOferente(Oferente oferente) {
-         try {
-           
+        try {
+
             dao.updateOferente(oferente);
-           
 
             return true;
 
@@ -80,7 +74,7 @@ public class OferenteServices implements IOferente{
 
     @Override
     public ArrayList<Oferente> getAllOferentes() {
-         try {
+        try {
 
             ArrayList<Oferente> list = dao.getAllOferentes();
 
@@ -94,7 +88,7 @@ public class OferenteServices implements IOferente{
 
     @Override
     public Oferente getOferenteById(int id) {
-       try {
+        try {
 
             Oferente oferente = dao.getOferenteById(id);
 
@@ -103,9 +97,7 @@ public class OferenteServices implements IOferente{
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
-        } 
+        }
     }
-    
-    
-    
+
 }

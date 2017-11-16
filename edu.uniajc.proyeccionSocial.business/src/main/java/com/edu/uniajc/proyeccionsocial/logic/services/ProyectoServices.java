@@ -11,19 +11,16 @@ import edu.uniajc.proyeccionSocial.DAO.ProyectoDao;
 import edu.uniajc.proyeccionSocial.Model.Proyecto;
 import java.util.ArrayList;
 
-
 /**
  * @author Fabian Castro - IRIS 15/05/2017 Nombre Clase:ProyectoServices
  * Descripcion: logica de la clase proyecto
  */
-
 public class ProyectoServices implements IProyecto {
 
-   
     ProyectoDao dao;
 
     public ProyectoServices() {
-       
+
         this.dao = new ProyectoDao();
     }
 
@@ -89,7 +86,5 @@ public class ProyectoServices implements IProyecto {
             return null;
         }
     }
-
-   
 
 }

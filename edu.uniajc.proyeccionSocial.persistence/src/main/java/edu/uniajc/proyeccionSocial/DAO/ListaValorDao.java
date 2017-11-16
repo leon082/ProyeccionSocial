@@ -23,10 +23,9 @@ import javax.annotation.PreDestroy;
 public class ListaValorDao {
 
     private Connection DBConnection = null;
-    
 
     public ListaValorDao() {
-        
+
         this.DBConnection = new ConexionBD().conexion();
     }
 
@@ -189,11 +188,11 @@ public class ListaValorDao {
         }
 
     }
-    
-     @PreDestroy
+
+    @PreDestroy
     public void finish() {
         try {
-          
+
             DBConnection.close();
 
         } catch (SQLException sqle) {

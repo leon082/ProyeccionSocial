@@ -10,30 +10,27 @@ import edu.uniajc.proyeccionSocial.DAO.ProgramaServicioDAO;
 import edu.uniajc.proyeccionSocial.Model.ProgramaServicio;
 import java.util.ArrayList;
 
-
 /**
  *
  * @author luis.leon
  */
+public class ProgramaServicioServices implements IProgramaServicio {
 
-public class ProgramaServicioServices implements IProgramaServicio{
-
-     
-     ProgramaServicioDAO dao ;
+    ProgramaServicioDAO dao;
 
     public ProgramaServicioServices() {
-       
-        this.dao= new ProgramaServicioDAO();
+
+        this.dao = new ProgramaServicioDAO();
     }
+
     @Override
     public int createProgramaServicio(ProgramaServicio progServi) {
         try {
 
             // validacion de Data
-            if (progServi != null) {              
+            if (progServi != null) {
 
                 int flag = dao.createProgramaServicio(progServi);
-                
 
                 return flag;
             } else {
@@ -50,9 +47,8 @@ public class ProgramaServicioServices implements IProgramaServicio{
     @Override
     public boolean deleteProgramaServicio(int id) {
         try {
-            
+
             dao.deleteProgramaServicio(id);
-           
 
             return true;
 
@@ -64,10 +60,9 @@ public class ProgramaServicioServices implements IProgramaServicio{
 
     @Override
     public boolean updateProgramaServicio(ProgramaServicio progServi) {
-         try {
-           
+        try {
+
             dao.updateProgramaServicio(progServi);
-           
 
             return true;
 
@@ -79,7 +74,7 @@ public class ProgramaServicioServices implements IProgramaServicio{
 
     @Override
     public ArrayList<ProgramaServicio> getAllProgramaServicioByPrograma(int idPrograma) {
-         try {
+        try {
 
             ArrayList<ProgramaServicio> list = dao.getAllProgramaServicioByPrograma(idPrograma);
 
@@ -93,7 +88,7 @@ public class ProgramaServicioServices implements IProgramaServicio{
 
     @Override
     public ProgramaServicio getProgramaServicioById(int id) {
-         try {
+        try {
 
             ProgramaServicio programaServicio = dao.getProgramaServicioById(id);
 
@@ -102,8 +97,7 @@ public class ProgramaServicioServices implements IProgramaServicio{
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
-        } 
+        }
     }
-    
-     
+
 }

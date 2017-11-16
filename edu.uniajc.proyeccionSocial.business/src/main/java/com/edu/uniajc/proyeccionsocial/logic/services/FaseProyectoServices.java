@@ -15,15 +15,13 @@ import java.util.ArrayList;
  *
  * @author luis.leon
  */
-
 public class FaseProyectoServices implements IFaseProyecto {
 
-     
-     FaseProyectoDAO dao ;
+    FaseProyectoDAO dao;
 
     public FaseProyectoServices() {
-        
-        this.dao= new FaseProyectoDAO();
+
+        this.dao = new FaseProyectoDAO();
     }
 
     @Override
@@ -31,10 +29,9 @@ public class FaseProyectoServices implements IFaseProyecto {
         try {
 
             // validacion de Data
-            if (faseProyecto != null) {              
+            if (faseProyecto != null) {
 
                 int flag = dao.createFaseProyecto(faseProyecto);
-                
 
                 return flag;
             } else {
@@ -51,9 +48,8 @@ public class FaseProyectoServices implements IFaseProyecto {
     @Override
     public boolean deleteFaseProyecto(int id) {
         try {
-            
+
             dao.deleteFaseProyecto(id);
-           
 
             return true;
 
@@ -66,12 +62,8 @@ public class FaseProyectoServices implements IFaseProyecto {
     @Override
     public boolean updateFaseProyecto(FaseProyecto faseProyecto) {
         try {
-           
             dao.updateFaseProyecto(faseProyecto);
-           
-
             return true;
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;
@@ -94,7 +86,7 @@ public class FaseProyectoServices implements IFaseProyecto {
 
     @Override
     public FaseProyecto getFaseProyectoById(int id) {
-         try {
+        try {
 
             FaseProyecto faseProyecto = dao.getFaseProyectoById(id);
 
@@ -105,7 +97,5 @@ public class FaseProyectoServices implements IFaseProyecto {
             return null;
         }
     }
-    
-   
 
 }

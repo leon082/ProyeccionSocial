@@ -17,15 +17,12 @@ import org.junit.Test;
  */
 public class ProgramaServicioServicesTest extends TestCase {
 
-   
-    IProgramaServicio services ;
+    IProgramaServicio services;
     int creado;
 
     public ProgramaServicioServicesTest() {
-        this.services=new ProgramaServicioServices();
+        this.services = new ProgramaServicioServices();
     }
-    
-    
 
     @Test
     public void crearProgramaServicio() {
@@ -46,16 +43,14 @@ public class ProgramaServicioServicesTest extends TestCase {
 
     }
 
-   
-
     @Test
     public void getAllProgramaServicio() {
 
         assertNotNull(services.getAllProgramaServicioByPrograma(1));
 
     }
-    
-     @Test
+
+    @Test
     public void deleteProgramaServicio() {
         // ProgramaServicioDAO dao = new ProgramaServicioDAO(DBConnection);
         assertTrue(services.deleteProgramaServicio(creado));

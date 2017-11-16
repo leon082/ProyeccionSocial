@@ -7,9 +7,7 @@ package edu.uniajc.services.test;
 
 import com.edu.uniajc.proyeccionsocial.interfaces.IRol;
 import com.edu.uniajc.proyeccionsocial.logic.services.RolServices;
-import edu.uniajc.proyeccionSocial.DAO.RolDao;
 import edu.uniajc.proyeccionSocial.Model.Rol;
-import java.sql.Connection;
 import junit.framework.TestCase;
 import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertTrue;
@@ -22,15 +20,12 @@ import org.junit.Test;
  */
 public class RolServicesTest extends TestCase {
 
-    
-    IRol services ;
+    IRol services;
     int creado;
 
     public RolServicesTest() {
-        this.services=new RolServices();
+        this.services = new RolServices();
     }
-    
-    
 
     @Test
     public void crearRol() {

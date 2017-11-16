@@ -10,20 +10,17 @@ import edu.uniajc.proyeccionSocial.DAO.UsuarioDao;
 import edu.uniajc.proyeccionSocial.Model.Usuario;
 import java.util.ArrayList;
 
-
 /**
  *
  * @author luis.leon
  */
+public class UsuarioServices implements IUsuario {
 
-public class UsuarioServices implements IUsuario{
-    
-    
-     UsuarioDao dao ;
+    UsuarioDao dao;
 
     public UsuarioServices() {
-       
-        this.dao= new UsuarioDao();
+
+        this.dao = new UsuarioDao();
     }
 
     @Override
@@ -31,10 +28,9 @@ public class UsuarioServices implements IUsuario{
         try {
 
             // validacion de Data
-            if (user != null) {              
+            if (user != null) {
 
                 int flag = dao.createUsuario(user);
-                
 
                 return flag;
             } else {
@@ -51,9 +47,8 @@ public class UsuarioServices implements IUsuario{
     @Override
     public boolean deleteUsuario(int id) {
         try {
-            
+
             dao.deleteUsuario(id);
-           
 
             return true;
 
@@ -66,9 +61,8 @@ public class UsuarioServices implements IUsuario{
     @Override
     public boolean updateUsuario(Usuario usuario) {
         try {
-           
+
             dao.updateUsuario(usuario);
-           
 
             return true;
 
@@ -94,7 +88,7 @@ public class UsuarioServices implements IUsuario{
 
     @Override
     public Usuario getUserById(int id) {
-       try {
+        try {
 
             Usuario usuario = dao.getUserById(id);
 
@@ -103,8 +97,7 @@ public class UsuarioServices implements IUsuario{
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
-        } 
+        }
     }
-    
-    
+
 }

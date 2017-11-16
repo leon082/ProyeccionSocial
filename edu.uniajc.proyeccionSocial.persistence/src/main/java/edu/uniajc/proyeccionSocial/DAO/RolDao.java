@@ -23,10 +23,9 @@ import javax.annotation.PreDestroy;
 public class RolDao {
 
     private Connection DBConnection = null;
-    
 
     public RolDao() {
-        
+
         this.DBConnection = new ConexionBD().conexion();
     }
 
@@ -170,11 +169,11 @@ public class RolDao {
         }
 
     }
-    
+
     @PreDestroy
     public void finish() {
         try {
-          
+
             DBConnection.close();
 
         } catch (SQLException sqle) {

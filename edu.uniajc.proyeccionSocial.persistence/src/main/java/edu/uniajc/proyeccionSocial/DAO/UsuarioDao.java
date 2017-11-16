@@ -21,18 +21,16 @@ import javax.annotation.PreDestroy;
  * @author luis.leon
  */
 public class UsuarioDao {
-    
-     private Connection DBConnection = null;
-     
 
-    public UsuarioDao( ) {
-        
+    private Connection DBConnection = null;
+
+    public UsuarioDao() {
+
         this.DBConnection = new ConexionBD().conexion();
     }
 
     public int createUsuario(Usuario user) {
         try {
-            
 
             PreparedStatement ps = null;
 
@@ -50,15 +48,13 @@ public class UsuarioDao {
                     + " (ID_Usuario,ID_Tercero,Usuario, EstadoUsuario) "
                     + " values(?,?,?,?)";
             ps = this.DBConnection.prepareStatement(SQL);
-            
+
             ps.setInt(1, user.getId_Usuario());
             ps.setInt(2, user.getId_Tercero());
             ps.setString(3, user.getUsuario());
-            ps.setInt(4, user.getEstado());            
-            
-            
+            ps.setInt(4, user.getEstado());
+
             ps.execute();
-           
 
             ps.close();
 
@@ -76,13 +72,11 @@ public class UsuarioDao {
 
             String SQL = "DELETE FROM TB_Usuario WHERE ID_Usuario =" + id + " ";
 
-           
             PreparedStatement ps = this.DBConnection.prepareStatement(SQL);
             ps.execute();
             ps.close();
             return true;
 
-                       
         } catch (SQLException e) {
             System.out.println("Error en Usuario DAO Delete " + e.getMessage());
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
@@ -93,7 +87,6 @@ public class UsuarioDao {
 
     public boolean updateUsuario(Usuario usuario) {
         try {
-            
 
             PreparedStatement ps = null;
             String SQL = "UPDATE TB_Usuario SET "
@@ -101,19 +94,15 @@ public class UsuarioDao {
                     + " where ID_Usuario = ?";
             ps = this.DBConnection.prepareStatement(SQL);
 
-           
             ps.setInt(1, usuario.getId_Tercero());
             ps.setString(2, usuario.getUsuario());
             ps.setInt(3, usuario.getEstado());
             ps.setInt(4, usuario.getId_Usuario());
-           
-            
 
             ps.execute();
             ps.close();
             return true;
 
-                      
         } catch (SQLException e) {
             System.out.println("Error en Usuario DAO UPDATE " + e.getMessage());
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
@@ -136,8 +125,7 @@ public class UsuarioDao {
                 usuario.setId_Usuario(rs.getInt("ID_Usuario"));
                 usuario.setId_Tercero(rs.getInt("ID_Tercero"));
                 usuario.setUsuario(rs.getString("Usuario"));
-                usuario.setEstado(rs.getInt("EstadoUsuario"));                               
-               
+                usuario.setEstado(rs.getInt("EstadoUsuario"));
 
                 list.add(usuario);
             }
@@ -151,28 +139,28 @@ public class UsuarioDao {
         }
 
     }
-    
+
     public Usuario getUserById(int id) {
-        
+
         Usuario usuario = new Usuario();
         try {
 
             PreparedStatement ps = null;
 
-            String SQL = "select * from TB_Usuario where ID_Usuario =" +id+" ";
+            String SQL = "select * from TB_Usuario where ID_Usuario =" + id + " ";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
-            if(rs != null){
-            rs.next();
-               
+            if (rs != null) {
+                rs.next();
+
                 usuario.setId_Usuario(rs.getInt("ID_Usuario"));
                 usuario.setId_Tercero(rs.getInt("ID_Tercero"));
                 usuario.setUsuario(rs.getString("Usuario"));
                 usuario.setEstado(rs.getInt("EstadoUsuario"));
-                
+
             }
             ps.close();
-                       
+
             return usuario;
         } catch (SQLException e) {
             System.out.println("Error en usuario DAO getUserById " + e.getMessage());
@@ -181,11 +169,11 @@ public class UsuarioDao {
         }
 
     }
-    
+
     @PreDestroy
     public void finish() {
         try {
-          
+
             DBConnection.close();
 
         } catch (SQLException sqle) {
@@ -194,5 +182,5 @@ public class UsuarioDao {
         }
 
     }
-    
+
 }

@@ -23,10 +23,9 @@ import javax.annotation.PreDestroy;
 public class ProyectoDao {
 
     private Connection DBConnection = null;
-   
 
     public ProyectoDao() {
-        
+
         this.DBConnection = new ConexionBD().conexion();
     }
 
@@ -161,11 +160,11 @@ public class ProyectoDao {
         }
 
     }
-    
+
     @PreDestroy
     public void finish() {
         try {
-          
+
             DBConnection.close();
 
         } catch (SQLException sqle) {
@@ -174,8 +173,6 @@ public class ProyectoDao {
         }
 
     }
-    
-    
 
     /*
     public ArrayList<ProyectoRequest> getProyectoByIdea(String idea) {
