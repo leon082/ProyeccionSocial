@@ -5,6 +5,7 @@
  */
 package edu.uniajc.proyeccionSocial.DAO;
 
+import com.edu.uniajc.proyeccionsocial.utils.ConexionBD;
 import edu.uniajc.proyeccionSocial.Model.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,6 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PreDestroy;
 
 /**
  *
@@ -21,9 +23,11 @@ import java.util.logging.Logger;
 public class UsuarioDao {
     
      private Connection DBConnection = null;
+     
 
-    public UsuarioDao(Connection openConnection) {
-        this.DBConnection = openConnection;
+    public UsuarioDao( ) {
+        
+        this.DBConnection = new ConexionBD().conexion();
     }
 
     public int createUsuario(Usuario user) {
@@ -174,6 +178,19 @@ public class UsuarioDao {
             System.out.println("Error en usuario DAO getUserById " + e.getMessage());
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return null;
+        }
+
+    }
+    
+    @PreDestroy
+    public void finish() {
+        try {
+          
+            DBConnection.close();
+
+        } catch (SQLException sqle) {
+            System.out.println("Error en Usuario DAO finish " + sqle.getMessage());
+            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, sqle.getMessage());
         }
 
     }

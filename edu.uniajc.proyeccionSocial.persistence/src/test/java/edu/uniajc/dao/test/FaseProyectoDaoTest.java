@@ -7,7 +7,6 @@ package edu.uniajc.dao.test;
 
 import edu.uniajc.proyeccionSocial.DAO.FaseProyectoDAO;
 import edu.uniajc.proyeccionSocial.Model.FaseProyecto;
-import java.sql.Connection;
 import junit.framework.TestCase;
 import org.junit.Test;
 
@@ -16,9 +15,9 @@ import org.junit.Test;
  * @author luis.leon
  */
 public class FaseProyectoDaoTest extends TestCase{
-    //falta meter la conexion
-     Connection DBConnection;
-     FaseProyectoDAO dao = new FaseProyectoDAO(DBConnection);
+   
+   
+     FaseProyectoDAO dao = new FaseProyectoDAO();
      int creado;
     @Test
     public void crearProyecto() {

@@ -6,14 +6,9 @@
 package com.edu.uniajc.proyeccionsocial.logic.services;
 
 import com.edu.uniajc.proyeccionsocial.interfaces.IProgramaServicio;
-import com.edu.uniajc.proyeccionsocial.utils.ConexionBD;
 import edu.uniajc.proyeccionSocial.DAO.ProgramaServicioDAO;
 import edu.uniajc.proyeccionSocial.Model.ProgramaServicio;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.PreDestroy;
 import javax.ejb.Stateless;
 
 /**
@@ -23,12 +18,12 @@ import javax.ejb.Stateless;
 @Stateless
 public class ProgramaServicioServices implements IProgramaServicio{
 
-      ConexionBD cn;
+     
      ProgramaServicioDAO dao ;
 
     public ProgramaServicioServices() {
-        this.cn = new ConexionBD();
-        this.dao= new ProgramaServicioDAO(cn.conexion());
+       
+        this.dao= new ProgramaServicioDAO();
     }
     @Override
     public int createProgramaServicio(ProgramaServicio progServi) {
@@ -110,15 +105,5 @@ public class ProgramaServicioServices implements IProgramaServicio{
         } 
     }
     
-     @PreDestroy
-    public void finish() {
-        try {
-            cn.conexion().close();
-
-        } catch (SQLException sqle) {
-            System.out.println("Error en ProgramaServicioServices finish -->" + sqle.getMessage());
-            Logger.getLogger(ProgramaServicioServices.class.getName()).log(Level.SEVERE, null, sqle.getMessage());
-        }
-
-    }
+     
 }

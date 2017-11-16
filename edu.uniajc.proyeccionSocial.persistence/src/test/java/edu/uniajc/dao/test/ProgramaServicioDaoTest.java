@@ -7,7 +7,6 @@ package edu.uniajc.dao.test;
 
 import edu.uniajc.proyeccionSocial.DAO.ProgramaServicioDAO;
 import edu.uniajc.proyeccionSocial.Model.ProgramaServicio;
-import java.sql.Connection;
 import junit.framework.TestCase;
 import org.junit.Test;
 
@@ -17,9 +16,8 @@ import org.junit.Test;
  */
 public class ProgramaServicioDaoTest extends TestCase {
 
-    //falta meter la conexion
-    Connection DBConnection;
-    ProgramaServicioDAO dao = new ProgramaServicioDAO(DBConnection);
+  
+    ProgramaServicioDAO dao = new ProgramaServicioDAO();
     int creado;
 
     @Test

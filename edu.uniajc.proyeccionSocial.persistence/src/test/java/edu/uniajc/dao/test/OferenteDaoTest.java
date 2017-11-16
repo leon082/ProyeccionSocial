@@ -7,7 +7,6 @@ package edu.uniajc.dao.test;
 
 import edu.uniajc.proyeccionSocial.DAO.OferenteDao;
 import edu.uniajc.proyeccionSocial.Model.Oferente;
-import java.sql.Connection;
 import junit.framework.TestCase;
 import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertTrue;
@@ -19,9 +18,9 @@ import org.junit.Test;
  * @author luis.leon
  */
 public class OferenteDaoTest extends TestCase{
-    //falta meter la conexion
-     Connection DBConnection;
-     OferenteDao dao = new OferenteDao(DBConnection);
+    
+    
+     OferenteDao dao = new OferenteDao();
      int creado;
     @Test
     public void crearOferente() {

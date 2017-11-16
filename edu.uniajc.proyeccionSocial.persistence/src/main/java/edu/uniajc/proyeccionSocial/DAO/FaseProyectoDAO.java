@@ -5,6 +5,7 @@
  */
 package edu.uniajc.proyeccionSocial.DAO;
 
+import com.edu.uniajc.proyeccionsocial.utils.ConexionBD;
 import edu.uniajc.proyeccionSocial.Model.FaseProyecto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,6 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PreDestroy;
 
 /**
  *
@@ -20,10 +22,12 @@ import java.util.logging.Logger;
  */
 public class FaseProyectoDAO {
 
+    
     private Connection DBConnection = null;
 
-    public FaseProyectoDAO(Connection openConnection) {
-        this.DBConnection = openConnection;
+    public FaseProyectoDAO() {
+       
+        this.DBConnection = new ConexionBD().conexion();
     }
 
     public int createFaseProyecto(FaseProyecto faseProyecto) {
@@ -195,6 +199,19 @@ public class FaseProyectoDAO {
             System.out.println("Error en Proyecto DAO getFaseProyectosById " + e.getMessage());
             Logger.getLogger(FaseProyectoDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return null;
+        }
+
+    }
+    
+      @PreDestroy
+    public void finish() {
+        try {
+           
+            DBConnection.close();
+
+        } catch (SQLException sqle) {
+            System.out.println("Error en Proyecto DAO finish" + sqle.getMessage());
+            Logger.getLogger(FaseProyectoDAO.class.getName()).log(Level.SEVERE, null, sqle.getMessage());
         }
 
     }

@@ -5,6 +5,7 @@
  */
 package edu.uniajc.proyeccionSocial.DAO;
 
+import com.edu.uniajc.proyeccionsocial.utils.ConexionBD;
 import edu.uniajc.proyeccionSocial.Model.Rol;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,22 +14,24 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PreDestroy;
 
 /**
  *
  * @author luis.leon
  */
 public class RolDao {
-    
-     private Connection DBConnection = null;
 
-    public RolDao(Connection openConnection) {
-        this.DBConnection = openConnection;
+    private Connection DBConnection = null;
+    
+
+    public RolDao() {
+        
+        this.DBConnection = new ConexionBD().conexion();
     }
 
     public int createRol(Rol rol) {
         try {
-            
 
             PreparedStatement ps = null;
 
@@ -46,15 +49,13 @@ public class RolDao {
                     + " (ID_Rol,Valor,Descripcion, EstadoRol) "
                     + " values(?,?,?,?)";
             ps = this.DBConnection.prepareStatement(SQL);
-            
+
             ps.setInt(1, rol.getId_Rol());
             ps.setInt(2, rol.getValor());
             ps.setString(3, rol.getDescripcion());
-            ps.setInt(4, rol.getEstadoRol());            
-            
-            
+            ps.setInt(4, rol.getEstadoRol());
+
             ps.execute();
-           
 
             ps.close();
 
@@ -72,13 +73,11 @@ public class RolDao {
 
             String SQL = "DELETE FROM TB_Rol WHERE ID_Rol =" + id + " ";
 
-           
             PreparedStatement ps = this.DBConnection.prepareStatement(SQL);
             ps.execute();
             ps.close();
             return true;
 
-                       
         } catch (SQLException e) {
             System.out.println("Error en Rol DAO Delete " + e.getMessage());
             Logger.getLogger(RolDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
@@ -89,7 +88,6 @@ public class RolDao {
 
     public boolean updateRol(Rol rol) {
         try {
-            
 
             PreparedStatement ps = null;
             String SQL = "UPDATE TB_Rol SET "
@@ -97,19 +95,15 @@ public class RolDao {
                     + " where ID_Rol = ?";
             ps = this.DBConnection.prepareStatement(SQL);
 
-           
             ps.setInt(1, rol.getValor());
             ps.setString(2, rol.getDescripcion());
             ps.setInt(3, rol.getEstadoRol());
             ps.setInt(4, rol.getId_Rol());
-           
-            
 
             ps.execute();
             ps.close();
             return true;
 
-                      
         } catch (SQLException e) {
             System.out.println("Error en Rol DAO UPDATE " + e.getMessage());
             Logger.getLogger(RolDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
@@ -132,8 +126,7 @@ public class RolDao {
                 rol.setId_Rol(rs.getInt("ID_Rol"));
                 rol.setValor(rs.getInt("Valor"));
                 rol.setDescripcion(rs.getString("Descripcion"));
-                rol.setEstadoRol(rs.getInt("EstadoRol"));                               
-               
+                rol.setEstadoRol(rs.getInt("EstadoRol"));
 
                 list.add(rol);
             }
@@ -147,28 +140,28 @@ public class RolDao {
         }
 
     }
-    
+
     public Rol getRolById(int id) {
-        
+
         Rol rol = new Rol();
         try {
 
             PreparedStatement ps = null;
 
-            String SQL = "select * from TB_Rol where ID_Rol =" +id+" ";
+            String SQL = "select * from TB_Rol where ID_Rol =" + id + " ";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
-            if(rs != null){
-            rs.next();
-               
+            if (rs != null) {
+                rs.next();
+
                 rol.setId_Rol(rs.getInt("ID_Rol"));
                 rol.setValor(rs.getInt("Valor"));
                 rol.setDescripcion(rs.getString("Descripcion"));
-                rol.setEstadoRol(rs.getInt("EstadoRol")); 
-                
+                rol.setEstadoRol(rs.getInt("EstadoRol"));
+
             }
             ps.close();
-                       
+
             return rol;
         } catch (SQLException e) {
             System.out.println("Error en Rol DAO getRolById " + e.getMessage());
@@ -178,4 +171,17 @@ public class RolDao {
 
     }
     
+    @PreDestroy
+    public void finish() {
+        try {
+          
+            DBConnection.close();
+
+        } catch (SQLException sqle) {
+            System.out.println("Error en Rol DAO finish " + sqle.getMessage());
+            Logger.getLogger(RolDao.class.getName()).log(Level.SEVERE, null, sqle.getMessage());
+        }
+
+    }
+
 }

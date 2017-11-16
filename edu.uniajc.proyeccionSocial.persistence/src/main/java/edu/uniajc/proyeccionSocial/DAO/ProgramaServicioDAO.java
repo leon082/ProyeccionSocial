@@ -5,6 +5,7 @@
  */
 package edu.uniajc.proyeccionSocial.DAO;
 
+import com.edu.uniajc.proyeccionsocial.utils.ConexionBD;
 import edu.uniajc.proyeccionSocial.Model.ProgramaServicio;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,6 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PreDestroy;
 
 /**
  *
@@ -21,9 +23,11 @@ import java.util.logging.Logger;
 public class ProgramaServicioDAO {
 
     private Connection DBConnection = null;
+    
 
-    public ProgramaServicioDAO(Connection openConnection) {
-        this.DBConnection = openConnection;
+    public ProgramaServicioDAO() {
+        
+        this.DBConnection = new ConexionBD().conexion();
     }
 
     public int createProgramaServicio(ProgramaServicio progServi) {
@@ -179,6 +183,19 @@ public class ProgramaServicioDAO {
         } catch (SQLException e) {
             Logger.getLogger(ProgramaServicioDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return null;
+        }
+
+    }
+    
+    @PreDestroy
+    public void finish() {
+        try {
+          
+            DBConnection.close();
+
+        } catch (SQLException sqle) {
+            System.out.println("Error en PrgramaServicio DAO finish " + sqle.getMessage());
+            Logger.getLogger(ProgramaServicioDAO.class.getName()).log(Level.SEVERE, null, sqle.getMessage());
         }
 
     }

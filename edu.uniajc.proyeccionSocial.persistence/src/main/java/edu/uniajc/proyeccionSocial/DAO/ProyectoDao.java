@@ -5,6 +5,7 @@
  */
 package edu.uniajc.proyeccionSocial.DAO;
 
+import com.edu.uniajc.proyeccionsocial.utils.ConexionBD;
 import edu.uniajc.proyeccionSocial.Model.Proyecto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,6 +14,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PreDestroy;
 
 /**
  *
@@ -21,9 +23,11 @@ import java.util.logging.Logger;
 public class ProyectoDao {
 
     private Connection DBConnection = null;
+   
 
-    public ProyectoDao(Connection openConnection) {
-        this.DBConnection = openConnection;
+    public ProyectoDao() {
+        
+        this.DBConnection = new ConexionBD().conexion();
     }
 
     public int createProyecto(Proyecto proyecto) {
@@ -157,6 +161,21 @@ public class ProyectoDao {
         }
 
     }
+    
+    @PreDestroy
+    public void finish() {
+        try {
+          
+            DBConnection.close();
+
+        } catch (SQLException sqle) {
+            System.out.println("Error en Proyecto DAO finish " + sqle.getMessage());
+            Logger.getLogger(ProyectoDao.class.getName()).log(Level.SEVERE, null, sqle.getMessage());
+        }
+
+    }
+    
+    
 
     /*
     public ArrayList<ProyectoRequest> getProyectoByIdea(String idea) {

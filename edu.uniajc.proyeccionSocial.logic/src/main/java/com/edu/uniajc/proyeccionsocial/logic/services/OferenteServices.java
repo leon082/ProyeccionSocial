@@ -6,14 +6,9 @@
 package com.edu.uniajc.proyeccionsocial.logic.services;
 
 import com.edu.uniajc.proyeccionsocial.interfaces.IOferente;
-import com.edu.uniajc.proyeccionsocial.utils.ConexionBD;
 import edu.uniajc.proyeccionSocial.DAO.OferenteDao;
 import edu.uniajc.proyeccionSocial.Model.Oferente;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.PreDestroy;
 import javax.ejb.Stateless;
 
 /**
@@ -23,12 +18,12 @@ import javax.ejb.Stateless;
 @Stateless
 public class OferenteServices implements IOferente{
     
-      ConexionBD cn;
+    
      OferenteDao dao ;
 
     public OferenteServices() {
-        this.cn = new ConexionBD();
-        this.dao= new OferenteDao(cn.conexion());
+       
+        this.dao= new OferenteDao();
     }
 
     @Override
@@ -111,16 +106,6 @@ public class OferenteServices implements IOferente{
         } 
     }
     
-     @PreDestroy
-    public void finish() {
-        try {
-            cn.conexion().close();
-
-        } catch (SQLException sqle) {
-            System.out.println("Error en OferenteServices finish -->" + sqle.getMessage());
-            Logger.getLogger(OferenteServices.class.getName()).log(Level.SEVERE, null, sqle.getMessage());
-        }
-
-    }
+    
     
 }

@@ -6,14 +6,9 @@
 package com.edu.uniajc.proyeccionsocial.logic.services;
 
 import com.edu.uniajc.proyeccionsocial.interfaces.IListaValor;
-import com.edu.uniajc.proyeccionsocial.utils.ConexionBD;
 import edu.uniajc.proyeccionSocial.DAO.ListaValorDao;
 import edu.uniajc.proyeccionSocial.Model.ListaValor;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.PreDestroy;
 import javax.ejb.Stateless;
 
 /**
@@ -23,12 +18,12 @@ import javax.ejb.Stateless;
 @Stateless
 public class ListaValorServices implements IListaValor{
     
-       ConexionBD cn;
+      
      ListaValorDao dao ;
 
     public ListaValorServices() {
-        this.cn = new ConexionBD();
-        this.dao= new ListaValorDao(cn.conexion());
+        
+        this.dao= new ListaValorDao();
     }
     
     @Override
@@ -113,15 +108,5 @@ public class ListaValorServices implements IListaValor{
         } 
     }
         
-     @PreDestroy
-    public void finish() {
-        try {
-            cn.conexion().close();
-
-        } catch (SQLException sqle) {
-            System.out.println("Error en ListaValorServices finish -->" + sqle.getMessage());
-            Logger.getLogger(ListaValorServices.class.getName()).log(Level.SEVERE, null, sqle.getMessage());
-        }
-
-    }
+    
 }

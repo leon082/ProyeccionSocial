@@ -7,7 +7,6 @@ package edu.uniajc.dao.test;
 
 import edu.uniajc.proyeccionSocial.DAO.RolDao;
 import edu.uniajc.proyeccionSocial.Model.Rol;
-import java.sql.Connection;
 import junit.framework.TestCase;
 import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertTrue;
@@ -20,9 +19,8 @@ import org.junit.Test;
  */
 public class RolDaoTest extends TestCase {
 
-    //falta meter la conexion
-    Connection DBConnection;
-    RolDao dao = new RolDao(DBConnection);
+   
+    RolDao dao = new RolDao();
     int creado;
 
     @Test

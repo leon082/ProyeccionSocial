@@ -6,14 +6,9 @@
 package com.edu.uniajc.proyeccionsocial.logic.services;
 
 import com.edu.uniajc.proyeccionsocial.interfaces.IRol;
-import com.edu.uniajc.proyeccionsocial.utils.ConexionBD;
 import edu.uniajc.proyeccionSocial.DAO.RolDao;
 import edu.uniajc.proyeccionSocial.Model.Rol;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.PreDestroy;
 import javax.ejb.Stateless;
 
 /**
@@ -23,12 +18,12 @@ import javax.ejb.Stateless;
 @Stateless
 public class RolServices implements IRol {
     
-     ConexionBD cn;
+   
      RolDao dao ;
 
     public RolServices() {
-        this.cn = new ConexionBD();
-        this.dao= new RolDao(cn.conexion());
+      
+        this.dao= new RolDao();
     }
 
     @Override
@@ -111,15 +106,5 @@ public class RolServices implements IRol {
         } 
     }
     
-     @PreDestroy
-    public void finish() {
-        try {
-            cn.conexion().close();
-
-        } catch (SQLException sqle) {
-            System.out.println("Error en RolServices finish -->" + sqle.getMessage());
-            Logger.getLogger(RolServices.class.getName()).log(Level.SEVERE, null, sqle.getMessage());
-        }
-
-    }
+    
 }

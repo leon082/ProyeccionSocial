@@ -6,15 +6,10 @@
 package com.edu.uniajc.proyeccionsocial.logic.services;
 
 import com.edu.uniajc.proyeccionsocial.interfaces.IProyecto;
-import com.edu.uniajc.proyeccionsocial.utils.ConexionBD;
 
 import edu.uniajc.proyeccionSocial.DAO.ProyectoDao;
 import edu.uniajc.proyeccionSocial.Model.Proyecto;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.PreDestroy;
 import javax.ejb.Stateless;
 
 /**
@@ -24,12 +19,12 @@ import javax.ejb.Stateless;
 @Stateless
 public class ProyectoServices implements IProyecto {
 
-    ConexionBD cn;
+   
     ProyectoDao dao;
 
     public ProyectoServices() {
-        this.cn = new ConexionBD();
-        this.dao = new ProyectoDao(cn.conexion());
+       
+        this.dao = new ProyectoDao();
     }
 
     @Override
@@ -95,16 +90,6 @@ public class ProyectoServices implements IProyecto {
         }
     }
 
-    @PreDestroy
-    public void finish() {
-        try {
-            cn.conexion().close();
-
-        } catch (SQLException sqle) {
-            System.out.println("Error en ProyectoServices finish -->" + sqle.getMessage());
-            Logger.getLogger(ProyectoServices.class.getName()).log(Level.SEVERE, null, sqle.getMessage());
-        }
-
-    }
+   
 
 }

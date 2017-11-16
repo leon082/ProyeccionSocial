@@ -6,15 +6,10 @@
 package com.edu.uniajc.proyeccionsocial.logic.services;
 
 import com.edu.uniajc.proyeccionsocial.interfaces.IFaseProyecto;
-import com.edu.uniajc.proyeccionsocial.utils.ConexionBD;
 import edu.uniajc.proyeccionSocial.DAO.FaseProyectoDAO;
 
 import edu.uniajc.proyeccionSocial.Model.FaseProyecto;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.PreDestroy;
 import javax.ejb.Stateless;
 
 /**
@@ -24,12 +19,12 @@ import javax.ejb.Stateless;
 @Stateless
 public class FaseProyectoServices implements IFaseProyecto {
 
-     ConexionBD cn;
+     
      FaseProyectoDAO dao ;
 
     public FaseProyectoServices() {
-        this.cn = new ConexionBD();
-        this.dao= new FaseProyectoDAO(cn.conexion());
+        
+        this.dao= new FaseProyectoDAO();
     }
 
     @Override
@@ -112,16 +107,6 @@ public class FaseProyectoServices implements IFaseProyecto {
         }
     }
     
-     @PreDestroy
-    public void finish() {
-        try {
-            cn.conexion().close();
-
-        } catch (SQLException sqle) {
-            System.out.println("Error en FaseProyectoServices finish -->" + sqle.getMessage());
-            Logger.getLogger(ProyectoServices.class.getName()).log(Level.SEVERE, null, sqle.getMessage());
-        }
-
-    }
+   
 
 }

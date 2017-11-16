@@ -7,7 +7,6 @@ package edu.uniajc.dao.test;
 
 import edu.uniajc.proyeccionSocial.DAO.UsuarioDao;
 import edu.uniajc.proyeccionSocial.Model.Usuario;
-import java.sql.Connection;
 import junit.framework.TestCase;
 import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertTrue;
@@ -19,9 +18,8 @@ import org.junit.Test;
  * @author luis.leon
  */
 public class UsuarioDaoTest extends TestCase{
-    //falta meter la conexion
-    Connection DBConnection;
-     UsuarioDao dao = new UsuarioDao(DBConnection);
+   
+     UsuarioDao dao = new UsuarioDao();
      int creado;
     @Test
     public void crearUsuario() {

@@ -5,6 +5,7 @@
  */
 package edu.uniajc.proyeccionSocial.DAO;
 
+import com.edu.uniajc.proyeccionsocial.utils.ConexionBD;
 import edu.uniajc.proyeccionSocial.Model.ListaValor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,16 +14,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PreDestroy;
+
 /**
  *
  * @author luis.leon
  */
 public class ListaValorDao {
-    
-    private Connection DBConnection = null;
 
-    public ListaValorDao(Connection openConnection) {
-        this.DBConnection = openConnection;
+    private Connection DBConnection = null;
+    
+
+    public ListaValorDao() {
+        
+        this.DBConnection = new ConexionBD().conexion();
     }
 
     public int createListaValor(ListaValor listaValor) {
@@ -47,16 +52,15 @@ public class ListaValorDao {
                     + " (ID_ListaValor,Agrupacion,Descripcion, Estado,CreadoPor, CreadoEn) "
                     + " values(?,?,?,?,?,?)";
             ps = this.DBConnection.prepareStatement(SQL);
-            
+
             ps.setInt(1, listaValor.getId_ListaValor());
             ps.setString(2, listaValor.getAgrupacion());
             ps.setString(3, listaValor.getDescripcion());
-            ps.setInt(4, listaValor.getEstado());            
+            ps.setInt(4, listaValor.getEstado());
             ps.setString(5, listaValor.getCreadoPor());
             ps.setDate(6, listaValor.getCreadoEn());
-            
+
             ps.execute();
-           
 
             ps.close();
 
@@ -74,13 +78,11 @@ public class ListaValorDao {
 
             String SQL = "DELETE FROM TB_ListaValor WHERE ID_ListaValor =" + id + " ";
 
-           
             PreparedStatement ps = this.DBConnection.prepareStatement(SQL);
             ps.execute();
             ps.close();
             return true;
 
-                       
         } catch (SQLException e) {
             System.out.println("Error en ListaValor DAO Delete " + e.getMessage());
             Logger.getLogger(ListaValorDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
@@ -93,7 +95,7 @@ public class ListaValorDao {
         try {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
-            
+
             listaValor.setModificadoEn(fechaSQL);
 
             PreparedStatement ps = null;
@@ -102,20 +104,17 @@ public class ListaValorDao {
                     + " where ID_ListaValor = ?";
             ps = this.DBConnection.prepareStatement(SQL);
 
-           
             ps.setString(1, listaValor.getAgrupacion());
             ps.setString(2, listaValor.getDescripcion());
             ps.setInt(3, listaValor.getEstado());
             ps.setString(4, listaValor.getModificadoPor());
             ps.setDate(5, listaValor.getModificadoEn());
             ps.setInt(5, listaValor.getId_ListaValor());
-            
 
             ps.execute();
             ps.close();
             return true;
 
-                      
         } catch (SQLException e) {
             System.out.println("Error en ListaValor DAO UPDATE " + e.getMessage());
             Logger.getLogger(ListaValorDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
@@ -138,7 +137,7 @@ public class ListaValorDao {
                 listaValor.setId_ListaValor(rs.getInt("ID_ListaValor"));
                 listaValor.setAgrupacion(rs.getString("Agrupacion"));
                 listaValor.setDescripcion(rs.getString("Descripcion"));
-                listaValor.setEstado(rs.getInt("Estado"));                               
+                listaValor.setEstado(rs.getInt("Estado"));
                 listaValor.setCreadoPor(rs.getString("CREADOPOR"));
                 listaValor.setModificadoPor(rs.getString("MODIFICADOPOR"));
                 listaValor.setCreadoEn(rs.getDate("CREADOEN"));
@@ -156,32 +155,32 @@ public class ListaValorDao {
         }
 
     }
-    
+
     public ListaValor getListaValorById(int id) {
-        
+
         ListaValor listaValor = new ListaValor();
         try {
 
             PreparedStatement ps = null;
 
-            String SQL = "select * from TB_ListaValor where ID_ListaValor =" +id+" ";
+            String SQL = "select * from TB_ListaValor where ID_ListaValor =" + id + " ";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
-            if(rs != null){
-            rs.next();
-               
+            if (rs != null) {
+                rs.next();
+
                 listaValor.setId_ListaValor(rs.getInt("ID_ListaValor"));
                 listaValor.setAgrupacion(rs.getString("Agrupacion"));
                 listaValor.setDescripcion(rs.getString("Descripcion"));
-                listaValor.setEstado(rs.getInt("Estado"));                               
+                listaValor.setEstado(rs.getInt("Estado"));
                 listaValor.setCreadoPor(rs.getString("CREADOPOR"));
                 listaValor.setModificadoPor(rs.getString("MODIFICADOPOR"));
                 listaValor.setCreadoEn(rs.getDate("CREADOEN"));
                 listaValor.setModificadoEn(rs.getDate("MODIFICADOEN"));
-                
+
             }
             ps.close();
-                       
+
             return listaValor;
         } catch (SQLException e) {
             System.out.println("Error en ListaValor DAO getListaValorById " + e.getMessage());
@@ -191,4 +190,17 @@ public class ListaValorDao {
 
     }
     
+     @PreDestroy
+    public void finish() {
+        try {
+          
+            DBConnection.close();
+
+        } catch (SQLException sqle) {
+            System.out.println("Error en ListaValor DAO finish " + sqle.getMessage());
+            Logger.getLogger(ListaValorDao.class.getName()).log(Level.SEVERE, null, sqle.getMessage());
+        }
+
+    }
+
 }

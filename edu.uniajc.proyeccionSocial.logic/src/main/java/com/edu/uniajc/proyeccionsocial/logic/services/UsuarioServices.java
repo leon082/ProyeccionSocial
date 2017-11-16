@@ -6,14 +6,9 @@
 package com.edu.uniajc.proyeccionsocial.logic.services;
 
 import com.edu.uniajc.proyeccionsocial.interfaces.IUsuario;
-import com.edu.uniajc.proyeccionsocial.utils.ConexionBD;
 import edu.uniajc.proyeccionSocial.DAO.UsuarioDao;
 import edu.uniajc.proyeccionSocial.Model.Usuario;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.PreDestroy;
 import javax.ejb.Stateless;
 
 /**
@@ -23,12 +18,12 @@ import javax.ejb.Stateless;
 @Stateless
 public class UsuarioServices implements IUsuario{
     
-     ConexionBD cn;
+    
      UsuarioDao dao ;
 
     public UsuarioServices() {
-        this.cn = new ConexionBD();
-        this.dao= new UsuarioDao(cn.conexion());
+       
+        this.dao= new UsuarioDao();
     }
 
     @Override
@@ -111,15 +106,5 @@ public class UsuarioServices implements IUsuario{
         } 
     }
     
-     @PreDestroy
-    public void finish() {
-        try {
-            cn.conexion().close();
-
-        } catch (SQLException sqle) {
-            System.out.println("Error en UsuarioServices finish -->" + sqle.getMessage());
-            Logger.getLogger(UsuarioServices.class.getName()).log(Level.SEVERE, null, sqle.getMessage());
-        }
-
-    }
+    
 }

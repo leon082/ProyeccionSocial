@@ -7,7 +7,6 @@ package edu.uniajc.dao.test;
 
 import edu.uniajc.proyeccionSocial.DAO.ListaValorDao;
 import edu.uniajc.proyeccionSocial.Model.ListaValor;
-import java.sql.Connection;
 import junit.framework.TestCase;
 import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertTrue;
@@ -19,9 +18,9 @@ import org.junit.Test;
  * @author luis.leon
  */
 public class ListaValorDaoTest extends TestCase {
-    //falta meter la conexion
-     Connection DBConnection;
-     ListaValorDao dao = new ListaValorDao(DBConnection);
+
+    
+     ListaValorDao dao = new ListaValorDao();
      int creado;
     @Test
     public void crearListaValor() {
