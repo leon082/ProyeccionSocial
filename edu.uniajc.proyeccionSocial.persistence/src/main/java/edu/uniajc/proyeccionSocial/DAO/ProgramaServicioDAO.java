@@ -194,7 +194,7 @@ public class ProgramaServicioDAO {
             DBConnection.close();
 
         } catch (SQLException sqle) {
-            System.out.println("Error en PrgramaServicio DAO finish " + sqle.getMessage());
+            System.out.println("Error en ProgramaServicio DAO finish " + sqle.getMessage());
             Logger.getLogger(ProgramaServicioDAO.class.getName()).log(Level.SEVERE, null, sqle.getMessage());
         }
 

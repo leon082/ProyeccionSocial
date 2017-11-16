@@ -210,7 +210,7 @@ public class FaseProyectoDAO {
             DBConnection.close();
 
         } catch (SQLException sqle) {
-            System.out.println("Error en Proyecto DAO finish" + sqle.getMessage());
+            System.out.println("Error en FaseProyecto DAO finish" + sqle.getMessage());
             Logger.getLogger(FaseProyectoDAO.class.getName()).log(Level.SEVERE, null, sqle.getMessage());
         }
 
