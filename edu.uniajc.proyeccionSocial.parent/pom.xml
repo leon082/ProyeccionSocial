@@ -9,6 +9,7 @@
         <module>../edu.uniajc.proyeccionSocial.business</module>
         <module>../edu.uniajc.proyeccionSocial.persistence</module>
         <module>../edu.uniajc.proyeccionSocial.view</module>
+        
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
