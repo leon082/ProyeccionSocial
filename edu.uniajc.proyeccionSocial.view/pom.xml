@@ -6,6 +6,14 @@
     <artifactId>edu.uniajc.proyeccionSocial.view</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
+    
+    <parent>
+        <groupId>com.uniajc</groupId>
+        <artifactId>edu.uniajc.proyeccionSocial.parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../edu.uniajc.proyeccionSocial.parent/pom.xml</relativePath>
+        
+    </parent>
 
     <name>edu.uniajc.proyeccionSocial.view</name>
 
