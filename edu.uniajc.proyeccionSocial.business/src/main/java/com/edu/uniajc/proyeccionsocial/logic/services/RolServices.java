@@ -9,13 +9,13 @@ import com.edu.uniajc.proyeccionsocial.interfaces.IRol;
 import edu.uniajc.proyeccionSocial.DAO.RolDao;
 import edu.uniajc.proyeccionSocial.Model.Rol;
 import java.util.ArrayList;
-import javax.ejb.Stateless;
+
 
 /**
  *
  * @author luis.leon
  */
-@Stateless
+
 public class RolServices implements IRol {
     
    

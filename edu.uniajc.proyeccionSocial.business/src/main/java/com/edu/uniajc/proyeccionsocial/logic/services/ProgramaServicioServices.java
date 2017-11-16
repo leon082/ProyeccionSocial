@@ -9,13 +9,13 @@ import com.edu.uniajc.proyeccionsocial.interfaces.IProgramaServicio;
 import edu.uniajc.proyeccionSocial.DAO.ProgramaServicioDAO;
 import edu.uniajc.proyeccionSocial.Model.ProgramaServicio;
 import java.util.ArrayList;
-import javax.ejb.Stateless;
+
 
 /**
  *
  * @author luis.leon
  */
-@Stateless
+
 public class ProgramaServicioServices implements IProgramaServicio{
 
      

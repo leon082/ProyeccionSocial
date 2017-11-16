@@ -10,13 +10,13 @@ import com.edu.uniajc.proyeccionsocial.interfaces.IProyecto;
 import edu.uniajc.proyeccionSocial.DAO.ProyectoDao;
 import edu.uniajc.proyeccionSocial.Model.Proyecto;
 import java.util.ArrayList;
-import javax.ejb.Stateless;
+
 
 /**
  * @author Fabian Castro - IRIS 15/05/2017 Nombre Clase:ProyectoServices
  * Descripcion: logica de la clase proyecto
  */
-@Stateless
+
 public class ProyectoServices implements IProyecto {
 
    

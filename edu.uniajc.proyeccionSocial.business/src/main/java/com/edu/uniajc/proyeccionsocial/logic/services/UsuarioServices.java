@@ -9,13 +9,13 @@ import com.edu.uniajc.proyeccionsocial.interfaces.IUsuario;
 import edu.uniajc.proyeccionSocial.DAO.UsuarioDao;
 import edu.uniajc.proyeccionSocial.Model.Usuario;
 import java.util.ArrayList;
-import javax.ejb.Stateless;
+
 
 /**
  *
  * @author luis.leon
  */
-@Stateless
+
 public class UsuarioServices implements IUsuario{
     
     

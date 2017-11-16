@@ -9,13 +9,13 @@ import com.edu.uniajc.proyeccionsocial.interfaces.IListaValor;
 import edu.uniajc.proyeccionSocial.DAO.ListaValorDao;
 import edu.uniajc.proyeccionSocial.Model.ListaValor;
 import java.util.ArrayList;
-import javax.ejb.Stateless;
+
 
 /**
  *
  * @author luis.leon
  */
-@Stateless
+
 public class ListaValorServices implements IListaValor{
     
       

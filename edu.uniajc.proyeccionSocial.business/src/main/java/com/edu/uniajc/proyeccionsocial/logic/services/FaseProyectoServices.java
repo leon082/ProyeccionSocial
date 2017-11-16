@@ -10,13 +10,12 @@ import edu.uniajc.proyeccionSocial.DAO.FaseProyectoDAO;
 
 import edu.uniajc.proyeccionSocial.Model.FaseProyecto;
 import java.util.ArrayList;
-import javax.ejb.Stateless;
 
 /**
  *
  * @author luis.leon
  */
-@Stateless
+
 public class FaseProyectoServices implements IFaseProyecto {
 
      

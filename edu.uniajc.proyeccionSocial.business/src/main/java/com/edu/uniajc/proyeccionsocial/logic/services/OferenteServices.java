@@ -9,13 +9,13 @@ import com.edu.uniajc.proyeccionsocial.interfaces.IOferente;
 import edu.uniajc.proyeccionSocial.DAO.OferenteDao;
 import edu.uniajc.proyeccionSocial.Model.Oferente;
 import java.util.ArrayList;
-import javax.ejb.Stateless;
+
 
 /**
  *
  * @author luis.leon
  */
-@Stateless
+
 public class OferenteServices implements IOferente{
     
     
