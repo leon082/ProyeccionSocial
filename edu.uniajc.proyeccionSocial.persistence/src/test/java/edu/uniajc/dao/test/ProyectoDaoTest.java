@@ -24,7 +24,7 @@ public class ProyectoDaoTest extends TestCase{
     @Test
     public void crearProyecto() {
        
-        int creado=dao.createProyecto(initProyecto());
+         creado=dao.createProyecto(initProyecto());
         if(creado == 0){
             fail("No creo el proyecto");
         }
@@ -38,19 +38,21 @@ public class ProyectoDaoTest extends TestCase{
          assertTrue(dao.updateProyecto(p));
     }
     
-      @Test
-    public void deleteProyecto() {
-      
-       assertTrue(dao.deleteProyecto(creado));
-        
-       
-    }
+    
     
         @Test
     public void getAllProyectos() {
         
             assertNotNull(dao.getAllProyectos());
       
+       
+    }
+    
+      @Test
+    public void deleteProyecto() {
+      
+       assertTrue(dao.deleteProyecto(creado));
+        
        
     }
     

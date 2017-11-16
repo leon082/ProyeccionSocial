@@ -9,20 +9,19 @@ import edu.uniajc.proyeccionSocial.interfaces.model.Proyecto;
 import java.util.ArrayList;
 
 /**
- *@author Emmanuel Barrera - IRIS
- *12/05/2017
- * Nombre Clase:Iproyecto
+ * @author Emmanuel Barrera - IRIS 12/05/2017 Nombre Clase:Iproyecto
  * Descripcion: Tabla que contiene todo el DAS
  */
-
 public interface IProyecto {
-        
+
     public int createProyecto(Proyecto proyecto);
+
     public boolean deleteProyecto(int ID);
+
     public boolean updateProyecto(Proyecto proyecto);
+
     public ArrayList<Proyecto> getAllProyectos();
     //public Proyecto getProyectoById(int id);   
     //public ArrayList<Proyecto> getProyectos();
 
-    
 }

@@ -15,56 +15,56 @@ import org.junit.Test;
  *
  * @author luis.leon
  */
-public class ProgramaServicioDaoTest extends TestCase{
+public class ProgramaServicioDaoTest extends TestCase {
+
     //falta meter la conexion
-     Connection DBConnection;
-     ProgramaServicioDAO dao = new ProgramaServicioDAO(DBConnection);
+    Connection DBConnection;
+    ProgramaServicioDAO dao = new ProgramaServicioDAO(DBConnection);
+    int creado;
+
     @Test
     public void crearProgramaServicio() {
         // ProgramaServicioDAO dao = new ProgramaServicioDAO(DBConnection);
-        int result=dao.createProgramaServicio(initProgramaServicio());
-        if(result == 0){
+        creado = dao.createProgramaServicio(initProgramaServicio());
+        if (creado == 0) {
             fail("No creo el ProgramaServicio");
         }
-       
+
+    }
+
+    @Test
+    public void updateProgramaServicio() {
+        // ProgramaServicioDAO dao = new ProgramaServicioDAO(DBConnection);
+        ProgramaServicio p = initProgramaServicio();
+        p.setId_ProgramaServicio(creado);
+        assertTrue(dao.updateProgramaServicio(p));
+
+    }
+
+   
+
+    @Test
+    public void getAllProgramaServicio() {
+
+        assertNotNull(dao.getAllProgramaServicioByPrograma(1));
+
     }
     
      @Test
-    public void updateProgramaServicio() {
-       // ProgramaServicioDAO dao = new ProgramaServicioDAO(DBConnection);
-         assertTrue(dao.updateProgramaServicio(initProgramaServicio()));
+    public void deleteProgramaServicio() {
+        // ProgramaServicioDAO dao = new ProgramaServicioDAO(DBConnection);
+        assertTrue(dao.deleteProgramaServicio(creado));
+
     }
-    
-      @Test
-    public void deleteProyecto() {
-       // ProgramaServicioDAO dao = new ProgramaServicioDAO(DBConnection);
-       assertTrue(dao.deleteProgramaServicio(initProgramaServicio().getId_ProgramaServicio()));
-        
-       
-    }
-    
-        @Test
-    public void getAllProyectos() {
-        
-            assertNotNull(dao.getAllProgramaServicioByPrograma(1));
-      
-       
-    }
-    
-    
-    
-    public ProgramaServicio initProgramaServicio(){
-        ProgramaServicio progServi=new ProgramaServicio();
-        
-       
-                progServi.setDescripcion("prueba TEST");
-                progServi.setId_Programa(1);
-                progServi.setEstadoProgramaServicio(1);                
-                progServi.setCreadoPor("userDEMo");                
-                
-                
-            
-        
+
+    public ProgramaServicio initProgramaServicio() {
+        ProgramaServicio progServi = new ProgramaServicio();
+
+        progServi.setDescripcion("prueba TEST");
+        progServi.setId_Programa(1);
+        progServi.setEstadoProgramaServicio(1);
+        progServi.setCreadoPor("userDEMo");
+
         return progServi;
     }
 }

@@ -26,7 +26,7 @@ public class ListaValorDaoTest extends TestCase {
     @Test
     public void crearListaValor() {
        
-        int creado=dao.createListaValor(initListaValor());
+        creado=dao.createListaValor(initListaValor());
         if(creado == 0){
             fail("No creo el Lista Valor");
         }
@@ -40,22 +40,23 @@ public class ListaValorDaoTest extends TestCase {
          assertTrue(dao.updateListaValor(p));
     }
     
-      @Test
-    public void deleteListaValor() {
-      
-       assertTrue(dao.deleteListaValor(creado));
-        
-       
-    }
+   
     
         @Test
-    public void getAllProyectos() {
+    public void getAllListaValor() {
         
             assertNotNull(dao.getAllListaValor());
       
        
     }
     
+       @Test
+    public void deleteListaValor() {
+      
+       assertTrue(dao.deleteListaValor(creado));
+        
+       
+    }
     
     
     public ListaValor initListaValor(){

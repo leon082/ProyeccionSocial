@@ -5,12 +5,23 @@
  */
 package edu.uniajc.proyeccionSocial.interfaces;
 
+import edu.uniajc.proyeccionSocial.interfaces.model.ListaValor;
+import java.util.ArrayList;
+
 /**
  *
  * @author Leon
  */
-public interface IListaValor{
-        
+public interface IListaValor {
 
-    
+    public int createListaValor(ListaValor listaValor);
+
+    public boolean deleteListaValor(int id);
+
+    public boolean updateListaValor(ListaValor listaValor);
+
+    public ArrayList<ListaValor> getAllListaValor();
+
+    public ListaValor getListaValorById(int id);
+
 }

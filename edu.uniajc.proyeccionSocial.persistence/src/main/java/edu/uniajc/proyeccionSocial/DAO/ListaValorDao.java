@@ -83,7 +83,7 @@ public class ListaValorDao {
                        
         } catch (SQLException e) {
             System.out.println("Error en ListaValor DAO Delete " + e.getMessage());
-            Logger.getLogger(ListaValor.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            Logger.getLogger(ListaValorDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return false;
         }
 
@@ -118,7 +118,7 @@ public class ListaValorDao {
                       
         } catch (SQLException e) {
             System.out.println("Error en ListaValor DAO UPDATE " + e.getMessage());
-            Logger.getLogger(ListaValor.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            Logger.getLogger(ListaValorDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return false;
         }
 
@@ -151,7 +151,7 @@ public class ListaValorDao {
             return list;
         } catch (SQLException e) {
             System.out.println("Error en ListaValor DAO getAllListaValor " + e.getMessage());
-            Logger.getLogger(ListaValor.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            Logger.getLogger(ListaValorDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return null;
         }
 
@@ -185,7 +185,7 @@ public class ListaValorDao {
             return listaValor;
         } catch (SQLException e) {
             System.out.println("Error en ListaValor DAO getListaValorById " + e.getMessage());
-            Logger.getLogger(ListaValor.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            Logger.getLogger(ListaValorDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return null;
         }
 

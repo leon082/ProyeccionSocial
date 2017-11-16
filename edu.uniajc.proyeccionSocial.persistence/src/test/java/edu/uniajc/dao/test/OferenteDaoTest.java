@@ -26,33 +26,35 @@ public class OferenteDaoTest extends TestCase{
     @Test
     public void crearOferente() {
        
-        int creado=dao.createOferente(initOferente());
+        creado=dao.createOferente(initOferente());
         if(creado == 0){
-            fail("No creo el proyecto");
+            fail("No creo el Oferente");
         }
        
     }
     
      @Test
-    public void updateProyecto() {
+    public void updateOferente() {
         Oferente o = initOferente();
         o.setId_Oferente(creado);
          assertTrue(dao.updateOferente(o));
     }
-    
-      @Test
-    public void deleteProyecto() {
-      
-       assertTrue(dao.deleteOferente(creado));
-        
-       
-    }
+  
     
         @Test
-    public void getAllProyectos() {
+    public void getAllOferentes() {
         
             assertNotNull(dao.getAllOferentes());
       
+       
+    }
+    
+      
+      @Test
+    public void deleteOferente() {
+      
+       assertTrue(dao.deleteOferente(creado));
+        
        
     }
     

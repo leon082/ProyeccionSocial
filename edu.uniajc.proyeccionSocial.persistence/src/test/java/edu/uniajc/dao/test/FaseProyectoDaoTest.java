@@ -23,9 +23,9 @@ public class FaseProyectoDaoTest extends TestCase{
     @Test
     public void crearProyecto() {
        
-        int creado=dao.createFaseProyecto(initFaseProyecto());
+        creado=dao.createFaseProyecto(initFaseProyecto());
         if(creado == 0){
-            fail("No creo el proyecto");
+            fail("No creo Faseproyecto");
         }
        
     }
@@ -37,19 +37,21 @@ public class FaseProyectoDaoTest extends TestCase{
          assertTrue(dao.updateFaseProyecto(p));
     }
     
-      @Test
-    public void deleteProyecto() {
-      
-       assertTrue(dao.deleteFaseProyecto(creado));
-        
-       
-    }
+   
     
         @Test
     public void getAllProyectos() {
         
             assertNotNull(dao.getAllFaseProyectos());
       
+       
+    }
+    
+       @Test
+    public void deleteProyecto() {
+      
+       assertTrue(dao.deleteFaseProyecto(creado));
+        
        
     }
     
