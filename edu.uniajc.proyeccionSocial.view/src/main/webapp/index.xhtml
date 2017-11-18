@@ -9,8 +9,18 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        <p:outputLabel for="add_1" value="Hola Mundo !!" />
+        <p:commandLink id="logout"
+                       actionListener="#{loginBean.logout}"
+                       style="margin-right:20px;"
+                       oncomplete="logout(xhr, status, args)">
+            <h:outputText value="logout" />
+        </p:commandLink>
 
     </h:body>
+    <script>//<![CDATA[   function logout(xhr, status, args) {
+        setTimeout(function () {
+            window.location = 'login.xhtml';
+        }, 500);
+        } //]]> </script>
 </html>
 
