@@ -23,7 +23,7 @@ import org.primefaces.context.RequestContext;
 @SessionScoped
 public class LoginBean implements Serializable {
 
-    private static final long serialVersionUID = -2152389656664659476L;
+   
     private String nombre;
     private String clave;
     private boolean logeado = false;
@@ -68,9 +68,15 @@ public class LoginBean implements Serializable {
     }
 
     public void logout() {
+        
+        logeado = false;
+        
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
                 .getExternalContext().getSession(false);
         session.invalidate();
-        logeado = false;
+        
+        
     }
+    
+   
 }

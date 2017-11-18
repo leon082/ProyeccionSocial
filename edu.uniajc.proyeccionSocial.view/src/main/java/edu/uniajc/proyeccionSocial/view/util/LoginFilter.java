@@ -110,6 +110,7 @@ public class LoginFilter implements Filter {
 
         //Proceso la URL que está requiriendo el cliente
         String urlStr = req.getRequestURL().toString().toLowerCase();
+        System.out.println(urlStr);
         boolean noProteger = noProteger(urlStr);
         System.out.println(urlStr + " - desprotegido=[" + noProteger + "]");
 
@@ -120,10 +121,12 @@ public class LoginFilter implements Filter {
         }
 
         //El usuario no está logueado
+        
         if (loginBean == null || !loginBean.estaLogeado()) {
-            res.sendRedirect(req.getContextPath() + "/login.xhtml");
+            res.sendRedirect(req.getContextPath() + "/faces/login.xhtml");
             return;
         }
+        
 
         //El recurso requiere protección, pero el usuario ya está logueado.
         chain.doFilter(request, response);
@@ -141,9 +144,9 @@ public class LoginFilter implements Filter {
         if (urlStr.endsWith("login.xhtml")) {
             return true;
         }
-        if (urlStr.indexOf("/javax.faces.resource/") != -1) {
+        /*if (urlStr.indexOf("/javax.faces.resource/") != -1) {
             return true;
-        }
+        }*/
         return false;
     }
 
