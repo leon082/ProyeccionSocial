@@ -5,15 +5,14 @@
  */
 package edu.uniajc.proyeccionSocial.bean;
 
+import edu.uniajc.proyeccionSocial.view.util.SessionUtils;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
-import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -23,15 +22,13 @@ import org.primefaces.context.RequestContext;
 @SessionScoped
 public class LoginBean implements Serializable {
 
-   
     private String nombre;
     private String clave;
-    private boolean logeado = false;
+    // private boolean logeado = false;
 
-    public boolean estaLogeado() {
+    /*  public boolean estaLogeado() {
         return logeado;
-    }
-
+    }*/
     public String getNombre() {
         return nombre;
     }
@@ -48,35 +45,29 @@ public class LoginBean implements Serializable {
         this.clave = clave;
     }
 
-    public void login(ActionEvent actionEvent) {
-        RequestContext context = RequestContext.getCurrentInstance();
-        FacesMessage msg = null;
+    public String login() {
+System.out.println("Entro a Login----$$$$$$$");
         if (nombre != null && nombre.equals("admin") && clave != null
                 && clave.equals("admin")) {
-            logeado = true;
-            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenid@", nombre);
+            HttpSession session = SessionUtils.getSession();
+            session.setAttribute("username", nombre);
+
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Saludo", "Bienvenido");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            return "index.xhtml";
         } else {
-            logeado = false;
-            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error",
-                    "Credenciales no válidas");
-        }
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-        context.addCallbackParam("estaLogeado", logeado);
-        if (logeado) {
-            context.addCallbackParam("view", "index.xhtml");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Credenciales no validas");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            return "login.xhtml";
         }
     }
 
-    public void logout() {
-        
-        logeado = false;
-        
-        HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
-                .getExternalContext().getSession(false);
+    //logout event, invalidate session
+    public String logout() {
+        System.out.println("Entro a Logout----$$$$$$$");
+        HttpSession session = SessionUtils.getSession();
         session.invalidate();
-        
-        
+        return "login.xhtml";
     }
-    
-   
+
 }

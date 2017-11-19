@@ -40,6 +40,7 @@ public class FaseProyectoDaoTest{
        FaseProyecto p =initFaseProyecto();
        p.setId_FaseProyecto(creado);
          assertTrue(dao.updateFaseProyecto(p));
+        
     }
     
    

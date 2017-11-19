@@ -4,8 +4,9 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head> </h:head>
     <h:body style="text-align:center">
-        <p:growl id="mensajes" showDetail="true" life="2000" />
+      <p:growl id="mensajes" showDetail="true" life="2000" />
         <h:form>
+              
             <p:panel header="Login" style="width:300px">
                 <h:panelGrid columns="2" cellpadding="5">
                     <h:outputLabel for="username" value="Usuario:" />
@@ -16,22 +17,12 @@
                                 label="password" />
                     <f:facet name="footer">
                         <p:commandButton id="loginButton" value="Login"
-                                         actionListener="#{loginBean.login}" update=":mensajes"
-                                         oncomplete="manejarLogin(xhr, status, args)" />
+                                         action="#{loginBean.login}" update=":mensajes"
+                                          />
                     </f:facet>
                 </h:panelGrid>
             </p:panel>
         </h:form>
     </h:body>
-    <script type="text/javascript">
-        //<![CDATA[
-        function manejarLogin(xhr, status, args) {
-            if (!args.validationFailed && args.estaLogeado) {
-                setTimeout(function () {
-                    window.location = args.view;
-                }, 500);
-            }
-        }
-    //]]>
-    </script>
+    
 </html>
