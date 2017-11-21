@@ -54,7 +54,7 @@ System.out.println("Entro a Login----$$$$$$$");
 
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Saludo", "Bienvenido");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            return "index.xhtml";
+            return "Home.xhtml";
         } else {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Credenciales no validas");
             FacesContext.getCurrentInstance().addMessage(null, msg);
