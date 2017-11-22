@@ -25,8 +25,9 @@ public class RolDao {
     private Connection DBConnection = null;
 
     public RolDao() {
-
-        this.DBConnection = new ConexionBD().conexion();
+  ConexionBD bd= new ConexionBD();
+  
+        this.DBConnection = bd.conexion();
     }
 
     public int createRol(Rol rol) {

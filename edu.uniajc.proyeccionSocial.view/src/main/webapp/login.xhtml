@@ -12,7 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <h:outputStylesheet name="css/default.css"/>
         <h:outputStylesheet name="css/cssLayout.css"/>
-        <title>Modulo Anteproyecto</title>
+        <title>Proyeccion Social</title>
     </h:head>
 
     <h:body>
@@ -32,12 +32,13 @@
                             <p:spacer height="50"></p:spacer>
                         <p:panel  style="width:300px" class = "panelGridCenter">
                             <h:panelGrid columns="2" cellpadding="5">
+                               
                                 <h:outputLabel for="username" value="Usuario:" />
                                 <p:inputText value="#{loginBean.nombre}" id="username"
-                                             required="true" label="username" />
+                                             required="true" label="username" requiredMessage="Campo requerido"/>
                                 <h:outputLabel for="password" value="Clave:" />
                                 <p:password value="#{loginBean.clave}" id="password" required="true"
-                                            label="password" />
+                                            label="password"  requiredMessage="Campo requerido"/>
                                 <p:spacer width="20" ></p:spacer>
                                 <h:panelGrid columns="2">
                                    
@@ -45,7 +46,7 @@
                                                  action="#{loginBean.login}" update=":mensajes"
                                                  />
                                 <p:commandButton id="regisButton" value="Registrate" process="@this"
-                                                 action="#{loginBean.login}" update=":mensajes"
+                                                 action="#{loginBean.registrar}" update=":mensajes"
                                                   />
                                 </h:panelGrid>
                                  

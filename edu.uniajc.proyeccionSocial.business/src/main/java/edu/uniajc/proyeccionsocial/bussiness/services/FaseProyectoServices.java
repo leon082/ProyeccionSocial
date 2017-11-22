@@ -3,35 +3,35 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.uniajc.proyeccionsocial.logic.services;
+package edu.uniajc.proyeccionsocial.bussiness.services;
 
-import edu.uniajc.proyeccionsocial.interfaces.IListaValorDetalle;
-import edu.uniajc.proyeccionSocial.DAO.ListaValorDetalleDAO;
+import edu.uniajc.proyeccionsocial.interfaces.IFaseProyecto;
+import edu.uniajc.proyeccionSocial.DAO.FaseProyectoDAO;
 
-import edu.uniajc.proyeccionSocial.Model.ListaValorDetalle;
+import edu.uniajc.proyeccionSocial.Model.FaseProyecto;
 import java.util.ArrayList;
 
 /**
  *
- * @author rlara
+ * @author luis.leon
  */
-public class ListaValorDetalleServices implements IListaValorDetalle {
+public class FaseProyectoServices implements IFaseProyecto {
 
-    ListaValorDetalleDAO dao;
+    FaseProyectoDAO dao;
 
-    public ListaValorDetalleServices() {
+    public FaseProyectoServices() {
 
-        this.dao = new ListaValorDetalleDAO();
+        this.dao = new FaseProyectoDAO();
     }
 
     @Override
-    public int createListaValorDetalle(ListaValorDetalle listaValorDetalle) {
+    public int createFaseProyecto(FaseProyecto faseProyecto) {
         try {
 
             // validacion de Data
-            if (listaValorDetalle != null) {
+            if (faseProyecto != null) {
 
-                int flag = dao.createListaValorDetalle(listaValorDetalle);
+                int flag = dao.createFaseProyecto(faseProyecto);
 
                 return flag;
             } else {
@@ -46,10 +46,10 @@ public class ListaValorDetalleServices implements IListaValorDetalle {
     }
 
     @Override
-    public boolean deleteListaValorDetalle(int id) {
+    public boolean deleteFaseProyecto(int id) {
         try {
 
-            dao.deleteListaValorDetalle(id);
+            dao.deleteFaseProyecto(id);
 
             return true;
 
@@ -60,9 +60,9 @@ public class ListaValorDetalleServices implements IListaValorDetalle {
     }
 
     @Override
-    public boolean updateListaValorDetalle(ListaValorDetalle listaValorDetalle) {
+    public boolean updateFaseProyecto(FaseProyecto faseProyecto) {
         try {
-            dao.updateListaValorDetalle(listaValorDetalle);
+            dao.updateFaseProyecto(faseProyecto);
             return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -71,10 +71,10 @@ public class ListaValorDetalleServices implements IListaValorDetalle {
     }
 
     @Override
-    public ArrayList<ListaValorDetalle> getAllListaValorDetalle() {
+    public ArrayList<FaseProyecto> getAllFaseProyectos() {
         try {
 
-            ArrayList<ListaValorDetalle> list = dao.getAllListaValorDetalle();
+            ArrayList<FaseProyecto> list = dao.getAllFaseProyectos();
 
             return list;
 
@@ -85,12 +85,12 @@ public class ListaValorDetalleServices implements IListaValorDetalle {
     }
 
     @Override
-    public ListaValorDetalle getListaValorDetalleById(int id) {
+    public FaseProyecto getFaseProyectoById(int id) {
         try {
 
-            ListaValorDetalle listaValorDetalle = dao.getListaValorDetalleById(id);
+            FaseProyecto faseProyecto = dao.getFaseProyectoById(id);
 
-            return listaValorDetalle;
+            return faseProyecto;
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

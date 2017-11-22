@@ -3,35 +3,34 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.uniajc.proyeccionsocial.logic.services;
+package edu.uniajc.proyeccionsocial.bussiness.services;
 
-import edu.uniajc.proyeccionsocial.interfaces.ITercero;
-import edu.uniajc.proyeccionSocial.DAO.TerceroDAO;
-
-import edu.uniajc.proyeccionSocial.Model.Tercero;
+import edu.uniajc.proyeccionsocial.interfaces.IProgramaServicio;
+import edu.uniajc.proyeccionSocial.DAO.ProgramaServicioDAO;
+import edu.uniajc.proyeccionSocial.Model.ProgramaServicio;
 import java.util.ArrayList;
 
 /**
  *
- * @author rlara
+ * @author luis.leon
  */
-public class TerceroServices implements ITercero {
+public class ProgramaServicioServices implements IProgramaServicio {
 
-    TerceroDAO dao;
+    ProgramaServicioDAO dao;
 
-    public TerceroServices() {
+    public ProgramaServicioServices() {
 
-        this.dao = new TerceroDAO();
+        this.dao = new ProgramaServicioDAO();
     }
 
     @Override
-    public int createTercero(Tercero tercero) {
+    public int createProgramaServicio(ProgramaServicio progServi) {
         try {
 
             // validacion de Data
-            if (tercero != null) {
+            if (progServi != null) {
 
-                int flag = dao.createTercero(tercero);
+                int flag = dao.createProgramaServicio(progServi);
 
                 return flag;
             } else {
@@ -46,10 +45,10 @@ public class TerceroServices implements ITercero {
     }
 
     @Override
-    public boolean deleteTercero(int id) {
+    public boolean deleteProgramaServicio(int id) {
         try {
 
-            dao.deleteTercero(id);
+            dao.deleteProgramaServicio(id);
 
             return true;
 
@@ -60,10 +59,13 @@ public class TerceroServices implements ITercero {
     }
 
     @Override
-    public boolean updateTercero(Tercero tercero) {
+    public boolean updateProgramaServicio(ProgramaServicio progServi) {
         try {
-            dao.updateTercero(tercero);
+
+            dao.updateProgramaServicio(progServi);
+
             return true;
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;
@@ -71,10 +73,10 @@ public class TerceroServices implements ITercero {
     }
 
     @Override
-    public ArrayList<Tercero> getAllTercero() {
+    public ArrayList<ProgramaServicio> getAllProgramaServicioByPrograma(int idPrograma) {
         try {
 
-            ArrayList<Tercero> list = dao.getAllTercero();
+            ArrayList<ProgramaServicio> list = dao.getAllProgramaServicioByPrograma(idPrograma);
 
             return list;
 
@@ -85,12 +87,12 @@ public class TerceroServices implements ITercero {
     }
 
     @Override
-    public Tercero getTerceroById(int id) {
+    public ProgramaServicio getProgramaServicioById(int id) {
         try {
 
-            Tercero tercero = dao.getTerceroById(id);
+            ProgramaServicio programaServicio = dao.getProgramaServicioById(id);
 
-            return tercero;
+            return programaServicio;
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.uniajc.proyeccionsocial.logic.services;
+package edu.uniajc.proyeccionsocial.bussiness.services;
 
-import edu.uniajc.proyeccionsocial.interfaces.IUsuario;
 import edu.uniajc.proyeccionSocial.DAO.UsuarioDao;
+import edu.uniajc.proyeccionsocial.interfaces.IUsuario;
+
 import edu.uniajc.proyeccionSocial.Model.Usuario;
 import java.util.ArrayList;
 
@@ -29,9 +30,9 @@ public class UsuarioServices implements IUsuario {
 
             // validacion de Data
             if (user != null) {
-
+                user.setUsuario(user.getUsuario().toLowerCase());
                 int flag = dao.createUsuario(user);
-
+ 
                 return flag;
             } else {
                 System.out.println("Faltan Datos en pantalla");
@@ -103,7 +104,7 @@ public class UsuarioServices implements IUsuario {
     @Override
     public Usuario getUsuarioLogin(String user, String password) {
        try {
-
+           
             Usuario usuario = dao.getUsuarioLogin(user.toLowerCase(), password);
 
             return usuario;

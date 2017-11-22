@@ -3,35 +3,35 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.uniajc.proyeccionsocial.logic.services;
+package edu.uniajc.proyeccionsocial.bussiness.services;
 
-import edu.uniajc.proyeccionsocial.interfaces.IUsuarioRol;
-import edu.uniajc.proyeccionSocial.DAO.UsuarioRolDAO;
+import edu.uniajc.proyeccionsocial.interfaces.IListaValorDetalle;
+import edu.uniajc.proyeccionSocial.DAO.ListaValorDetalleDAO;
 
-import edu.uniajc.proyeccionSocial.Model.UsuarioRol;
+import edu.uniajc.proyeccionSocial.Model.ListaValorDetalle;
 import java.util.ArrayList;
 
 /**
  *
  * @author rlara
  */
-public class UsuarioRolServices implements IUsuarioRol {
+public class ListaValorDetalleServices implements IListaValorDetalle {
 
-    UsuarioRolDAO dao;
+    ListaValorDetalleDAO dao;
 
-    public UsuarioRolServices() {
+    public ListaValorDetalleServices() {
 
-        this.dao = new UsuarioRolDAO();
+        this.dao = new ListaValorDetalleDAO();
     }
 
     @Override
-    public int createUsuarioRol(UsuarioRol usuarioRol) {
+    public int createListaValorDetalle(ListaValorDetalle listaValorDetalle) {
         try {
 
             // validacion de Data
-            if (usuarioRol != null) {
+            if (listaValorDetalle != null) {
 
-                int flag = dao.createUsuarioRol(usuarioRol);
+                int flag = dao.createListaValorDetalle(listaValorDetalle);
 
                 return flag;
             } else {
@@ -46,10 +46,10 @@ public class UsuarioRolServices implements IUsuarioRol {
     }
 
     @Override
-    public boolean deleteUsuarioRol(int id) {
+    public boolean deleteListaValorDetalle(int id) {
         try {
 
-            dao.deleteUsuarioRol(id);
+            dao.deleteListaValorDetalle(id);
 
             return true;
 
@@ -60,9 +60,9 @@ public class UsuarioRolServices implements IUsuarioRol {
     }
 
     @Override
-    public boolean updateUsuarioRol(UsuarioRol usuarioRol) {
+    public boolean updateListaValorDetalle(ListaValorDetalle listaValorDetalle) {
         try {
-            dao.updateUsuarioRol(usuarioRol);
+            dao.updateListaValorDetalle(listaValorDetalle);
             return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -71,10 +71,10 @@ public class UsuarioRolServices implements IUsuarioRol {
     }
 
     @Override
-    public ArrayList<UsuarioRol> getAllUsuarioRol() {
+    public ArrayList<ListaValorDetalle> getAllListaValorDetalle( int idValor) {
         try {
 
-            ArrayList<UsuarioRol> list = dao.getAllUsuarioRol();
+            ArrayList<ListaValorDetalle> list = dao.getAllListaValorDetalle(idValor);
 
             return list;
 
@@ -85,12 +85,12 @@ public class UsuarioRolServices implements IUsuarioRol {
     }
 
     @Override
-    public UsuarioRol getUsuarioRolById(int id) {
+    public ListaValorDetalle getListaValorDetalleById(int idValor) {
         try {
 
-            UsuarioRol usuarioRol = dao.getUsuarioRolById(id);
+            ListaValorDetalle listaValorDetalle = dao.getListaValorDetalleById(idValor);
 
-            return usuarioRol;
+            return listaValorDetalle;
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

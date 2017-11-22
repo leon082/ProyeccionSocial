@@ -27,6 +27,7 @@ public class Tercero {
     private Date creadoEn;
     private String modificadoPor;
     private Date modificadoEn;
+    private String correo;
 
     public int getId_Tercero() {
         return id_Tercero;
@@ -146,6 +147,14 @@ public class Tercero {
 
     public void setModificadoEn(Date modificadoEn) {
         this.modificadoEn = modificadoEn;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
     
     

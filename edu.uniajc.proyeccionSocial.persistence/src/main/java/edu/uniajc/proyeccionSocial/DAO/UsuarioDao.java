@@ -25,8 +25,8 @@ public class UsuarioDao {
     private Connection DBConnection = null;
 
     public UsuarioDao() {
-
-        this.DBConnection = new ConexionBD().conexion();
+        ConexionBD bd = new ConexionBD();
+        this.DBConnection =  bd.conexion();
     }
 
     public int createUsuario(Usuario user) {
@@ -181,7 +181,7 @@ public class UsuarioDao {
 
             PreparedStatement ps = null;
 
-            String SQL = "select * from TB_Usuario where lower(Usuario) =" + user + " and Passwprd ="+password+" ";
+            String SQL = "select * from TB_Usuario where Usuario =" + user + " and Passwprd ="+password+" ";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs != null) {

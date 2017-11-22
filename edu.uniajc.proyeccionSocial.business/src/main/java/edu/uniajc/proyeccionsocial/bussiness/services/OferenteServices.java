@@ -3,35 +3,34 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.uniajc.proyeccionsocial.logic.services;
+package edu.uniajc.proyeccionsocial.bussiness.services;
 
-import edu.uniajc.proyeccionsocial.interfaces.IFaseProyecto;
-import edu.uniajc.proyeccionSocial.DAO.FaseProyectoDAO;
-
-import edu.uniajc.proyeccionSocial.Model.FaseProyecto;
+import edu.uniajc.proyeccionsocial.interfaces.IOferente;
+import edu.uniajc.proyeccionSocial.DAO.OferenteDao;
+import edu.uniajc.proyeccionSocial.Model.Oferente;
 import java.util.ArrayList;
 
 /**
  *
  * @author luis.leon
  */
-public class FaseProyectoServices implements IFaseProyecto {
+public class OferenteServices implements IOferente {
 
-    FaseProyectoDAO dao;
+    OferenteDao dao;
 
-    public FaseProyectoServices() {
+    public OferenteServices() {
 
-        this.dao = new FaseProyectoDAO();
+        this.dao = new OferenteDao();
     }
 
     @Override
-    public int createFaseProyecto(FaseProyecto faseProyecto) {
+    public int createOferente(Oferente oferente) {
         try {
 
             // validacion de Data
-            if (faseProyecto != null) {
+            if (oferente != null) {
 
-                int flag = dao.createFaseProyecto(faseProyecto);
+                int flag = dao.createOferente(oferente);
 
                 return flag;
             } else {
@@ -46,10 +45,10 @@ public class FaseProyectoServices implements IFaseProyecto {
     }
 
     @Override
-    public boolean deleteFaseProyecto(int id) {
+    public boolean deleteOferente(int id) {
         try {
 
-            dao.deleteFaseProyecto(id);
+            dao.deleteOferente(id);
 
             return true;
 
@@ -60,10 +59,13 @@ public class FaseProyectoServices implements IFaseProyecto {
     }
 
     @Override
-    public boolean updateFaseProyecto(FaseProyecto faseProyecto) {
+    public boolean updateOferente(Oferente oferente) {
         try {
-            dao.updateFaseProyecto(faseProyecto);
+
+            dao.updateOferente(oferente);
+
             return true;
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;
@@ -71,10 +73,10 @@ public class FaseProyectoServices implements IFaseProyecto {
     }
 
     @Override
-    public ArrayList<FaseProyecto> getAllFaseProyectos() {
+    public ArrayList<Oferente> getAllOferentes() {
         try {
 
-            ArrayList<FaseProyecto> list = dao.getAllFaseProyectos();
+            ArrayList<Oferente> list = dao.getAllOferentes();
 
             return list;
 
@@ -85,12 +87,12 @@ public class FaseProyectoServices implements IFaseProyecto {
     }
 
     @Override
-    public FaseProyecto getFaseProyectoById(int id) {
+    public Oferente getOferenteById(int id) {
         try {
 
-            FaseProyecto faseProyecto = dao.getFaseProyectoById(id);
+            Oferente oferente = dao.getOferenteById(id);
 
-            return faseProyecto;
+            return oferente;
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

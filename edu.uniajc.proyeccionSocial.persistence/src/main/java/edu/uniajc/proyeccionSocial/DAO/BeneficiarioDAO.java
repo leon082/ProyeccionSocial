@@ -25,8 +25,8 @@ public class BeneficiarioDAO {
     private Connection DBConnection = null;
 
     public BeneficiarioDAO() {
-
-        this.DBConnection = new ConexionBD().conexion();
+  ConexionBD bd= new ConexionBD();
+        this.DBConnection = bd.conexion();
     }
 
     public int createBeneficiario(Beneficiario beneficiario) {

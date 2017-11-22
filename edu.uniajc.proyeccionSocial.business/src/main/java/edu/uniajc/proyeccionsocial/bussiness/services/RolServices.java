@@ -3,35 +3,34 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.uniajc.proyeccionsocial.logic.services;
+package edu.uniajc.proyeccionsocial.bussiness.services;
 
-import edu.uniajc.proyeccionsocial.interfaces.IPrograma;
-import edu.uniajc.proyeccionSocial.DAO.ProgramaDAO;
-
-import edu.uniajc.proyeccionSocial.Model.Programa;
+import edu.uniajc.proyeccionsocial.interfaces.IRol;
+import edu.uniajc.proyeccionSocial.DAO.RolDao;
+import edu.uniajc.proyeccionSocial.Model.Rol;
 import java.util.ArrayList;
 
 /**
  *
- * @author rlara
+ * @author luis.leon
  */
-public class ProgramaServices implements IPrograma {
+public class RolServices implements IRol {
 
-    ProgramaDAO dao;
+    RolDao dao;
 
-    public ProgramaServices() {
+    public RolServices() {
 
-        this.dao = new ProgramaDAO();
+        this.dao = new RolDao();
     }
 
     @Override
-    public int createPrograma(Programa programa) {
+    public int createRol(Rol rol) {
         try {
 
             // validacion de Data
-            if (programa != null) {
+            if (rol != null) {
 
-                int flag = dao.createPrograma(programa);
+                int flag = dao.createRol(rol);
 
                 return flag;
             } else {
@@ -46,10 +45,10 @@ public class ProgramaServices implements IPrograma {
     }
 
     @Override
-    public boolean deletePrograma(int id) {
+    public boolean deleteRol(int id) {
         try {
 
-            dao.deletePrograma(id);
+            dao.deleteRol(id);
 
             return true;
 
@@ -60,10 +59,13 @@ public class ProgramaServices implements IPrograma {
     }
 
     @Override
-    public boolean updatePrograma(Programa programa) {
+    public boolean updateRol(Rol rol) {
         try {
-            dao.updatePrograma(programa);
+
+            dao.updateRol(rol);
+
             return true;
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;
@@ -71,10 +73,10 @@ public class ProgramaServices implements IPrograma {
     }
 
     @Override
-    public ArrayList<Programa> getAllPrograma() {
+    public ArrayList<Rol> getAllRol() {
         try {
 
-            ArrayList<Programa> list = dao.getAllPrograma();
+            ArrayList<Rol> list = dao.getAllRol();
 
             return list;
 
@@ -85,12 +87,12 @@ public class ProgramaServices implements IPrograma {
     }
 
     @Override
-    public Programa getProgramaById(int id) {
+    public Rol getRolById(int id) {
         try {
 
-            Programa programa = dao.getProgramaById(id);
+            Rol rol = dao.getRolById(id);
 
-            return programa;
+            return rol;
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

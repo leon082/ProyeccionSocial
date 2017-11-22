@@ -3,35 +3,35 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.uniajc.proyeccionsocial.logic.services;
+package edu.uniajc.proyeccionsocial.bussiness.services;
 
-import edu.uniajc.proyeccionsocial.interfaces.IProyecto;
+import edu.uniajc.proyeccionsocial.interfaces.IFase;
+import edu.uniajc.proyeccionSocial.DAO.FaseDAO;
 
-import edu.uniajc.proyeccionSocial.DAO.ProyectoDao;
-import edu.uniajc.proyeccionSocial.Model.Proyecto;
+import edu.uniajc.proyeccionSocial.Model.Fase;
 import java.util.ArrayList;
 
 /**
- * @author Fabian Castro - IRIS 15/05/2017 Nombre Clase:ProyectoServices
- * Descripcion: logica de la clase proyecto
+ *
+ * @author rlara
  */
-public class ProyectoServices implements IProyecto {
+public class FaseServices implements IFase {
 
-    ProyectoDao dao;
+    FaseDAO dao;
 
-    public ProyectoServices() {
+    public FaseServices() {
 
-        this.dao = new ProyectoDao();
+        this.dao = new FaseDAO();
     }
 
     @Override
-    public int createProyecto(Proyecto proyecto) {
+    public int createFase(Fase fase) {
         try {
 
             // validacion de Data
-            if (proyecto != null) {
+            if (fase != null) {
 
-                int flag = dao.createProyecto(proyecto);
+                int flag = dao.createFase(fase);
 
                 return flag;
             } else {
@@ -46,10 +46,10 @@ public class ProyectoServices implements IProyecto {
     }
 
     @Override
-    public boolean deleteProyecto(int ID) {
+    public boolean deleteFase(int id) {
         try {
 
-            dao.deleteProyecto(ID);
+            dao.deleteFase(id);
 
             return true;
 
@@ -60,13 +60,10 @@ public class ProyectoServices implements IProyecto {
     }
 
     @Override
-    public boolean updateProyecto(Proyecto proyecto) {
+    public boolean updateFase(Fase fase) {
         try {
-
-            dao.updateProyecto(proyecto);
-
+            dao.updateFase(fase);
             return true;
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;
@@ -74,12 +71,26 @@ public class ProyectoServices implements IProyecto {
     }
 
     @Override
-    public ArrayList<Proyecto> getAllProyectos() {
+    public ArrayList<Fase> getAllFase() {
         try {
 
-            ArrayList<Proyecto> list = dao.getAllProyectos();
+            ArrayList<Fase> list = dao.getAllFase();
 
             return list;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public Fase getFaseById(int id) {
+        try {
+
+            Fase fase = dao.getFaseById(id);
+
+            return fase;
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

@@ -3,34 +3,35 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.uniajc.proyeccionsocial.logic.services;
+package edu.uniajc.proyeccionsocial.bussiness.services;
 
-import edu.uniajc.proyeccionsocial.interfaces.IProgramaServicio;
-import edu.uniajc.proyeccionSocial.DAO.ProgramaServicioDAO;
-import edu.uniajc.proyeccionSocial.Model.ProgramaServicio;
+import edu.uniajc.proyeccionsocial.interfaces.IUsuarioRol;
+import edu.uniajc.proyeccionSocial.DAO.UsuarioRolDAO;
+
+import edu.uniajc.proyeccionSocial.Model.UsuarioRol;
 import java.util.ArrayList;
 
 /**
  *
- * @author luis.leon
+ * @author rlara
  */
-public class ProgramaServicioServices implements IProgramaServicio {
+public class UsuarioRolServices implements IUsuarioRol {
 
-    ProgramaServicioDAO dao;
+    UsuarioRolDAO dao;
 
-    public ProgramaServicioServices() {
+    public UsuarioRolServices() {
 
-        this.dao = new ProgramaServicioDAO();
+        this.dao = new UsuarioRolDAO();
     }
 
     @Override
-    public int createProgramaServicio(ProgramaServicio progServi) {
+    public int createUsuarioRol(UsuarioRol usuarioRol) {
         try {
 
             // validacion de Data
-            if (progServi != null) {
+            if (usuarioRol != null) {
 
-                int flag = dao.createProgramaServicio(progServi);
+                int flag = dao.createUsuarioRol(usuarioRol);
 
                 return flag;
             } else {
@@ -45,10 +46,10 @@ public class ProgramaServicioServices implements IProgramaServicio {
     }
 
     @Override
-    public boolean deleteProgramaServicio(int id) {
+    public boolean deleteUsuarioRol(int id) {
         try {
 
-            dao.deleteProgramaServicio(id);
+            dao.deleteUsuarioRol(id);
 
             return true;
 
@@ -59,13 +60,10 @@ public class ProgramaServicioServices implements IProgramaServicio {
     }
 
     @Override
-    public boolean updateProgramaServicio(ProgramaServicio progServi) {
+    public boolean updateUsuarioRol(UsuarioRol usuarioRol) {
         try {
-
-            dao.updateProgramaServicio(progServi);
-
+            dao.updateUsuarioRol(usuarioRol);
             return true;
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;
@@ -73,10 +71,10 @@ public class ProgramaServicioServices implements IProgramaServicio {
     }
 
     @Override
-    public ArrayList<ProgramaServicio> getAllProgramaServicioByPrograma(int idPrograma) {
+    public ArrayList<UsuarioRol> getAllUsuarioRol() {
         try {
 
-            ArrayList<ProgramaServicio> list = dao.getAllProgramaServicioByPrograma(idPrograma);
+            ArrayList<UsuarioRol> list = dao.getAllUsuarioRol();
 
             return list;
 
@@ -87,12 +85,12 @@ public class ProgramaServicioServices implements IProgramaServicio {
     }
 
     @Override
-    public ProgramaServicio getProgramaServicioById(int id) {
+    public UsuarioRol getUsuarioRolById(int id) {
         try {
 
-            ProgramaServicio programaServicio = dao.getProgramaServicioById(id);
+            UsuarioRol usuarioRol = dao.getUsuarioRolById(id);
 
-            return programaServicio;
+            return usuarioRol;
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

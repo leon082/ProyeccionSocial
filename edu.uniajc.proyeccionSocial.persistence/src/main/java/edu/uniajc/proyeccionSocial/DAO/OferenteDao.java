@@ -25,8 +25,8 @@ public class OferenteDao {
     private Connection DBConnection = null;
 
     public OferenteDao() {
-
-        this.DBConnection = new ConexionBD().conexion();
+  ConexionBD bd= new ConexionBD();
+        this.DBConnection = bd.conexion();
     }
 
     public int createOferente(Oferente oferente) {

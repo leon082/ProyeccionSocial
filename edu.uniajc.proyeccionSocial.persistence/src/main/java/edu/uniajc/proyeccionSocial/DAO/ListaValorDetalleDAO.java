@@ -25,8 +25,8 @@ public class ListaValorDetalleDAO {
     private Connection DBConnection = null;
 
     public ListaValorDetalleDAO() {
-        
-        this.DBConnection = new ConexionBD().conexion();
+          ConexionBD bd= new ConexionBD();
+        this.DBConnection = bd.conexion();
     }
     
     public int createListaValorDetalle(ListaValorDetalle listaValorDetalle) {
@@ -123,13 +123,13 @@ public class ListaValorDetalleDAO {
 
     }
 
-    public ArrayList<ListaValorDetalle> getAllListaValorDetalle() {
+    public ArrayList<ListaValorDetalle> getAllListaValorDetalle(int idValor) {
         ArrayList<ListaValorDetalle> list = new ArrayList<>(0);
         try {
 
             PreparedStatement ps = null;
 
-            final String SQL = "SELECT * from TB_ListaValorDetalle";
+            final String SQL = "SELECT * from TB_ListaValorDetalle where ID_ListaValor =" + idValor + " ";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

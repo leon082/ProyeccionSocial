@@ -3,35 +3,35 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.uniajc.proyeccionsocial.logic.services;
+package edu.uniajc.proyeccionsocial.bussiness.services;
 
-import edu.uniajc.proyeccionsocial.interfaces.IBeneficiario;
-import edu.uniajc.proyeccionSocial.DAO.BeneficiarioDAO;
+import edu.uniajc.proyeccionsocial.interfaces.IPrograma;
+import edu.uniajc.proyeccionSocial.DAO.ProgramaDAO;
 
-import edu.uniajc.proyeccionSocial.Model.Beneficiario;
+import edu.uniajc.proyeccionSocial.Model.Programa;
 import java.util.ArrayList;
 
 /**
  *
  * @author rlara
  */
-public class BeneficiarioServices implements IBeneficiario {
+public class ProgramaServices implements IPrograma {
 
-    BeneficiarioDAO dao;
+    ProgramaDAO dao;
 
-    public BeneficiarioServices() {
+    public ProgramaServices() {
 
-        this.dao = new BeneficiarioDAO();
+        this.dao = new ProgramaDAO();
     }
 
     @Override
-    public int createBeneficiario(Beneficiario beneficiario) {
+    public int createPrograma(Programa programa) {
         try {
 
             // validacion de Data
-            if (beneficiario != null) {
+            if (programa != null) {
 
-                int flag = dao.createBeneficiario(beneficiario);
+                int flag = dao.createPrograma(programa);
 
                 return flag;
             } else {
@@ -46,10 +46,10 @@ public class BeneficiarioServices implements IBeneficiario {
     }
 
     @Override
-    public boolean deleteBeneficiario(int id) {
+    public boolean deletePrograma(int id) {
         try {
 
-            dao.deleteBeneficiario(id);
+            dao.deletePrograma(id);
 
             return true;
 
@@ -60,9 +60,9 @@ public class BeneficiarioServices implements IBeneficiario {
     }
 
     @Override
-    public boolean updateBeneficiario(Beneficiario beneficiario) {
+    public boolean updatePrograma(Programa programa) {
         try {
-            dao.updateBeneficiario(beneficiario);
+            dao.updatePrograma(programa);
             return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -71,10 +71,10 @@ public class BeneficiarioServices implements IBeneficiario {
     }
 
     @Override
-    public ArrayList<Beneficiario> getAllBeneficiario() {
+    public ArrayList<Programa> getAllPrograma() {
         try {
 
-            ArrayList<Beneficiario> list = dao.getAllBeneficiario();
+            ArrayList<Programa> list = dao.getAllPrograma();
 
             return list;
 
@@ -85,12 +85,12 @@ public class BeneficiarioServices implements IBeneficiario {
     }
 
     @Override
-    public Beneficiario getBeneficiarioById(int id) {
+    public Programa getProgramaById(int id) {
         try {
 
-            Beneficiario beneficiario = dao.getBeneficiarioById(id);
+            Programa programa = dao.getProgramaById(id);
 
-            return beneficiario;
+            return programa;
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

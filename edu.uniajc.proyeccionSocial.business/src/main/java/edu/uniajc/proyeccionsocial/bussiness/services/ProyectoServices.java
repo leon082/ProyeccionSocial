@@ -3,34 +3,35 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.uniajc.proyeccionsocial.logic.services;
+package edu.uniajc.proyeccionsocial.bussiness.services;
 
-import edu.uniajc.proyeccionsocial.interfaces.IRol;
-import edu.uniajc.proyeccionSocial.DAO.RolDao;
-import edu.uniajc.proyeccionSocial.Model.Rol;
+import edu.uniajc.proyeccionsocial.interfaces.IProyecto;
+
+import edu.uniajc.proyeccionSocial.DAO.ProyectoDao;
+import edu.uniajc.proyeccionSocial.Model.Proyecto;
 import java.util.ArrayList;
 
 /**
- *
- * @author luis.leon
+ * @author Fabian Castro - IRIS 15/05/2017 Nombre Clase:ProyectoServices
+ * Descripcion: logica de la clase proyecto
  */
-public class RolServices implements IRol {
+public class ProyectoServices implements IProyecto {
 
-    RolDao dao;
+    ProyectoDao dao;
 
-    public RolServices() {
+    public ProyectoServices() {
 
-        this.dao = new RolDao();
+        this.dao = new ProyectoDao();
     }
 
     @Override
-    public int createRol(Rol rol) {
+    public int createProyecto(Proyecto proyecto) {
         try {
 
             // validacion de Data
-            if (rol != null) {
+            if (proyecto != null) {
 
-                int flag = dao.createRol(rol);
+                int flag = dao.createProyecto(proyecto);
 
                 return flag;
             } else {
@@ -45,10 +46,10 @@ public class RolServices implements IRol {
     }
 
     @Override
-    public boolean deleteRol(int id) {
+    public boolean deleteProyecto(int ID) {
         try {
 
-            dao.deleteRol(id);
+            dao.deleteProyecto(ID);
 
             return true;
 
@@ -59,10 +60,10 @@ public class RolServices implements IRol {
     }
 
     @Override
-    public boolean updateRol(Rol rol) {
+    public boolean updateProyecto(Proyecto proyecto) {
         try {
 
-            dao.updateRol(rol);
+            dao.updateProyecto(proyecto);
 
             return true;
 
@@ -73,26 +74,12 @@ public class RolServices implements IRol {
     }
 
     @Override
-    public ArrayList<Rol> getAllRol() {
+    public ArrayList<Proyecto> getAllProyectos() {
         try {
 
-            ArrayList<Rol> list = dao.getAllRol();
+            ArrayList<Proyecto> list = dao.getAllProyectos();
 
             return list;
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
-    }
-
-    @Override
-    public Rol getRolById(int id) {
-        try {
-
-            Rol rol = dao.getRolById(id);
-
-            return rol;
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

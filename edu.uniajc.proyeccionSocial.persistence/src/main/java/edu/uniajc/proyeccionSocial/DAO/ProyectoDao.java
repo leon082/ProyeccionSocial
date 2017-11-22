@@ -25,8 +25,8 @@ public class ProyectoDao {
     private Connection DBConnection = null;
 
     public ProyectoDao() {
-
-        this.DBConnection = new ConexionBD().conexion();
+  ConexionBD bd= new ConexionBD();
+        this.DBConnection =  bd.conexion();
     }
 
     public int createProyecto(Proyecto proyecto) {

@@ -25,8 +25,8 @@ public class FaseProyectoDAO {
     private Connection DBConnection = null;
 
     public FaseProyectoDAO() {
-
-        this.DBConnection = new ConexionBD().conexion();
+  ConexionBD bd= new ConexionBD();
+        this.DBConnection = bd.conexion();
     }
 
     public int createFaseProyecto(FaseProyecto faseProyecto) {

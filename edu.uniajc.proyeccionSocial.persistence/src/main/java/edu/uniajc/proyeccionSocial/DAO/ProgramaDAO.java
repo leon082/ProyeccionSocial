@@ -25,8 +25,8 @@ public class ProgramaDAO {
     private Connection DBConnection = null;
 
     public ProgramaDAO() {
-        
-        this.DBConnection = new ConexionBD().conexion();
+          ConexionBD bd= new ConexionBD();
+        this.DBConnection = bd.conexion();
     }
     
     public int createPrograma(Programa programa) {

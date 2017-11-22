@@ -5,15 +5,14 @@
  */
 package edu.uniajc.proyeccionSocial.bean;
 
+
 import edu.uniajc.proyeccionSocial.Model.Usuario;
 import edu.uniajc.proyeccionSocial.view.util.SessionUtils;
-import edu.uniajc.proyeccionSocial.view.util.Utilidades;
-import edu.uniajc.proyeccionsocial.logic.services.UsuarioServices;
+import edu.uniajc.proyeccionsocial.bussiness.services.UsuarioServices;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-
 import java.io.Serializable;
-import java.security.NoSuchAlgorithmException;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
@@ -28,30 +27,20 @@ public class LoginBean implements Serializable {
 
     private String nombre;
     private String clave;
-    private UsuarioServices usuarioServices;
-    private Utilidades util;
-    private Usuario user;
+    private UsuarioServices usuarioServices;    
+    private Usuario user;    
     // private boolean logeado = false;
 
     /*  public boolean estaLogeado() {
         return logeado;
     }*/
-    public String getNombre() {
-        return nombre;
+   @PostConstruct
+    public void init(){
+        
+        usuarioServices = new UsuarioServices();
+        
     }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getClave() {
-        return clave;
-    }
-
-    public void setClave(String clave) {
-        this.clave = clave;
-    }
-
+   
     public String login() {
 
         if (nombre != null && nombre.equals("admin") && clave != null
@@ -98,6 +87,37 @@ public class LoginBean implements Serializable {
         HttpSession session = SessionUtils.getSession();
         session.invalidate();
         return "login.xhtml";
+    }
+    
+     public String registrar() {
+         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Saludo", "Formualrio de Registro");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+
+        return "registrar.xhtml";
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+     public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getClave() {
+        return clave;
+    }
+
+    public void setClave(String clave) {
+        this.clave = clave;
     }
 
 }

@@ -6,7 +6,7 @@
 package edu.uniajc.services.test;
 
 import edu.uniajc.proyeccionsocial.interfaces.IRol;
-import edu.uniajc.proyeccionsocial.logic.services.RolServices;
+import edu.uniajc.proyeccionsocial.bussiness.services.RolServices;
 import edu.uniajc.proyeccionSocial.Model.Rol;
 import junit.framework.TestCase;
 import static junit.framework.TestCase.assertNotNull;

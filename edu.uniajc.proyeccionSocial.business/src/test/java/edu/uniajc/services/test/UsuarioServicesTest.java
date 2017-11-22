@@ -6,7 +6,7 @@
 package edu.uniajc.services.test;
 
 import edu.uniajc.proyeccionsocial.interfaces.IUsuario;
-import edu.uniajc.proyeccionsocial.logic.services.UsuarioServices;
+import edu.uniajc.proyeccionsocial.bussiness.services.UsuarioServices;
 import edu.uniajc.proyeccionSocial.Model.Usuario;
 import junit.framework.TestCase;
 import static junit.framework.TestCase.assertNotNull;

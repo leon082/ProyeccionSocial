@@ -3,34 +3,35 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.uniajc.proyeccionsocial.logic.services;
+package edu.uniajc.proyeccionsocial.bussiness.services;
 
-import edu.uniajc.proyeccionsocial.interfaces.IListaValor;
-import edu.uniajc.proyeccionSocial.DAO.ListaValorDao;
-import edu.uniajc.proyeccionSocial.Model.ListaValor;
+import edu.uniajc.proyeccionsocial.interfaces.ITercero;
+import edu.uniajc.proyeccionSocial.DAO.TerceroDAO;
+
+import edu.uniajc.proyeccionSocial.Model.Tercero;
 import java.util.ArrayList;
 
 /**
  *
- * @author luis.leon
+ * @author rlara
  */
-public class ListaValorServices implements IListaValor {
+public class TerceroServices implements ITercero {
 
-    ListaValorDao dao;
+    TerceroDAO dao;
 
-    public ListaValorServices() {
+    public TerceroServices() {
 
-        this.dao = new ListaValorDao();
+        this.dao = new TerceroDAO();
     }
 
     @Override
-    public int createListaValor(ListaValor listaValor) {
+    public int createTercero(Tercero tercero) {
         try {
 
             // validacion de Data
-            if (listaValor != null) {
-
-                int flag = dao.createListaValor(listaValor);
+            if (tercero != null) {
+                tercero.setCorreo(tercero.getCorreo().toLowerCase());
+                int flag = dao.createTercero(tercero);
 
                 return flag;
             } else {
@@ -45,10 +46,10 @@ public class ListaValorServices implements IListaValor {
     }
 
     @Override
-    public boolean deleteListaValor(int id) {
+    public boolean deleteTercero(int id) {
         try {
 
-            dao.deleteListaValor(id);
+            dao.deleteTercero(id);
 
             return true;
 
@@ -59,13 +60,11 @@ public class ListaValorServices implements IListaValor {
     }
 
     @Override
-    public boolean updateListaValor(ListaValor listaValor) {
+    public boolean updateTercero(Tercero tercero) {
         try {
-
-            dao.updateListaValor(listaValor);
-
+            tercero.setCorreo(tercero.getCorreo().toLowerCase());
+            dao.updateTercero(tercero);
             return true;
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;
@@ -73,10 +72,10 @@ public class ListaValorServices implements IListaValor {
     }
 
     @Override
-    public ArrayList<ListaValor> getAllListaValor() {
+    public ArrayList<Tercero> getAllTercero() {
         try {
 
-            ArrayList<ListaValor> list = dao.getAllListaValor();
+            ArrayList<Tercero> list = dao.getAllTercero();
 
             return list;
 
@@ -87,13 +86,12 @@ public class ListaValorServices implements IListaValor {
     }
 
     @Override
-    public ListaValor getListaValorById(int id) {
-
+    public Tercero getTerceroById(int id) {
         try {
 
-            ListaValor listaValor = dao.getListaValorById(id);
+            Tercero tercero = dao.getTerceroById(id);
 
-            return listaValor;
+            return tercero;
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

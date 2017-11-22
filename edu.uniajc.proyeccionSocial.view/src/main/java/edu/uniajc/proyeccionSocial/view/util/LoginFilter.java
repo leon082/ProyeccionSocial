@@ -5,7 +5,6 @@
  */
 package edu.uniajc.proyeccionSocial.view.util;
 
-import edu.uniajc.proyeccionSocial.bean.LoginBean;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -144,7 +143,8 @@ public class LoginFilter implements Filter {
 			HttpSession ses = reqt.getSession(false);
 
 			String reqURI = reqt.getRequestURI();
-			if (reqURI.indexOf("/login.xhtml") >= 0
+			if (reqURI.indexOf("/login.xhtml") >= 0 
+                                || reqURI.indexOf("/registrar.xhtml") >= 0 
 					|| (ses != null && ses.getAttribute("username") != null)
 					|| reqURI.indexOf("/public/") >= 0
 					|| reqURI.contains("javax.faces.resource"))

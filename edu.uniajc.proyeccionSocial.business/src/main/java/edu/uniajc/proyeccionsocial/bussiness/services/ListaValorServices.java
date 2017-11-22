@@ -3,34 +3,34 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.uniajc.proyeccionsocial.logic.services;
+package edu.uniajc.proyeccionsocial.bussiness.services;
 
-import edu.uniajc.proyeccionsocial.interfaces.IOferente;
-import edu.uniajc.proyeccionSocial.DAO.OferenteDao;
-import edu.uniajc.proyeccionSocial.Model.Oferente;
+import edu.uniajc.proyeccionsocial.interfaces.IListaValor;
+import edu.uniajc.proyeccionSocial.DAO.ListaValorDao;
+import edu.uniajc.proyeccionSocial.Model.ListaValor;
 import java.util.ArrayList;
 
 /**
  *
  * @author luis.leon
  */
-public class OferenteServices implements IOferente {
+public class ListaValorServices implements IListaValor {
 
-    OferenteDao dao;
+    ListaValorDao dao;
 
-    public OferenteServices() {
+    public ListaValorServices() {
 
-        this.dao = new OferenteDao();
+        this.dao = new ListaValorDao();
     }
 
     @Override
-    public int createOferente(Oferente oferente) {
+    public int createListaValor(ListaValor listaValor) {
         try {
 
             // validacion de Data
-            if (oferente != null) {
+            if (listaValor != null) {
 
-                int flag = dao.createOferente(oferente);
+                int flag = dao.createListaValor(listaValor);
 
                 return flag;
             } else {
@@ -45,10 +45,10 @@ public class OferenteServices implements IOferente {
     }
 
     @Override
-    public boolean deleteOferente(int id) {
+    public boolean deleteListaValor(int id) {
         try {
 
-            dao.deleteOferente(id);
+            dao.deleteListaValor(id);
 
             return true;
 
@@ -59,10 +59,10 @@ public class OferenteServices implements IOferente {
     }
 
     @Override
-    public boolean updateOferente(Oferente oferente) {
+    public boolean updateListaValor(ListaValor listaValor) {
         try {
 
-            dao.updateOferente(oferente);
+            dao.updateListaValor(listaValor);
 
             return true;
 
@@ -73,10 +73,10 @@ public class OferenteServices implements IOferente {
     }
 
     @Override
-    public ArrayList<Oferente> getAllOferentes() {
+    public ArrayList<ListaValor> getAllListaValor() {
         try {
 
-            ArrayList<Oferente> list = dao.getAllOferentes();
+            ArrayList<ListaValor> list = dao.getAllListaValor();
 
             return list;
 
@@ -87,12 +87,13 @@ public class OferenteServices implements IOferente {
     }
 
     @Override
-    public Oferente getOferenteById(int id) {
+    public ListaValor getListaValorById(int id) {
+
         try {
 
-            Oferente oferente = dao.getOferenteById(id);
+            ListaValor listaValor = dao.getListaValorById(id);
 
-            return oferente;
+            return listaValor;
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

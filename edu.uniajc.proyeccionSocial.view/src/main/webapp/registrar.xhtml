@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <link href="CSS/login.css" rel="stylesheet" type="text/css"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="css/default.css"/>
+        <h:outputStylesheet name="css/cssLayout.css"/>
+        <title>Proyeccion Social</title>
+    </h:head>
+
+    <h:body>
+        <p:growl id="mensajes" showDetail="true" life="2000" />
+        <div id="divGeneral">
+            <div id="top">
+                <div id="logo">                  
+                    <p:graphicImage value="resources/image/LOGO CAMACHO.png"/>                  
+                </div>
+                <div id="logotipo">
+                    <h1> <center>Registrar Usuario</center></h1>
+                </div>
+                <div>
+                    <h:form>
+
+                        <h:panelGrid columns="1">
+                            <p:spacer height="50"></p:spacer>
+                            <p:panel  style="width:300px" class = "panelGridCenter">
+                                <p:tab title ="Datos Usuario">
+                                    <h:panelGrid columns="2" cellpadding="5">
+
+                                        <p:outputLabel for="add_1" value="Tipo de Documento :" />
+                                        <p:selectOneMenu  id="add_1" value="#{registrarBean.docuSelected}" required="true" requiredMessage="Campo requerido" >  
+                                            <f:selectItem itemLabel="Seleccione" itemValue="" />  
+                                            <f:selectItems value="#{registrarBean.itemsDocumentos}"/>  
+                                        </p:selectOneMenu> 
+
+
+                                        <p:outputLabel for="doc" value="Documento:" />
+                                        <p:inputMask id="doc" value="#{registrarBean.tercero.numIdentificacion}" mask="999999999" required="true" requiredMessage="Campo requerido"/>
+
+                                        <p:outputLabel for="pNombre" value="Primer Nombre:" />
+                                        <p:inputText id="pNombre" value="#{registrarBean.tercero.primerNombre}" required="true" requiredMessage="Campo requerido"/>
+
+                                        <p:outputLabel for="sNombre" value="Segundo Nombre:" />
+                                        <p:inputText id="sNombre" value="#{registrarBean.tercero.segundoNombre}"  />
+
+                                        <p:outputLabel for="pApellido" value="Primer Apellido:" />
+                                        <p:inputText id="pApellido" value="#{registrarBean.tercero.primerApellido}" required="true" requiredMessage="Campo requerido"/>
+
+                                        <p:outputLabel for="sApellido" value="Segundo Apellido:" />
+                                        <p:inputText id="sApellido" value="#{registrarBean.tercero.segundoApellido}" />
+
+                                        <p:outputLabel for="fechaNacimiento" value="Fecha Nacimiento:" />
+                                        <p:calendar id="fechaNacimiento" value="#{registrarBean.tercero.fechaNacimiento}" showOn="button" required="true" requiredMessage="Campo requerido" />
+
+
+                                        <p:outputLabel for="phoneFijo" value="Telefono:" />
+                                        <p:inputMask id="phoneFijo" value="#{registrarBean.tercero.telefonoFijo}" mask="9999999" />
+
+
+                                        <p:outputLabel for="phoneCel" value="Telefono Celular" />
+                                        <p:inputMask id="phoneCel" value="#{registrarBean.tercero.telefonoCelular}" mask="(999) 999-9999"/>
+
+                                        <p:outputLabel for="correo" value="Correo Electronico:" />
+                                        <p:inputText id="correo" value="#{registrarBean.tercero.correo}" required="true" requiredMessage="Campo requerido"/>
+
+
+                                    </h:panelGrid>
+                                     <p:separator />
+                            
+                            <p:commandButton 
+                                value="Registrar" action="#{registrarBean.actionButon()}"/>
+                                </p:tab>
+                            </p:panel>
+                        </h:panelGrid>
+                    </h:form>
+                </div>
+                <div style="clear:both;"></div>
+            </div>
+            <div id="content" class="center_content">
+                <ui:insert name="content">Content</ui:insert>
+            </div>
+            <div id="bottom">
+                <h2>&copy; 2017 - IRIS (UNIAJC)</h2>
+            </div>
+        </div>
+    </h:body>
+
+</html>

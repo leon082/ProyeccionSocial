@@ -6,7 +6,7 @@
 package edu.uniajc.services.test;
 
 import edu.uniajc.proyeccionsocial.interfaces.IFaseProyecto;
-import edu.uniajc.proyeccionsocial.logic.services.FaseProyectoServices;
+import edu.uniajc.proyeccionsocial.bussiness.services.FaseProyectoServices;
 
 import edu.uniajc.proyeccionSocial.Model.FaseProyecto;
 

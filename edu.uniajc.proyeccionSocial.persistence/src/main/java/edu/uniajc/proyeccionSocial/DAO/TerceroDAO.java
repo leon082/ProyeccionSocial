@@ -25,8 +25,8 @@ public class TerceroDAO {
     private Connection DBConnection = null;
 
     public TerceroDAO() {
-        
-        this.DBConnection = new ConexionBD().conexion();
+          ConexionBD bd= new ConexionBD();
+        this.DBConnection = bd.conexion();
     }
     
     public int createTercero(Tercero tercero) {
@@ -51,7 +51,7 @@ public class TerceroDAO {
                     + "(ID_Tercero, ID_LV_TipoIdentificacion, NumIdentificacion, "
                     + "PrimerNombre, SegundoNombre, PrimerApellido, SegundoApellido, "
                     + "FechaNacimiento, TelefonoFijo, TelefonoCelular, EstadoTercero, "
-                    + "CreadoPor, CreadoEn) values(?,?,?,?,?,?,?,?,?,?,?,?,?) ";
+                    + "CreadoPor, CreadoEn,Correo) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
             ps = this.DBConnection.prepareStatement(SQL);
             
             ps.setInt(1, tercero.getId_Tercero());
@@ -67,6 +67,7 @@ public class TerceroDAO {
             ps.setInt(11, tercero.getEstadoTercero());
             ps.setString(12, tercero.getCreadoPor());
             ps.setDate(13, tercero.getCreadoEn());
+            ps.setString(14, tercero.getCorreo());
             ps.execute();
 
             ps.close();
@@ -112,7 +113,7 @@ public class TerceroDAO {
                     + "ID_LV_TipoIdentificacion=?, NumIdentificacion=?, "
                     + "PrimerNombre=?, SegundoNombre=?, PrimerApellido=?, SegundoApellido=?, "
                     + "FechaNacimiento=?, TelefonoFijo=?, TelefonoCelular=?, EstadoTercero=?, "
-                    + "ModificadoPor=?, ModificadoEn=? where ID_Tercero = ?";
+                    + "ModificadoPor=?, ModificadoEn=? , correo =? where ID_Tercero = ?";
             ps = this.DBConnection.prepareStatement(SQL);
             
             ps.setInt(1, tercero.getId_LV_TipoIdentificacion());
@@ -127,7 +128,8 @@ public class TerceroDAO {
             ps.setInt(10, tercero.getEstadoTercero());
             ps.setString(11, tercero.getModificadoPor());
             ps.setDate(12, tercero.getModificadoEn());
-            ps.setInt(13, tercero.getId_Tercero());
+            ps.setString(13, tercero.getCorreo());
+            ps.setInt(14, tercero.getId_Tercero());
             ps.execute();
             ps.close();
             
@@ -167,6 +169,7 @@ public class TerceroDAO {
                 tercero.setModificadoPor(rs.getString("ModificadoPor"));
                 tercero.setCreadoEn(rs.getDate("CreadoEn"));
                 tercero.setModificadoEn(rs.getDate("ModificadoEn"));
+                tercero.setCorreo(rs.getString("Correo"));
 
                 list.add(tercero);
             }
@@ -209,6 +212,7 @@ public class TerceroDAO {
                 tercero.setModificadoPor(rs.getString("ModificadoPor"));
                 tercero.setCreadoEn(rs.getDate("CreadoEn"));
                 tercero.setModificadoEn(rs.getDate("ModificadoEn"));
+                tercero.setCorreo(rs.getString("Correo"));
 
             }
             ps.close();

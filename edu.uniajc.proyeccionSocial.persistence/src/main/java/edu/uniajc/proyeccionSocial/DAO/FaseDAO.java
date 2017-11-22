@@ -25,8 +25,8 @@ public class FaseDAO {
     private Connection DBConnection = null;
 
     public FaseDAO() {
-        
-        this.DBConnection = new ConexionBD().conexion();
+          ConexionBD bd= new ConexionBD();
+        this.DBConnection = bd.conexion();
     }
     
     public int createFase(Fase fase) {

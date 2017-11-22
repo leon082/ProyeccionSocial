@@ -3,35 +3,35 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.uniajc.proyeccionsocial.logic.services;
+package edu.uniajc.proyeccionsocial.bussiness.services;
 
-import edu.uniajc.proyeccionsocial.interfaces.IFase;
-import edu.uniajc.proyeccionSocial.DAO.FaseDAO;
+import edu.uniajc.proyeccionsocial.interfaces.IBeneficiario;
+import edu.uniajc.proyeccionSocial.DAO.BeneficiarioDAO;
 
-import edu.uniajc.proyeccionSocial.Model.Fase;
+import edu.uniajc.proyeccionSocial.Model.Beneficiario;
 import java.util.ArrayList;
 
 /**
  *
  * @author rlara
  */
-public class FaseServices implements IFase {
+public class BeneficiarioServices implements IBeneficiario {
 
-    FaseDAO dao;
+    BeneficiarioDAO dao;
 
-    public FaseServices() {
+    public BeneficiarioServices() {
 
-        this.dao = new FaseDAO();
+        this.dao = new BeneficiarioDAO();
     }
 
     @Override
-    public int createFase(Fase fase) {
+    public int createBeneficiario(Beneficiario beneficiario) {
         try {
 
             // validacion de Data
-            if (fase != null) {
+            if (beneficiario != null) {
 
-                int flag = dao.createFase(fase);
+                int flag = dao.createBeneficiario(beneficiario);
 
                 return flag;
             } else {
@@ -46,10 +46,10 @@ public class FaseServices implements IFase {
     }
 
     @Override
-    public boolean deleteFase(int id) {
+    public boolean deleteBeneficiario(int id) {
         try {
 
-            dao.deleteFase(id);
+            dao.deleteBeneficiario(id);
 
             return true;
 
@@ -60,9 +60,9 @@ public class FaseServices implements IFase {
     }
 
     @Override
-    public boolean updateFase(Fase fase) {
+    public boolean updateBeneficiario(Beneficiario beneficiario) {
         try {
-            dao.updateFase(fase);
+            dao.updateBeneficiario(beneficiario);
             return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -71,10 +71,10 @@ public class FaseServices implements IFase {
     }
 
     @Override
-    public ArrayList<Fase> getAllFase() {
+    public ArrayList<Beneficiario> getAllBeneficiario() {
         try {
 
-            ArrayList<Fase> list = dao.getAllFase();
+            ArrayList<Beneficiario> list = dao.getAllBeneficiario();
 
             return list;
 
@@ -85,12 +85,12 @@ public class FaseServices implements IFase {
     }
 
     @Override
-    public Fase getFaseById(int id) {
+    public Beneficiario getBeneficiarioById(int id) {
         try {
 
-            Fase fase = dao.getFaseById(id);
+            Beneficiario beneficiario = dao.getBeneficiarioById(id);
 
-            return fase;
+            return beneficiario;
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

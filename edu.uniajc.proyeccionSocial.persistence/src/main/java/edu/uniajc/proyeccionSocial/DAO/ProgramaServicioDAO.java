@@ -25,8 +25,8 @@ public class ProgramaServicioDAO {
     private Connection DBConnection = null;
 
     public ProgramaServicioDAO() {
-
-        this.DBConnection = new ConexionBD().conexion();
+  ConexionBD bd= new ConexionBD();
+        this.DBConnection = bd.conexion();
     }
 
     public int createProgramaServicio(ProgramaServicio progServi) {

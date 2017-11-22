@@ -6,7 +6,7 @@
 package edu.uniajc.services.test;
 
 import edu.uniajc.proyeccionsocial.interfaces.IListaValor;
-import edu.uniajc.proyeccionsocial.logic.services.ListaValorServices;
+import edu.uniajc.proyeccionsocial.bussiness.services.ListaValorServices;
 import edu.uniajc.proyeccionSocial.Model.ListaValor;
 import junit.framework.TestCase;
 import static junit.framework.TestCase.assertNotNull;
