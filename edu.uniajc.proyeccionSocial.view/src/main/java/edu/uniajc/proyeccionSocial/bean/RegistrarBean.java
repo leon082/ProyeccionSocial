@@ -5,15 +5,16 @@
  */
 package edu.uniajc.proyeccionSocial.bean;
 
-
-
 import edu.uniajc.proyeccionSocial.Model.Tercero;
 import edu.uniajc.proyeccionSocial.Model.Usuario;
+
 import edu.uniajc.proyeccionSocial.view.util.Utilidades;
 import edu.uniajc.proyeccionsocial.bussiness.services.TerceroServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.UsuarioServices;
+import java.security.NoSuchAlgorithmException;
 
 import java.util.ArrayList;
+import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -29,16 +30,19 @@ import javax.faces.model.SelectItem;
 @SessionScoped
 public class RegistrarBean {
 
-    TerceroServices terceroServices;
-    Tercero tercero;
-    UsuarioServices usuarioServices;
-    Usuario usuario;
-    int idTercero;
-    int idUsuario;
+    private TerceroServices terceroServices;
+    private Tercero tercero;
+    private UsuarioServices usuarioServices;
+    private Usuario usuario;
+    private int idTercero;
+    private int idUsuario;
+    private String username;
+    private String contra;
+    private Date fecha;
 
     //Combos
     private ArrayList<SelectItem> itemsDocumentos;
-    private String docuSelected;
+    private int docuSelected;
 
     @PostConstruct
     public void init() {
@@ -50,30 +54,39 @@ public class RegistrarBean {
     }
 
     public boolean registrar() {
-        boolean result=false;
-        tercero.setNumIdentificacion(docuSelected);
+        boolean result = false;
+        tercero.setId_LV_TipoIdentificacion(docuSelected);        
+        tercero.setFechaNacimiento(Utilidades.dateToSql(fecha)); 
+        tercero.setCreadoPor("system");
+   
 
         if (Utilidades.validarCorreo(tercero.getCorreo())) {
             idTercero = terceroServices.createTercero(tercero);
             if (idTercero != 0) {
-                usuario.setId_Tercero(idTercero);
-                usuario.setEstado(1);
-                usuario.setUsuario(tercero.getCorreo());
+
+                try {
+                    usuario.setId_Tercero(idTercero);
+                    usuario.setEstado(1);
+                    usuario.setUsuario(username);
+                    usuario.setPassword(Utilidades.generateHash(contra));
+                    
+                } catch (NoSuchAlgorithmException | RuntimeException e) {
+                    result = false;
+                }
 
                 idUsuario = usuarioServices.createUsuario(usuario);
-                if(idUsuario!=0){
-                    result= true;
+                if (idUsuario != 0) {
+                    result = true;
                 }
+
             }
-        }else{
+        } else {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Info", "Correo No Valido");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            result= false;
+            result = false;
         }
-return result;
+        return result;
     }
-
-    
 
     public String actionButon() {
         if (registrar()) {
@@ -145,12 +158,38 @@ return result;
         this.itemsDocumentos = itemsDocumentos;
     }
 
-    public String getDocuSelected() {
+    public int getDocuSelected() {
         return docuSelected;
     }
 
-    public void setDocuSelected(String docuSelected) {
+    public void setDocuSelected(int docuSelected) {
         this.docuSelected = docuSelected;
     }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getContra() {
+        return contra;
+    }
+
+    public void setContra(String contra) {
+        this.contra = contra;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+    
+    
 
 }

@@ -27,7 +27,8 @@ public class TerceroServices implements ITercero {
     @Override
     public int createTercero(Tercero tercero) {
         try {
-
+            
+            
             // validacion de Data
             if (tercero != null) {
                 tercero.setCorreo(tercero.getCorreo().toLowerCase());

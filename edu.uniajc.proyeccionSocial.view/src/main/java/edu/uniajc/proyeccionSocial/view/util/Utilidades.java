@@ -9,6 +9,7 @@ import edu.uniajc.proyeccionSocial.Model.ListaValorDetalle;
 import edu.uniajc.proyeccionsocial.bussiness.services.ListaValorDetalleServices;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -68,5 +69,9 @@ public class Utilidades {
        return mather.find();
     }
     
+    public static Date dateToSql (java.util.Date fecha){
+        java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
+        return fechaSQL;
+    }
     
 }

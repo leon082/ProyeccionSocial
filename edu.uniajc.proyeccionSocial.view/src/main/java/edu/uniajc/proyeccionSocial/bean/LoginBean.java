@@ -8,10 +8,12 @@ package edu.uniajc.proyeccionSocial.bean;
 
 import edu.uniajc.proyeccionSocial.Model.Usuario;
 import edu.uniajc.proyeccionSocial.view.util.SessionUtils;
+import edu.uniajc.proyeccionSocial.view.util.Utilidades;
 import edu.uniajc.proyeccionsocial.bussiness.services.UsuarioServices;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
+import java.security.NoSuchAlgorithmException;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -41,7 +43,7 @@ public class LoginBean implements Serializable {
         
     }
    
-    public String login() {
+    /*public String login() {
 
         if (nombre != null && nombre.equals("admin") && clave != null
                 && clave.equals("admin")) {
@@ -56,8 +58,8 @@ public class LoginBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, msg);
             return "login.xhtml";
         }
-    }
-     /* 
+    }*/
+     
     public String login() {
         try {
             user = usuarioServices.getUsuarioLogin(nombre, Utilidades.generateHash(clave));
@@ -79,7 +81,7 @@ public class LoginBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, msg);
             return "login.xhtml";
         }
-    }*/
+    }
 
   
     public String logout() {

@@ -45,7 +45,7 @@ public class UsuarioDao {
             }
 
             SQL = "INSERT INTO TB_Usuario"
-                    + " (ID_Usuario,ID_Tercero,Usuario, EstadoUsuario , Password) "
+                    + " (ID_Usuario,ID_Tercero,Usuario, EstadoUsuario , Clave) "
                     + " values(?,?,?,?,?)";
             ps = this.DBConnection.prepareStatement(SQL);
 
@@ -91,7 +91,7 @@ public class UsuarioDao {
 
             PreparedStatement ps = null;
             String SQL = "UPDATE TB_Usuario SET "
-                    + " ID_Tercero=?, Usuario=?, EstadoUsuario=? , Password=? "
+                    + " ID_Tercero=?, Usuario=?, EstadoUsuario=? , Clave=? "
                     + " where ID_Usuario = ?";
             ps = this.DBConnection.prepareStatement(SQL);
 
@@ -128,7 +128,7 @@ public class UsuarioDao {
                 usuario.setId_Tercero(rs.getInt("ID_Tercero"));
                 usuario.setUsuario(rs.getString("Usuario"));
                 usuario.setEstado(rs.getInt("EstadoUsuario"));
-                usuario.setPassword(rs.getString("Password"));
+                usuario.setPassword(rs.getString("Clave"));
 
                 list.add(usuario);
             }
@@ -160,7 +160,7 @@ public class UsuarioDao {
                 usuario.setId_Tercero(rs.getInt("ID_Tercero"));
                 usuario.setUsuario(rs.getString("Usuario"));
                 usuario.setEstado(rs.getInt("EstadoUsuario"));
-                usuario.setPassword(rs.getString("Password"));
+                usuario.setPassword(rs.getString("Clave"));
 
             }
             ps.close();
@@ -181,7 +181,7 @@ public class UsuarioDao {
 
             PreparedStatement ps = null;
 
-            String SQL = "select * from TB_Usuario where Usuario =" + user + " and Passwprd ="+password+" ";
+            String SQL = "select * from TB_Usuario where Usuario = '" + user + "' and Clave ='"+password+"' ";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs != null) {
@@ -191,14 +191,14 @@ public class UsuarioDao {
                 usuario.setId_Tercero(rs.getInt("ID_Tercero"));
                 usuario.setUsuario(rs.getString("Usuario"));
                 usuario.setEstado(rs.getInt("EstadoUsuario"));
-                usuario.setPassword(rs.getString("Password"));
+                usuario.setPassword(rs.getString("Clave"));
 
             }
             ps.close();
 
             return usuario;
         } catch (SQLException e) {
-            System.out.println("Error en usuario DAO getUserById " + e.getMessage());
+            System.out.println("Error en usuario DAO getUsuarioLogin " + e.getMessage());
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return null;
         }
