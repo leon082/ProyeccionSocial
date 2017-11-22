@@ -14,6 +14,7 @@ public class Usuario {
     private int id_Usuario;
     private int id_Tercero;
     private String usuario;
+    private String password;
     private int estado;
 
     public int getId_Usuario() {
@@ -46,6 +47,14 @@ public class Usuario {
 
     public void setEstado(int estado) {
         this.estado = estado;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
    

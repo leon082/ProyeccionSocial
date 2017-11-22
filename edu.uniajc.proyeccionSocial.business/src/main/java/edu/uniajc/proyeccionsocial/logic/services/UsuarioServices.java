@@ -100,4 +100,18 @@ public class UsuarioServices implements IUsuario {
         }
     }
 
+    @Override
+    public Usuario getUsuarioLogin(String user, String password) {
+       try {
+
+            Usuario usuario = dao.getUsuarioLogin(user.toLowerCase(), password);
+
+            return usuario;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
 }

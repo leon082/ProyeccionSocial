@@ -23,5 +23,7 @@ public interface IUsuario {
     public ArrayList<Usuario> getAllUsuarios();
 
     public Usuario getUserById(int id);
+    
+    public Usuario getUsuarioLogin(String user, String password) ;
 
 }

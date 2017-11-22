@@ -5,11 +5,15 @@
  */
 package edu.uniajc.proyeccionSocial.bean;
 
+import edu.uniajc.proyeccionSocial.Model.Usuario;
 import edu.uniajc.proyeccionSocial.view.util.SessionUtils;
+import edu.uniajc.proyeccionSocial.view.util.Utilidades;
+import edu.uniajc.proyeccionsocial.logic.services.UsuarioServices;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import java.io.Serializable;
+import java.security.NoSuchAlgorithmException;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
@@ -24,6 +28,9 @@ public class LoginBean implements Serializable {
 
     private String nombre;
     private String clave;
+    private UsuarioServices usuarioServices;
+    private Utilidades util;
+    private Usuario user;
     // private boolean logeado = false;
 
     /*  public boolean estaLogeado() {
@@ -46,7 +53,7 @@ public class LoginBean implements Serializable {
     }
 
     public String login() {
-System.out.println("Entro a Login----$$$$$$$");
+
         if (nombre != null && nombre.equals("admin") && clave != null
                 && clave.equals("admin")) {
             HttpSession session = SessionUtils.getSession();
@@ -61,10 +68,33 @@ System.out.println("Entro a Login----$$$$$$$");
             return "login.xhtml";
         }
     }
+     /* 
+    public String login() {
+        try {
+            user = usuarioServices.getUsuarioLogin(nombre, Utilidades.generateHash(clave));
+            if (user != null) {
+                HttpSession session = SessionUtils.getSession();
+                session.setAttribute("username", nombre);
 
-    //logout event, invalidate session
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Saludo", "Bienvenido");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+                return "Home.xhtml";
+            } else {
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Credenciales no validas");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+                return "login.xhtml";
+            }
+        } catch (NoSuchAlgorithmException | RuntimeException e) {
+            e.printStackTrace();
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Comuniquese con el Administrador");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            return "login.xhtml";
+        }
+    }*/
+
+  
     public String logout() {
-        System.out.println("Entro a Logout----$$$$$$$");
+
         HttpSession session = SessionUtils.getSession();
         session.invalidate();
         return "login.xhtml";
