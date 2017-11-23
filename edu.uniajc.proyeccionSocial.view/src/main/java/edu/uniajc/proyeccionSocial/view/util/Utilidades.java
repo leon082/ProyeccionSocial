@@ -6,7 +6,11 @@
 package edu.uniajc.proyeccionSocial.view.util;
 
 import edu.uniajc.proyeccionSocial.Model.ListaValorDetalle;
+import edu.uniajc.proyeccionSocial.Model.Tercero;
+import edu.uniajc.proyeccionSocial.Model.Usuario;
 import edu.uniajc.proyeccionsocial.bussiness.services.ListaValorDetalleServices;
+import edu.uniajc.proyeccionsocial.bussiness.services.TerceroServices;
+import edu.uniajc.proyeccionsocial.bussiness.services.UsuarioServices;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
@@ -72,6 +76,44 @@ public class Utilidades {
     public static Date dateToSql (java.util.Date fecha){
         java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
         return fechaSQL;
+    }
+    
+    public static boolean validarTercero(int tipo, String doc){
+       TerceroServices terceroServices = new TerceroServices();
+       Tercero tercero= terceroServices.getTerceroByIdentificacion(tipo,doc);
+       try{
+           if(tercero.getNumIdentificacion().length() >0){
+               return true;
+           }else{
+               return false;
+           }
+       }catch(Exception e){
+           return false;
+       }
+    }
+    
+    public static boolean validarUsuario(String user){
+       UsuarioServices usuarioServices = new UsuarioServices();
+       Usuario usuario= usuarioServices.getUserByUsername(user);
+       try{
+           if(usuario.getUsuario().length() >0){
+               return true;
+           }else{
+               return false;
+           }
+       }catch(Exception e){
+           return false;
+       }
+    }
+    
+    public static boolean validarFechaNacimiento(java.util.Date fecha){
+        java.util.Date fechaActual =  new java.util.Date();
+        
+        if(fecha.before(fechaActual)){
+            return true;
+        }else{
+            return false;
+        }
     }
     
 }

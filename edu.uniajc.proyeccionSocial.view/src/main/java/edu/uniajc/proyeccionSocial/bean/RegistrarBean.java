@@ -55,6 +55,8 @@ public class RegistrarBean {
 
     public boolean registrar() {
         boolean result = false;
+        if(!Utilidades.validarTercero(docuSelected,tercero.getNumIdentificacion())
+                && !Utilidades.validarUsuario(username)){
         tercero.setId_LV_TipoIdentificacion(docuSelected);        
         tercero.setFechaNacimiento(Utilidades.dateToSql(fecha)); 
         tercero.setCreadoPor("system");
@@ -85,10 +87,26 @@ public class RegistrarBean {
             FacesContext.getCurrentInstance().addMessage(null, msg);
             result = false;
         }
-        return result;
+       
+        }else{
+            if(Utilidades.validarTercero(docuSelected,tercero.getNumIdentificacion())){
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Info", "Persona ya Existe");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            result =false;
+            }else{
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Info", "Ya existe una persona con ese Usuario, Favor intente otro Usuario");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+                result=false;
+            }
+        }
+        
+         return result; 
     }
 
     public String actionButon() {
+        if(valdiaciones()){
+            
+        
         if (registrar()) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Usuario Creado");
             FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -100,6 +118,23 @@ public class RegistrarBean {
             FacesContext.getCurrentInstance().addMessage(null, msg);
             return "registrar.xhtml";
         }
+        
+        }
+        return "registrar.xhtml";
+    }
+    
+    public boolean valdiaciones (){
+       boolean result=true;
+        
+        if(!Utilidades.validarFechaNacimiento(fecha)){
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Info", "Error, Fecha de Nacimiento debe ser anterior a la fecha actual");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            return false;
+        }
+        
+        
+        return result;
+       
     }
 
     public TerceroServices getTerceroServices() {

@@ -145,7 +145,7 @@ public class UsuarioDao {
 
     public Usuario getUserById(int id) {
 
-        Usuario usuario = new Usuario();
+        Usuario usuario = null;
         try {
 
             PreparedStatement ps = null;
@@ -155,7 +155,7 @@ public class UsuarioDao {
             ResultSet rs = ps.executeQuery();
             if (rs != null) {
                 rs.next();
-
+                usuario = new Usuario();
                 usuario.setId_Usuario(rs.getInt("ID_Usuario"));
                 usuario.setId_Tercero(rs.getInt("ID_Tercero"));
                 usuario.setUsuario(rs.getString("Usuario"));
@@ -176,7 +176,7 @@ public class UsuarioDao {
     
     public Usuario getUsuarioLogin(String user, String password) {
 
-        Usuario usuario = new Usuario();
+        Usuario usuario = null;
         try {
 
             PreparedStatement ps = null;
@@ -186,7 +186,7 @@ public class UsuarioDao {
             ResultSet rs = ps.executeQuery();
             if (rs != null) {
                 rs.next();
-
+                usuario=new Usuario();
                 usuario.setId_Usuario(rs.getInt("ID_Usuario"));
                 usuario.setId_Tercero(rs.getInt("ID_Tercero"));
                 usuario.setUsuario(rs.getString("Usuario"));
@@ -205,6 +205,36 @@ public class UsuarioDao {
 
     }
     
+     public Usuario getUserByUsername(String user) {
+
+        Usuario usuario = null;
+        try {
+
+            PreparedStatement ps = null;
+
+            String SQL = "select * from TB_Usuario where Usuario ='" + user + "' ";
+            ps = this.DBConnection.prepareStatement(SQL);
+            ResultSet rs = ps.executeQuery();
+            if (rs != null) {
+                rs.next();
+                usuario = new Usuario();
+                usuario.setId_Usuario(rs.getInt("ID_Usuario"));
+                usuario.setId_Tercero(rs.getInt("ID_Tercero"));
+                usuario.setUsuario(rs.getString("Usuario"));
+                usuario.setEstado(rs.getInt("EstadoUsuario"));
+                usuario.setPassword(rs.getString("Clave"));
+
+            }
+            ps.close();
+
+            return usuario;
+        } catch (SQLException e) {
+            System.out.println("Error en usuario DAO getUserById " + e.getMessage());
+            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            return null;
+        }
+
+    }
      
 
     @PreDestroy

@@ -47,7 +47,7 @@
 
                                         <h:panelGrid columns="1">
                                             <p:outputLabel for="doc" value="Documento:" />
-                                            <p:inputMask id="doc" value="#{registrarBean.tercero.numIdentificacion}" mask="999999999" required="true" requiredMessage="Campo requerido"/>
+                                            <p:inputMask id="doc" value="#{registrarBean.tercero.numIdentificacion}" mask="9999999999" required="true" requiredMessage="Campo requerido"/>
                                         </h:panelGrid>
 
                                         <h:panelGrid columns="1">
@@ -107,7 +107,7 @@
                                     <p:separator />
 
                                     <p:commandButton 
-                                        value="Registrar" action="#{registrarBean.actionButon()}"/>
+                                        value="Registrar" action="#{registrarBean.actionButon()}" update=":mensajes"/>
                                 </p:tab>
                             </p:panel>
                         </h:panelGrid>

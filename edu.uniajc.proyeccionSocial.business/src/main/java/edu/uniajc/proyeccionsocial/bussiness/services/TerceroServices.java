@@ -100,4 +100,18 @@ public class TerceroServices implements ITercero {
         }
     }
 
+    @Override
+    public Tercero getTerceroByIdentificacion(int tipoDoc, String doc) {
+        try {
+
+            Tercero tercero = dao.getTerceroByIdentificacion(tipoDoc,doc);
+
+            return tercero;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
 }

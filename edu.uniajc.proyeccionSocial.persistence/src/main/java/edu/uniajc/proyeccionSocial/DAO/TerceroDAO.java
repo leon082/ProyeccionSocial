@@ -223,7 +223,50 @@ public class TerceroDAO {
             Logger.getLogger(TerceroDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return null;
         }
+        
+         
 
+    }
+    
+    public Tercero getTerceroByIdentificacion(int tipoDoc, String doc) {
+
+        Tercero tercero =null;
+        try {
+
+            PreparedStatement ps = null;
+
+            String SQL = "select * from TB_Tercero where ID_LV_TipoIdentificacion =" + tipoDoc + " and NumIdentificacion='" + doc + "' ";
+            ps = this.DBConnection.prepareStatement(SQL);
+            ResultSet rs = ps.executeQuery();
+            if (rs != null) {
+                rs.next();  
+                tercero= new Tercero();
+                tercero.setId_Tercero(rs.getInt("ID_Tercero"));
+                tercero.setId_LV_TipoIdentificacion(rs.getInt("ID_LV_TipoIdentificacion"));
+                tercero.setNumIdentificacion(rs.getString("NumIdentificacion"));
+                tercero.setPrimerNombre(rs.getString("PrimerNombre"));
+                tercero.setSegundoNombre(rs.getString("SegundoNombre"));
+                tercero.setPrimerApellido(rs.getString("PrimerApellido"));
+                tercero.setSegundoApellido(rs.getString("SegundoApellido"));
+                tercero.setFechaNacimiento(rs.getDate("FechaNacimiento"));
+                tercero.setTelefonoFijo(rs.getString("TelefonoFijo"));
+                tercero.setTelefonoCelular(rs.getString("TelefonoCelular"));
+                tercero.setEstadoTercero(rs.getInt("EstadoTercero"));
+                tercero.setCreadoPor(rs.getString("CreadoPor"));
+                tercero.setModificadoPor(rs.getString("ModificadoPor"));
+                tercero.setCreadoEn(rs.getDate("CreadoEn"));
+                tercero.setModificadoEn(rs.getDate("ModificadoEn"));
+                tercero.setCorreo(rs.getString("Correo"));
+
+            }
+            ps.close();
+
+            return tercero;
+        } catch (SQLException e) {
+            System.out.println("Error en TerceroDAO getTercerosById " + e.getMessage());
+            Logger.getLogger(TerceroDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            return null;
+        }
     }
 
     @PreDestroy
