@@ -33,7 +33,7 @@ public class BeneficiarioDAO {
         try {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
-            beneficiario.setCreadoEn(fechaSQL);
+            beneficiario.setCreadoen(fechaSQL);
 
             PreparedStatement ps = null;
 
@@ -44,21 +44,21 @@ public class BeneficiarioDAO {
 
             if (rs.next()) {
                 codigo = rs.getInt("ID");
-                beneficiario.setId_Beneficiario(codigo);
+                beneficiario.setId_beneficiario(codigo);
             }
 
             SQL = "INSERT INTO TB_Beneficiario"
-                    + " (ID_Beneficiario,ID_Proyecto,ID_Tercero, EstadoBeneficiario,Observacion,CreadoPor, CreadoEn) "
-                    + "values(?,?,?,?,?,?,?)";
+                    + " (ID_Beneficiario, ID_Proyecto, ID_Tercero, Estado, "
+                    + "Observacion, CreadoPor, CreadoEn) values(?,?,?,?,?,?,?)";
             ps = this.DBConnection.prepareStatement(SQL);
 
-            ps.setInt(1, beneficiario.getId_Beneficiario());
-            ps.setInt(2, beneficiario.getId_Proyecto());
-            ps.setInt(3, beneficiario.getId_Tercero());
-            ps.setInt(4, beneficiario.getEstadoBeneficiario());
+            ps.setInt(1, beneficiario.getId_beneficiario());
+            ps.setInt(2, beneficiario.getId_proyecto());
+            ps.setInt(3, beneficiario.getId_tercero());
+            ps.setInt(4, beneficiario.getEstado());
             ps.setString(5, beneficiario.getObservacion());
-            ps.setString(6, beneficiario.getCreadoPor());
-            ps.setDate(7, beneficiario.getCreadoEn());
+            ps.setString(6, beneficiario.getCreadopor());
+            ps.setDate(7, beneficiario.getCreadoen());
             ps.execute();
 
             ps.close();
@@ -75,7 +75,7 @@ public class BeneficiarioDAO {
     public boolean deleteBeneficiario(int id) {
         try {
 
-            String SQL = "DELETE FROM TB_Beneficiario WHERE ID_Beneficiario =" + id + " ";
+            String SQL = "UPDATE TB_Beneficiario SET Estado=0 WHERE ID_Beneficiario =" + id + " ";
 
             PreparedStatement ps = this.DBConnection.prepareStatement(SQL);
             ps.execute();
@@ -95,22 +95,22 @@ public class BeneficiarioDAO {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
 
-            beneficiario.setModificadoEn(fechaSQL);
+            beneficiario.setModificadoen(fechaSQL);
 
             PreparedStatement ps = null;
             String SQL = "UPDATE TB_Beneficiario SET "
-                    + "ID_Proyecto=?, ID_Tercero=?, EstadoBeneficiario=?, "
+                    + "ID_Proyecto=?, ID_Tercero=?, Estado=?, "
                     + "Observacion=?, ModificadoPor=?, ModificadoEn=? "
                     + "where ID_Beneficiario = ?";
             ps = this.DBConnection.prepareStatement(SQL);
 
-            ps.setInt(1, beneficiario.getId_Proyecto());
-            ps.setInt(2, beneficiario.getId_Tercero());
-            ps.setInt(3, beneficiario.getEstadoBeneficiario());
+            ps.setInt(1, beneficiario.getId_proyecto());
+            ps.setInt(2, beneficiario.getId_tercero());
+            ps.setInt(3, beneficiario.getEstado());
             ps.setString(4, beneficiario.getObservacion());
-            ps.setString(5, beneficiario.getModificadoPor());
-            ps.setDate(6, beneficiario.getModificadoEn());
-            ps.setInt(7, beneficiario.getId_Beneficiario());
+            ps.setString(5, beneficiario.getModificadopor());
+            ps.setDate(6, beneficiario.getModificadoen());
+            ps.setInt(7, beneficiario.getId_beneficiario());
 
             ps.execute();
             ps.close();
@@ -135,15 +135,15 @@ public class BeneficiarioDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Beneficiario beneficiario = new Beneficiario();
-                beneficiario.setId_Beneficiario(rs.getInt("ID_Beneficiario"));
-                beneficiario.setId_Proyecto(rs.getInt("ID_Proyecto"));
-                beneficiario.setId_Tercero(rs.getInt("ID_Tercero"));
-                beneficiario.setEstadoBeneficiario(rs.getInt("EstadoBeneficiario"));
+                beneficiario.setId_beneficiario(rs.getInt("ID_Beneficiario"));
+                beneficiario.setId_proyecto(rs.getInt("ID_Proyecto"));
+                beneficiario.setId_tercero(rs.getInt("ID_Tercero"));
+                beneficiario.setEstado(rs.getInt("Estado"));
                 beneficiario.setObservacion(rs.getString("Observacion"));
-                beneficiario.setCreadoPor(rs.getString("CreadoPor"));
-                beneficiario.setModificadoPor(rs.getString("ModificadoPor"));
-                beneficiario.setCreadoEn(rs.getDate("CreadoEn"));
-                beneficiario.setModificadoEn(rs.getDate("ModificadoEn"));
+                beneficiario.setCreadopor(rs.getString("CreadoPor"));
+                beneficiario.setModificadopor(rs.getString("ModificadoPor"));
+                beneficiario.setCreadoen(rs.getDate("CreadoEn"));
+                beneficiario.setModificadoen(rs.getDate("ModificadoEn"));
 
                 list.add(beneficiario);
             }
@@ -171,15 +171,15 @@ public class BeneficiarioDAO {
             if (rs != null) {
                 rs.next();
 
-                beneficiario.setId_Beneficiario(rs.getInt("ID_Beneficiario"));
-                beneficiario.setId_Proyecto(rs.getInt("ID_Proyecto"));
-                beneficiario.setId_Tercero(rs.getInt("ID_Tercero"));
-                beneficiario.setEstadoBeneficiario(rs.getInt("EstadoBeneficiario"));
+                beneficiario.setId_beneficiario(rs.getInt("ID_Beneficiario"));
+                beneficiario.setId_proyecto(rs.getInt("ID_Proyecto"));
+                beneficiario.setId_tercero(rs.getInt("ID_Tercero"));
+                beneficiario.setEstado(rs.getInt("Estado"));
                 beneficiario.setObservacion(rs.getString("Observacion"));
-                beneficiario.setCreadoPor(rs.getString("CreadoPor"));
-                beneficiario.setModificadoPor(rs.getString("ModificadoPor"));
-                beneficiario.setCreadoEn(rs.getDate("CreadoEn"));
-                beneficiario.setModificadoEn(rs.getDate("ModificadoEn"));
+                beneficiario.setCreadopor(rs.getString("CreadoPor"));
+                beneficiario.setModificadopor(rs.getString("ModificadoPor"));
+                beneficiario.setCreadoen(rs.getDate("CreadoEn"));
+                beneficiario.setModificadoen(rs.getDate("ModificadoEn"));
 
             }
             ps.close();

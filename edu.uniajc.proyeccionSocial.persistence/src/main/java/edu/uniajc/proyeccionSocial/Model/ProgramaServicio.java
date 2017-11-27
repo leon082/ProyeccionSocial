@@ -12,80 +12,76 @@ import java.sql.Date;
  * @author luis.leon
  */
 public class ProgramaServicio {
+    private int id_programaservicio;
+    private int id_programa;
+    private int id_servicio;
+    private int estado;
+    private String creadopor;
+    private Date creadoen;
+    private String modificadopor;
+    private Date modificadoen;
 
-    private int id_ProgramaServicio;
-    private String descripcion;
-    private int id_Programa;
-    private int estadoProgramaServicio;
-    private String creadoPor;
-    private Date creadoEn;
-    private String modificadoPor;
-    private Date modificadoEn;
-
-    public int getId_ProgramaServicio() {
-        return id_ProgramaServicio;
+    public int getId_programaservicio() {
+        return id_programaservicio;
     }
 
-    public void setId_ProgramaServicio(int id_ProgramaServicio) {
-        this.id_ProgramaServicio = id_ProgramaServicio;
+    public void setId_programaservicio(int id_programaservicio) {
+        this.id_programaservicio = id_programaservicio;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public int getId_programa() {
+        return id_programa;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setId_programa(int id_programa) {
+        this.id_programa = id_programa;
     }
 
-    public int getId_Programa() {
-        return id_Programa;
+    public int getId_servicio() {
+        return id_servicio;
     }
 
-    public void setId_Programa(int id_Programa) {
-        this.id_Programa = id_Programa;
+    public void setId_servicio(int id_servicio) {
+        this.id_servicio = id_servicio;
     }
 
-    public int getEstadoProgramaServicio() {
-        return estadoProgramaServicio;
+    public int getEstado() {
+        return estado;
     }
 
-    public void setEstadoProgramaServicio(int estadoProgramaServicio) {
-        this.estadoProgramaServicio = estadoProgramaServicio;
+    public void setEstado(int estado) {
+        this.estado = estado;
     }
 
-    public String getCreadoPor() {
-        return creadoPor;
+    public String getCreadopor() {
+        return creadopor;
     }
 
-    public void setCreadoPor(String creadoPor) {
-        this.creadoPor = creadoPor;
+    public void setCreadopor(String creadopor) {
+        this.creadopor = creadopor;
     }
 
-    public Date getCreadoEn() {
-        return creadoEn;
+    public Date getCreadoen() {
+        return creadoen;
     }
 
-    public void setCreadoEn(Date creadoEn) {
-        this.creadoEn = creadoEn;
+    public void setCreadoen(Date creadoen) {
+        this.creadoen = creadoen;
     }
 
-    public String getModificadoPor() {
-        return modificadoPor;
+    public String getModificadopor() {
+        return modificadopor;
     }
 
-    public void setModificadoPor(String modificadoPor) {
-        this.modificadoPor = modificadoPor;
+    public void setModificadopor(String modificadopor) {
+        this.modificadopor = modificadopor;
     }
 
-    public Date getModificadoEn() {
-        return modificadoEn;
+    public Date getModificadoen() {
+        return modificadoen;
     }
 
-    public void setModificadoEn(Date modificadoEn) {
-        this.modificadoEn = modificadoEn;
+    public void setModificadoen(Date modificadoen) {
+        this.modificadoen = modificadoen;
     }
-    
-    
-
 }

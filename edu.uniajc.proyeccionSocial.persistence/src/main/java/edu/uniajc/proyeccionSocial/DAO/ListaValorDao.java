@@ -33,7 +33,7 @@ public class ListaValorDao {
         try {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
-            listaValor.setCreadoEn(fechaSQL);
+            listaValor.setCreadoen(fechaSQL);
 
             PreparedStatement ps = null;
 
@@ -44,20 +44,20 @@ public class ListaValorDao {
 
             if (rs.next()) {
                 codigo = rs.getInt("ID");
-                listaValor.setId_ListaValor(codigo);
+                listaValor.setId_listavalor(codigo);
             }
 
             SQL = "INSERT INTO TB_ListaValor"
-                    + " (ID_ListaValor,Agrupacion,Descripcion, Estado,CreadoPor, CreadoEn) "
+                    + " (ID_ListaValor, Agrupacion, Descripcion, Estado, CreadoPor, CreadoEn) "
                     + " values(?,?,?,?,?,?)";
             ps = this.DBConnection.prepareStatement(SQL);
 
-            ps.setInt(1, listaValor.getId_ListaValor());
+            ps.setInt(1, listaValor.getId_listavalor());
             ps.setString(2, listaValor.getAgrupacion());
             ps.setString(3, listaValor.getDescripcion());
             ps.setInt(4, listaValor.getEstado());
-            ps.setString(5, listaValor.getCreadoPor());
-            ps.setDate(6, listaValor.getCreadoEn());
+            ps.setString(5, listaValor.getCreadopor());
+            ps.setDate(6, listaValor.getCreadoen());
 
             ps.execute();
 
@@ -75,7 +75,7 @@ public class ListaValorDao {
     public boolean deleteListaValor(int id) {
         try {
 
-            String SQL = "DELETE FROM TB_ListaValor WHERE ID_ListaValor =" + id + " ";
+            String SQL = "UPDATE TB_ListaValor SET Estado=0 WHERE ID_ListaValor =" + id + " ";
 
             PreparedStatement ps = this.DBConnection.prepareStatement(SQL);
             ps.execute();
@@ -95,20 +95,20 @@ public class ListaValorDao {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
 
-            listaValor.setModificadoEn(fechaSQL);
+            listaValor.setModificadoen(fechaSQL);
 
             PreparedStatement ps = null;
             String SQL = "UPDATE TB_ListaValor SET "
-                    + " Agrupacion=?, Descripcion=?, Estado=?,ModificadoPor=?, ModificadoEn=? "
-                    + " where ID_ListaValor = ?";
+                    + " Agrupacion=?, Descripcion=?, Estado=?, ModificadoPor=?, "
+                    + "ModificadoEn=? WHERE ID_ListaValor = ?";
             ps = this.DBConnection.prepareStatement(SQL);
 
             ps.setString(1, listaValor.getAgrupacion());
             ps.setString(2, listaValor.getDescripcion());
             ps.setInt(3, listaValor.getEstado());
-            ps.setString(4, listaValor.getModificadoPor());
-            ps.setDate(5, listaValor.getModificadoEn());
-            ps.setInt(5, listaValor.getId_ListaValor());
+            ps.setString(4, listaValor.getModificadopor());
+            ps.setDate(5, listaValor.getModificadoen());
+            ps.setInt(5, listaValor.getId_listavalor());
 
             ps.execute();
             ps.close();
@@ -133,14 +133,14 @@ public class ListaValorDao {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 ListaValor listaValor = new ListaValor();
-                listaValor.setId_ListaValor(rs.getInt("ID_ListaValor"));
+                listaValor.setId_listavalor(rs.getInt("ID_ListaValor"));
                 listaValor.setAgrupacion(rs.getString("Agrupacion"));
                 listaValor.setDescripcion(rs.getString("Descripcion"));
                 listaValor.setEstado(rs.getInt("Estado"));
-                listaValor.setCreadoPor(rs.getString("CREADOPOR"));
-                listaValor.setModificadoPor(rs.getString("MODIFICADOPOR"));
-                listaValor.setCreadoEn(rs.getDate("CREADOEN"));
-                listaValor.setModificadoEn(rs.getDate("MODIFICADOEN"));
+                listaValor.setCreadopor(rs.getString("CREADOPOR"));
+                listaValor.setModificadopor(rs.getString("MODIFICADOPOR"));
+                listaValor.setCreadoen(rs.getDate("CREADOEN"));
+                listaValor.setModificadoen(rs.getDate("MODIFICADOEN"));
 
                 list.add(listaValor);
             }
@@ -168,14 +168,14 @@ public class ListaValorDao {
             if (rs != null) {
                 rs.next();
 
-                listaValor.setId_ListaValor(rs.getInt("ID_ListaValor"));
+                listaValor.setId_listavalor(rs.getInt("ID_ListaValor"));
                 listaValor.setAgrupacion(rs.getString("Agrupacion"));
                 listaValor.setDescripcion(rs.getString("Descripcion"));
                 listaValor.setEstado(rs.getInt("Estado"));
-                listaValor.setCreadoPor(rs.getString("CREADOPOR"));
-                listaValor.setModificadoPor(rs.getString("MODIFICADOPOR"));
-                listaValor.setCreadoEn(rs.getDate("CREADOEN"));
-                listaValor.setModificadoEn(rs.getDate("MODIFICADOEN"));
+                listaValor.setCreadopor(rs.getString("CREADOPOR"));
+                listaValor.setModificadopor(rs.getString("MODIFICADOPOR"));
+                listaValor.setCreadoen(rs.getDate("CREADOEN"));
+                listaValor.setModificadoen(rs.getDate("MODIFICADOEN"));
 
             }
             ps.close();

@@ -33,7 +33,7 @@ public class ProgramaDAO {
         try {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
-            programa.setCreadoEn(fechaSQL);
+            programa.setCreadoen(fechaSQL);
 
             PreparedStatement ps = null;
 
@@ -44,19 +44,19 @@ public class ProgramaDAO {
 
             if (rs.next()) {
                 codigo = rs.getInt("ID");
-                programa.setId_Programa(codigo);
+                programa.setId_programa(codigo);
             }
 
             SQL = "INSERT INTO TB_Programa "
-                    + "(ID_Programa, Descripcion, EstadoPrograma, "
+                    + "(ID_Programa, Descripcion, Estado, "
                     + "CreadoPor, CreadoEn) values(?,?,?,?,?) ";
             ps = this.DBConnection.prepareStatement(SQL);
             
-            ps.setInt(1, programa.getId_Programa());
+            ps.setInt(1, programa.getId_programa());
             ps.setString(2, programa.getDescripcion());
-            ps.setInt(3, programa.getEstadoPrograma());
-            ps.setString(4, programa.getCreadoPor());
-            ps.setDate(5, programa.getCreadoEn());
+            ps.setInt(3, programa.getEstado());
+            ps.setString(4, programa.getCreadopor());
+            ps.setDate(5, programa.getCreadoen());
             ps.execute();
 
             ps.close();
@@ -75,7 +75,7 @@ public class ProgramaDAO {
     public boolean deletePrograma(int id) {
         try {
 
-            String SQL = "DELETE FROM TB_Programa WHERE ID_Programa =" + id + " ";
+            String SQL = "UPDATE TB_Programa SET Estado=0 WHERE ID_Programa =" + id + " ";
 
             PreparedStatement ps = this.DBConnection.prepareStatement(SQL);
             ps.execute();
@@ -95,19 +95,19 @@ public class ProgramaDAO {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
 
-            programa.setModificadoEn(fechaSQL);
+            programa.setModificadoen(fechaSQL);
 
             PreparedStatement ps = null;
             String SQL = "UPDATE TB_Programa SET "
-                    + "Descripcion=?, EstadoPrograma=?, ModificadoPor=?, ModificadoEn=? "
+                    + "Descripcion=?, Estado=?, ModificadoPor=?, ModificadoEn=? "
                     + "where ID_Programa = ?";
             ps = this.DBConnection.prepareStatement(SQL);
             
             ps.setString(1, programa.getDescripcion());
-            ps.setInt(2, programa.getEstadoPrograma());
-            ps.setString(3, programa.getModificadoPor());
-            ps.setDate(4, programa.getModificadoEn());
-            ps.setInt(5, programa.getId_Programa());
+            ps.setInt(2, programa.getEstado());
+            ps.setString(3, programa.getModificadopor());
+            ps.setDate(4, programa.getModificadoen());
+            ps.setInt(5, programa.getId_programa());
             ps.execute();
             ps.close();
             
@@ -132,13 +132,13 @@ public class ProgramaDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Programa programa = new Programa();
-                programa.setId_Programa(rs.getInt("ID_Programa"));
+                programa.setId_programa(rs.getInt("ID_Programa"));
                 programa.setDescripcion(rs.getString("Descripcion"));
-                programa.setEstadoPrograma(rs.getInt("EstadoPrograma"));
-                programa.setCreadoPor(rs.getString("CreadoPor"));
-                programa.setModificadoPor(rs.getString("ModificadoPor"));
-                programa.setCreadoEn(rs.getDate("CreadoEn"));
-                programa.setModificadoEn(rs.getDate("ModificadoEn"));
+                programa.setEstado(rs.getInt("Estado"));
+                programa.setCreadopor(rs.getString("CreadoPor"));
+                programa.setModificadopor(rs.getString("ModificadoPor"));
+                programa.setCreadoen(rs.getDate("CreadoEn"));
+                programa.setModificadoen(rs.getDate("ModificadoEn"));
 
                 list.add(programa);
             }
@@ -166,13 +166,13 @@ public class ProgramaDAO {
             if (rs != null) {
                 rs.next();
 
-                programa.setId_Programa(rs.getInt("ID_Programa"));
+                programa.setId_programa(rs.getInt("ID_Programa"));
                 programa.setDescripcion(rs.getString("Descripcion"));
-                programa.setEstadoPrograma(rs.getInt("EstadoPrograma"));
-                programa.setCreadoPor(rs.getString("CreadoPor"));
-                programa.setModificadoPor(rs.getString("ModificadoPor"));
-                programa.setCreadoEn(rs.getDate("CreadoEn"));
-                programa.setModificadoEn(rs.getDate("ModificadoEn"));
+                programa.setEstado(rs.getInt("Estado"));
+                programa.setCreadopor(rs.getString("CreadoPor"));
+                programa.setModificadopor(rs.getString("ModificadoPor"));
+                programa.setCreadoen(rs.getDate("CreadoEn"));
+                programa.setModificadoen(rs.getDate("ModificadoEn"));
 
             }
             ps.close();

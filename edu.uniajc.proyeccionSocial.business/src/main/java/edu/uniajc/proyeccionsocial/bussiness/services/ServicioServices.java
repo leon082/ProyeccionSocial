@@ -5,33 +5,33 @@
  */
 package edu.uniajc.proyeccionsocial.bussiness.services;
 
-import edu.uniajc.proyeccionsocial.interfaces.IProyecto;
+import edu.uniajc.proyeccionsocial.interfaces.IServicio;
+import edu.uniajc.proyeccionSocial.DAO.ServicioDAO;
 
-import edu.uniajc.proyeccionSocial.DAO.ProyectoDao;
-import edu.uniajc.proyeccionSocial.Model.Proyecto;
+import edu.uniajc.proyeccionSocial.Model.Servicio;
 import java.util.ArrayList;
 
 /**
- * @author Fabian Castro - IRIS 15/05/2017 Nombre Clase:ProyectoServices
- * Descripcion: logica de la clase proyecto
+ *
+ * @author rlara
  */
-public class ProyectoServices implements IProyecto {
+public class ServicioServices implements IServicio {
 
-    ProyectoDao dao;
+    ServicioDAO dao;
 
-    public ProyectoServices() {
+    public ServicioServices() {
 
-        this.dao = new ProyectoDao();
+        this.dao = new ServicioDAO();
     }
 
     @Override
-    public int createProyecto(Proyecto proyecto) {
+    public int createServicio(Servicio servicio) {
         try {
 
             // validacion de Data
-            if (proyecto != null) {
+            if (servicio != null) {
 
-                int flag = dao.createProyecto(proyecto);
+                int flag = dao.createServicio(servicio);
 
                 return flag;
             } else {
@@ -46,10 +46,10 @@ public class ProyectoServices implements IProyecto {
     }
 
     @Override
-    public boolean deleteProyecto(int ID) {
+    public boolean deleteServicio(int id) {
         try {
 
-            dao.deleteProyecto(ID);
+            dao.deleteServicio(id);
 
             return true;
 
@@ -60,13 +60,10 @@ public class ProyectoServices implements IProyecto {
     }
 
     @Override
-    public boolean updateProyecto(Proyecto proyecto) {
+    public boolean updateServicio(Servicio servicio) {
         try {
-
-            dao.updateProyecto(proyecto);
-
+            dao.updateServicio(servicio);
             return true;
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;
@@ -74,12 +71,26 @@ public class ProyectoServices implements IProyecto {
     }
 
     @Override
-    public ArrayList<Proyecto> getAllProyecto() {
+    public ArrayList<Servicio> getAllServicio() {
         try {
 
-            ArrayList<Proyecto> list = dao.getAllProyecto();
+            ArrayList<Servicio> list = dao.getAllServicio();
 
             return list;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public Servicio getServicioById(int id) {
+        try {
+
+            Servicio servicio = dao.getServicioById(id);
+
+            return servicio;
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

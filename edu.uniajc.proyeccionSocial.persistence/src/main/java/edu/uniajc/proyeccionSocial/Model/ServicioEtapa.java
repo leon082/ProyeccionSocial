@@ -11,29 +11,38 @@ import java.sql.Date;
  *
  * @author rlara
  */
-public class Programa {
-    private int id_programa;
-    private String descripcion;
+public class ServicioEtapa {
+    private int id_servicioetapa;
+    private int id_servicio;
+    private int id_etapa;
     private int estado;
     private String creadopor;
     private Date creadoen;
     private String modificadopor;
     private Date modificadoen;
 
-    public int getId_programa() {
-        return id_programa;
+    public int getId_servicioetapa() {
+        return id_servicioetapa;
     }
 
-    public void setId_programa(int id_programa) {
-        this.id_programa = id_programa;
+    public void setId_servicioetapa(int id_servicioetapa) {
+        this.id_servicioetapa = id_servicioetapa;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public int getId_servicio() {
+        return id_servicio;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setId_servicio(int id_servicio) {
+        this.id_servicio = id_servicio;
+    }
+
+    public int getId_etapa() {
+        return id_etapa;
+    }
+
+    public void setId_etapa(int id_etapa) {
+        this.id_etapa = id_etapa;
     }
 
     public int getEstado() {

@@ -20,7 +20,7 @@ public interface IUsuario {
 
     public boolean updateUsuario(Usuario usuario);
 
-    public ArrayList<Usuario> getAllUsuarios();
+    public ArrayList<Usuario> getAllUsuario();
 
     public Usuario getUserById(int id);
 

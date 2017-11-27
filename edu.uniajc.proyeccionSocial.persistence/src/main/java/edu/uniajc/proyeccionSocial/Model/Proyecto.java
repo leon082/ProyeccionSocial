@@ -8,107 +8,98 @@ package edu.uniajc.proyeccionSocial.Model;
 import java.sql.Date;
 
 /**
- *@author Emmanuel Barrera - IRIS
- *12/05/2017
- * Nombre Clase:Proyecto.java
- * Descripcion: Tabla que contiene los SET y GET de la tabla Proyecto
+ *
+ * @author luis.leon
  */
-
 public class Proyecto {
-   private int id_Proyecto;
-   private String tituloProyecto;
-   private String resumenProyecto;
-   private int iD_Programa;
-   private int iD_ProgramaServicio;
-   private int estadoProyecto;
-   private String creadoPor;
-   private Date creadoEn;
-   private String modificadoPor;
-   private Date modificadoEn;
+    private int id_proyecto;
+    private String tituloproyecto;
+    private String resumenproyecto;
+    private int id_programa;
+    private int id_servicio;
+    private int estado;
+    private String creadopor;
+    private Date creadoen;
+    private String modificadopor;
+    private Date modificadoen;
 
-    public int getId_Proyecto() {
-        return id_Proyecto;
+    public int getId_proyecto() {
+        return id_proyecto;
     }
 
-    public void setId_Proyecto(int id_Proyecto) {
-        this.id_Proyecto = id_Proyecto;
+    public void setId_proyecto(int id_proyecto) {
+        this.id_proyecto = id_proyecto;
     }
 
-    public String getTituloProyecto() {
-        return tituloProyecto;
+    public String getTituloproyecto() {
+        return tituloproyecto;
     }
 
-    public void setTituloProyecto(String tituloProyecto) {
-        this.tituloProyecto = tituloProyecto;
+    public void setTituloproyecto(String tituloproyecto) {
+        this.tituloproyecto = tituloproyecto;
     }
 
-    public String getResumenProyecto() {
-        return resumenProyecto;
+    public String getResumenproyecto() {
+        return resumenproyecto;
     }
 
-    public void setResumenProyecto(String resumenProyecto) {
-        this.resumenProyecto = resumenProyecto;
+    public void setResumenproyecto(String resumenproyecto) {
+        this.resumenproyecto = resumenproyecto;
     }
 
-    public int getiD_Programa() {
-        return iD_Programa;
+    public int getId_programa() {
+        return id_programa;
     }
 
-    public void setiD_Programa(int iD_Programa) {
-        this.iD_Programa = iD_Programa;
+    public void setId_programa(int id_programa) {
+        this.id_programa = id_programa;
     }
 
-    public int getiD_ProgramaServicio() {
-        return iD_ProgramaServicio;
+    public int getId_servicio() {
+        return id_servicio;
     }
 
-    public void setiD_ProgramaServicio(int iD_ProgramaServicio) {
-        this.iD_ProgramaServicio = iD_ProgramaServicio;
+    public void setId_servicio(int id_servicio) {
+        this.id_servicio = id_servicio;
     }
 
-    public int getEstadoProyecto() {
-        return estadoProyecto;
+    public int getEstado() {
+        return estado;
     }
 
-    public void setEstadoProyecto(int estadoProyecto) {
-        this.estadoProyecto = estadoProyecto;
+    public void setEstado(int estado) {
+        this.estado = estado;
     }
 
-    public String getCreadoPor() {
-        return creadoPor;
+    public String getCreadopor() {
+        return creadopor;
     }
 
-    public void setCreadoPor(String creadoPor) {
-        this.creadoPor = creadoPor;
+    public void setCreadopor(String creadopor) {
+        this.creadopor = creadopor;
     }
 
-    public Date getCreadoEn() {
-        return creadoEn;
+    public Date getCreadoen() {
+        return creadoen;
     }
 
-    public void setCreadoEn(Date creadoEn) {
-        this.creadoEn = creadoEn;
+    public void setCreadoen(Date creadoen) {
+        this.creadoen = creadoen;
     }
 
-    public String getModificadoPor() {
-        return modificadoPor;
+    public String getModificadopor() {
+        return modificadopor;
     }
 
-    public void setModificadoPor(String modificadoPor) {
-        this.modificadoPor = modificadoPor;
+    public void setModificadopor(String modificadopor) {
+        this.modificadopor = modificadopor;
     }
 
-    public Date getModificadoEn() {
-        return modificadoEn;
+    public Date getModificadoen() {
+        return modificadoen;
     }
 
-    public void setModificadoEn(Date modificadoEn) {
-        this.modificadoEn = modificadoEn;
+    public void setModificadoen(Date modificadoen) {
+        this.modificadoen = modificadoen;
     }
-
-   
-   
-  
-   
-      
 }

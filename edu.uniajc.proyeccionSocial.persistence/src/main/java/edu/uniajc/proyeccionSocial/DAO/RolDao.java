@@ -42,18 +42,18 @@ public class RolDao {
 
             if (rs.next()) {
                 codigo = rs.getInt("ID");
-                rol.setId_Rol(codigo);
+                rol.setId_rol(codigo);
             }
 
             SQL = "INSERT INTO TB_Rol"
-                    + " (ID_Rol,Valor,Descripcion, EstadoRol) "
+                    + " (ID_Rol,Valor,Descripcion, Estado) "
                     + " values(?,?,?,?)";
             ps = this.DBConnection.prepareStatement(SQL);
 
-            ps.setInt(1, rol.getId_Rol());
-            ps.setInt(2, rol.getValor());
+            ps.setInt(1, rol.getId_rol());
+            ps.setString(2, rol.getValor());
             ps.setString(3, rol.getDescripcion());
-            ps.setInt(4, rol.getEstadoRol());
+            ps.setInt(4, rol.getEstado());
 
             ps.execute();
 
@@ -71,7 +71,7 @@ public class RolDao {
     public boolean deleteRol(int id) {
         try {
 
-            String SQL = "DELETE FROM TB_Rol WHERE ID_Rol =" + id + " ";
+            String SQL = "UPDATE TB_Rol SET Estado=0 WHERE ID_Rol =" + id + " ";
 
             PreparedStatement ps = this.DBConnection.prepareStatement(SQL);
             ps.execute();
@@ -91,14 +91,14 @@ public class RolDao {
 
             PreparedStatement ps = null;
             String SQL = "UPDATE TB_Rol SET "
-                    + " Valor=?, Descripcion=?, EstadoRol=? "
+                    + " Valor=?, Descripcion=?, Estado=? "
                     + " where ID_Rol = ?";
             ps = this.DBConnection.prepareStatement(SQL);
 
-            ps.setInt(1, rol.getValor());
+            ps.setString(1, rol.getValor());
             ps.setString(2, rol.getDescripcion());
-            ps.setInt(3, rol.getEstadoRol());
-            ps.setInt(4, rol.getId_Rol());
+            ps.setInt(3, rol.getEstado());
+            ps.setInt(4, rol.getId_rol());
 
             ps.execute();
             ps.close();
@@ -123,10 +123,10 @@ public class RolDao {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Rol rol = new Rol();
-                rol.setId_Rol(rs.getInt("ID_Rol"));
-                rol.setValor(rs.getInt("Valor"));
+                rol.setId_rol(rs.getInt("ID_Rol"));
+                rol.setValor(rs.getString("Valor"));
                 rol.setDescripcion(rs.getString("Descripcion"));
-                rol.setEstadoRol(rs.getInt("EstadoRol"));
+                rol.setEstado(rs.getInt("Estado"));
 
                 list.add(rol);
             }
@@ -154,10 +154,10 @@ public class RolDao {
             if (rs != null) {
                 rs.next();
 
-                rol.setId_Rol(rs.getInt("ID_Rol"));
-                rol.setValor(rs.getInt("Valor"));
+                rol.setId_rol(rs.getInt("ID_Rol"));
+                rol.setValor(rs.getString("Valor"));
                 rol.setDescripcion(rs.getString("Descripcion"));
-                rol.setEstadoRol(rs.getInt("EstadoRol"));
+                rol.setEstado(rs.getInt("Estado"));
 
             }
             ps.close();

@@ -5,33 +5,33 @@
  */
 package edu.uniajc.proyeccionsocial.bussiness.services;
 
-import edu.uniajc.proyeccionsocial.interfaces.IFaseProyecto;
-import edu.uniajc.proyeccionSocial.DAO.FaseProyectoDAO;
+import edu.uniajc.proyeccionsocial.interfaces.IServicioEtapa;
+import edu.uniajc.proyeccionSocial.DAO.ServicioEtapaDAO;
 
-import edu.uniajc.proyeccionSocial.Model.FaseProyecto;
+import edu.uniajc.proyeccionSocial.Model.ServicioEtapa;
 import java.util.ArrayList;
 
 /**
  *
- * @author luis.leon
+ * @author rlara
  */
-public class FaseProyectoServices implements IFaseProyecto {
+public class ServicioEtapaServices implements IServicioEtapa {
 
-    FaseProyectoDAO dao;
+    ServicioEtapaDAO dao;
 
-    public FaseProyectoServices() {
+    public ServicioEtapaServices() {
 
-        this.dao = new FaseProyectoDAO();
+        this.dao = new ServicioEtapaDAO();
     }
 
     @Override
-    public int createFaseProyecto(FaseProyecto faseProyecto) {
+    public int createServicioEtapa(ServicioEtapa servicioEtapa) {
         try {
 
             // validacion de Data
-            if (faseProyecto != null) {
+            if (servicioEtapa != null) {
 
-                int flag = dao.createFaseProyecto(faseProyecto);
+                int flag = dao.createServicioEtapa(servicioEtapa);
 
                 return flag;
             } else {
@@ -46,10 +46,10 @@ public class FaseProyectoServices implements IFaseProyecto {
     }
 
     @Override
-    public boolean deleteFaseProyecto(int id) {
+    public boolean deleteServicioEtapa(int id) {
         try {
 
-            dao.deleteFaseProyecto(id);
+            dao.deleteServicioEtapa(id);
 
             return true;
 
@@ -60,9 +60,9 @@ public class FaseProyectoServices implements IFaseProyecto {
     }
 
     @Override
-    public boolean updateFaseProyecto(FaseProyecto faseProyecto) {
+    public boolean updateServicioEtapa(ServicioEtapa servicioEtapa) {
         try {
-            dao.updateFaseProyecto(faseProyecto);
+            dao.updateServicioEtapa(servicioEtapa);
             return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -71,10 +71,10 @@ public class FaseProyectoServices implements IFaseProyecto {
     }
 
     @Override
-    public ArrayList<FaseProyecto> getAllFaseProyectos() {
+    public ArrayList<ServicioEtapa> getAllServicioEtapa() {
         try {
 
-            ArrayList<FaseProyecto> list = dao.getAllFaseProyectos();
+            ArrayList<ServicioEtapa> list = dao.getAllServicioEtapa();
 
             return list;
 
@@ -85,12 +85,12 @@ public class FaseProyectoServices implements IFaseProyecto {
     }
 
     @Override
-    public FaseProyecto getFaseProyectoById(int id) {
+    public ServicioEtapa getServicioEtapaById(int id) {
         try {
 
-            FaseProyecto faseProyecto = dao.getFaseProyectoById(id);
+            ServicioEtapa servicioEtapa = dao.getServicioEtapaById(id);
 
-            return faseProyecto;
+            return servicioEtapa;
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

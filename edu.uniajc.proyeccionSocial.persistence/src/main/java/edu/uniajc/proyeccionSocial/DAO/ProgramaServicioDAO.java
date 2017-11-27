@@ -33,7 +33,7 @@ public class ProgramaServicioDAO {
         try {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
-            progServi.setCreadoEn(fechaSQL);
+            progServi.setCreadoen(fechaSQL);
 
             PreparedStatement ps = null;
 
@@ -44,20 +44,20 @@ public class ProgramaServicioDAO {
 
             if (rs.next()) {
                 codigo = rs.getInt("ID");
-                progServi.setId_ProgramaServicio(codigo);
+                progServi.setId_programaservicio(codigo);
             }
 
             SQL = "INSERT INTO TB_ProgramaServicio"
-                    + " (ID_ProgramaServicio,Descripcion,ID_Programa, EstadoProgramaServicio,CreadoPor, CreadoEn) "
-                    + " values(?,?,?,?,?,?)";
+                    + " (ID_ProgramaServicio, ID_Programa, ID_Servicio, "
+                    + "Estado,CreadoPor, CreadoEn) values(?,?,?,?,?,?)";
             ps = this.DBConnection.prepareStatement(SQL);
 
-            ps.setInt(1, progServi.getId_ProgramaServicio());
-            ps.setString(2, progServi.getDescripcion());
-            ps.setInt(3, progServi.getId_Programa());
-            ps.setInt(4, progServi.getEstadoProgramaServicio());
-            ps.setString(5, progServi.getCreadoPor());
-            ps.setDate(6, progServi.getCreadoEn());
+            ps.setInt(1, progServi.getId_programaservicio());
+            ps.setInt(2, progServi.getId_programa());
+            ps.setInt(3, progServi.getId_servicio());
+            ps.setInt(4, progServi.getEstado());
+            ps.setString(5, progServi.getCreadopor());
+            ps.setDate(6, progServi.getCreadoen());
             ps.execute();
 
             ps.close();
@@ -74,7 +74,8 @@ public class ProgramaServicioDAO {
     public boolean deleteProgramaServicio(int id) {
         try {
 
-            String SQL = "DELETE FROM TB_ProgramaServicio WHERE ID_ProgramaServicio =" + id + " ";
+            String SQL = "UPDATE TB_ProgramaServicio SET Estado=0 WHERE "
+                    + "ID_ProgramaServicio =" + id + " ";
 
             PreparedStatement ps = this.DBConnection.prepareStatement(SQL);
             ps.execute();
@@ -94,20 +95,20 @@ public class ProgramaServicioDAO {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
 
-            progServi.setModificadoEn(fechaSQL);
+            progServi.setModificadoen(fechaSQL);
 
             PreparedStatement ps = null;
             String SQL = "UPDATE TB_ProgramaServicio SET "
-                    + " Descripcion=?,ID_Programa=?, EstadoProgramaServicio=?, ModificadoPor=?, ModificadoEn=? "
+                    + "ID_Programa=?, ID_Servicio=?, Estado=?, ModificadoPor=?, ModificadoEn=? "
                     + "where ID_ProgramaServicio = ?";
             ps = this.DBConnection.prepareStatement(SQL);
 
-            ps.setString(1, progServi.getDescripcion());
-            ps.setInt(2, progServi.getId_Programa());
-            ps.setInt(3, progServi.getEstadoProgramaServicio());
-            ps.setString(4, progServi.getModificadoPor());
-            ps.setDate(5, progServi.getModificadoEn());
-            ps.setInt(6, progServi.getId_ProgramaServicio());
+            ps.setInt(1, progServi.getId_programa());
+            ps.setInt(2, progServi.getId_servicio());
+            ps.setInt(3, progServi.getEstado());
+            ps.setString(4, progServi.getModificadopor());
+            ps.setDate(5, progServi.getModificadoen());
+            ps.setInt(6, progServi.getId_programaservicio());
 
             ps.execute();
             ps.close();
@@ -132,14 +133,14 @@ public class ProgramaServicioDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 ProgramaServicio progServi = new ProgramaServicio();
-                progServi.setId_ProgramaServicio(rs.getInt("ID_ProgramaServicio"));
-                progServi.setDescripcion(rs.getString("Descripcion"));
-                progServi.setId_Programa(rs.getInt("ID_Programa"));
-                progServi.setEstadoProgramaServicio(rs.getInt("EstadoProgramaServicio"));
-                progServi.setCreadoPor(rs.getString("CREADOPOR"));
-                progServi.setModificadoPor(rs.getString("MODIFICADOPOR"));
-                progServi.setCreadoEn(rs.getDate("CREADOEN"));
-                progServi.setModificadoEn(rs.getDate("MODIFICADOEN"));
+                progServi.setId_programaservicio(rs.getInt("ID_ProgramaServicio"));
+                progServi.setId_programa(rs.getInt("ID_Programa"));
+                progServi.setId_servicio(rs.getInt("ID_Servicio"));
+                progServi.setEstado(rs.getInt("Estado"));
+                progServi.setCreadopor(rs.getString("CREADOPOR"));
+                progServi.setModificadopor(rs.getString("MODIFICADOPOR"));
+                progServi.setCreadoen(rs.getDate("CREADOEN"));
+                progServi.setModificadoen(rs.getDate("MODIFICADOEN"));
 
                 list.add(progServi);
             }
@@ -166,14 +167,14 @@ public class ProgramaServicioDAO {
             ResultSet rs = ps.executeQuery();
             if (rs != null) {
                 rs.next();
-                progServi.setId_ProgramaServicio(rs.getInt("ID_ProgramaServicio"));
-                progServi.setDescripcion(rs.getString("Descripcion"));
-                progServi.setId_Programa(rs.getInt("ID_Programa"));
-                progServi.setEstadoProgramaServicio(rs.getInt("EstadoProgramaServicio"));
-                progServi.setCreadoPor(rs.getString("CREADOPOR"));
-                progServi.setModificadoPor(rs.getString("MODIFICADOPOR"));
-                progServi.setCreadoEn(rs.getDate("CREADOEN"));
-                progServi.setModificadoEn(rs.getDate("MODIFICADOEN"));
+                progServi.setId_programaservicio(rs.getInt("ID_ProgramaServicio"));
+                progServi.setId_programa(rs.getInt("ID_Programa"));
+                progServi.setId_servicio(rs.getInt("ID_Servicio"));
+                progServi.setEstado(rs.getInt("Estado"));
+                progServi.setCreadopor(rs.getString("CREADOPOR"));
+                progServi.setModificadopor(rs.getString("MODIFICADOPOR"));
+                progServi.setCreadoen(rs.getDate("CREADOEN"));
+                progServi.setModificadoen(rs.getDate("MODIFICADOEN"));
 
             }
             ps.close();

@@ -11,8 +11,8 @@ import java.sql.Date;
  *
  * @author rlara
  */
-public class Programa {
-    private int id_programa;
+public class Servicio {
+    private int id_servicio;
     private String descripcion;
     private int estado;
     private String creadopor;
@@ -20,12 +20,12 @@ public class Programa {
     private String modificadopor;
     private Date modificadoen;
 
-    public int getId_programa() {
-        return id_programa;
+    public int getId_servicio() {
+        return id_servicio;
     }
 
-    public void setId_programa(int id_programa) {
-        this.id_programa = id_programa;
+    public void setId_servicio(int id_servicio) {
+        this.id_servicio = id_servicio;
     }
 
     public String getDescripcion() {

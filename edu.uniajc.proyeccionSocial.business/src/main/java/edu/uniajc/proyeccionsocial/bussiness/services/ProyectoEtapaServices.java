@@ -5,32 +5,33 @@
  */
 package edu.uniajc.proyeccionsocial.bussiness.services;
 
-import edu.uniajc.proyeccionsocial.interfaces.IOferente;
-import edu.uniajc.proyeccionSocial.DAO.OferenteDao;
-import edu.uniajc.proyeccionSocial.Model.Oferente;
+import edu.uniajc.proyeccionsocial.interfaces.IProyectoEtapa;
+import edu.uniajc.proyeccionSocial.DAO.ProyectoEtapaDAO;
+
+import edu.uniajc.proyeccionSocial.Model.ProyectoEtapa;
 import java.util.ArrayList;
 
 /**
  *
- * @author luis.leon
+ * @author rlara
  */
-public class OferenteServices implements IOferente {
+public class ProyectoEtapaServices implements IProyectoEtapa {
 
-    OferenteDao dao;
+    ProyectoEtapaDAO dao;
 
-    public OferenteServices() {
+    public ProyectoEtapaServices() {
 
-        this.dao = new OferenteDao();
+        this.dao = new ProyectoEtapaDAO();
     }
 
     @Override
-    public int createOferente(Oferente oferente) {
+    public int createProyectoEtapa(ProyectoEtapa proyectoEtapa) {
         try {
 
             // validacion de Data
-            if (oferente != null) {
+            if (proyectoEtapa != null) {
 
-                int flag = dao.createOferente(oferente);
+                int flag = dao.createProyectoEtapa(proyectoEtapa);
 
                 return flag;
             } else {
@@ -45,10 +46,10 @@ public class OferenteServices implements IOferente {
     }
 
     @Override
-    public boolean deleteOferente(int id) {
+    public boolean deleteProyectoEtapa(int id) {
         try {
 
-            dao.deleteOferente(id);
+            dao.deleteProyectoEtapa(id);
 
             return true;
 
@@ -59,13 +60,10 @@ public class OferenteServices implements IOferente {
     }
 
     @Override
-    public boolean updateOferente(Oferente oferente) {
+    public boolean updateProyectoEtapa(ProyectoEtapa proyectoEtapa) {
         try {
-
-            dao.updateOferente(oferente);
-
+            dao.updateProyectoEtapa(proyectoEtapa);
             return true;
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;
@@ -73,10 +71,10 @@ public class OferenteServices implements IOferente {
     }
 
     @Override
-    public ArrayList<Oferente> getAllOferente() {
+    public ArrayList<ProyectoEtapa> getAllProyectoEtapa() {
         try {
 
-            ArrayList<Oferente> list = dao.getAllOferente();
+            ArrayList<ProyectoEtapa> list = dao.getAllProyectoEtapa();
 
             return list;
 
@@ -87,12 +85,12 @@ public class OferenteServices implements IOferente {
     }
 
     @Override
-    public Oferente getOferenteById(int id) {
+    public ProyectoEtapa getProyectoEtapaById(int id) {
         try {
 
-            Oferente oferente = dao.getOferenteById(id);
+            ProyectoEtapa proyectoEtapa = dao.getProyectoEtapaById(id);
 
-            return oferente;
+            return proyectoEtapa;
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

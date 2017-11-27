@@ -1,43 +1,33 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package edu.uniajc.proyeccionSocial.Model;
 
 import java.sql.Date;
 
 /**
  *
- * @author Leon
+ * @author luis.leon
  */
 public class ListaValor {
-    
-    
-   private int id_ListaValor;
-   private String agrupacion;
-   private String descripcion;
-   private int estado;
-   private String creadoPor;
-   private Date creadoEn;
-   private String modificadoPor;
-   private Date modificadoEn;
+    private int id_listavalor;
+    private String agrupacion;
+    private String descripcion;
+    private int estado;
+    private String creadopor;
+    private Date creadoen;
+    private String modificadopor;
+    private Date modificadoen;
 
-    public int getEstado() {
-        return estado;
+    public int getId_listavalor() {
+        return id_listavalor;
     }
 
-    public void setEstado(int estado) {
-        this.estado = estado;
+    public void setId_listavalor(int id_listavalor) {
+        this.id_listavalor = id_listavalor;
     }
-
-   
-   
-
-    public int getId_ListaValor() {
-        return id_ListaValor;
-    }
-
-    public void setId_ListaValor(int id_ListaValor) {
-        this.id_ListaValor = id_ListaValor;
-    }
-
-    
 
     public String getAgrupacion() {
         return agrupacion;
@@ -55,36 +45,43 @@ public class ListaValor {
         this.descripcion = descripcion;
     }
 
-    public String getCreadoPor() {
-        return creadoPor;
+    public int getEstado() {
+        return estado;
     }
 
-    public void setCreadoPor(String creadoPor) {
-        this.creadoPor = creadoPor;
+    public void setEstado(int estado) {
+        this.estado = estado;
     }
 
-    public Date getCreadoEn() {
-        return creadoEn;
+    public String getCreadopor() {
+        return creadopor;
     }
 
-    public void setCreadoEn(Date creadoEn) {
-        this.creadoEn = creadoEn;
+    public void setCreadopor(String creadopor) {
+        this.creadopor = creadopor;
     }
 
-    public String getModificadoPor() {
-        return modificadoPor;
+    public Date getCreadoen() {
+        return creadoen;
     }
 
-    public void setModificadoPor(String modificadoPor) {
-        this.modificadoPor = modificadoPor;
+    public void setCreadoen(Date creadoen) {
+        this.creadoen = creadoen;
     }
 
-    public Date getModificadoEn() {
-        return modificadoEn;
+    public String getModificadopor() {
+        return modificadopor;
     }
 
-    public void setModificadoEn(Date modificadoEn) {
-        this.modificadoEn = modificadoEn;
+    public void setModificadopor(String modificadopor) {
+        this.modificadopor = modificadopor;
     }
 
+    public Date getModificadoen() {
+        return modificadoen;
+    }
+
+    public void setModificadoen(Date modificadoen) {
+        this.modificadoen = modificadoen;
+    }
 }

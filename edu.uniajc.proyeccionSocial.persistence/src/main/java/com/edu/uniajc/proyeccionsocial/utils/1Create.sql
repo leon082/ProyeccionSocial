@@ -355,7 +355,7 @@ id_etapa );
 
 CREATE TABLE tb_rol (
     id_rol          NUMBER(10) NOT NULL,
-    valor           NUMBER(20) NOT NULL,
+    valor           VARCHAR2(50) NOT NULL,
     descripcion     VARCHAR2(100) NOT NULL,
     estado          NUMBER(10) NOT NULL,
     creadopor       VARCHAR2(50) NOT NULL,

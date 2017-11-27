@@ -12,29 +12,29 @@ import java.sql.Date;
  * @author rlara
  */
 public class ListaValorDetalle {
-    private int id_ListaValorDetalle;
-    private int id_ListaValor;
+    private int id_listavalordetalle;
+    private int id_listavalor;
     private String valor;
     private int estado;
-    private String creadoPor;
-    private Date creadoEn;
-    private String modificadoPor;
-    private Date modificadoEn;
+    private String creadopor;
+    private Date creadoen;
+    private String modificadopor;
+    private Date modificadoen;
 
-    public int getId_ListaValorDetalle() {
-        return id_ListaValorDetalle;
+    public int getId_listavalordetalle() {
+        return id_listavalordetalle;
     }
 
-    public void setId_ListaValorDetalle(int id_ListaValorDetalle) {
-        this.id_ListaValorDetalle = id_ListaValorDetalle;
+    public void setId_listavalordetalle(int id_listavalordetalle) {
+        this.id_listavalordetalle = id_listavalordetalle;
     }
 
-    public int getId_ListaValor() {
-        return id_ListaValor;
+    public int getId_listavalor() {
+        return id_listavalor;
     }
 
-    public void setId_ListaValor(int id_ListaValor) {
-        this.id_ListaValor = id_ListaValor;
+    public void setId_listavalor(int id_listavalor) {
+        this.id_listavalor = id_listavalor;
     }
 
     public String getValor() {
@@ -53,36 +53,35 @@ public class ListaValorDetalle {
         this.estado = estado;
     }
 
-    public String getCreadoPor() {
-        return creadoPor;
+    public String getCreadopor() {
+        return creadopor;
     }
 
-    public void setCreadoPor(String creadoPor) {
-        this.creadoPor = creadoPor;
+    public void setCreadopor(String creadopor) {
+        this.creadopor = creadopor;
     }
 
-    public Date getCreadoEn() {
-        return creadoEn;
+    public Date getCreadoen() {
+        return creadoen;
     }
 
-    public void setCreadoEn(Date creadoEn) {
-        this.creadoEn = creadoEn;
+    public void setCreadoen(Date creadoen) {
+        this.creadoen = creadoen;
     }
 
-    public String getModificadoPor() {
-        return modificadoPor;
+    public String getModificadopor() {
+        return modificadopor;
     }
 
-    public void setModificadoPor(String modificadoPor) {
-        this.modificadoPor = modificadoPor;
+    public void setModificadopor(String modificadopor) {
+        this.modificadopor = modificadopor;
     }
 
-    public Date getModificadoEn() {
-        return modificadoEn;
+    public Date getModificadoen() {
+        return modificadoen;
     }
 
-    public void setModificadoEn(Date modificadoEn) {
-        this.modificadoEn = modificadoEn;
+    public void setModificadoen(Date modificadoen) {
+        this.modificadoen = modificadoen;
     }
-    
 }

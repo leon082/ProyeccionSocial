@@ -41,19 +41,19 @@ public class UsuarioDao {
 
             if (rs.next()) {
                 codigo = rs.getInt("ID");
-                user.setId_Usuario(codigo);
+                user.setId_usuario(codigo);
             }
 
             SQL = "INSERT INTO TB_Usuario"
-                    + " (ID_Usuario,ID_Tercero,Usuario, EstadoUsuario , Clave) "
+                    + " (ID_Usuario, ID_Tercero, Usuario, Contrasena, Estado) "
                     + " values(?,?,?,?,?)";
             ps = this.DBConnection.prepareStatement(SQL);
 
-            ps.setInt(1, user.getId_Usuario());
-            ps.setInt(2, user.getId_Tercero());
+            ps.setInt(1, user.getId_usuario());
+            ps.setInt(2, user.getId_tercero());
             ps.setString(3, user.getUsuario());
-            ps.setInt(4, user.getEstado());
-            ps.setString(5,user.getPassword());
+            ps.setString(4,user.getContrasena());
+            ps.setInt(5, user.getEstado());
 
             ps.execute();
 
@@ -71,7 +71,7 @@ public class UsuarioDao {
     public boolean deleteUsuario(int id) {
         try {
 
-            String SQL = "DELETE FROM TB_Usuario WHERE ID_Usuario =" + id + " ";
+            String SQL = "UPDATE TB_Usuario SET Estado=0 WHERE ID_Usuario =" + id + " ";
 
             PreparedStatement ps = this.DBConnection.prepareStatement(SQL);
             ps.execute();
@@ -91,15 +91,15 @@ public class UsuarioDao {
 
             PreparedStatement ps = null;
             String SQL = "UPDATE TB_Usuario SET "
-                    + " ID_Tercero=?, Usuario=?, EstadoUsuario=? , Clave=? "
+                    + " ID_Tercero=?, Usuario=?, Estado=? , Clave=? "
                     + " where ID_Usuario = ?";
             ps = this.DBConnection.prepareStatement(SQL);
 
-            ps.setInt(1, usuario.getId_Tercero());
+            ps.setInt(1, usuario.getId_tercero());
             ps.setString(2, usuario.getUsuario());
-            ps.setInt(3, usuario.getEstado());
-            ps.setString(4,usuario.getPassword());
-            ps.setInt(5, usuario.getId_Usuario());
+            ps.setString(3,usuario.getContrasena());
+            ps.setInt(4, usuario.getEstado());
+            ps.setInt(5, usuario.getId_usuario());
 
             ps.execute();
             ps.close();
@@ -113,7 +113,7 @@ public class UsuarioDao {
 
     }
 
-    public ArrayList<Usuario> getAllUsuarios() {
+    public ArrayList<Usuario> getAllUsuario() {
         ArrayList<Usuario> list = new ArrayList<>(0);
         try {
 
@@ -124,11 +124,11 @@ public class UsuarioDao {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Usuario usuario = new Usuario();
-                usuario.setId_Usuario(rs.getInt("ID_Usuario"));
-                usuario.setId_Tercero(rs.getInt("ID_Tercero"));
+                usuario.setId_usuario(rs.getInt("ID_Usuario"));
+                usuario.setId_tercero(rs.getInt("ID_Tercero"));
                 usuario.setUsuario(rs.getString("Usuario"));
-                usuario.setEstado(rs.getInt("EstadoUsuario"));
-                usuario.setPassword(rs.getString("Clave"));
+                usuario.setContrasena(rs.getString("Contrasena"));
+                usuario.setEstado(rs.getInt("Estado"));
 
                 list.add(usuario);
             }
@@ -156,11 +156,11 @@ public class UsuarioDao {
             if (rs != null) {
                 rs.next();
                 usuario = new Usuario();
-                usuario.setId_Usuario(rs.getInt("ID_Usuario"));
-                usuario.setId_Tercero(rs.getInt("ID_Tercero"));
+                usuario.setId_usuario(rs.getInt("ID_Usuario"));
+                usuario.setId_tercero(rs.getInt("ID_Tercero"));
                 usuario.setUsuario(rs.getString("Usuario"));
-                usuario.setEstado(rs.getInt("EstadoUsuario"));
-                usuario.setPassword(rs.getString("Clave"));
+                usuario.setContrasena(rs.getString("Contrasena"));
+                usuario.setEstado(rs.getInt("Estado"));
 
             }
             ps.close();
@@ -174,24 +174,24 @@ public class UsuarioDao {
 
     }
     
-    public Usuario getUsuarioLogin(String user, String password) {
+    public Usuario getUsuarioLogin(String user, String contrasena) {
 
         Usuario usuario = null;
         try {
 
             PreparedStatement ps = null;
 
-            String SQL = "select * from TB_Usuario where Usuario = '" + user + "' and Clave ='"+password+"' ";
+            String SQL = "select * from TB_Usuario where Usuario = '" + user + "' and Contrasena ='"+contrasena+"' ";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs != null) {
                 rs.next();
                 usuario=new Usuario();
-                usuario.setId_Usuario(rs.getInt("ID_Usuario"));
-                usuario.setId_Tercero(rs.getInt("ID_Tercero"));
+                usuario.setId_usuario(rs.getInt("ID_Usuario"));
+                usuario.setId_tercero(rs.getInt("ID_Tercero"));
                 usuario.setUsuario(rs.getString("Usuario"));
-                usuario.setEstado(rs.getInt("EstadoUsuario"));
-                usuario.setPassword(rs.getString("Clave"));
+                usuario.setContrasena(rs.getString("Contrasena"));
+                usuario.setEstado(rs.getInt("Estado"));
 
             }
             ps.close();
@@ -218,11 +218,11 @@ public class UsuarioDao {
             if (rs != null) {
                 rs.next();
                 usuario = new Usuario();
-                usuario.setId_Usuario(rs.getInt("ID_Usuario"));
-                usuario.setId_Tercero(rs.getInt("ID_Tercero"));
+                usuario.setId_usuario(rs.getInt("ID_Usuario"));
+                usuario.setId_tercero(rs.getInt("ID_Tercero"));
                 usuario.setUsuario(rs.getString("Usuario"));
-                usuario.setEstado(rs.getInt("EstadoUsuario"));
-                usuario.setPassword(rs.getString("Clave"));
+                usuario.setEstado(rs.getInt("Estado"));
+                usuario.setContrasena(rs.getString("Clave"));
 
             }
             ps.close();

@@ -5,30 +5,35 @@
  */
 package edu.uniajc.proyeccionSocial.Model;
 
+import java.sql.Date;
+
 /**
  *
  * @author luis.leon
  */
 public class Rol {
-    
-    private int id_Rol;
-    private int valor;
+    private int id_rol;
+    private String valor;
     private String descripcion;
-    private int estadoRol;
+    private int estado;
+    private String creadopor;
+    private Date creadoen;
+    private String modificadopor;
+    private Date modificadoen;
 
-    public int getId_Rol() {
-        return id_Rol;
+    public int getId_rol() {
+        return id_rol;
     }
 
-    public void setId_Rol(int id_Rol) {
-        this.id_Rol = id_Rol;
+    public void setId_rol(int id_rol) {
+        this.id_rol = id_rol;
     }
 
-    public int getValor() {
+    public String getValor() {
         return valor;
     }
 
-    public void setValor(int valor) {
+    public void setValor(String valor) {
         this.valor = valor;
     }
 
@@ -40,14 +45,43 @@ public class Rol {
         this.descripcion = descripcion;
     }
 
-    public int getEstadoRol() {
-        return estadoRol;
+    public int getEstado() {
+        return estado;
     }
 
-    public void setEstadoRol(int estadoRol) {
-        this.estadoRol = estadoRol;
+    public void setEstado(int estado) {
+        this.estado = estado;
     }
-    
-    
-    
+
+    public String getCreadopor() {
+        return creadopor;
+    }
+
+    public void setCreadopor(String creadopor) {
+        this.creadopor = creadopor;
+    }
+
+    public Date getCreadoen() {
+        return creadoen;
+    }
+
+    public void setCreadoen(Date creadoen) {
+        this.creadoen = creadoen;
+    }
+
+    public String getModificadopor() {
+        return modificadopor;
+    }
+
+    public void setModificadopor(String modificadopor) {
+        this.modificadopor = modificadopor;
+    }
+
+    public Date getModificadoen() {
+        return modificadoen;
+    }
+
+    public void setModificadoen(Date modificadoen) {
+        this.modificadoen = modificadoen;
+    }
 }

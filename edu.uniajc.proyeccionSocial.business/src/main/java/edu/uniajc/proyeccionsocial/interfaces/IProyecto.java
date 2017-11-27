@@ -20,8 +20,6 @@ public interface IProyecto {
 
     public boolean updateProyecto(Proyecto proyecto);
 
-    public ArrayList<Proyecto> getAllProyectos();
-    //public Proyecto getProyectoById(int id);   
-    //public ArrayList<Proyecto> getProyectos();
+    public ArrayList<Proyecto> getAllProyecto();
 
 }

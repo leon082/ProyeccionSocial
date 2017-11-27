@@ -5,33 +5,33 @@
  */
 package edu.uniajc.proyeccionsocial.bussiness.services;
 
-import edu.uniajc.proyeccionsocial.interfaces.IFase;
-import edu.uniajc.proyeccionSocial.DAO.FaseDAO;
+import edu.uniajc.proyeccionsocial.interfaces.ISoporteProyectoEtapa;
+import edu.uniajc.proyeccionSocial.DAO.SoporteProyectoEtapaDAO;
 
-import edu.uniajc.proyeccionSocial.Model.Fase;
+import edu.uniajc.proyeccionSocial.Model.SoporteProyectoEtapa;
 import java.util.ArrayList;
 
 /**
  *
  * @author rlara
  */
-public class FaseServices implements IFase {
+public class SoporteProyectoEtapaServices implements ISoporteProyectoEtapa {
 
-    FaseDAO dao;
+    SoporteProyectoEtapaDAO dao;
 
-    public FaseServices() {
+    public SoporteProyectoEtapaServices() {
 
-        this.dao = new FaseDAO();
+        this.dao = new SoporteProyectoEtapaDAO();
     }
 
     @Override
-    public int createFase(Fase fase) {
+    public int createSoporteProyectoEtapa(SoporteProyectoEtapa soporteProyectoEtapa) {
         try {
 
             // validacion de Data
-            if (fase != null) {
+            if (soporteProyectoEtapa != null) {
 
-                int flag = dao.createFase(fase);
+                int flag = dao.createSoporteProyectoEtapa(soporteProyectoEtapa);
 
                 return flag;
             } else {
@@ -46,23 +46,9 @@ public class FaseServices implements IFase {
     }
 
     @Override
-    public boolean deleteFase(int id) {
+    public boolean updateSoporteProyectoEtapa(SoporteProyectoEtapa soporteProyectoEtapa) {
         try {
-
-            dao.deleteFase(id);
-
-            return true;
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return false;
-        }
-    }
-
-    @Override
-    public boolean updateFase(Fase fase) {
-        try {
-            dao.updateFase(fase);
+            dao.updateSoporteProyectoEtapa(soporteProyectoEtapa);
             return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -71,10 +57,10 @@ public class FaseServices implements IFase {
     }
 
     @Override
-    public ArrayList<Fase> getAllFase() {
+    public ArrayList<SoporteProyectoEtapa> getAllSoporteProyectoEtapa() {
         try {
 
-            ArrayList<Fase> list = dao.getAllFase();
+            ArrayList<SoporteProyectoEtapa> list = dao.getAllSoporteProyectoEtapa();
 
             return list;
 
@@ -85,12 +71,12 @@ public class FaseServices implements IFase {
     }
 
     @Override
-    public Fase getFaseById(int id) {
+    public SoporteProyectoEtapa getSoporteProyectoEtapaById(int id) {
         try {
 
-            Fase fase = dao.getFaseById(id);
+            SoporteProyectoEtapa soporteProyectoEtapa = dao.getSoporteProyectoEtapaById(id);
 
-            return fase;
+            return soporteProyectoEtapa;
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

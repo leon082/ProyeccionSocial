@@ -11,21 +11,21 @@ import java.sql.Date;
  *
  * @author rlara
  */
-public class Programa {
-    private int id_programa;
+public class Etapa {
+    private int id_etapa;
     private String descripcion;
     private int estado;
-    private String creadopor;
+    private Date creadopor;
     private Date creadoen;
     private String modificadopor;
     private Date modificadoen;
 
-    public int getId_programa() {
-        return id_programa;
+    public int getId_etapa() {
+        return id_etapa;
     }
 
-    public void setId_programa(int id_programa) {
-        this.id_programa = id_programa;
+    public void setId_etapa(int id_etapa) {
+        this.id_etapa = id_etapa;
     }
 
     public String getDescripcion() {
@@ -44,11 +44,11 @@ public class Programa {
         this.estado = estado;
     }
 
-    public String getCreadopor() {
+    public Date getCreadopor() {
         return creadopor;
     }
 
-    public void setCreadopor(String creadopor) {
+    public void setCreadopor(Date creadopor) {
         this.creadopor = creadopor;
     }
 
@@ -74,5 +74,5 @@ public class Programa {
 
     public void setModificadoen(Date modificadoen) {
         this.modificadoen = modificadoen;
-    }
+    }   
 }

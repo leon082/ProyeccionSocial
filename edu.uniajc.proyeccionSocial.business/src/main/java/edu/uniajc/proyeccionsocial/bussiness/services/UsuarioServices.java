@@ -74,10 +74,10 @@ public class UsuarioServices implements IUsuario {
     }
 
     @Override
-    public ArrayList<Usuario> getAllUsuarios() {
+    public ArrayList<Usuario> getAllUsuario() {
         try {
 
-            ArrayList<Usuario> list = dao.getAllUsuarios();
+            ArrayList<Usuario> list = dao.getAllUsuario();
 
             return list;
 

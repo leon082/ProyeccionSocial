@@ -5,23 +5,23 @@
  */
 package edu.uniajc.proyeccionsocial.interfaces;
 
-import edu.uniajc.proyeccionSocial.Model.Fase;
+import edu.uniajc.proyeccionSocial.Model.Etapa;
 import java.util.ArrayList;
 
 /**
  *
  * @author rlara
  */
-public interface IFase {
+public interface IEtapa {
 
-    public int createFase(Fase fase);
+    public int createEtapa(Etapa etapa);
 
-    public boolean deleteFase(int id);
+    public boolean deleteEtapa(int id);
 
-    public boolean updateFase(Fase fase);
+    public boolean updateEtapa(Etapa etapa);
 
-    public ArrayList<Fase> getAllFase();
+    public ArrayList<Etapa> getAllEtapa();
 
-    public Fase getFaseById(int id);
+    public Etapa getEtapaById(int id);
 
 }

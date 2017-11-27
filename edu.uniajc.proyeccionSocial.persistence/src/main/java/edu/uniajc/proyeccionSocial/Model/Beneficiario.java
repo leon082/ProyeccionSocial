@@ -12,46 +12,46 @@ import java.sql.Date;
  * @author rlara
  */
 public class Beneficiario {
-    private int id_Beneficiario;
-    private int id_Proyecto;
-    private int id_Tercero;
-    private int estadoBeneficiario;
+    private int id_beneficiario;
+    private int id_proyecto;
+    private int id_tercero;
+    private int estado;
     private String observacion;
-    private String creadoPor;
-    private Date creadoEn;
-    private String modificadoPor;
-    private Date modificadoEn;
+    private String creadopor;
+    private Date creadoen;
+    private String modificadopor;
+    private Date modificadoen;
 
-    public int getId_Beneficiario() {
-        return id_Beneficiario;
+    public int getId_beneficiario() {
+        return id_beneficiario;
     }
 
-    public void setId_Beneficiario(int id_Beneficiario) {
-        this.id_Beneficiario = id_Beneficiario;
+    public void setId_beneficiario(int id_beneficiario) {
+        this.id_beneficiario = id_beneficiario;
     }
 
-    public int getId_Proyecto() {
-        return id_Proyecto;
+    public int getId_proyecto() {
+        return id_proyecto;
     }
 
-    public void setId_Proyecto(int id_Proyecto) {
-        this.id_Proyecto = id_Proyecto;
+    public void setId_proyecto(int id_proyecto) {
+        this.id_proyecto = id_proyecto;
     }
 
-    public int getId_Tercero() {
-        return id_Tercero;
+    public int getId_tercero() {
+        return id_tercero;
     }
 
-    public void setId_Tercero(int id_Tercero) {
-        this.id_Tercero = id_Tercero;
+    public void setId_tercero(int id_tercero) {
+        this.id_tercero = id_tercero;
     }
 
-    public int getEstadoBeneficiario() {
-        return estadoBeneficiario;
+    public int getEstado() {
+        return estado;
     }
 
-    public void setEstadoBeneficiario(int estadoBeneficiario) {
-        this.estadoBeneficiario = estadoBeneficiario;
+    public void setEstado(int estado) {
+        this.estado = estado;
     }
 
     public String getObservacion() {
@@ -62,37 +62,35 @@ public class Beneficiario {
         this.observacion = observacion;
     }
 
-    public String getCreadoPor() {
-        return creadoPor;
+    public String getCreadopor() {
+        return creadopor;
     }
 
-    public void setCreadoPor(String creadoPor) {
-        this.creadoPor = creadoPor;
+    public void setCreadopor(String creadopor) {
+        this.creadopor = creadopor;
     }
 
-    public Date getCreadoEn() {
-        return creadoEn;
+    public Date getCreadoen() {
+        return creadoen;
     }
 
-    public void setCreadoEn(Date creadoEn) {
-        this.creadoEn = creadoEn;
+    public void setCreadoen(Date creadoen) {
+        this.creadoen = creadoen;
     }
 
-    public String getModificadoPor() {
-        return modificadoPor;
+    public String getModificadopor() {
+        return modificadopor;
     }
 
-    public void setModificadoPor(String modificadoPor) {
-        this.modificadoPor = modificadoPor;
+    public void setModificadopor(String modificadopor) {
+        this.modificadopor = modificadopor;
     }
 
-    public Date getModificadoEn() {
-        return modificadoEn;
+    public Date getModificadoen() {
+        return modificadoen;
     }
 
-    public void setModificadoEn(Date modificadoEn) {
-        this.modificadoEn = modificadoEn;
+    public void setModificadoen(Date modificadoen) {
+        this.modificadoen = modificadoen;
     }
-    
-    
 }

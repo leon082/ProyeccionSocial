@@ -33,7 +33,7 @@ public class UsuarioRolDAO {
         try {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
-            usuarioRol.setCreadoEn(fechaSQL);
+            usuarioRol.setCreadoen(fechaSQL);
 
             PreparedStatement ps = null;
 
@@ -44,20 +44,20 @@ public class UsuarioRolDAO {
 
             if (rs.next()) {
                 codigo = rs.getInt("ID");
-                usuarioRol.setId_UsuarioRol(codigo);
+                usuarioRol.setId_usuariorol(codigo);
             }
 
             SQL = "INSERT INTO TB_UsuarioRol "
-                    + "(ID_UsuarioRol, ID_Usuario, ID_Rol, EstadoUsuarioRol, "
+                    + "(ID_UsuarioRol, ID_Usuario, ID_Rol, Estado, "
                     + "CreadoPor, CreadoEn) values(?,?,?,?,?,?) ";
             ps = this.DBConnection.prepareStatement(SQL);
             
-            ps.setInt(1, usuarioRol.getId_UsuarioRol());
-            ps.setInt(2, usuarioRol.getId_Usuario());
-            ps.setInt(3, usuarioRol.getId_Rol());
-            ps.setInt(4, usuarioRol.getEstadoUsuarioRol());
-            ps.setString(5, usuarioRol.getCreadoPor());
-            ps.setDate(6, usuarioRol.getCreadoEn());
+            ps.setInt(1, usuarioRol.getId_usuariorol());
+            ps.setInt(2, usuarioRol.getId_usuario());
+            ps.setInt(3, usuarioRol.getId_rol());
+            ps.setInt(4, usuarioRol.getEstado());
+            ps.setString(5, usuarioRol.getCreadopor());
+            ps.setDate(6, usuarioRol.getCreadoen());
             ps.execute();
 
             ps.close();
@@ -76,7 +76,7 @@ public class UsuarioRolDAO {
     public boolean deleteUsuarioRol(int id) {
         try {
 
-            String SQL = "DELETE FROM TB_UsuarioRol WHERE ID_UsuarioRol =" + id + " ";
+            String SQL = "UPDATE TB_UsuarioRol SET Estado=0 WHERE ID_UsuarioRol =" + id + " ";
 
             PreparedStatement ps = this.DBConnection.prepareStatement(SQL);
             ps.execute();
@@ -96,20 +96,20 @@ public class UsuarioRolDAO {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
 
-            usuarioRol.setModificadoEn(fechaSQL);
+            usuarioRol.setModificadoen(fechaSQL);
 
             PreparedStatement ps = null;
             String SQL = "UPDATE TB_UsuarioRol SET "
-                    + "ID_Usuario=?, ID_Rol=?, EstadoUsuarioRol=?, "
+                    + "ID_Usuario=?, ID_Rol=?, Estado=?, "
                     + "ModificadoPor=?, ModificadoEn=? where ID_UsuarioRol = ?";
             ps = this.DBConnection.prepareStatement(SQL);
             
-            ps.setInt(1, usuarioRol.getId_Usuario());
-            ps.setInt(2, usuarioRol.getId_Rol());
-            ps.setInt(3, usuarioRol.getEstadoUsuarioRol());
-            ps.setString(4, usuarioRol.getModificadoPor());
-            ps.setDate(5, usuarioRol.getModificadoEn());
-            ps.setInt(6, usuarioRol.getId_UsuarioRol());
+            ps.setInt(1, usuarioRol.getId_usuario());
+            ps.setInt(2, usuarioRol.getId_rol());
+            ps.setInt(3, usuarioRol.getEstado());
+            ps.setString(4, usuarioRol.getModificadopor());
+            ps.setDate(5, usuarioRol.getModificadoen());
+            ps.setInt(6, usuarioRol.getId_usuariorol());
             ps.execute();
             ps.close();
             
@@ -134,14 +134,14 @@ public class UsuarioRolDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 UsuarioRol usuarioRol = new UsuarioRol();
-                usuarioRol.setId_UsuarioRol(rs.getInt("ID_UsuarioRol"));
-                usuarioRol.setId_Usuario(rs.getInt("ID_Usuario"));
-                usuarioRol.setId_Rol(rs.getInt("ID_Rol"));
-                usuarioRol.setEstadoUsuarioRol(rs.getInt("EstadoUsuarioRol"));
-                usuarioRol.setCreadoPor(rs.getString("CreadoPor"));
-                usuarioRol.setModificadoPor(rs.getString("ModificadoPor"));
-                usuarioRol.setCreadoEn(rs.getDate("CreadoEn"));
-                usuarioRol.setModificadoEn(rs.getDate("ModificadoEn"));
+                usuarioRol.setId_usuariorol(rs.getInt("ID_UsuarioRol"));
+                usuarioRol.setId_usuario(rs.getInt("ID_Usuario"));
+                usuarioRol.setId_rol(rs.getInt("ID_Rol"));
+                usuarioRol.setEstado(rs.getInt("Estado"));
+                usuarioRol.setCreadopor(rs.getString("CreadoPor"));
+                usuarioRol.setModificadopor(rs.getString("ModificadoPor"));
+                usuarioRol.setCreadoen(rs.getDate("CreadoEn"));
+                usuarioRol.setModificadoen(rs.getDate("ModificadoEn"));
 
                 list.add(usuarioRol);
             }
@@ -169,14 +169,14 @@ public class UsuarioRolDAO {
             if (rs != null) {
                 rs.next();
 
-                usuarioRol.setId_UsuarioRol(rs.getInt("ID_UsuarioRol"));
-                usuarioRol.setId_Usuario(rs.getInt("ID_Usuario"));
-                usuarioRol.setId_Rol(rs.getInt("ID_Rol"));
-                usuarioRol.setEstadoUsuarioRol(rs.getInt("EstadoUsuarioRol"));
-                usuarioRol.setCreadoPor(rs.getString("CreadoPor"));
-                usuarioRol.setModificadoPor(rs.getString("ModificadoPor"));
-                usuarioRol.setCreadoEn(rs.getDate("CreadoEn"));
-                usuarioRol.setModificadoEn(rs.getDate("ModificadoEn"));
+                usuarioRol.setId_usuariorol(rs.getInt("ID_UsuarioRol"));
+                usuarioRol.setId_usuario(rs.getInt("ID_Usuario"));
+                usuarioRol.setId_rol(rs.getInt("ID_Rol"));
+                usuarioRol.setEstado(rs.getInt("Estado"));
+                usuarioRol.setCreadopor(rs.getString("CreadoPor"));
+                usuarioRol.setModificadopor(rs.getString("ModificadoPor"));
+                usuarioRol.setCreadoen(rs.getDate("CreadoEn"));
+                usuarioRol.setModificadoen(rs.getDate("ModificadoEn"));
 
             }
             ps.close();

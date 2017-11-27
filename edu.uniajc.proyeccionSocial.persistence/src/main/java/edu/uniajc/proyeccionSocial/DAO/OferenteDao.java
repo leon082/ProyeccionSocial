@@ -33,7 +33,7 @@ public class OferenteDao {
         try {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
-            oferente.setCreadoEn(fechaSQL);
+            oferente.setCreadoen(fechaSQL);
 
             PreparedStatement ps = null;
 
@@ -44,7 +44,7 @@ public class OferenteDao {
 
             if (rs.next()) {
                 codigo = rs.getInt("ID");
-                oferente.setId_Oferente(codigo);
+                oferente.setId_oferente(codigo);
             }
 
             SQL = "INSERT INTO TB_Oferente"
@@ -52,13 +52,13 @@ public class OferenteDao {
                     + "values(?,?,?,?,?,?,?)";
             ps = this.DBConnection.prepareStatement(SQL);
 
-            ps.setInt(1, oferente.getId_Oferente());
-            ps.setInt(2, oferente.getId_Proyecto());
-            ps.setInt(3, oferente.getId_Tercero());
-            ps.setInt(4, oferente.getEstadoOferente());
+            ps.setInt(1, oferente.getId_oferente());
+            ps.setInt(2, oferente.getId_proyecto());
+            ps.setInt(3, oferente.getId_tercero());
+            ps.setInt(4, oferente.getEstado());
             ps.setString(5, oferente.getObservacion());
-            ps.setString(6, oferente.getCreadoPor());
-            ps.setDate(7, oferente.getCreadoEn());
+            ps.setString(6, oferente.getCreadopor());
+            ps.setDate(7, oferente.getCreadoen());
             ps.execute();
 
             ps.close();
@@ -75,7 +75,7 @@ public class OferenteDao {
     public boolean deleteOferente(int id) {
         try {
 
-            String SQL = "DELETE FROM TB_Oferente WHERE ID_Oferente =" + id + " ";
+            String SQL = "UPDATE TB_Oferente SET Estado=0 WHERE ID_Oferente =" + id + " ";
 
             PreparedStatement ps = this.DBConnection.prepareStatement(SQL);
             ps.execute();
@@ -95,7 +95,7 @@ public class OferenteDao {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
 
-            oferente.setModificadoEn(fechaSQL);
+            oferente.setModificadoen(fechaSQL);
 
             PreparedStatement ps = null;
             String SQL = "UPDATE TB_Oferente SET "
@@ -103,13 +103,13 @@ public class OferenteDao {
                     + "where ID_Oferente = ?";
             ps = this.DBConnection.prepareStatement(SQL);
 
-            ps.setInt(1, oferente.getId_Proyecto());
-            ps.setInt(2, oferente.getId_Tercero());
-            ps.setInt(3, oferente.getEstadoOferente());
+            ps.setInt(1, oferente.getId_proyecto());
+            ps.setInt(2, oferente.getId_tercero());
+            ps.setInt(3, oferente.getEstado());
             ps.setString(4, oferente.getObservacion());
-            ps.setString(5, oferente.getModificadoPor());
-            ps.setDate(6, oferente.getModificadoEn());
-            ps.setInt(7, oferente.getId_Oferente());
+            ps.setString(5, oferente.getModificadopor());
+            ps.setDate(6, oferente.getModificadoen());
+            ps.setInt(7, oferente.getId_oferente());
 
             ps.execute();
             ps.close();
@@ -123,7 +123,7 @@ public class OferenteDao {
 
     }
 
-    public ArrayList<Oferente> getAllOferentes() {
+    public ArrayList<Oferente> getAllOferente() {
         ArrayList<Oferente> list = new ArrayList<>(0);
         try {
 
@@ -134,15 +134,15 @@ public class OferenteDao {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Oferente oferente = new Oferente();
-                oferente.setId_Oferente(rs.getInt("ID_Oferente"));
-                oferente.setId_Proyecto(rs.getInt("ID_Proyecto"));
-                oferente.setId_Tercero(rs.getInt("ID_Tercero"));
-                oferente.setEstadoOferente(rs.getInt("EstadoOferente"));
+                oferente.setId_oferente(rs.getInt("ID_Oferente"));
+                oferente.setId_proyecto(rs.getInt("ID_Proyecto"));
+                oferente.setId_tercero(rs.getInt("ID_Tercero"));
+                oferente.setEstado(rs.getInt("Estado"));
                 oferente.setObservacion(rs.getString("Observacion"));
-                oferente.setCreadoPor(rs.getString("CREADOPOR"));
-                oferente.setModificadoPor(rs.getString("MODIFICADOPOR"));
-                oferente.setCreadoEn(rs.getDate("CREADOEN"));
-                oferente.setModificadoEn(rs.getDate("MODIFICADOEN"));
+                oferente.setCreadopor(rs.getString("CREADOPOR"));
+                oferente.setModificadopor(rs.getString("MODIFICADOPOR"));
+                oferente.setCreadoen(rs.getDate("CREADOEN"));
+                oferente.setModificadoen(rs.getDate("MODIFICADOEN"));
 
                 list.add(oferente);
             }
@@ -170,15 +170,15 @@ public class OferenteDao {
             if (rs != null) {
                 rs.next();
 
-                oferente.setId_Oferente(rs.getInt("ID_Oferente"));
-                oferente.setId_Proyecto(rs.getInt("ID_Proyecto"));
-                oferente.setId_Tercero(rs.getInt("ID_Tercero"));
-                oferente.setEstadoOferente(rs.getInt("EstadoOferente"));
+                oferente.setId_oferente(rs.getInt("ID_Oferente"));
+                oferente.setId_proyecto(rs.getInt("ID_Proyecto"));
+                oferente.setId_tercero(rs.getInt("ID_Tercero"));
+                oferente.setEstado(rs.getInt("EstadoOferente"));
                 oferente.setObservacion(rs.getString("Observacion"));
-                oferente.setCreadoPor(rs.getString("CREADOPOR"));
-                oferente.setModificadoPor(rs.getString("MODIFICADOPOR"));
-                oferente.setCreadoEn(rs.getDate("CREADOEN"));
-                oferente.setModificadoEn(rs.getDate("MODIFICADOEN"));
+                oferente.setCreadopor(rs.getString("CREADOPOR"));
+                oferente.setModificadopor(rs.getString("MODIFICADOPOR"));
+                oferente.setCreadoen(rs.getDate("CREADOEN"));
+                oferente.setModificadoen(rs.getDate("MODIFICADOEN"));
 
             }
             ps.close();

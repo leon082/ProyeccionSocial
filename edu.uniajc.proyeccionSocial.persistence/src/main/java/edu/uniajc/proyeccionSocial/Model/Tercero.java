@@ -12,141 +12,109 @@ import java.sql.Date;
  * @author rlara
  */
 public class Tercero {
-    private int id_Tercero;
-    private int id_LV_TipoIdentificacion;
-    private String numIdentificacion;
-    private String primerNombre;
-    private String segundoNombre;
-    private String primerApellido;
-    private String segundoApellido;
-    private Date fechaNacimiento;
-    private String telefonoFijo;
-    private String telefonoCelular;
-    private int estadoTercero;
-    private String creadoPor;
-    private Date creadoEn;
-    private String modificadoPor;
-    private Date modificadoEn;
+    private int id_tercero;
+    private int id_lv_tipoidentificacion;
+    private String numidentificacion;
+    private String primernombre;
+    private String segundonombre;
+    private String primerapellido;
+    private String segundoapellido;
+    private Date fechanacimiento;
+    private String telefonofijo;
+    private String telefonocelular;
     private String correo;
+    private int estado;
+    private String creadopor;
+    private Date creadoen;
+    private String modificadopor;
+    private Date modificadoen;
 
-    public int getId_Tercero() {
-        return id_Tercero;
+    public int getId_tercero() {
+        return id_tercero;
     }
 
-    public void setId_Tercero(int id_Tercero) {
-        this.id_Tercero = id_Tercero;
+    public void setId_tercero(int id_tercero) {
+        this.id_tercero = id_tercero;
     }
 
-    public int getId_LV_TipoIdentificacion() {
-        return id_LV_TipoIdentificacion;
+    public int getId_lv_tipoidentificacion() {
+        return id_lv_tipoidentificacion;
     }
 
-    public void setId_LV_TipoIdentificacion(int id_LV_TipoIdentificacion) {
-        this.id_LV_TipoIdentificacion = id_LV_TipoIdentificacion;
+    public void setId_lv_tipoidentificacion(int id_lv_tipoidentificacion) {
+        this.id_lv_tipoidentificacion = id_lv_tipoidentificacion;
     }
 
-    public String getNumIdentificacion() {
-        return numIdentificacion;
+    public String getNumidentificacion() {
+        return numidentificacion;
     }
 
-    public void setNumIdentificacion(String numIdentificacion) {
-        this.numIdentificacion = numIdentificacion;
+    public void setNumidentificacion(String numidentificacion) {
+        this.numidentificacion = numidentificacion;
     }
 
-    public String getPrimerNombre() {
-        return primerNombre;
+    public String getPrimernombre() {
+        return primernombre;
     }
 
-    public void setPrimerNombre(String primerNombre) {
-        this.primerNombre = primerNombre;
+    public void setPrimernombre(String primernombre) {
+        this.primernombre = primernombre;
     }
 
-    public String getSegundoNombre() {
-        return segundoNombre;
+    public String getSegundonombre() {
+        return segundonombre;
     }
 
-    public void setSegundoNombre(String segundoNombre) {
-        this.segundoNombre = segundoNombre;
+    public void setSegundonombre(String segundonombre) {
+        this.segundonombre = segundonombre;
     }
 
-    public String getPrimerApellido() {
-        return primerApellido;
+    public String getPrimerapellido() {
+        return primerapellido;
     }
 
-    public void setPrimerApellido(String primerApellido) {
-        this.primerApellido = primerApellido;
+    public void setPrimerapellido(String primerapellido) {
+        this.primerapellido = primerapellido;
     }
 
-    public String getSegundoApellido() {
-        return segundoApellido;
+    public String getSegundoapellido() {
+        return segundoapellido;
     }
 
-    public void setSegundoApellido(String segundoApellido) {
-        this.segundoApellido = segundoApellido;
+    public void setSegundoapellido(String segundoapellido) {
+        this.segundoapellido = segundoapellido;
     }
 
-    public Date getFechaNacimiento() {
-        return fechaNacimiento;
+    public Date getFechanacimiento() {
+        return fechanacimiento;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
+    public void setFechanacimiento(Date fechanacimiento) {
+        this.fechanacimiento = fechanacimiento;
     }
 
-    public String getTelefonoFijo() {
-        return telefonoFijo;
+    public String getTelefonofijo() {
+        return telefonofijo;
     }
 
-    public void setTelefonoFijo(String telefonoFijo) {
-        this.telefonoFijo = telefonoFijo;
+    public void setTelefonofijo(String telefonofijo) {
+        this.telefonofijo = telefonofijo;
     }
 
-    public String getTelefonoCelular() {
-        return telefonoCelular;
+    public String getTelefonocelular() {
+        return telefonocelular;
     }
 
-    public void setTelefonoCelular(String telefonoCelular) {
-        this.telefonoCelular = telefonoCelular;
+    public void setTelefonocelular(String telefonocelular) {
+        this.telefonocelular = telefonocelular;
     }
 
-    public int getEstadoTercero() {
-        return estadoTercero;
+    public int getEstado() {
+        return estado;
     }
 
-    public void setEstadoTercero(int estadoTercero) {
-        this.estadoTercero = estadoTercero;
-    }
-
-    public String getCreadoPor() {
-        return creadoPor;
-    }
-
-    public void setCreadoPor(String creadoPor) {
-        this.creadoPor = creadoPor;
-    }
-
-    public Date getCreadoEn() {
-        return creadoEn;
-    }
-
-    public void setCreadoEn(Date creadoEn) {
-        this.creadoEn = creadoEn;
-    }
-
-    public String getModificadoPor() {
-        return modificadoPor;
-    }
-
-    public void setModificadoPor(String modificadoPor) {
-        this.modificadoPor = modificadoPor;
-    }
-
-    public Date getModificadoEn() {
-        return modificadoEn;
-    }
-
-    public void setModificadoEn(Date modificadoEn) {
-        this.modificadoEn = modificadoEn;
+    public void setEstado(int estado) {
+        this.estado = estado;
     }
 
     public String getCorreo() {
@@ -156,6 +124,36 @@ public class Tercero {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
-    
-    
+
+    public String getCreadopor() {
+        return creadopor;
+    }
+
+    public void setCreadopor(String creadopor) {
+        this.creadopor = creadopor;
+    }
+
+    public Date getCreadoen() {
+        return creadoen;
+    }
+
+    public void setCreadoen(Date creadoen) {
+        this.creadoen = creadoen;
+    }
+
+    public String getModificadopor() {
+        return modificadopor;
+    }
+
+    public void setModificadopor(String modificadopor) {
+        this.modificadopor = modificadopor;
+    }
+
+    public Date getModificadoen() {
+        return modificadoen;
+    }
+
+    public void setModificadoen(Date modificadoen) {
+        this.modificadoen = modificadoen;
+    }
 }

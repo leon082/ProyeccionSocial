@@ -20,7 +20,7 @@ public interface IOferente {
 
     public boolean updateOferente(Oferente oferente);
 
-    public ArrayList<Oferente> getAllOferentes();
+    public ArrayList<Oferente> getAllOferente();
 
     public Oferente getOferenteById(int id);
 }

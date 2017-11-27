@@ -11,29 +11,41 @@ import java.sql.Date;
  *
  * @author rlara
  */
-public class Programa {
-    private int id_programa;
-    private String descripcion;
+public class ProyectoEtapa {
+    private int id_proyectoetapa;
+    private int id_proyecto;
+    private int id_etapa;
     private int estado;
+    private String observacion;
+    private Date fechainicio;
+    private Date fechafin;
     private String creadopor;
     private Date creadoen;
     private String modificadopor;
     private Date modificadoen;
 
-    public int getId_programa() {
-        return id_programa;
+    public int getId_proyectoetapa() {
+        return id_proyectoetapa;
     }
 
-    public void setId_programa(int id_programa) {
-        this.id_programa = id_programa;
+    public void setId_proyectoetapa(int id_proyectoetapa) {
+        this.id_proyectoetapa = id_proyectoetapa;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public int getId_proyecto() {
+        return id_proyecto;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setId_proyecto(int id_proyecto) {
+        this.id_proyecto = id_proyecto;
+    }
+
+    public int getId_etapa() {
+        return id_etapa;
+    }
+
+    public void setId_etapa(int id_etapa) {
+        this.id_etapa = id_etapa;
     }
 
     public int getEstado() {
@@ -42,6 +54,30 @@ public class Programa {
 
     public void setEstado(int estado) {
         this.estado = estado;
+    }
+
+    public String getObservacion() {
+        return observacion;
+    }
+
+    public void setObservacion(String observacion) {
+        this.observacion = observacion;
+    }
+
+    public Date getFechainicio() {
+        return fechainicio;
+    }
+
+    public void setFechainicio(Date fechainicio) {
+        this.fechainicio = fechainicio;
+    }
+
+    public Date getFechafin() {
+        return fechafin;
+    }
+
+    public void setFechafin(Date fechafin) {
+        this.fechafin = fechafin;
     }
 
     public String getCreadopor() {
