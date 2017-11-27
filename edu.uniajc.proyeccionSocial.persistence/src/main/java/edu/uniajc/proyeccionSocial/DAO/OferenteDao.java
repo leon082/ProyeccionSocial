@@ -34,6 +34,7 @@ public class OferenteDao {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
             oferente.setCreadoen(fechaSQL);
+            oferente.setEstado(1);
 
             PreparedStatement ps = null;
 
@@ -129,7 +130,7 @@ public class OferenteDao {
 
             PreparedStatement ps = null;
 
-            final String SQL = "SELECT * from TB_Oferente";
+            final String SQL = "SELECT * from TB_Oferente where estado = 1";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -164,7 +165,7 @@ public class OferenteDao {
 
             PreparedStatement ps = null;
 
-            String SQL = "select * from TB_Oferente where ID_Oferente =" + id + " ";
+            String SQL = "select * from TB_Oferente where ID_Oferente =" + id + " and estado = 1";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs != null) {

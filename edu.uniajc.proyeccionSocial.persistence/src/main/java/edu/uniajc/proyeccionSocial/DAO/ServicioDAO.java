@@ -34,6 +34,7 @@ public class ServicioDAO {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
             servicio.setCreadoen(fechaSQL);
+            servicio.setEstado(1);
 
             PreparedStatement ps = null;
 
@@ -127,7 +128,7 @@ public class ServicioDAO {
 
             PreparedStatement ps = null;
 
-            final String SQL = "SELECT * from TB_Servicio";
+            final String SQL = "SELECT * from TB_Servicio where estado = 1";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -160,7 +161,7 @@ public class ServicioDAO {
 
             PreparedStatement ps = null;
 
-            String SQL = "select * from TB_Servicio where ID_Servicio =" + id + " ";
+            String SQL = "select * from TB_Servicio where ID_Servicio =" + id + " and estado = 1";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs != null) {

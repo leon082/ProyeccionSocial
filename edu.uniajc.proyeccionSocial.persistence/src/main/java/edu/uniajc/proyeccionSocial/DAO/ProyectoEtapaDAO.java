@@ -34,7 +34,7 @@ public class ProyectoEtapaDAO {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
             proyectoEtapa.setCreadoen(fechaSQL);
-
+            proyectoEtapa.setEstado(1);
             PreparedStatement ps = null;
 
             String SQL = "select SQ_TB_ProyectoEtapa.nextval ID from dual";
@@ -136,7 +136,7 @@ public class ProyectoEtapaDAO {
 
             PreparedStatement ps = null;
 
-            final String SQL = "SELECT * from TB_PROYECTO";
+            final String SQL = "SELECT * from TB_PROYECTO where estado = 1";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -172,7 +172,7 @@ public class ProyectoEtapaDAO {
 
             PreparedStatement ps = null;
 
-            String SQL = "select * from TB_ProyectoEtapa where ID_ProyectoEtapa =" + id + " ";
+            String SQL = "select * from TB_ProyectoEtapa where ID_ProyectoEtapa =" + id + " and estado = 1";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs != null) {

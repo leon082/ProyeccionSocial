@@ -37,9 +37,9 @@
 
                                         <h:panelGrid columns="1">
                                             <p:outputLabel for="add_1" value="Tipo de Documento :" />
-                                            <p:selectOneMenu  id="add_1" value="#{registrarBean.docuSelected}" required="true" requiredMessage="Campo requerido" >  
+                                            <p:selectOneMenu  id="add_1" value="#{editarCuentaBean.docuSelected}" required="true" requiredMessage="Campo requerido" disabled="true" >  
                                                 <f:selectItem itemLabel="Seleccione" itemValue="" />  
-                                                <f:selectItems value="#{registrarBean.itemsDocumentos}"/>  
+                                                <f:selectItems value="#{editarCuentaBean.itemsDocumentos}"/>  
                                             </p:selectOneMenu> 
                                         </h:panelGrid>
 
@@ -47,59 +47,59 @@
 
                                         <h:panelGrid columns="1">
                                             <p:outputLabel for="doc" value="Documento:" />
-                                            <p:inputMask id="doc" value="#{registrarBean.tercero.numidentificacion}" mask="9999999999" required="true" requiredMessage="Campo requerido"/>
+                                            <p:inputMask id="doc" value="#{editarCuentaBean.tercero.numidentificacion}" mask="9999999999" required="true" requiredMessage="Campo requerido"  disabled="true"/>
                                         </h:panelGrid>
 
                                         <h:panelGrid columns="1">
                                             <p:outputLabel for="pNombre" value="Primer Nombre:" />
-                                            <p:inputText id="pNombre" value="#{registrarBean.tercero.primernombre}" required="true" requiredMessage="Campo requerido"/>
+                                            <p:inputText id="pNombre" value="#{editarCuentaBean.tercero.primernombre}" required="true" requiredMessage="Campo requerido"/>
                                         </h:panelGrid>
 
                                         <h:panelGrid columns="1">
                                             <p:outputLabel for="sNombre" value="Segundo Nombre:" />
-                                            <p:inputText id="sNombre" value="#{registrarBean.tercero.segundonombre}"  />
+                                            <p:inputText id="sNombre" value="#{editarCuentaBean.tercero.segundonombre}"  />
                                         </h:panelGrid>
 
                                         <h:panelGrid columns="1">
                                             <p:outputLabel for="pApellido" value="Primer Apellido:" />
-                                            <p:inputText id="pApellido" value="#{registrarBean.tercero.primerapellido}" required="true" requiredMessage="Campo requerido"/>
+                                            <p:inputText id="pApellido" value="#{editarCuentaBean.tercero.primerapellido}" required="true" requiredMessage="Campo requerido"/>
                                         </h:panelGrid>
 
                                         <h:panelGrid columns="1">
                                             <p:outputLabel for="sApellido" value="Segundo Apellido:" />
-                                            <p:inputText id="sApellido" value="#{registrarBean.tercero.segundoapellido}" />
+                                            <p:inputText id="sApellido" value="#{editarCuentaBean.tercero.segundoapellido}" />
                                         </h:panelGrid>
 
                                         <h:panelGrid columns="1">
                                             <p:outputLabel for="fechaNacimiento" value="Fecha Nacimiento:" />
-                                            <p:calendar id="fechaNacimiento" value="#{registrarBean.fecha}" showOn="button" required="true" requiredMessage="Campo requerido" />
+                                            <p:calendar id="fechaNacimiento" value="#{editarCuentaBean.fecha}" showOn="button" required="true" requiredMessage="Campo requerido" />
                                         </h:panelGrid>
 
                                         <h:panelGrid columns="1">
                                             <p:outputLabel for="phoneFijo" value="Telefono:" />
-                                            <p:inputMask id="phoneFijo" value="#{registrarBean.tercero.telefonofijo}" mask="9999999" />
+                                            <p:inputMask id="phoneFijo" value="#{editarCuentaBean.tercero.telefonofijo}" mask="9999999" />
                                         </h:panelGrid>
 
 
                                         <h:panelGrid columns="1">
                                             <p:outputLabel for="phoneCel" value="Telefono Celular" />
-                                            <p:inputMask id="phoneCel" value="#{registrarBean.tercero.telefonocelular}" mask="(999) 999-9999"/>
+                                            <p:inputMask id="phoneCel" value="#{editarCuentaBean.tercero.telefonocelular}" mask="(999) 999-9999"/>
                                         </h:panelGrid>
 
                                         <h:panelGrid columns="1">
                                             <p:outputLabel for="correo" value="Correo Electronico:" />
-                                            <p:inputText id="correo" value="#{registrarBean.tercero.correo}" required="true" requiredMessage="Campo requerido"/>
+                                            <p:inputText id="correo" value="#{editarCuentaBean.tercero.correo}" required="true" requiredMessage="Campo requerido"/>
                                         </h:panelGrid>
                                           
                                         <h:panelGrid columns="1">
                                             <p:outputLabel  value="Usuario:" />
-                                            <p:inputText value="#{registrarBean.username}" required="true" requiredMessage="Campo requerido"/>
+                                            <p:inputText value="#{editarCuentaBean.usuario.usuario}" required="true" requiredMessage="Campo requerido" disabled="true"/>
                                             
                                         </h:panelGrid>
                                          
                                         <h:panelGrid columns="1">
                                             <p:outputLabel  value="Contraseña:" />
-                                            <p:password value="#{registrarBean.contra}" required="true" requiredMessage="Campo requerido"/>
+                                            <p:password value="#{editarCuentaBean.contra}" required="true" requiredMessage="Campo requerido"/>
                                             
                                         </h:panelGrid>
 
@@ -107,7 +107,7 @@
                                     <p:separator />
 
                                     <p:commandButton 
-                                        value="Registrar" action="#{registrarBean.actionButon()}" update=":mensajes"/>
+                                        value="Registrar" action="#{editarCuentaBean.actionButon()}" update=":mensajes"/>
                                 </p:tab>
                             </p:panel>
                         </h:panelGrid>

@@ -34,6 +34,7 @@ public class ListaValorDao {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
             listaValor.setCreadoen(fechaSQL);
+            listaValor.setEstado(1);
 
             PreparedStatement ps = null;
 
@@ -128,7 +129,7 @@ public class ListaValorDao {
 
             PreparedStatement ps = null;
 
-            final String SQL = "SELECT * from TB_ListaValor";
+            final String SQL = "SELECT * from TB_ListaValor where estado = 1";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -162,7 +163,7 @@ public class ListaValorDao {
 
             PreparedStatement ps = null;
 
-            String SQL = "select * from TB_ListaValor where ID_ListaValor =" + id + " ";
+            String SQL = "select * from TB_ListaValor where ID_ListaValor =" + id + " and estado = 1";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs != null) {

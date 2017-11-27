@@ -34,6 +34,7 @@ public class BeneficiarioDAO {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
             beneficiario.setCreadoen(fechaSQL);
+            beneficiario.setEstado(1);
 
             PreparedStatement ps = null;
 
@@ -130,7 +131,7 @@ public class BeneficiarioDAO {
 
             PreparedStatement ps = null;
 
-            final String SQL = "SELECT * from TB_Beneficiario";
+            final String SQL = "SELECT * from TB_Beneficiario where estado = 1";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -165,7 +166,7 @@ public class BeneficiarioDAO {
 
             PreparedStatement ps = null;
 
-            String SQL = "select * from TB_Beneficiario where ID_Beneficiario =" + id + " ";
+            String SQL = "select * from TB_Beneficiario where ID_Beneficiario =" + id + " and estado = 1";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs != null) {

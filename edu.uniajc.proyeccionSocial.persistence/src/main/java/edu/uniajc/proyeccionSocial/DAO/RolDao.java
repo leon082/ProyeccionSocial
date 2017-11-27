@@ -32,6 +32,11 @@ public class RolDao {
 
     public int createRol(Rol rol) {
         try {
+            
+             java.util.Date fecha = new java.util.Date();
+            java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
+            rol.setCreadoen(fechaSQL);
+            rol.setEstado(1);
 
             PreparedStatement ps = null;
 
@@ -118,7 +123,7 @@ public class RolDao {
 
             PreparedStatement ps = null;
 
-            final String SQL = "SELECT * from TB_Rol";
+            final String SQL = "SELECT * from TB_Rol where estado = 1";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -148,7 +153,7 @@ public class RolDao {
 
             PreparedStatement ps = null;
 
-            String SQL = "select * from TB_Rol where ID_Rol =" + id + " ";
+            String SQL = "select * from TB_Rol where ID_Rol =" + id + " and estado = 1";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs != null) {

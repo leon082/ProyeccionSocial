@@ -7,6 +7,7 @@ package edu.uniajc.proyeccionSocial.bean;
 
 import edu.uniajc.proyeccionSocial.Model.Tercero;
 import edu.uniajc.proyeccionSocial.Model.Usuario;
+import edu.uniajc.proyeccionSocial.view.util.SessionUtils;
 
 import edu.uniajc.proyeccionSocial.view.util.Utilidades;
 import edu.uniajc.proyeccionsocial.bussiness.services.TerceroServices;
@@ -21,6 +22,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -28,15 +30,12 @@ import javax.faces.model.SelectItem;
  */
 @ManagedBean
 @ViewScoped
-public class RegistrarBean {
+public class EditarCuentaBean {
 
     private TerceroServices terceroServices;
     private Tercero tercero;
     private UsuarioServices usuarioServices;
     private Usuario usuario;
-    private int idTercero;
-    private int idUsuario;
-    private String username;
     private String contra;
     private Date fecha;
 
@@ -47,95 +46,81 @@ public class RegistrarBean {
     @PostConstruct
     public void init() {
         terceroServices = new TerceroServices();
-        tercero = new Tercero();
         usuarioServices = new UsuarioServices();
-        usuario = new Usuario();
+        usuario = cargarUsuario();
+        tercero = cargarTercero();
         itemsDocumentos = Utilidades.Consultar_Documentos_combo();
+        docuSelected=tercero.getId_lv_tipoidentificacion();
+        fecha=tercero.getFechanacimiento();
     }
 
-    public boolean registrar() {
+    public Usuario cargarUsuario() {
+        HttpSession session = SessionUtils.getSession();
+        String user = (String) session.getAttribute("username");
+        Usuario us = usuarioServices.getUserByUsername(user);
+        return us;
+    }
+
+    public Tercero cargarTercero() {
+        Tercero ter = terceroServices.getTerceroById(this.usuario.getId_tercero());
+        return ter;
+    }
+
+    public boolean guardar() {
         boolean result = false;
-        if(!Utilidades.validarTercero(docuSelected,tercero.getNumidentificacion())
-                && !Utilidades.validarUsuario(username)){
-        tercero.setId_lv_tipoidentificacion(docuSelected);        
-        tercero.setFechanacimiento(Utilidades.dateToSql(fecha)); 
-        tercero.setCreadopor("system");
-        
-   
 
-        if (Utilidades.validarCorreo(tercero.getCorreo())) {
-            idTercero = terceroServices.createTercero(tercero);
-            if (idTercero != 0) {
+        try {
+            tercero.setFechanacimiento(Utilidades.dateToSql(fecha));
+            tercero.setCreadopor("system");
+            tercero.setModificadopor("system");
+            usuario.setContrasena(Utilidades.generateHash(contra));
+        } catch (NoSuchAlgorithmException | RuntimeException e) {
+            result = false;
+        }
+        if (Utilidades.validarCorreo(tercero.getCorreo())
+                && terceroServices.updateTercero(tercero)
+                && usuarioServices.updateUsuario(usuario)) {
 
-                try {
-                    usuario.setId_tercero(idTercero);
-                    
-                    usuario.setUsuario(username);
-                    usuario.setContrasena(Utilidades.generateHash(contra));
-                    
-                } catch (NoSuchAlgorithmException | RuntimeException e) {
-                    result = false;
-                }
+            result = true;
 
-                idUsuario = usuarioServices.createUsuario(usuario);
-                if (idUsuario != 0) {
-                    result = true;
-                }
-
-            }
         } else {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Info", "Correo No Valido");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             result = false;
         }
-       
-        }else{
-            if(Utilidades.validarTercero(docuSelected,tercero.getNumidentificacion())){
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Info", "Persona ya Existe");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            result =false;
-            }else{
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Info", "Ya existe una persona con ese Usuario, Favor intente otro Usuario");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-                result=false;
-            }
-        }
-        
-         return result; 
+
+        return result;
     }
 
     public String actionButon() {
-        if(valdiaciones()){
-            
-        
-        if (registrar()) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Usuario Creado");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            return "login.xhtml";
-        } else {
-            terceroServices.deleteTercero(idTercero);
-            usuarioServices.deleteUsuario(idUsuario);
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Info", "Error, intentelo de nuevo");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            return "registrar.xhtml";
+        if (valdiaciones()) {
+
+            if (guardar()) {
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Cuenta actualizada");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+                return "Home.xhtml";
+            } else {
+
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Info", "Error, intentelo de nuevo");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+                return "editar_cuenta.xhtml";
+            }
+
         }
-        
-        }
-        return "registrar.xhtml";
+        return "editar_cuenta.xhtml";
     }
-    
-    public boolean valdiaciones (){
-       boolean result=true;
-        
-        if(!Utilidades.validarFechaNacimiento(fecha)){
+
+    public boolean valdiaciones() {
+        boolean result = true;
+
+        if (!Utilidades.validarFechaNacimiento(fecha)) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Info", "Error, Fecha de Nacimiento debe ser anterior a la fecha actual");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             return false;
         }
-        
-        
+
         return result;
-       
+
     }
 
     public TerceroServices getTerceroServices() {
@@ -170,22 +155,6 @@ public class RegistrarBean {
         this.usuario = usuario;
     }
 
-    public int getIdTercero() {
-        return idTercero;
-    }
-
-    public void setIdTercero(int idTercero) {
-        this.idTercero = idTercero;
-    }
-
-    public int getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
-    }
-
     public ArrayList<SelectItem> getItemsDocumentos() {
         return itemsDocumentos;
     }
@@ -200,14 +169,6 @@ public class RegistrarBean {
 
     public void setDocuSelected(int docuSelected) {
         this.docuSelected = docuSelected;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getContra() {
@@ -225,7 +186,5 @@ public class RegistrarBean {
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
-    
-    
 
 }

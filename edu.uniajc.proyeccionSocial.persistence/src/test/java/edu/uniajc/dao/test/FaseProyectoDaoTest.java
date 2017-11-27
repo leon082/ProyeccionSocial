@@ -5,8 +5,7 @@
  */
 package edu.uniajc.dao.test;
 
-import edu.uniajc.proyeccionSocial.DAO.FaseProyectoDAO;
-import edu.uniajc.proyeccionSocial.Model.FaseProyecto;
+
 import static junit.framework.TestCase.*;
 import junit.framework.TestCase;
 import org.junit.Test;

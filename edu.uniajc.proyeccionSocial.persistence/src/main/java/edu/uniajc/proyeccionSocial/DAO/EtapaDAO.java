@@ -32,7 +32,10 @@ public class EtapaDAO {
 
     public int createEtapa(Etapa etapa) {
         try {
-
+            java.util.Date fecha = new java.util.Date();
+            java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
+            etapa.setCreadoen(fechaSQL);
+            etapa.setEstado(1);
             PreparedStatement ps = null;
 
             String SQL = "select SQ_TB_Etapa.nextval ID from dual";
@@ -87,6 +90,9 @@ public class EtapaDAO {
 
     public boolean updateEtapa(Etapa etapa) {
         try {
+            java.util.Date fecha = new java.util.Date();
+            java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
+            etapa.setModificadoen(fechaSQL);
 
             PreparedStatement ps = null;
             String SQL = "UPDATE TB_Etapa SET Descripcion=?, Estado=? "
@@ -115,7 +121,7 @@ public class EtapaDAO {
 
             PreparedStatement ps = null;
 
-            final String SQL = "SELECT * from TB_Etapa";
+            final String SQL = "SELECT * from TB_Etapa where estado = 1";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -144,7 +150,7 @@ public class EtapaDAO {
 
             PreparedStatement ps = null;
 
-            String SQL = "select * from TB_Etapa where ID_Etapa =" + id + " ";
+            String SQL = "select * from TB_Etapa where ID_Etapa =" + id + " and estado = 1";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs != null) {

@@ -34,7 +34,7 @@ public class ListaValorDetalleDAO {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
             listaValorDetalle.setCreadoen(fechaSQL);
-
+            listaValorDetalle.setEstado(1);
             PreparedStatement ps = null;
 
             String SQL = "select SQ_TB_ListaValorDetalle.nextval ID from dual";
@@ -129,7 +129,7 @@ public class ListaValorDetalleDAO {
 
             PreparedStatement ps = null;
 
-            final String SQL = "SELECT * from TB_ListaValorDetalle where ID_ListaValor =" + idValor + " ";
+            final String SQL = "SELECT * from TB_ListaValorDetalle where ID_ListaValor =" + idValor + " and estado = 1";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -163,7 +163,7 @@ public class ListaValorDetalleDAO {
 
             PreparedStatement ps = null;
 
-            String SQL = "select * from TB_ListaValorDetalle where ID_ListaValorDetalle =" + id + " ";
+            String SQL = "select * from TB_ListaValorDetalle where ID_ListaValorDetalle =" + id + " and estado = 1";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs != null) {

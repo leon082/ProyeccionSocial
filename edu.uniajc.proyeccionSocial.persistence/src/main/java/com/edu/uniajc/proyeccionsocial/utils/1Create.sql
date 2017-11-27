@@ -27,6 +27,179 @@ CREATE TABLE tb_beneficiario (
     modificadoen      DATE
 );
 
+CREATE TABLE tb_etapa (
+    id_etapa        NUMBER(10) NOT NULL,
+    descripcion     VARCHAR2(100) NOT NULL,
+    estado          NUMBER(1) DEFAULT 1 NOT NULL,
+    creadopor       VARCHAR2(50) NOT NULL,
+    creadoen        DATE DEFAULT SYSDATE,
+    modificadopor   VARCHAR2(50),
+    modificadoen    DATE
+);
+
+CREATE TABLE tb_listavalor (
+    id_listavalor   NUMBER(10) NOT NULL,
+    agrupacion      VARCHAR2(50) NOT NULL,
+    descripcion     VARCHAR2(100) NOT NULL,
+    estado          NUMBER(1) DEFAULT 1 NOT NULL,
+    creadopor       VARCHAR2(50) NOT NULL,
+    creadoen        DATE DEFAULT SYSDATE,
+    modificadopor   VARCHAR2(50),
+    modificadoen    DATE
+);
+
+CREATE TABLE tb_listavalordetalle (
+    id_listavalordetalle   NUMBER(10) NOT NULL,
+    id_listavalor          NUMBER(10) NOT NULL,
+    valor                  VARCHAR2(100) NOT NULL,
+    estado                 NUMBER(1) DEFAULT 1 NOT NULL,
+    creadopor              VARCHAR2(50) NOT NULL,
+    creadoen               DATE DEFAULT SYSDATE,
+    modificadopor          VARCHAR2(50),
+    modificadoen           DATE
+);
+
+CREATE TABLE tb_servicioetapa (
+    id_servicioetapa   NUMBER(10) NOT NULL,
+    id_servicio        NUMBER(10) NOT NULL,
+    id_etapa           NUMBER(10) NOT NULL,
+    estado             NUMBER(1) DEFAULT 1 NOT NULL,
+    creadopor          VARCHAR2(50) NOT NULL,
+    creadoen           DATE DEFAULT SYSDATE,
+    modificadopor      VARCHAR2(50),
+    modificadoen       DATE
+);
+
+CREATE TABLE tb_servicio (
+    id_servicio     NUMBER(10) NOT NULL,
+    descripcion     VARCHAR2(100) NOT NULL,
+    estado          NUMBER(1) DEFAULT 1 NOT NULL,
+    creadopor       VARCHAR2(50) NOT NULL,
+    creadoen        DATE DEFAULT SYSDATE,
+    modificadopor   VARCHAR2(50),
+    modificadoen    DATE
+);
+CREATE TABLE tb_oferente (
+    id_oferente     NUMBER(10) NOT NULL,
+    id_proyecto     NUMBER(10) NOT NULL,
+    id_tercero      NUMBER(10) NOT NULL,
+    estado          NUMBER(1) DEFAULT 1 NOT NULL,
+    observacion     VARCHAR2(300),
+    creadopor       VARCHAR2(50) NOT NULL,
+    creadoen        DATE DEFAULT SYSDATE,
+    modificadopor   VARCHAR2(50),
+    modificadoen    DATE
+);
+
+CREATE TABLE tb_programa (
+    id_programa     NUMBER(10) NOT NULL,
+    descripcion     VARCHAR2(100) NOT NULL,
+    estado          NUMBER(1) DEFAULT 1 NOT NULL,
+    creadopor       VARCHAR2(50) NOT NULL,
+    creadoen        DATE DEFAULT SYSDATE,
+    modificadopor   VARCHAR2(50),
+    modificadoen    DATE
+);
+
+CREATE TABLE tb_programaservicio (
+    id_programaservicio   NUMBER(10) NOT NULL,
+    id_programa           NUMBER(10) NOT NULL,
+    id_servicio           NUMBER(10) NOT NULL,
+    estado                NUMBER(1) DEFAULT 1 NOT NULL,
+    creadopor             VARCHAR2(50) NOT NULL,
+    creadoen              DATE DEFAULT SYSDATE,
+    modificadopor         VARCHAR2(50),
+    modificadoen          DATE
+);
+
+CREATE TABLE tb_proyecto (
+    id_proyecto       NUMBER(10) NOT NULL,
+    tituloproyecto    VARCHAR2(100) NOT NULL,
+    resumenproyecto   VARCHAR2(700) NOT NULL,
+    id_programa       NUMBER(10) NOT NULL,
+    id_servicio       NUMBER(10) NOT NULL,
+    estado            NUMBER(1) DEFAULT 1 NOT NULL,
+    creadopor         VARCHAR2(50) NOT NULL,
+    creadoen          DATE DEFAULT SYSDATE,
+    modificadopor     VARCHAR2(50),
+    modificadoen      DATE
+);
+
+CREATE TABLE tb_proyectoetapa (
+    id_proyectoetapa   NUMBER(10) NOT NULL,
+    id_proyecto        NUMBER(10) NOT NULL,
+    id_etapa           NUMBER(10) NOT NULL,
+    estado             NUMBER(1) DEFAULT 1 NOT NULL,
+    observacion        VARCHAR2(300),
+    fechainicio        DATE,
+    fechafin           DATE,
+    creadopor          VARCHAR2(50) NOT NULL,
+    creadoen           DATE DEFAULT SYSDATE,
+    modificadopor      VARCHAR2(50),
+    modificadoen       DATE
+);
+
+CREATE TABLE tb_rol (
+    id_rol          NUMBER(10) NOT NULL,
+    valor           VARCHAR2(50) NOT NULL,
+    descripcion     VARCHAR2(100) NOT NULL,
+    estado          NUMBER(10) NOT NULL,
+    creadopor       VARCHAR2(50) NOT NULL,
+    creadoen        DATE DEFAULT SYSDATE,
+    modificadopor   VARCHAR2(50),
+    modificadoen    DATE
+);
+
+CREATE TABLE tb_soporteproyectoetapa (
+    id_soporteproyectoetapa   NUMBER(10) NOT NULL,
+    id_proyectoetapa          NUMBER(10) NOT NULL,
+    archivo                   VARCHAR2(300) NOT NULL,
+    creadopor                 VARCHAR2(50) NOT NULL,
+    creadoen                  DATE DEFAULT SYSDATE,
+    modificadopor             VARCHAR2(50),
+    modificadoen              DATE
+);
+
+CREATE TABLE tb_tercero (
+    id_tercero                 NUMBER(10) NOT NULL,
+    id_lv_tipoidentificacion   NUMBER(10) NOT NULL,
+    numidentificacion          VARCHAR2(20) NOT NULL,
+    primernombre               VARCHAR2(100) NOT NULL,
+    segundonombre              VARCHAR2(50),
+    primerapellido             VARCHAR2(100) NOT NULL,
+    segundoapellido            VARCHAR2(50),
+    fechanacimiento            DATE NOT NULL,
+    telefonofijo               VARCHAR2(50),
+    telefonocelular            VARCHAR2(50),
+	correo              	   VARCHAR2(50),
+    estado                     NUMBER(1) DEFAULT 1 NOT NULL,
+    creadopor                  VARCHAR2(50) NOT NULL,
+    creadoen                   DATE DEFAULT SYSDATE,
+    modificadopor              VARCHAR2(50),
+    modificadoen               DATE
+	
+);
+
+  CREATE TABLE tb_usuario
+  (
+    id_usuario    NUMBER (10) NOT NULL , 
+    id_tercero      NUMBER(10),
+    usuario         VARCHAR2(20) NOT NULL,
+    contrasena      VARCHAR2(200) NOT NULL,
+    estado          NUMBER(10) NOT NULL
+  ) ;
+  
+CREATE TABLE tb_usuariorol (
+    id_usuariorol   NUMBER(10) NOT NULL,
+    id_usuario      NUMBER(10) NOT NULL,
+    id_rol          NUMBER(10) NOT NULL,
+    estado          NUMBER(1) DEFAULT 1 NOT NULL,
+    creadopor       VARCHAR2(50) NOT NULL,
+    creadoen        DATE DEFAULT SYSDATE,
+    modificadopor   VARCHAR2(50),
+    modificadoen    DATE
+);
+
 ALTER TABLE tb_beneficiario
     ADD CONSTRAINT ck_beneficiario_001 CHECK ( estado IN (
         0,
@@ -56,15 +229,7 @@ ALTER TABLE tb_beneficiario ADD CONSTRAINT pk_beneficiario PRIMARY KEY ( id_bene
 ALTER TABLE tb_beneficiario ADD CONSTRAINT un_beneficiario_001 UNIQUE ( id_proyecto,
 id_tercero );
 
-CREATE TABLE tb_etapa (
-    id_etapa        NUMBER(10) NOT NULL,
-    descripcion     VARCHAR2(100) NOT NULL,
-    estado          NUMBER(1) DEFAULT 1 NOT NULL,
-    creadopor       VARCHAR2(50) NOT NULL,
-    creadoen        DATE DEFAULT SYSDATE,
-    modificadopor   VARCHAR2(50),
-    modificadoen    DATE
-);
+
 
 ALTER TABLE tb_etapa
     ADD CONSTRAINT ck_etapa_001 CHECK ( estado IN (
@@ -86,16 +251,7 @@ COMMENT ON COLUMN tb_etapa.estado IS
 
 ALTER TABLE tb_etapa ADD CONSTRAINT pk_etapa PRIMARY KEY ( id_etapa );
 
-CREATE TABLE tb_listavalor (
-    id_listavalor   NUMBER(10) NOT NULL,
-    agrupacion      VARCHAR2(50) NOT NULL,
-    descripcion     VARCHAR2(100) NOT NULL,
-    estado          NUMBER(1) DEFAULT 1 NOT NULL,
-    creadopor       VARCHAR2(50) NOT NULL,
-    creadoen        DATE DEFAULT SYSDATE,
-    modificadopor   VARCHAR2(50),
-    modificadoen    DATE
-);
+
 
 ALTER TABLE tb_listavalor
     ADD CONSTRAINT ck_listavalor_001 CHECK ( estado IN (
@@ -120,16 +276,7 @@ COMMENT ON COLUMN tb_listavalor.estado IS
 
 ALTER TABLE tb_listavalor ADD CONSTRAINT pk_listavalor PRIMARY KEY ( id_listavalor );
 
-CREATE TABLE tb_listavalordetalle (
-    id_listavalordetalle   NUMBER(10) NOT NULL,
-    id_listavalor          NUMBER(10) NOT NULL,
-    valor                  VARCHAR2(100) NOT NULL,
-    estado                 NUMBER(1) DEFAULT 1 NOT NULL,
-    creadopor              VARCHAR2(50) NOT NULL,
-    creadoen               DATE DEFAULT SYSDATE,
-    modificadopor          VARCHAR2(50),
-    modificadoen           DATE
-);
+
 
 ALTER TABLE tb_listavalordetalle
     ADD CONSTRAINT ck_listavalordetalle_001 CHECK ( estado IN (
@@ -154,17 +301,7 @@ COMMENT ON COLUMN tb_listavalordetalle.estado IS
 
 ALTER TABLE tb_listavalordetalle ADD CONSTRAINT pk_listavalordetalle PRIMARY KEY ( id_listavalordetalle );
 
-CREATE TABLE tb_oferente (
-    id_oferente     NUMBER(10) NOT NULL,
-    id_proyecto     NUMBER(10) NOT NULL,
-    id_tercero      NUMBER(10) NOT NULL,
-    estado          NUMBER(1) DEFAULT 1 NOT NULL,
-    observacion     VARCHAR2(300),
-    creadopor       VARCHAR2(50) NOT NULL,
-    creadoen        DATE DEFAULT SYSDATE,
-    modificadopor   VARCHAR2(50),
-    modificadoen    DATE
-);
+
 
 ALTER TABLE tb_oferente
     ADD CONSTRAINT ck_oferente_001 CHECK ( estado IN (
@@ -195,15 +332,7 @@ ALTER TABLE tb_oferente ADD CONSTRAINT pk_oferente PRIMARY KEY ( id_oferente );
 ALTER TABLE tb_oferente ADD CONSTRAINT un_oferente_001 UNIQUE ( id_proyecto,
 id_tercero );
 
-CREATE TABLE tb_programa (
-    id_programa     NUMBER(10) NOT NULL,
-    descripcion     VARCHAR2(100) NOT NULL,
-    estado          NUMBER(1) DEFAULT 1 NOT NULL,
-    creadopor       VARCHAR2(50) NOT NULL,
-    creadoen        DATE DEFAULT SYSDATE,
-    modificadopor   VARCHAR2(50),
-    modificadoen    DATE
-);
+
 
 ALTER TABLE tb_programa
     ADD CONSTRAINT ck_programa_001 CHECK ( estado IN (
@@ -225,16 +354,7 @@ COMMENT ON COLUMN tb_programa.estado IS
 
 ALTER TABLE tb_programa ADD CONSTRAINT pk_programa PRIMARY KEY ( id_programa );
 
-CREATE TABLE tb_programaservicio (
-    id_programaservicio   NUMBER(10) NOT NULL,
-    id_programa           NUMBER(10) NOT NULL,
-    id_servicio           NUMBER(10) NOT NULL,
-    estado                NUMBER(1) DEFAULT 1 NOT NULL,
-    creadopor             VARCHAR2(50) NOT NULL,
-    creadoen              DATE DEFAULT SYSDATE,
-    modificadopor         VARCHAR2(50),
-    modificadoen          DATE
-);
+
 
 ALTER TABLE tb_programaservicio
     ADD CONSTRAINT ck_programaservicio_001 CHECK ( estado IN (
@@ -262,18 +382,7 @@ ALTER TABLE tb_programaservicio ADD CONSTRAINT pk_programaservicio PRIMARY KEY (
 ALTER TABLE tb_programaservicio ADD CONSTRAINT un_programaservicio_001 UNIQUE ( id_programa,
 id_servicio );
 
-CREATE TABLE tb_proyecto (
-    id_proyecto       NUMBER(10) NOT NULL,
-    tituloproyecto    VARCHAR2(100) NOT NULL,
-    resumenproyecto   VARCHAR2(700) NOT NULL,
-    id_programa       NUMBER(10) NOT NULL,
-    id_servicio       NUMBER(10) NOT NULL,
-    estado            NUMBER(1) DEFAULT 1 NOT NULL,
-    creadopor         VARCHAR2(50) NOT NULL,
-    creadoen          DATE DEFAULT SYSDATE,
-    modificadopor     VARCHAR2(50),
-    modificadoen      DATE
-);
+
 
 ALTER TABLE tb_proyecto
     ADD CONSTRAINT ck_proyecto_001 CHECK ( estado IN (
@@ -304,19 +413,7 @@ COMMENT ON COLUMN tb_proyecto.estado IS
 
 ALTER TABLE tb_proyecto ADD CONSTRAINT pk_proyecto PRIMARY KEY ( id_proyecto );
 
-CREATE TABLE tb_proyectoetapa (
-    id_proyectoetapa   NUMBER(10) NOT NULL,
-    id_proyecto        NUMBER(10) NOT NULL,
-    id_etapa           NUMBER(10) NOT NULL,
-    estado             NUMBER(1) DEFAULT 1 NOT NULL,
-    observacion        VARCHAR2(300),
-    fechainicio        DATE,
-    fechafin           DATE,
-    creadopor          VARCHAR2(50) NOT NULL,
-    creadoen           DATE DEFAULT SYSDATE,
-    modificadopor      VARCHAR2(50),
-    modificadoen       DATE
-);
+
 
 ALTER TABLE tb_proyectoetapa
     ADD CONSTRAINT ck_proyectoetapa_001 CHECK ( estado IN (
@@ -353,16 +450,7 @@ ALTER TABLE tb_proyectoetapa ADD CONSTRAINT pk_proyectoetapa PRIMARY KEY ( id_pr
 ALTER TABLE tb_proyectoetapa ADD CONSTRAINT un_proyectoetapa_001 UNIQUE ( id_proyecto,
 id_etapa );
 
-CREATE TABLE tb_rol (
-    id_rol          NUMBER(10) NOT NULL,
-    valor           VARCHAR2(50) NOT NULL,
-    descripcion     VARCHAR2(100) NOT NULL,
-    estado          NUMBER(10) NOT NULL,
-    creadopor       VARCHAR2(50) NOT NULL,
-    creadoen        DATE DEFAULT SYSDATE,
-    modificadopor   VARCHAR2(50),
-    modificadoen    DATE
-);
+
 
 ALTER TABLE tb_rol
     ADD CONSTRAINT ck_rol_001 CHECK ( estado IN (
@@ -387,15 +475,7 @@ COMMENT ON COLUMN tb_rol.estado IS
 
 ALTER TABLE tb_rol ADD CONSTRAINT pk_rol PRIMARY KEY ( id_rol );
 
-CREATE TABLE tb_servicio (
-    id_servicio     NUMBER(10) NOT NULL,
-    descripcion     VARCHAR2(100) NOT NULL,
-    estado          NUMBER(1) DEFAULT 1 NOT NULL,
-    creadopor       VARCHAR2(50) NOT NULL,
-    creadoen        DATE DEFAULT SYSDATE,
-    modificadopor   VARCHAR2(50),
-    modificadoen    DATE
-);
+
 
 ALTER TABLE tb_servicio
     ADD CONSTRAINT ck_servicio_001 CHECK ( estado IN (
@@ -417,16 +497,6 @@ COMMENT ON COLUMN tb_servicio.estado IS
 
 ALTER TABLE tb_servicio ADD CONSTRAINT pk_servicio PRIMARY KEY ( id_servicio );
 
-CREATE TABLE tb_servicioetapa (
-    id_servicioetapa   NUMBER(10) NOT NULL,
-    id_servicio        NUMBER(10) NOT NULL,
-    id_etapa           NUMBER(10) NOT NULL,
-    estado             NUMBER(1) DEFAULT 1 NOT NULL,
-    creadopor          VARCHAR2(50) NOT NULL,
-    creadoen           DATE DEFAULT SYSDATE,
-    modificadopor      VARCHAR2(50),
-    modificadoen       DATE
-);
 
 ALTER TABLE tb_servicioetapa
     ADD CONSTRAINT ck_servicioetapa_001 CHECK ( estado IN (
@@ -454,15 +524,6 @@ ALTER TABLE tb_servicioetapa ADD CONSTRAINT pk_servicioetapa PRIMARY KEY ( id_se
 ALTER TABLE tb_servicioetapa ADD CONSTRAINT un_servicioetapa_001 UNIQUE ( id_servicio,
 id_etapa );
 
-CREATE TABLE tb_soporteproyectoetapa (
-    id_soporteproyectoetapa   NUMBER(10) NOT NULL,
-    id_proyectoetapa          NUMBER(10) NOT NULL,
-    archivo                   VARCHAR2(300) NOT NULL,
-    creadopor                 VARCHAR2(50) NOT NULL,
-    creadoen                  DATE DEFAULT SYSDATE,
-    modificadopor             VARCHAR2(50),
-    modificadoen              DATE
-);
 
 COMMENT ON TABLE tb_soporteproyectoetapa IS
     'Tabla donde se registran los integrantes de un proyecto';
@@ -478,23 +539,7 @@ COMMENT ON COLUMN tb_soporteproyectoetapa.archivo IS
 
 ALTER TABLE tb_soporteproyectoetapa ADD CONSTRAINT pk_soporteproyectoetapa PRIMARY KEY ( id_soporteproyectoetapa );
 
-CREATE TABLE tb_tercero (
-    id_tercero                 NUMBER(10) NOT NULL,
-    id_lv_tipoidentificacion   NUMBER(10) NOT NULL,
-    numidentificacion          VARCHAR2(20) NOT NULL,
-    primernombre               VARCHAR2(100) NOT NULL,
-    segundonombre              VARCHAR2(50),
-    primerapellido             VARCHAR2(100) NOT NULL,
-    segundoapellido            VARCHAR2(50),
-    fechanacimiento            DATE NOT NULL,
-    telefonofijo               VARCHAR2(50),
-    telefonocelular            VARCHAR2(50),
-    estado                     NUMBER(1) DEFAULT 1 NOT NULL,
-    creadopor                  VARCHAR2(50) NOT NULL,
-    creadoen                   DATE DEFAULT SYSDATE,
-    modificadopor              VARCHAR2(50),
-    modificadoen               DATE
-);
+
 
 ALTER TABLE tb_tercero
     ADD CONSTRAINT ck_tercero_001 CHECK ( estado IN (
@@ -542,7 +587,8 @@ ALTER TABLE tb_tercero ADD CONSTRAINT pk_tercero PRIMARY KEY ( id_tercero );
 
 ALTER TABLE tb_tercero ADD CONSTRAINT un_tercero_001 UNIQUE ( numidentificacion );
 
-CREATE TABLE tb_usuario (
+
+/*CREATE TABLE tb_usuario (
     id_usuario      NUMBER(10) NOT NULL,
     id_tercero      NUMBER(10),
     usuario         VARCHAR2(20) NOT NULL,
@@ -553,7 +599,7 @@ CREATE TABLE tb_usuario (
     modificadopor   VARCHAR2(50),
     modificadoen    DATE
 );
-
+*/
 ALTER TABLE tb_usuario
     ADD CONSTRAINT ck_usuario_001 CHECK ( estado IN (
         0,
@@ -582,16 +628,7 @@ ALTER TABLE tb_usuario ADD CONSTRAINT pk_usuario PRIMARY KEY ( id_usuario );
 
 ALTER TABLE tb_usuario ADD CONSTRAINT un_usuario_001 UNIQUE ( usuario );
 
-CREATE TABLE tb_usuariorol (
-    id_usuariorol   NUMBER(10) NOT NULL,
-    id_usuario      NUMBER(10) NOT NULL,
-    id_rol          NUMBER(10) NOT NULL,
-    estado          NUMBER(1) DEFAULT 1 NOT NULL,
-    creadopor       VARCHAR2(50) NOT NULL,
-    creadoen        DATE DEFAULT SYSDATE,
-    modificadopor   VARCHAR2(50),
-    modificadoen    DATE
-);
+
 
 ALTER TABLE tb_usuariorol
     ADD CONSTRAINT ck_usuariorol_001 CHECK ( estado IN (
@@ -708,3 +745,6 @@ ALTER TABLE tb_usuariorol
     ADD CONSTRAINT fk_usuariorol_002 FOREIGN KEY ( id_rol )
         REFERENCES tb_rol ( id_rol )
     NOT DEFERRABLE;
+	
+CREATE SEQUENCE  "SQ_TB_TERCERO"  MINVALUE 1 MAXVALUE 9999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE ;
+CREATE SEQUENCE  "SQ_TB_USUARIO"  MINVALUE 1 MAXVALUE 9999999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE ;

@@ -17,10 +17,7 @@ public class Usuario {
     private String usuario;
     private String contrasena;
     private int estado;
-    private String creadopor;
-    private Date creadoen;
-    private String modificadopor;
-    private Date modificadoen;
+
 
     public int getId_usuario() {
         return id_usuario;
@@ -62,35 +59,5 @@ public class Usuario {
         this.estado = estado;
     }
 
-    public String getCreadopor() {
-        return creadopor;
-    }
-
-    public void setCreadopor(String creadopor) {
-        this.creadopor = creadopor;
-    }
-
-    public Date getCreadoen() {
-        return creadoen;
-    }
-
-    public void setCreadoen(Date creadoen) {
-        this.creadoen = creadoen;
-    }
-
-    public String getModificadopor() {
-        return modificadopor;
-    }
-
-    public void setModificadopor(String modificadopor) {
-        this.modificadopor = modificadopor;
-    }
-
-    public Date getModificadoen() {
-        return modificadoen;
-    }
-
-    public void setModificadoen(Date modificadoen) {
-        this.modificadoen = modificadoen;
-    }
+    
 }

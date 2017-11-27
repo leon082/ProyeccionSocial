@@ -34,6 +34,7 @@ public class SoporteProyectoEtapaDAO {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
             soporteProyectoEtapa.setCreadoen(fechaSQL);
+            
 
             PreparedStatement ps = null;
 

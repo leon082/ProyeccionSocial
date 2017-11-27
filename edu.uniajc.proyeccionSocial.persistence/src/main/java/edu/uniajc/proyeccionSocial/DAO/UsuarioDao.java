@@ -31,7 +31,7 @@ public class UsuarioDao {
 
     public int createUsuario(Usuario user) {
         try {
-
+            user.setEstado(1);
             PreparedStatement ps = null;
 
             String SQL = "select SQ_TB_Usuario.nextval ID from dual";
@@ -91,7 +91,7 @@ public class UsuarioDao {
 
             PreparedStatement ps = null;
             String SQL = "UPDATE TB_Usuario SET "
-                    + " ID_Tercero=?, Usuario=?, Estado=? , Clave=? "
+                    + " ID_Tercero=?, Usuario=?, Estado=? , contrasena=? "
                     + " where ID_Usuario = ?";
             ps = this.DBConnection.prepareStatement(SQL);
 
@@ -119,7 +119,7 @@ public class UsuarioDao {
 
             PreparedStatement ps = null;
 
-            final String SQL = "SELECT * from TB_Usuario";
+            final String SQL = "SELECT * from TB_Usuario where estado = 1";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -150,7 +150,7 @@ public class UsuarioDao {
 
             PreparedStatement ps = null;
 
-            String SQL = "select * from TB_Usuario where ID_Usuario =" + id + " ";
+            String SQL = "select * from TB_Usuario where ID_Usuario =" + id + " and estado = 1";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs != null) {
@@ -181,7 +181,7 @@ public class UsuarioDao {
 
             PreparedStatement ps = null;
 
-            String SQL = "select * from TB_Usuario where Usuario = '" + user + "' and Contrasena ='"+contrasena+"' ";
+            String SQL = "select * from TB_Usuario where Usuario = '" + user + "' and Contrasena ='"+contrasena+"' and estado = 1";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs != null) {
@@ -222,14 +222,14 @@ public class UsuarioDao {
                 usuario.setId_tercero(rs.getInt("ID_Tercero"));
                 usuario.setUsuario(rs.getString("Usuario"));
                 usuario.setEstado(rs.getInt("Estado"));
-                usuario.setContrasena(rs.getString("Clave"));
+                usuario.setContrasena(rs.getString("contrasena"));
 
             }
             ps.close();
 
             return usuario;
         } catch (SQLException e) {
-            System.out.println("Error en usuario DAO getUserById " + e.getMessage());
+            System.out.println("Error en usuario DAO getUserByUsername " + e.getMessage());
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return null;
         }

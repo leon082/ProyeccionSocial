@@ -34,7 +34,7 @@ public class ProyectoDao {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
             proyecto.setCreadoen(fechaSQL);
-
+            proyecto.setEstado(1);
             PreparedStatement ps = null;
 
             String SQL = "select SQ_TB_Proyecto.nextval ID from dual";
@@ -133,7 +133,7 @@ public class ProyectoDao {
 
             PreparedStatement ps = null;
 
-            final String SQL = "SELECT * from TB_PROYECTO";
+            final String SQL = "SELECT * from TB_PROYECTO where estado = 1";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

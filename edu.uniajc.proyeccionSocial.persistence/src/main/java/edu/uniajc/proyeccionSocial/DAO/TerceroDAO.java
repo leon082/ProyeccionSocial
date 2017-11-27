@@ -34,6 +34,7 @@ public class TerceroDAO {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
             tercero.setCreadoen(fechaSQL);
+            tercero.setEstado(1);
 
             PreparedStatement ps = null;
 
@@ -149,7 +150,7 @@ public class TerceroDAO {
 
             PreparedStatement ps = null;
 
-            final String SQL = "SELECT * from TB_Tercero";
+            final String SQL = "SELECT * from TB_Tercero where estado = 1";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -191,7 +192,7 @@ public class TerceroDAO {
 
             PreparedStatement ps = null;
 
-            String SQL = "select * from TB_Tercero where ID_Tercero =" + id + " ";
+            String SQL = "select * from TB_Tercero where ID_Tercero =" + id + " and estado = 1";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs != null) {
@@ -263,7 +264,7 @@ public class TerceroDAO {
 
             return tercero;
         } catch (SQLException e) {
-            System.out.println("Error en TerceroDAO getTercerosById " + e.getMessage());
+            System.out.println("Error en TerceroDAO getTerceroByIdentificacion " + e.getMessage());
             Logger.getLogger(TerceroDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return null;
         }

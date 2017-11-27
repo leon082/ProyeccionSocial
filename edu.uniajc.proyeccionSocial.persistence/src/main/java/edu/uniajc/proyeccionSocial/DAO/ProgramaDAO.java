@@ -34,7 +34,7 @@ public class ProgramaDAO {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
             programa.setCreadoen(fechaSQL);
-
+            programa.setEstado(1);
             PreparedStatement ps = null;
 
             String SQL = "select SQ_TB_Programa.nextval ID from dual";
@@ -127,7 +127,7 @@ public class ProgramaDAO {
 
             PreparedStatement ps = null;
 
-            final String SQL = "SELECT * from TB_Programa";
+            final String SQL = "SELECT * from TB_Programa where estado = 1";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -160,7 +160,7 @@ public class ProgramaDAO {
 
             PreparedStatement ps = null;
 
-            String SQL = "select * from TB_Programa where ID_Programa =" + id + " ";
+            String SQL = "select * from TB_Programa where ID_Programa =" + id + " and estado = 1";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs != null) {

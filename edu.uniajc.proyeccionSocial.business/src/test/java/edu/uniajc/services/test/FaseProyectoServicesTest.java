@@ -4,12 +4,12 @@
  * and open the template in the editor.
  */
 package edu.uniajc.services.test;
-
+/*
 import edu.uniajc.proyeccionsocial.interfaces.IFaseProyecto;
 import edu.uniajc.proyeccionsocial.bussiness.services.FaseProyectoServices;
 
 import edu.uniajc.proyeccionSocial.Model.FaseProyecto;
-
+*/
 import junit.framework.TestCase;
 import org.junit.Test;
 import static junit.framework.TestCase.*;
