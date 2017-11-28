@@ -14,11 +14,15 @@
         <title>Proyeccion Social</title>
     </h:head>
     <body>
-       
+
+        <ui:composition template="Home.xhtml">
+            <ui:define name="content">
+
+
         <h:form id="forma">           
-             <p:growl id="grow" showDetail="true" life="5555"/> 
+            <p:growl id="grow" showDetail="true" life="5555"/> 
             <p:tabView id="tab">
-                
+
 
                 <p:tab title="Gestion Programas"> <!-- Nombre  -->
                     <h:panelGrid columns="4" cellpadding="5">
@@ -37,72 +41,77 @@
             </p:tabView>
 
         </h:form>
-        
+
         <h:form id="forma2">
 
             <p:dataTable id="listaPrograma" value="#{programaBean.listaPrograma}"
-			var="programa" 
-                        paginator="true" 
-                        rows="20" 
-                        editable="true"
-                        paginatorPosition="bottom"
-                        >
+                         var="programa" 
+                         paginator="true" 
+                         rows="20" 
+                         editable="true"
+                         paginatorPosition="bottom"
+                         >
 
-                       <p:ajax event="rowEdit" listener="#{programaBean.modificar}" update=":forma:grow" />
+                <p:ajax event="rowEdit" listener="#{programaBean.modificar}" update=":forma:grow" />
 
-                      <p:column headerText="Codigo Programa">
-                          <p:outputLabel value="#{programa.id_programa}"></p:outputLabel>
-                  
-			</p:column>
-               
-			<p:column  headerText="Descripciones ">
-                             <p:cellEditor>
-                                 <f:facet name="output"><h:outputText value="#{programa.descripcion}" /></f:facet>
-                               <f:facet name="input">
-                                  <p:inputText id="modeldescripcion" value="#{programa.descripcion}" required="true" requiredMessage="Campo requerido" />
-                               </f:facet>
-                            </p:cellEditor>
-			</p:column>
-                       
-                       <p:column headerText="Creado Por">
-                           <p:outputLabel value="#{programa.creadopor}"></p:outputLabel>
-                  
-			</p:column>
-                    
-                       <p:column headerText="Creado En">
-                           <p:outputLabel value="#{programa.creadoen}"></p:outputLabel>
-                  
-			</p:column>
-                        
-                       <p:column headerText="Modificado Por">
-                           <p:outputLabel value="#{programa.modificadopor}"></p:outputLabel>
-                  
-			</p:column>
-                       
-                          <p:column headerText="Modificado En">
-                              <p:outputLabel value="#{programa.modificadoen}"></p:outputLabel>
-                  
-			</p:column>               
-                         
+                <p:column headerText="Codigo Programa">
+                    <p:outputLabel value="#{programa.id_programa}"></p:outputLabel>
 
-			
+                </p:column>
 
-                      <!-- Editar -->
-                        <p:column style="width:30px">
-                          <p:rowEditor />
-                        </p:column>
-                        <!-- Borrar -->
-                        <p:column headerText="" style="width:30px" >
-                            <p:commandButton 
-                              update=":forma:grow,:forma2:listaPrograma"
-                              ajax="true" icon="ui-icon-trash"
-                              action="#{programaBean.eliminar(programa.id_programa)}" />
-			</p:column> 
-                        
-                       
+                <p:column  headerText="Descripciones ">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{programa.descripcion}" /></f:facet>
+                        <f:facet name="input">
+                            <p:inputText id="modeldescripcion" value="#{programa.descripcion}" required="true" requiredMessage="Campo requerido" />
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
 
-		</p:dataTable>
+                <p:column headerText="Creado Por">
+                    <p:outputLabel value="#{programa.creadopor}"></p:outputLabel>
 
-	</h:form>
+                </p:column>
+
+                <p:column headerText="Creado En">
+                    <p:outputLabel value="#{programa.creadoen}"></p:outputLabel>
+
+                </p:column>
+
+                <p:column headerText="Modificado Por">
+                    <p:outputLabel value="#{programa.modificadopor}"></p:outputLabel>
+
+                </p:column>
+
+                <p:column headerText="Modificado En">
+                    <p:outputLabel value="#{programa.modificadoen}"></p:outputLabel>
+
+                </p:column>               
+
+
+
+
+                <!-- Editar -->
+                <p:column style="width:30px">
+                    <p:rowEditor />
+                </p:column>
+                <!-- Borrar -->
+                <p:column headerText="" style="width:30px" >
+                    <p:commandButton 
+                        update=":forma:grow,:forma2:listaPrograma"
+                        ajax="true" icon="ui-icon-trash"
+                        action="#{programaBean.eliminar(programa.id_programa)}" />
+                </p:column> 
+
+
+
+            </p:dataTable>
+
+        </h:form>
+                 </ui:define>
+
+        </ui:composition>
+
+       
     </body>
 </html>

@@ -16,21 +16,18 @@
     </h:head>
 
     <h:body>
-        <p:growl id="mensajes" showDetail="true" life="2000" />
-        <div id="divGeneral">
-            <div id="top">
-                <div id="logo">                  
-                    <p:graphicImage value="resources/image/LOGO CAMACHO.png"/>                  
-                </div>
-                <div id="logotipo">
-                    <h1> <center>Registrar Usuario</center></h1>
-                </div>
-                <div>
-                    <h:form>
-                        <p:spacer height="110"></p:spacer>
+       
+       <ui:composition template="Home.xhtml">
+            <ui:define name="content">
+                 <p:growl id="mensajes" showDetail="true" life="2000" />
+                  <h:form>
+                 <p:tabView id="tab">
+                 <p:tab title="Gestion Usuario">
+                   
+                       
                         <h:panelGrid columns="2">
-                            <p:spacer width ="300"></p:spacer>
-                            <p:panel  >
+                           
+                        
 
                                 <p:tab title ="Datos Usuario">
                                     <h:panelGrid columns="2" >
@@ -108,21 +105,19 @@
 
                                     <p:commandButton 
                                         value="Registrar" action="#{editarCuentaBean.actionButon()}" update=":mensajes"/>
-                                </p:tab>
-                            </p:panel>
+                                
+                           </p:tab>
                         </h:panelGrid>
+                    
+                             
+                            </p:tab>
+                                </p:tabView>
 
                     </h:form>
-                </div>
-                <div style="clear:both;"></div>
-            </div>
-            <div id="content" class="center_content">
-                <ui:insert name="content">Content</ui:insert>
-            </div>
-            <div id="bottom">
-                <h2>&copy; 2017 - IRIS (UNIAJC)</h2>
-            </div>
-        </div>
+                     
+            </ui:define>
+
+        </ui:composition>
     </h:body>
 
 </html>

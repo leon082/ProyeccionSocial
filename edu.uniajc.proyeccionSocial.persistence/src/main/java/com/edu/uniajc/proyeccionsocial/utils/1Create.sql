@@ -79,7 +79,6 @@ CREATE TABLE tb_servicio (
     modificadopor   VARCHAR2(50),
     modificadoen    DATE
 );
-
 CREATE TABLE tb_oferente (
     id_oferente     NUMBER(10) NOT NULL,
     id_proyecto     NUMBER(10) NOT NULL,
@@ -101,6 +100,7 @@ CREATE TABLE tb_programa (
     modificadopor   VARCHAR2(50),
     modificadoen    DATE
 );
+CREATE SEQUENCE  "SQ_TB_PROGRAMA"  MINVALUE 1 MAXVALUE 9999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE ;
 
 CREATE TABLE tb_programaservicio (
     id_programaservicio   NUMBER(10) NOT NULL,
