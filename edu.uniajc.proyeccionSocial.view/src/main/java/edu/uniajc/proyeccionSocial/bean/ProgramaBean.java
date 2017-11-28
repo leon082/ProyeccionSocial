@@ -21,7 +21,6 @@ import org.primefaces.event.RowEditEvent;
 import edu.uniajc.proyeccionsocial.interfaces.IUsuario;
 import edu.uniajc.proyeccionsocial.bussiness.services.UsuarioServices;
 
-
 /**
  *
  * @author luis.leon
@@ -33,9 +32,9 @@ public class ProgramaBean {
     private IPrograma servicios;
     private Programa programa;
     private List<Programa> listaPrograma;
-    
+
     //datos user
-      private IUsuario usuarioServices;
+    private IUsuario usuarioServices;
     private Usuario usuario;
 
     @PostConstruct
@@ -51,8 +50,8 @@ public class ProgramaBean {
         programa = new Programa();
         listaPrograma = servicios.getAllPrograma();
     }
-    
-     public Usuario cargarUsuario() {
+
+    public Usuario cargarUsuario() {
         HttpSession session = SessionUtils.getSession();
         String user = (String) session.getAttribute("username");
         Usuario us = usuarioServices.getUserByUsername(user);
@@ -76,15 +75,15 @@ public class ProgramaBean {
         }
 
     }
-    
-     public void modificar(RowEditEvent event) {
+
+    public void modificar(RowEditEvent event) {
 
         Object ob = event.getObject();
         Programa pr = (Programa) ob;
-         
+
         //ln.setCreadoEn(fechaSQL);
-       // ln.setModificadoEn(fechaSQL);
-       // ln.setCreadoPor("Leon");
+        // ln.setModificadoEn(fechaSQL);
+        // ln.setCreadoPor("Leon");
         pr.setModificadopor(usuario.getUsuario());
 
         if (servicios.updatePrograma(pr)) {
@@ -96,12 +95,12 @@ public class ProgramaBean {
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
-     
-       public void eliminar(int idPrograma) {
+
+    public void eliminar(int idPrograma) {
         boolean flag = false;
         for (Programa programaEliminar : listaPrograma) {
-            if (programaEliminar.getId_programa()== idPrograma) {
-                
+            if (programaEliminar.getId_programa() == idPrograma) {
+
                 if (servicios.deletePrograma(idPrograma)) {
                     flag = true;
                     break;

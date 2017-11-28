@@ -57,90 +57,82 @@ public class RegistrarBean {
 
     public boolean registrar() {
         boolean result = false;
-        if(!Utilidades.validarTercero(docuSelected,tercero.getNumidentificacion())
-                && !Utilidades.validarUsuario(username)){
-        tercero.setId_lv_tipoidentificacion(docuSelected);        
-        tercero.setFechanacimiento(Utilidades.dateToSql(fecha)); 
-        tercero.setCreadopor("system");
-        
-   
+        if (!Utilidades.validarTercero(docuSelected, tercero.getNumidentificacion())
+                && !Utilidades.validarUsuario(username)) {
+            tercero.setId_lv_tipoidentificacion(docuSelected);
+            tercero.setFechanacimiento(Utilidades.dateToSql(fecha));
+            tercero.setCreadopor("system");
 
-        if (Utilidades.validarCorreo(tercero.getCorreo())) {
-            idTercero = terceroServices.createTercero(tercero);
-            if (idTercero != 0) {
+            if (Utilidades.validarCorreo(tercero.getCorreo())) {
+                idTercero = terceroServices.createTercero(tercero);
+                if (idTercero != 0) {
 
-                try {
-                    usuario.setId_tercero(idTercero);
-                    
-                    usuario.setUsuario(username);
-                    usuario.setContrasena(Utilidades.generateHash(contra));
-                    
-                } catch (NoSuchAlgorithmException | RuntimeException e) {
-                    result = false;
+                    try {
+                        usuario.setId_tercero(idTercero);
+
+                        usuario.setUsuario(username);
+                        usuario.setContrasena(Utilidades.generateHash(contra));
+
+                    } catch (NoSuchAlgorithmException | RuntimeException e) {
+                        result = false;
+                    }
+
+                    idUsuario = usuarioServices.createUsuario(usuario);
+                    if (idUsuario != 0) {
+                        result = true;
+                    }
+
                 }
-
-                idUsuario = usuarioServices.createUsuario(usuario);
-                if (idUsuario != 0) {
-                    result = true;
-                }
-
+            } else {
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Info", "Correo No Valido");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+                result = false;
             }
+
+        } else if (Utilidades.validarTercero(docuSelected, tercero.getNumidentificacion())) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Info", "Persona ya Existe");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            result = false;
         } else {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Info", "Correo No Valido");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Info", "Ya existe una persona con ese Usuario, Favor intente otro Usuario");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             result = false;
         }
-       
-        }else{
-            if(Utilidades.validarTercero(docuSelected,tercero.getNumidentificacion())){
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Info", "Persona ya Existe");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            result =false;
-            }else{
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Info", "Ya existe una persona con ese Usuario, Favor intente otro Usuario");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-                result=false;
-            }
-        }
-        
-         return result; 
+
+        return result;
     }
 
     public String actionButon() {
-        if(valdiaciones()){
-            
-        
-        if (registrar()) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Usuario Creado");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            return "login.xhtml";
-        } else {
-            terceroServices.deleteTercero(idTercero);
-            usuarioServices.deleteUsuario(idUsuario);
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Info", "Error, intentelo de nuevo");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            return "registrar.xhtml";
-        }
-        
+        if (valdiaciones()) {
+
+            if (registrar()) {
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Usuario Creado");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+                return "login.xhtml";
+            } else {
+                terceroServices.deleteTercero(idTercero);
+                usuarioServices.deleteUsuario(idUsuario);
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Info", "Error, intentelo de nuevo");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+                return "registrar.xhtml";
+            }
+
         }
         return "registrar.xhtml";
     }
-    
-    public boolean valdiaciones (){
-       boolean result=true;
-        
-        if(!Utilidades.validarFechaNacimiento(fecha)){
+
+    public boolean valdiaciones() {
+        boolean result = true;
+
+        if (!Utilidades.validarFechaNacimiento(fecha)) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Info", "Error, Fecha de Nacimiento debe ser anterior a la fecha actual");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             return false;
         }
-        
-        
-        return result;
-       
-    }
 
-   
+        return result;
+
+    }
 
     public void setTerceroServices(TerceroServices terceroServices) {
         this.terceroServices = terceroServices;
@@ -153,8 +145,6 @@ public class RegistrarBean {
     public void setTercero(Tercero tercero) {
         this.tercero = tercero;
     }
-
-    
 
     public void setUsuarioServices(UsuarioServices usuarioServices) {
         this.usuarioServices = usuarioServices;
@@ -239,7 +229,5 @@ public class RegistrarBean {
     public void setUsuarioServices(IUsuario usuarioServices) {
         this.usuarioServices = usuarioServices;
     }
-    
-    
 
 }
