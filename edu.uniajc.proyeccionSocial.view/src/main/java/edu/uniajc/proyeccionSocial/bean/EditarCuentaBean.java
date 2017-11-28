@@ -50,19 +50,14 @@ public class EditarCuentaBean {
     public void init() {
         terceroServices = new TerceroServices();
         usuarioServices = new UsuarioServices();
-        usuario = cargarUsuario();
+        usuario = Utilidades.cargarUsuario();
         tercero = cargarTercero();
         itemsDocumentos = Utilidades.Consultar_Documentos_combo();
         docuSelected=tercero.getId_lv_tipoidentificacion();
         fecha=tercero.getFechanacimiento();
     }
 
-    public Usuario cargarUsuario() {
-        HttpSession session = SessionUtils.getSession();
-        String user = (String) session.getAttribute("username");
-        Usuario us = usuarioServices.getUserByUsername(user);
-        return us;
-    }
+   
 
     public Tercero cargarTercero() {
         Tercero ter = terceroServices.getTerceroById(this.usuario.getId_tercero());

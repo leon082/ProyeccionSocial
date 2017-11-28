@@ -8,6 +8,7 @@ package edu.uniajc.proyeccionSocial.bean;
 import edu.uniajc.proyeccionSocial.Model.Programa;
 import edu.uniajc.proyeccionSocial.Model.Usuario;
 import edu.uniajc.proyeccionSocial.view.util.SessionUtils;
+import edu.uniajc.proyeccionSocial.view.util.Utilidades;
 import edu.uniajc.proyeccionsocial.bussiness.services.ProgramaServices;
 import edu.uniajc.proyeccionsocial.interfaces.IPrograma;
 import java.util.List;
@@ -34,15 +35,15 @@ public class ProgramaBean {
     private List<Programa> listaPrograma;
 
     //datos user
-    private IUsuario usuarioServices;
+    
     private Usuario usuario;
 
     @PostConstruct
     public void init() {
         servicios = new ProgramaServices();
         programa = new Programa();
-        usuarioServices = new UsuarioServices();
-        usuario = cargarUsuario();
+        
+        usuario = Utilidades.cargarUsuario();
         listaPrograma = servicios.getAllPrograma();
     }
 
@@ -51,13 +52,7 @@ public class ProgramaBean {
         listaPrograma = servicios.getAllPrograma();
     }
 
-    public Usuario cargarUsuario() {
-        HttpSession session = SessionUtils.getSession();
-        String user = (String) session.getAttribute("username");
-        Usuario us = usuarioServices.getUserByUsername(user);
-        return us;
-    }
-
+  
     public void crear() {
 
         programa.setCreadopor(usuario.getUsuario());

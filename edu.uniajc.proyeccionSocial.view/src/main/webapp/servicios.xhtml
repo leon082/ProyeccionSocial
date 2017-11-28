@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <link href="CSS/login.css" rel="stylesheet" type="text/css"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="css/default.css"/>
+        <h:outputStylesheet name="css/cssLayout.css"/>
+        <title>Proyeccion Social</title>
+    </h:head>
+    <body>
+
+        <ui:composition template="Home.xhtml">
+            <ui:define name="content">
+
+
+        <h:form id="forma">           
+            <p:growl id="grow" showDetail="true" life="5555"/> 
+            <p:tabView id="tab">
+
+
+                <p:tab title="Gestion Servicios"> <!-- Nombre  -->
+                    <h:panelGrid columns="4" cellpadding="5">
+                        <p:outputLabel for="add_1" value="Programa :" />
+                        <p:selectOneMenu  id="add_1" value="#{programaServiciosBean.programSelected}" required="true" requiredMessage="Campo requerido" >  
+                                                <f:selectItem itemLabel="Seleccione" itemValue="0" />  
+                                                <f:selectItems value="#{programaServiciosBean.itemsProgramas}"/>  
+                                              
+                                                <p:ajax event="change" update=":forma2:listaServicio" listener="#{programaServiciosBean.llenarTablaServicios}" />
+                                            </p:selectOneMenu> 
+                        
+                        <p:outputLabel for="add_2" value="Descripcion :" />
+                        <p:inputText   id="add_2" value="#{programaServiciosBean.servicio.descripcion}" required="true" requiredMessage="Campo requerido"/>                       
+                    </h:panelGrid>
+                   
+
+                    <!-- Se actulizan los formularios  forma y forma2 para limpiar y mostrar cambios -->
+                    <p:commandButton 
+                        update=":forma:grow,:forma:tab:add_1,:forma:tab:add_2,:forma2:listaServicio"
+                        ajax="true" value="Crear" action="#{programaServiciosBean.guardar}"
+                        />
+                     <p:separator />
+                    
+                   
+                </p:tab>
+
+            </p:tabView>
+
+        </h:form>
+
+        <h:form id="forma2">
+
+            <p:dataTable id="listaServicio" value="#{programaServiciosBean.listServicio}"
+                         var="servicio" 
+                         paginator="true" 
+                         rows="20" 
+                         editable="false"
+                         paginatorPosition="bottom"
+                         >
+
+                
+
+                <p:column headerText="Codigo Servicio">
+                    <p:outputLabel value="#{servicio.id_servicio}"></p:outputLabel>
+
+                </p:column>
+                
+                  
+
+                <p:column  headerText="Descripciones ">
+                    <p:outputLabel value="#{servicio.descripcion}" />
+                        
+                </p:column>
+
+                <p:column headerText="Creado Por">
+                    <p:outputLabel value="#{servicio.creadopor}"></p:outputLabel>
+
+                </p:column>
+
+                <p:column headerText="Creado En">
+                    <p:outputLabel value="#{servicio.creadoen}"></p:outputLabel>
+
+                </p:column>
+
+                <p:column headerText="Modificado Por">
+                    <p:outputLabel value="#{servicio.modificadopor}"></p:outputLabel>
+
+                </p:column>
+
+                <p:column headerText="Modificado En">
+                    <p:outputLabel value="#{servicio.modificadoen}"></p:outputLabel>
+
+                </p:column>             
+                <!-- Crud -->
+                <p:column headerText="" style="width:30px" >
+                    <p:commandButton 
+                        update=":forma:grow,:forma:tab:add_1,:forma:tab:add_2,:forma2:listaServicio"
+                        ajax="true" icon="ui-icon-pencil"
+                        action="#{programaServiciosBean.action(servicio.id_servicio)}" />
+                </p:column> 
+                
+                <p:column headerText="" style="width:30px" >
+                    <p:commandButton 
+                        update=":forma:grow,:forma:tab:add_1,:forma:tab:add_2,:forma2:listaServicio"
+                        ajax="true" icon="ui-icon-trash"
+                        action="#{programaServiciosBean.eliminar(servicio.id_servicio)}" />
+                </p:column> 
+
+
+
+            </p:dataTable>
+
+        </h:form>
+                 </ui:define>
+
+        </ui:composition>
+
+       
+    </body>
+</html>

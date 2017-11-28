@@ -6,11 +6,13 @@
 package edu.uniajc.proyeccionSocial.view.util;
 
 import edu.uniajc.proyeccionSocial.Model.ListaValorDetalle;
+import edu.uniajc.proyeccionSocial.Model.Programa;
 import edu.uniajc.proyeccionSocial.Model.Tercero;
 import edu.uniajc.proyeccionSocial.Model.Usuario;
 import edu.uniajc.proyeccionsocial.bussiness.services.ListaValorDetalleServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.TerceroServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.UsuarioServices;
+import edu.uniajc.proyeccionsocial.interfaces.IUsuario;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -28,6 +30,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -161,6 +164,25 @@ public class Utilidades {
         } else {
             return false;
         }
+    }
+    
+    public static ArrayList<SelectItem> llenar_Combo_Programas( List<Programa> listProgramas) {
+       
+        ArrayList<SelectItem> items = new ArrayList<SelectItem>();
+        for (Programa obj : (ArrayList<Programa>) listProgramas) {
+            items.add(new SelectItem(obj.getId_programa(), obj.getDescripcion()));
+        }
+
+        return items;
+
+    }
+    
+    public static Usuario cargarUsuario() {
+        HttpSession session = SessionUtils.getSession();
+        String user = (String) session.getAttribute("username");
+        IUsuario usuarioServices= new UsuarioServices();
+        Usuario us = usuarioServices.getUserByUsername(user);
+        return us;
     }
 
 }
