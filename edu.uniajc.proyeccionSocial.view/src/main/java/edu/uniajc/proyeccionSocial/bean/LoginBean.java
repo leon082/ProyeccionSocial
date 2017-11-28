@@ -10,6 +10,7 @@ import edu.uniajc.proyeccionSocial.Model.Usuario;
 import edu.uniajc.proyeccionSocial.view.util.SessionUtils;
 import edu.uniajc.proyeccionSocial.view.util.Utilidades;
 import edu.uniajc.proyeccionsocial.bussiness.services.UsuarioServices;
+import edu.uniajc.proyeccionsocial.interfaces.IUsuario;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
@@ -29,7 +30,7 @@ public class LoginBean implements Serializable {
 
     private String nombre;
     private String clave;
-    private UsuarioServices usuarioServices;    
+    private IUsuario usuarioServices;    
     private Usuario user;    
     // private boolean logeado = false;
 

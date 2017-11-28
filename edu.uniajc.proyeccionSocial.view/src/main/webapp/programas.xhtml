@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <link href="CSS/login.css" rel="stylesheet" type="text/css"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="css/default.css"/>
+        <h:outputStylesheet name="css/cssLayout.css"/>
+        <title>Proyeccion Social</title>
+    </h:head>
+    <body>
+       
+        <h:form id="forma">           
+             <p:growl id="grow" showDetail="true" life="5555"/> 
+            <p:tabView id="tab">
+                
+
+                <p:tab title="Gestion Programas"> <!-- Nombre  -->
+                    <h:panelGrid columns="4" cellpadding="5">
+                        <p:outputLabel for="add_1" value="Descripcion :" />
+                        <p:inputText   id="add_1" value="#{programaBean.programa.descripcion}" required="true" requiredMessage="Campo requerido"/>                       
+                    </h:panelGrid>
+                    <p:separator />
+
+                    <!-- Se actulizan los formularios  forma y forma2 para limpiar y mostrar cambios -->
+                    <p:commandButton 
+                        update=":forma:grow,:forma:tab:add_1,:forma2:listaPrograma"
+                        ajax="true" value="Crear" action="#{programaBean.crear}"
+                        />
+                </p:tab>
+
+            </p:tabView>
+
+        </h:form>
+        
+        <h:form id="forma2">
+
+            <p:dataTable id="listaPrograma" value="#{programaBean.listaPrograma}"
+			var="programa" 
+                        paginator="true" 
+                        rows="20" 
+                        editable="true"
+                        paginatorPosition="bottom"
+                        >
+
+                       <p:ajax event="rowEdit" listener="#{programaBean.modificar}" update=":forma:grow" />
+
+                      <p:column headerText="Codigo Programa">
+                          <p:outputLabel value="#{programa.id_programa}"></p:outputLabel>
+                  
+			</p:column>
+               
+			<p:column  headerText="Descripciones ">
+                             <p:cellEditor>
+                                 <f:facet name="output"><h:outputText value="#{programa.descripcion}" /></f:facet>
+                               <f:facet name="input">
+                                  <p:inputText id="modeldescripcion" value="#{programa.descripcion}" required="true" requiredMessage="Campo requerido" />
+                               </f:facet>
+                            </p:cellEditor>
+			</p:column>
+                       
+                       <p:column headerText="Creado Por">
+                           <p:outputLabel value="#{programa.creadopor}"></p:outputLabel>
+                  
+			</p:column>
+                    
+                       <p:column headerText="Creado En">
+                           <p:outputLabel value="#{programa.creadoen}"></p:outputLabel>
+                  
+			</p:column>
+                        
+                       <p:column headerText="Modificado Por">
+                           <p:outputLabel value="#{programa.modificadopor}"></p:outputLabel>
+                  
+			</p:column>
+                       
+                          <p:column headerText="Modificado En">
+                              <p:outputLabel value="#{programa.modificadoen}"></p:outputLabel>
+                  
+			</p:column>               
+                         
+
+			
+
+                      <!-- Editar -->
+                        <p:column style="width:30px">
+                          <p:rowEditor />
+                        </p:column>
+                        <!-- Borrar -->
+                        <p:column headerText="" style="width:30px" >
+                            <p:commandButton 
+                              update=":forma:grow,:forma2:listaPrograma"
+                              ajax="true" icon="ui-icon-trash"
+                              action="#{programaBean.eliminar(programa.id_programa)}" />
+			</p:column> 
+                        
+                       
+
+		</p:dataTable>
+
+	</h:form>
+    </body>
+</html>

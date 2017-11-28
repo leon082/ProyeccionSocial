@@ -11,6 +11,8 @@ import edu.uniajc.proyeccionSocial.Model.Usuario;
 import edu.uniajc.proyeccionSocial.view.util.Utilidades;
 import edu.uniajc.proyeccionsocial.bussiness.services.TerceroServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.UsuarioServices;
+import edu.uniajc.proyeccionsocial.interfaces.ITercero;
+import edu.uniajc.proyeccionsocial.interfaces.IUsuario;
 import java.security.NoSuchAlgorithmException;
 
 import java.util.ArrayList;
@@ -30,9 +32,9 @@ import javax.faces.model.SelectItem;
 @ViewScoped
 public class RegistrarBean {
 
-    private TerceroServices terceroServices;
+    private ITercero terceroServices;
     private Tercero tercero;
-    private UsuarioServices usuarioServices;
+    private IUsuario usuarioServices;
     private Usuario usuario;
     private int idTercero;
     private int idUsuario;
@@ -138,9 +140,7 @@ public class RegistrarBean {
        
     }
 
-    public TerceroServices getTerceroServices() {
-        return terceroServices;
-    }
+   
 
     public void setTerceroServices(TerceroServices terceroServices) {
         this.terceroServices = terceroServices;
@@ -154,9 +154,7 @@ public class RegistrarBean {
         this.tercero = tercero;
     }
 
-    public UsuarioServices getUsuarioServices() {
-        return usuarioServices;
-    }
+    
 
     public void setUsuarioServices(UsuarioServices usuarioServices) {
         this.usuarioServices = usuarioServices;
@@ -224,6 +222,22 @@ public class RegistrarBean {
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
+    }
+
+    public ITercero getTerceroServices() {
+        return terceroServices;
+    }
+
+    public void setTerceroServices(ITercero terceroServices) {
+        this.terceroServices = terceroServices;
+    }
+
+    public IUsuario getUsuarioServices() {
+        return usuarioServices;
+    }
+
+    public void setUsuarioServices(IUsuario usuarioServices) {
+        this.usuarioServices = usuarioServices;
     }
     
     

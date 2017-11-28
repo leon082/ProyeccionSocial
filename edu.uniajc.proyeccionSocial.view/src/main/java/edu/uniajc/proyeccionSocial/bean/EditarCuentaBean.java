@@ -11,7 +11,10 @@ import edu.uniajc.proyeccionSocial.view.util.SessionUtils;
 
 import edu.uniajc.proyeccionSocial.view.util.Utilidades;
 import edu.uniajc.proyeccionsocial.bussiness.services.TerceroServices;
+import edu.uniajc.proyeccionsocial.interfaces.IUsuario;
 import edu.uniajc.proyeccionsocial.bussiness.services.UsuarioServices;
+import edu.uniajc.proyeccionsocial.interfaces.ITercero;
+
 import java.security.NoSuchAlgorithmException;
 
 import java.util.ArrayList;
@@ -32,9 +35,9 @@ import javax.servlet.http.HttpSession;
 @ViewScoped
 public class EditarCuentaBean {
 
-    private TerceroServices terceroServices;
+    private ITercero terceroServices;
     private Tercero tercero;
-    private UsuarioServices usuarioServices;
+    private IUsuario usuarioServices;
     private Usuario usuario;
     private String contra;
     private Date fecha;
@@ -123,9 +126,7 @@ public class EditarCuentaBean {
 
     }
 
-    public TerceroServices getTerceroServices() {
-        return terceroServices;
-    }
+   
 
     public void setTerceroServices(TerceroServices terceroServices) {
         this.terceroServices = terceroServices;
@@ -139,9 +140,7 @@ public class EditarCuentaBean {
         this.tercero = tercero;
     }
 
-    public UsuarioServices getUsuarioServices() {
-        return usuarioServices;
-    }
+   
 
     public void setUsuarioServices(UsuarioServices usuarioServices) {
         this.usuarioServices = usuarioServices;
@@ -186,5 +185,23 @@ public class EditarCuentaBean {
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
+
+    public ITercero getTerceroServices() {
+        return terceroServices;
+    }
+
+    public void setTerceroServices(ITercero terceroServices) {
+        this.terceroServices = terceroServices;
+    }
+
+    public IUsuario getUsuarioServices() {
+        return usuarioServices;
+    }
+
+    public void setUsuarioServices(IUsuario usuarioServices) {
+        this.usuarioServices = usuarioServices;
+    }
+    
+    
 
 }
