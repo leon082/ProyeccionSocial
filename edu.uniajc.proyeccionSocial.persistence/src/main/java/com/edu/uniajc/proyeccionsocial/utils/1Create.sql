@@ -79,6 +79,7 @@ CREATE TABLE tb_servicio (
     modificadopor   VARCHAR2(50),
     modificadoen    DATE
 );
+
 CREATE TABLE tb_oferente (
     id_oferente     NUMBER(10) NOT NULL,
     id_proyecto     NUMBER(10) NOT NULL,
