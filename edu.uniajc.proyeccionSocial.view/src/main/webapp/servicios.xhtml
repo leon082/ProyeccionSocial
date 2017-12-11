@@ -19,101 +19,107 @@
             <ui:define name="content">
 
 
-        <h:form id="forma">           
-            <p:growl id="grow" showDetail="true" life="5555"/> 
-            <p:tabView id="tab">
+                <h:form id="forma">           
+                    <p:growl id="grow" showDetail="true" life="5555"/> 
+                    <p:tabView id="tab">
 
 
-                <p:tab title="Gestion Servicios"> <!-- Nombre  -->
-                    <h:panelGrid columns="4" cellpadding="5">
-                        
-                        
-                        <p:outputLabel for="add_2" value="Descripcion :" />
-                        <p:inputText   id="add_2" value="#{serviciosBean.servicio.descripcion}" required="true" requiredMessage="Campo requerido"/>                       
-                    </h:panelGrid>
-                   
+                        <p:tab title="Gestion Servicios"> <!-- Nombre  -->
+                            <h:panelGrid columns="4" cellpadding="5">
 
-                    <!-- Se actulizan los formularios  forma y forma2 para limpiar y mostrar cambios -->
-                    <p:commandButton 
-                        update=":forma:grow,:forma:tab:add_2,:forma2:listaServicio"
-                        ajax="true" value="Crear" action="#{serviciosBean.guardar}"
-                        />
-                     <p:separator />
-                    
-                   
-                </p:tab>
 
-            </p:tabView>
+                                <p:outputLabel for="add_2" value="Descripcion :" />
+                                <p:inputText   id="add_2" value="#{serviciosBean.servicio.descripcion}" required="true" requiredMessage="Campo requerido"/>                       
+                            </h:panelGrid>
 
-        </h:form>
 
-        <h:form id="forma2">
+                            <!-- Se actulizan los formularios  forma y forma2 para limpiar y mostrar cambios -->
+                            <p:commandButton 
+                                update=":forma:grow,:forma:tab:add_2,:forma2:listaServicio"
+                                ajax="true" value="Crear" action="#{serviciosBean.guardar}"
+                                />
+                            <p:separator />
 
-            <p:dataTable id="listaServicio" value="#{serviciosBean.listServicio}"
-                         var="servicio" 
-                         paginator="true" 
-                         rows="20" 
-                         editable="false"
-                         paginatorPosition="bottom"
-                         >
 
-                <p:ajax event="rowEdit" listener="#{serviciosBean.update()}" update=":forma:grow" />
+                        </p:tab>
 
-                <p:column headerText="Codigo Servicio">
-                    <p:outputLabel value="#{servicio.id_servicio}"></p:outputLabel>
+                    </p:tabView>
 
-                </p:column>
-                
-                  
+                </h:form>
 
-                <p:column  headerText="Descripciones ">
-                    <p:outputLabel value="#{servicio.descripcion}" />
-                        
-                </p:column>
+                <h:form id="forma2">
 
-                <p:column headerText="Creado Por">
-                    <p:outputLabel value="#{servicio.creadopor}"></p:outputLabel>
+                    <p:dataTable id="listaServicio" value="#{serviciosBean.listServicio}"
+                                 var="servicio" 
+                                 paginator="true" 
+                                 rows="20" 
+                                 editable="true"
+                                 paginatorPosition="bottom"
+                                 >
 
-                </p:column>
+                        <p:ajax event="rowEdit" listener="#{serviciosBean.update}" update=":forma:grow" />
 
-                <p:column headerText="Creado En">
-                    <p:outputLabel value="#{servicio.creadoen}"></p:outputLabel>
+                        <p:column headerText="Codigo Servicio">
+                            <p:outputLabel value="#{servicio.id_servicio}"></p:outputLabel>
 
-                </p:column>
-
-                <p:column headerText="Modificado Por">
-                    <p:outputLabel value="#{servicio.modificadopor}"></p:outputLabel>
-
-                </p:column>
-
-                <p:column headerText="Modificado En">
-                    <p:outputLabel value="#{servicio.modificadoen}"></p:outputLabel>
-
-                </p:column>             
-               <!-- Editar -->
-                <p:column style="width:30px">
-                    <p:rowEditor />
-                </p:column>
-                <!-- Borrar -->
-                <p:column headerText="" style="width:30px" >
-                    <p:commandButton 
-                        update=":forma:grow,:forma2:listaServicio"
-                        ajax="true" icon="ui-icon-trash"
-                        action="#{serviciosBean.eliminar(programa.id_programa)}" />
-                </p:column> 
+                        </p:column>
 
 
 
+                        <p:column  headerText="Descripciones ">
+
+
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{servicio.descripcion}" /></f:facet>
+                                <f:facet name="input">
+                                    <p:inputText id="modeldescripcion" value="#{servicio.descripcion}" required="true" requiredMessage="Campo requerido" />
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column headerText="Creado Por">
+                            <p:outputLabel value="#{servicio.creadopor}"></p:outputLabel>
+
+                        </p:column>
+
+                        <p:column headerText="Creado En">
+                            <p:outputLabel value="#{servicio.creadoen}"></p:outputLabel>
+
+                        </p:column>
+
+                        <p:column headerText="Modificado Por">
+                            <p:outputLabel value="#{servicio.modificadopor}"></p:outputLabel>
+
+                        </p:column>
+
+                        <p:column headerText="Modificado En">
+                            <p:outputLabel value="#{servicio.modificadoen}"></p:outputLabel>
+
+                        </p:column>             
+                        <!-- Editar -->
+                        <p:column style="width:30px">
+                            <p:rowEditor />
+                        </p:column>
+                        <!-- Borrar -->
+                        <p:column headerText="" style="width:30px" >
+                            <p:commandButton 
+                                update=":forma:grow,:forma2:listaServicio"
+                                ajax="true" icon="ui-icon-trash"
+                                action="#{serviciosBean.eliminar(servicio.id_servicio)}" />
+                        </p:column> 
 
 
 
-            </p:dataTable>
 
-        </h:form>
-                 </ui:define>
+
+
+                    </p:dataTable>
+
+                </h:form>
+            </ui:define>
 
         </ui:composition>
 
-       
+
     </body>
 </html>

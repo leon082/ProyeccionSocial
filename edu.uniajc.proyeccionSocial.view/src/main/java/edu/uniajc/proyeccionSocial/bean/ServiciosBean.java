@@ -40,21 +40,22 @@ public class ServiciosBean {
         usuario = Utilidades.cargarUsuario();
         servicioServices = new ServicioServices();
         servicio = new Servicio();
+        listServicio=servicioServices.getAllServicio();
 
     }
 
     public void limpiarForm() {
         servicio = new Servicio();
+         listServicio = servicioServices.getAllServicio();
 
     }
 
     public void eliminar(int idServicio) {
 
-        if (servicioServices.isInProg(idServicio)) {
+        if (!servicioServices.isInProg(idServicio)) {
 
             boolean flag = false;
             flag = servicioServices.deleteServicio(idServicio);
-
             listServicio = servicioServices.getAllServicio();
             if (flag) {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "El Servicio Fue eliminado con exito.");
@@ -74,6 +75,7 @@ public class ServiciosBean {
 
         servicio.setCreadopor(usuario.getUsuario());
         int result = servicioServices.createServicio(servicio);
+         
 
         if (result != 0) {
 
