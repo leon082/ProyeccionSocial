@@ -23,5 +23,7 @@ public interface IProgramaServicio {
     public ArrayList<ProgramaServicio> getAllProgramaServicioByPrograma(int idPrograma);
 
     public ProgramaServicio getProgramaServicioById(int id);
+    
+    public boolean deleteProgramaServicioByProg(int id);
 
 }

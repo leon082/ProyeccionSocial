@@ -23,5 +23,7 @@ public interface IServicio {
     public ArrayList<Servicio> getAllServicio();
 
     public Servicio getServicioById(int id);
+    
+     public ArrayList<Servicio> getAllServicioByProg(int idProg) ;
 
 }

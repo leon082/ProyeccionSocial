@@ -21,14 +21,14 @@ import javax.annotation.PreDestroy;
  * @author rlara
  */
 public class ServicioDAO {
-    
+
     private Connection DBConnection = null;
 
     public ServicioDAO() {
-          ConexionBD bd= new ConexionBD();
+        ConexionBD bd = new ConexionBD();
         this.DBConnection = bd.conexion();
     }
-    
+
     public int createServicio(Servicio servicio) {
         try {
             java.util.Date fecha = new java.util.Date();
@@ -52,7 +52,7 @@ public class ServicioDAO {
                     + "(ID_Servicio, Descripcion, Estado, "
                     + "CreadoPor, CreadoEn) values(?,?,?,?,?) ";
             ps = this.DBConnection.prepareStatement(SQL);
-            
+
             ps.setInt(1, servicio.getId_servicio());
             ps.setString(2, servicio.getDescripcion());
             ps.setInt(3, servicio.getEstado());
@@ -103,7 +103,7 @@ public class ServicioDAO {
                     + "Descripcion=?, Estado=?, ModificadoPor=?, ModificadoEn=? "
                     + "where ID_Servicio = ?";
             ps = this.DBConnection.prepareStatement(SQL);
-            
+
             ps.setString(1, servicio.getDescripcion());
             ps.setInt(2, servicio.getEstado());
             ps.setString(3, servicio.getModificadopor());
@@ -111,7 +111,7 @@ public class ServicioDAO {
             ps.setInt(5, servicio.getId_servicio());
             ps.execute();
             ps.close();
-            
+
             return true;
 
         } catch (SQLException e) {
@@ -148,6 +148,40 @@ public class ServicioDAO {
             return list;
         } catch (SQLException e) {
             System.out.println("Error en ServicioDAO getAllServicio " + e.getMessage());
+            Logger.getLogger(ServicioDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            return null;
+        }
+
+    }
+
+    public ArrayList<Servicio> getAllServicioByProg(int idProg) {
+        ArrayList<Servicio> list = new ArrayList<>(0);
+        try {
+
+            PreparedStatement ps = null;
+
+            final String SQL = "select s.* from tb_servicio s \n"
+                    + "inner join TB_PROGRAMASERVICIO ps on s.ID_SERVICIO = ps.ID_SERVICIO\n"
+                    + "where ps.ESTADO=1 and  ps.ID_PROGRAMA= " + idProg + " ";
+            ps = this.DBConnection.prepareStatement(SQL);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Servicio servicio = new Servicio();
+                servicio.setId_servicio(rs.getInt("ID_Servicio"));
+                servicio.setDescripcion(rs.getString("Descripcion"));
+                servicio.setEstado(rs.getInt("Estado"));
+                servicio.setCreadopor(rs.getString("CreadoPor"));
+                servicio.setModificadopor(rs.getString("ModificadoPor"));
+                servicio.setCreadoen(rs.getDate("CreadoEn"));
+                servicio.setModificadoen(rs.getDate("ModificadoEn"));
+
+                list.add(servicio);
+            }
+            ps.close();
+
+            return list;
+        } catch (SQLException e) {
+            System.out.println("Error en ServicioDAO getAllServiciobyprog " + e.getMessage());
             Logger.getLogger(ServicioDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return null;
         }

@@ -100,4 +100,18 @@ public class ProgramaServicioServices implements IProgramaServicio {
         }
     }
 
+    @Override
+    public boolean deleteProgramaServicioByProg(int id) {
+         try {
+
+            dao.deleteProgramaServicioByProg(id);
+
+            return true;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
 }

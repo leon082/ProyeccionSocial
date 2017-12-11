@@ -7,7 +7,6 @@ package edu.uniajc.proyeccionSocial.bean;
 
 import edu.uniajc.proyeccionSocial.Model.Programa;
 import edu.uniajc.proyeccionSocial.Model.Usuario;
-import edu.uniajc.proyeccionSocial.view.util.SessionUtils;
 import edu.uniajc.proyeccionSocial.view.util.Utilidades;
 import edu.uniajc.proyeccionsocial.bussiness.services.ProgramaServices;
 import edu.uniajc.proyeccionsocial.interfaces.IPrograma;
@@ -17,10 +16,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
 import org.primefaces.event.RowEditEvent;
-import edu.uniajc.proyeccionsocial.interfaces.IUsuario;
-import edu.uniajc.proyeccionsocial.bussiness.services.UsuarioServices;
 
 /**
  *

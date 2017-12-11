@@ -26,23 +26,17 @@
 
                 <p:tab title="Gestion Servicios"> <!-- Nombre  -->
                     <h:panelGrid columns="4" cellpadding="5">
-                        <p:outputLabel for="add_1" value="Programa :" />
-                        <p:selectOneMenu  id="add_1" value="#{programaServiciosBean.programSelected}" required="true" requiredMessage="Campo requerido" >  
-                                                <f:selectItem itemLabel="Seleccione" itemValue="0" />  
-                                                <f:selectItems value="#{programaServiciosBean.itemsProgramas}"/>  
-                                              
-                                                <p:ajax event="change" update=":forma2:listaServicio" listener="#{programaServiciosBean.llenarTablaServicios}" />
-                                            </p:selectOneMenu> 
+                        
                         
                         <p:outputLabel for="add_2" value="Descripcion :" />
-                        <p:inputText   id="add_2" value="#{programaServiciosBean.servicio.descripcion}" required="true" requiredMessage="Campo requerido"/>                       
+                        <p:inputText   id="add_2" value="#{serviciosBean.servicio.descripcion}" required="true" requiredMessage="Campo requerido"/>                       
                     </h:panelGrid>
                    
 
                     <!-- Se actulizan los formularios  forma y forma2 para limpiar y mostrar cambios -->
                     <p:commandButton 
-                        update=":forma:grow,:forma:tab:add_1,:forma:tab:add_2,:forma2:listaServicio"
-                        ajax="true" value="Crear" action="#{programaServiciosBean.guardar}"
+                        update=":forma:grow,:forma:tab:add_2,:forma2:listaServicio"
+                        ajax="true" value="Crear" action="#{serviciosBean.guardar}"
                         />
                      <p:separator />
                     
@@ -55,7 +49,7 @@
 
         <h:form id="forma2">
 
-            <p:dataTable id="listaServicio" value="#{programaServiciosBean.listServicio}"
+            <p:dataTable id="listaServicio" value="#{serviciosBean.listServicio}"
                          var="servicio" 
                          paginator="true" 
                          rows="20" 
@@ -63,7 +57,7 @@
                          paginatorPosition="bottom"
                          >
 
-                
+                <p:ajax event="rowEdit" listener="#{serviciosBean.update()}" update=":forma:grow" />
 
                 <p:column headerText="Codigo Servicio">
                     <p:outputLabel value="#{servicio.id_servicio}"></p:outputLabel>
@@ -96,20 +90,20 @@
                     <p:outputLabel value="#{servicio.modificadoen}"></p:outputLabel>
 
                 </p:column>             
-                <!-- Crud -->
+               <!-- Editar -->
+                <p:column style="width:30px">
+                    <p:rowEditor />
+                </p:column>
+                <!-- Borrar -->
                 <p:column headerText="" style="width:30px" >
                     <p:commandButton 
-                        update=":forma:grow,:forma:tab:add_1,:forma:tab:add_2,:forma2:listaServicio"
-                        ajax="true" icon="ui-icon-pencil"
-                        action="#{programaServiciosBean.action(servicio.id_servicio)}" />
-                </p:column> 
-                
-                <p:column headerText="" style="width:30px" >
-                    <p:commandButton 
-                        update=":forma:grow,:forma:tab:add_1,:forma:tab:add_2,:forma2:listaServicio"
+                        update=":forma:grow,:forma2:listaServicio"
                         ajax="true" icon="ui-icon-trash"
-                        action="#{programaServiciosBean.eliminar(servicio.id_servicio)}" />
+                        action="#{serviciosBean.eliminar(programa.id_programa)}" />
                 </p:column> 
+
+
+
 
 
 

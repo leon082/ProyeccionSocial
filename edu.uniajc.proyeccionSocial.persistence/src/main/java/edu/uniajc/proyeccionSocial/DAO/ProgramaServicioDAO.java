@@ -89,6 +89,25 @@ public class ProgramaServicioDAO {
         }
 
     }
+    
+    public boolean deleteProgramaServicioByProg(int id) {
+        try {
+
+            String SQL = "DELETE FROM tb_programaservicio WHERE "
+                    + "ID_Programa =" + id + " ";
+
+            PreparedStatement ps = this.DBConnection.prepareStatement(SQL);
+            ps.execute();
+            ps.close();
+            return true;
+
+        } catch (SQLException e) {
+            System.out.println("Error en ProgramaServicio DAO Delete " + e.getMessage());
+            Logger.getLogger(ProgramaServicioDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            return false;
+        }
+
+    }
 
     public boolean updateProgramaServicio(ProgramaServicio progServi) {
         try {

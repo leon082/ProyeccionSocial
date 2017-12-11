@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <link href="CSS/login.css" rel="stylesheet" type="text/css"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="css/default.css"/>
+        <h:outputStylesheet name="css/cssLayout.css"/>
+        <title>Proyeccion Social</title>
+    </h:head>
+    <body>
+
+        <ui:composition template="Home.xhtml">
+            <ui:define name="content">
+
+
+                <h:form id="forma">     
+
+                    <p:growl id="grow" showDetail="true" life="5555"/> 
+                    <h3 style="margin-top: 0">Programas</h3>
+
+                  
+                    
+                    <p:selectOneMenu  id="add_1" value="#{progServBean.idPrograma}" >  
+                        <p:ajax listener="#{progServBean.actionCombo()}" update=":forma:pickList" />
+                        <f:selectItem itemLabel="Seleccione" itemValue="0" />  
+                        <f:selectItems value="#{progServBean.itemsProgramas}"/>  
+                    </p:selectOneMenu> 
+                    <p:separator></p:separator>
+                    <h3 style="margin-top: 0">Añadir Servicios</h3>
+
+                    <p:pickList id="pickList" value="#{progServBean.servicios}" var="servicio" itemLabel="#{servicio.descripcion}" itemValue="#{servicio.id_servicio}" >
+                                <f:facet name="sourceCaption">Servicios Disponibles</f:facet>
+                        <f:facet name="targetCaption">Servicios Vinculados</f:facet>
+                    </p:pickList>
+
+                    <p:commandButton id="serviciosSubmit" value="Guardar" style="margin-top:5px" action="#{progServBean.guardar()}" />
+
+
+                </h:form>
+
+
+            </ui:define>
+
+        </ui:composition>
+
+
+    </body>
+</html>

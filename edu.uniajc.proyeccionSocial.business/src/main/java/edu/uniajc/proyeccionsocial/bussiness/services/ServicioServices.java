@@ -98,4 +98,18 @@ public class ServicioServices implements IServicio {
         }
     }
 
+    @Override
+    public ArrayList<Servicio> getAllServicioByProg(int idProg) {
+         try {
+
+            ArrayList<Servicio> list = dao.getAllServicioByProg(idProg);
+
+            return list;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
 }
