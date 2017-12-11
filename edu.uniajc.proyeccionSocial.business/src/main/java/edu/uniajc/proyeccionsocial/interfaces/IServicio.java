@@ -25,5 +25,6 @@ public interface IServicio {
     public Servicio getServicioById(int id);
     
      public ArrayList<Servicio> getAllServicioByProg(int idProg) ;
+     public boolean isInProg(int idServicio) ;
 
 }

@@ -50,25 +50,28 @@ public class ServiciosBean {
 
     public void eliminar(int idServicio) {
 
-        boolean flag = false;
-        flag = servicioServices.deleteServicio(idServicio);
+        if (servicioServices.isInProg(idServicio)) {
 
-        listServicio = servicioServices.getAllServicio();
-        if (flag) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "El Servicio Fue eliminado con exito.");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-        } else {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "No se pudo realizar la operación");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+            boolean flag = false;
+            flag = servicioServices.deleteServicio(idServicio);
+
+            listServicio = servicioServices.getAllServicio();
+            if (flag) {
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "El Servicio Fue eliminado con exito.");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+            } else {
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "No se pudo realizar la operación");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+            }
+        }else{
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "El servicio esta asociado a un programa");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
         }
 
-        
     }
 
+    public void guardar() {
 
-
-public void guardar() {
-        
         servicio.setCreadopor(usuario.getUsuario());
         int result = servicioServices.createServicio(servicio);
 
@@ -82,16 +85,10 @@ public void guardar() {
             FacesContext.getCurrentInstance().addMessage(null, msg);
 
         }
-        
-        
 
-      
     }
 
-
     public void update(RowEditEvent event) {
-        
-         
 
         Object ob = event.getObject();
         Servicio sr = (Servicio) ob;
@@ -106,13 +103,6 @@ public void guardar() {
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
-         
-       
-    
-
-   
-
- 
 
     public List<Servicio> getListServicio() {
         return listServicio;
@@ -145,7 +135,5 @@ public void guardar() {
     public void setServicio(Servicio servicio) {
         this.servicio = servicio;
     }
-
-   
 
 }

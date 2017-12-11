@@ -10,6 +10,8 @@ import edu.uniajc.proyeccionSocial.Model.Usuario;
 import edu.uniajc.proyeccionSocial.view.util.Utilidades;
 import edu.uniajc.proyeccionsocial.bussiness.services.ProgramaServices;
 import edu.uniajc.proyeccionsocial.interfaces.IPrograma;
+import edu.uniajc.proyeccionsocial.bussiness.services.ProgramaServicioServices;
+import edu.uniajc.proyeccionsocial.interfaces.IProgramaServicio;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -27,6 +29,7 @@ import org.primefaces.event.RowEditEvent;
 public class ProgramaBean {
 
     private IPrograma servicios;
+    private IProgramaServicio psServicios;
     private Programa programa;
     private List<Programa> listaPrograma;
 
@@ -38,6 +41,7 @@ public class ProgramaBean {
     public void init() {
         servicios = new ProgramaServices();
         programa = new Programa();
+        psServicios=new ProgramaServicioServices();
         
         usuario = Utilidades.cargarUsuario();
         listaPrograma = servicios.getAllPrograma();
@@ -91,7 +95,7 @@ public class ProgramaBean {
         boolean flag = false;
         for (Programa programaEliminar : listaPrograma) {
             if (programaEliminar.getId_programa() == idPrograma) {
-
+                psServicios.deleteProgramaServicioByProg(idPrograma);
                 if (servicios.deletePrograma(idPrograma)) {
                     flag = true;
                     break;

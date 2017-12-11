@@ -188,6 +188,33 @@ public class ServicioDAO {
 
     }
 
+    public boolean isInProg(int idServicio) {
+        ArrayList<Servicio> list = new ArrayList<>(0);
+         boolean result = false;
+        try {
+           
+
+            PreparedStatement ps = null;
+
+            final String SQL = "select s.* from tb_servicio s \n"
+                    + "inner join TB_PROGRAMASERVICIO ps on s.ID_SERVICIO = ps.ID_SERVICIO\n"
+                    + "where ps.ESTADO = 1 and s.ID_SERVICIO = " + idServicio + " ";
+            ps = this.DBConnection.prepareStatement(SQL);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+               result= true;
+            }
+            ps.close();
+
+            return result;
+        } catch (SQLException e) {
+            System.out.println("Error en ServicioDAO getAllServiciobyprog " + e.getMessage());
+            Logger.getLogger(ServicioDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            return result;
+        }
+
+    }
+
     public Servicio getServicioById(int id) {
 
         Servicio servicio = new Servicio();

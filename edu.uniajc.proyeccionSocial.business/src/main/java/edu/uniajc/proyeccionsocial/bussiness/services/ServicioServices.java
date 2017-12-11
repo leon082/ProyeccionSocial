@@ -112,4 +112,15 @@ public class ServicioServices implements IServicio {
         }
     }
 
+    @Override
+    public boolean isInProg(int idServicio) {
+        try {
+           return dao.isInProg(idServicio);
+             
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
 }
