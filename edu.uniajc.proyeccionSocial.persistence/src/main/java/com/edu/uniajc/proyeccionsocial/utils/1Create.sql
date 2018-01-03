@@ -60,6 +60,7 @@ CREATE TABLE tb_etapa (
     modificadoen    DATE
 );
 CREATE SEQUENCE  "SQ_TB_ETAPA"  MINVALUE 1 MAXVALUE 9999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE ;
+
 CREATE TABLE tb_servicioetapa (
     id_servicioetapa   NUMBER(10) NOT NULL,
     id_servicio        NUMBER(10) NOT NULL,
@@ -70,6 +71,7 @@ CREATE TABLE tb_servicioetapa (
     modificadopor      VARCHAR2(50),
     modificadoen       DATE
 );
+CREATE SEQUENCE  "SQ_TB_SERVICIOETAPA"  MINVALUE 1 MAXVALUE 9999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE ;
 
 CREATE TABLE tb_servicio (
     id_servicio     NUMBER(10) NOT NULL,
