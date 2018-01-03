@@ -49,7 +49,7 @@ public class ServicioEtapaDAO {
             }
 
             SQL = "INSERT INTO TB_ServicioEtapa"
-                    + " (ID_ServicioEtapa, ID_Programa, ID_Servicio, "
+                    + " (ID_ServicioEtapa, ID_Servicio, id_ETAPA , "
                     + "Estado,CreadoPor, CreadoEn) values(?,?,?,?,?,?)";
             ps = this.DBConnection.prepareStatement(SQL);
 
@@ -86,6 +86,25 @@ public class ServicioEtapaDAO {
         } catch (SQLException e) {
             System.out.println("Error en ServicioEtapa DAO Delete " + e.getMessage());
             Logger.getLogger(ServicioEtapaDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            return false;
+        }
+
+    }
+    
+     public boolean deleteEtapaServicioByServicio(int id) {
+        try {
+
+            String SQL = "DELETE FROM tb_servicioetapa WHERE "
+                    + "id_servicio =" + id + " ";
+
+            PreparedStatement ps = this.DBConnection.prepareStatement(SQL);
+            ps.execute();
+            ps.close();
+            return true;
+
+        } catch (SQLException e) {
+            System.out.println("Error en deleteEtapaServicioByEtapa DAO Delete " + e.getMessage());
+            Logger.getLogger(ProgramaServicioDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return false;
         }
 

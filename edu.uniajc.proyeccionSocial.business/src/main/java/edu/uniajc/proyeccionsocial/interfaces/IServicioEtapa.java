@@ -23,5 +23,7 @@ public interface IServicioEtapa {
     public ArrayList<ServicioEtapa> getAllServicioEtapa();
 
     public ServicioEtapa getServicioEtapaById(int id);
+    
+    public boolean deleteEtapaServicioByServicio(int id);
 
 }

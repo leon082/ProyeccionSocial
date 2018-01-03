@@ -6,6 +6,7 @@
 package edu.uniajc.proyeccionsocial.interfaces;
 
 import edu.uniajc.proyeccionSocial.Model.Etapa;
+
 import java.util.ArrayList;
 
 /**
@@ -23,5 +24,7 @@ public interface IEtapa {
     public ArrayList<Etapa> getAllEtapa();
 
     public Etapa getEtapaById(int id);
-
+    public boolean isInServ(int idEtapa);
+    
+    public ArrayList<Etapa> getAllEtapaByServicio (int idServicio);
 }

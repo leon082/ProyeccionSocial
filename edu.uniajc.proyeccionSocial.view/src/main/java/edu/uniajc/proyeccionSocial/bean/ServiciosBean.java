@@ -19,6 +19,9 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.RowEditEvent;
 
+import edu.uniajc.proyeccionsocial.bussiness.services.ServicioEtapaServices;
+import edu.uniajc.proyeccionsocial.interfaces.IServicioEtapa;
+
 /**
  *
  * @author luis.leon
@@ -32,6 +35,8 @@ public class ServiciosBean {
 
     private Usuario usuario;
     private Servicio servicio;
+    private IServicioEtapa seservices;
+    
 
     @PostConstruct
     public void init() {
@@ -41,6 +46,7 @@ public class ServiciosBean {
         servicioServices = new ServicioServices();
         servicio = new Servicio();
         listServicio=servicioServices.getAllServicio();
+        seservices = new ServicioEtapaServices();
 
     }
 
@@ -55,6 +61,7 @@ public class ServiciosBean {
         if (!servicioServices.isInProg(idServicio)) {
 
             boolean flag = false;
+            seservices.deleteEtapaServicioByServicio(idServicio);
             flag = servicioServices.deleteServicio(idServicio);
             listServicio = servicioServices.getAllServicio();
             if (flag) {

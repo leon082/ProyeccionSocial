@@ -13,6 +13,7 @@ import java.sql.Date;
  */
 public class Servicio {
     private int id_servicio;
+    private String id;
     private String descripcion;
     private int estado;
     private String creadopor;
@@ -20,6 +21,13 @@ public class Servicio {
     private String modificadopor;
     private Date modificadoen;
 
+    public String getId() {
+        return String.valueOf(id_servicio);
+    }
+
+    
+
+    
     public int getId_servicio() {
         return id_servicio;
     }

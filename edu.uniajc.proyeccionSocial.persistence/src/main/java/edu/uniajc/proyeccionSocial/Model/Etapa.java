@@ -15,7 +15,7 @@ public class Etapa {
     private int id_etapa;
     private String descripcion;
     private int estado;
-    private Date creadopor;
+    private String creadopor;
     private Date creadoen;
     private String modificadopor;
     private Date modificadoen;
@@ -44,13 +44,15 @@ public class Etapa {
         this.estado = estado;
     }
 
-    public Date getCreadopor() {
+    public String getCreadopor() {
         return creadopor;
     }
 
-    public void setCreadopor(Date creadopor) {
+    public void setCreadopor(String creadopor) {
         this.creadopor = creadopor;
     }
+
+   
 
     public Date getCreadoen() {
         return creadoen;

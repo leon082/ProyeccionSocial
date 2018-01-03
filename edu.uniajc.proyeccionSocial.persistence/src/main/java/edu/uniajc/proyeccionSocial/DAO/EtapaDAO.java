@@ -49,13 +49,15 @@ public class EtapaDAO {
             }
 
             SQL = "INSERT INTO TB_Etapa"
-                    + " (ID_Etapa,Descripcion, Estado) "
-                    + " values(?,?,?)";
+                    + " (ID_Etapa,Descripcion, Estado , creadopor , creadoen) "
+                    + " values(?,?,?,?,?)";
             ps = this.DBConnection.prepareStatement(SQL);
 
             ps.setInt(1, etapa.getId_etapa());
             ps.setString(2, etapa.getDescripcion());
             ps.setInt(3, etapa.getEstado());
+            ps.setString(4,etapa.getCreadopor());
+            ps.setDate(5,etapa.getCreadoen());
 
             ps.execute();
 
@@ -95,13 +97,16 @@ public class EtapaDAO {
             etapa.setModificadoen(fechaSQL);
 
             PreparedStatement ps = null;
-            String SQL = "UPDATE TB_Etapa SET Descripcion=?, Estado=? "
+            String SQL = "UPDATE TB_Etapa SET Descripcion=?, Estado=? ,modificadopor =? , modificadoen =? "
                     + " where ID_Etapa = ?";
             ps = this.DBConnection.prepareStatement(SQL);
 
             ps.setString(1, etapa.getDescripcion());
             ps.setInt(2, etapa.getEstado());
-            ps.setInt(3, etapa.getId_etapa());
+            ps.setString(3,etapa.getModificadopor());
+            ps.setDate(4,etapa.getModificadoen());
+            ps.setInt(5, etapa.getId_etapa());
+            
 
             ps.execute();
             ps.close();
@@ -129,6 +134,10 @@ public class EtapaDAO {
                 etapa.setId_etapa(rs.getInt("ID_Etapa"));
                 etapa.setDescripcion(rs.getString("Descripcion"));
                 etapa.setEstado(rs.getInt("Estado"));
+                etapa.setCreadopor(rs.getString("creadopor"));
+                etapa.setModificadopor(rs.getString("modificadopor"));
+                etapa.setCreadoen(rs.getDate("creadoen"));
+                etapa.setModificadoen(rs.getDate("modificadoen"));
 
                 list.add(etapa);
             }
@@ -171,6 +180,70 @@ public class EtapaDAO {
         }
 
     }
+    
+    public boolean isInServ(int idEtapa) {
+      
+         boolean result = false;
+        try {
+           
+
+            PreparedStatement ps = null;
+
+            final String SQL = "select s.* from tb_etapa s \n"
+                    + "inner join tb_servicioetapa ps on s.id_etapa = ps.id_etapa \n"
+                    + "where ps.ESTADO = 1 and s.id_etapa = " + idEtapa + " ";
+            ps = this.DBConnection.prepareStatement(SQL);
+            ResultSet rs = ps.executeQuery();
+            
+               
+               result=rs.next();
+         
+            ps.close();
+
+            return result;
+        } catch (SQLException e) {
+            System.out.println("Error en EtapaDAO isInServ " + e.getMessage());
+            Logger.getLogger(ServicioDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            return result;
+        }
+
+    }
+    
+    public ArrayList<Etapa> getAllEtapaByServicio(int idServicio) {
+       
+        ArrayList<Etapa> list = new ArrayList<>(0);
+        try {
+
+            PreparedStatement ps = null;
+
+            final String SQL = "select s.* from tb_etapa s \n"
+                    + "inner join TB_SERVICIOetapa ps on s.id_etapa = ps.id_etapa \n"
+                    + "where ps.ESTADO=1 and  ps.id_servicio= " + idServicio + " ";
+            ps = this.DBConnection.prepareStatement(SQL);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Etapa etapa = new Etapa();
+                etapa.setId_etapa(rs.getInt("id_etapa"));
+                etapa.setDescripcion(rs.getString("Descripcion"));
+                etapa.setEstado(rs.getInt("Estado"));
+                etapa.setCreadopor(rs.getString("CreadoPor"));
+                etapa.setModificadopor(rs.getString("ModificadoPor"));
+                etapa.setCreadoen(rs.getDate("CreadoEn"));
+                etapa.setModificadoen(rs.getDate("ModificadoEn"));
+
+                list.add(etapa);
+            }
+            ps.close();
+
+            return list;
+        } catch (SQLException e) {
+            System.out.println("Error en EtapaDAO getAllEtapaByServicio " + e.getMessage());
+            Logger.getLogger(ServicioDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            return null;
+        }
+
+    }
+    
 
     @PreDestroy
     public void finish() {

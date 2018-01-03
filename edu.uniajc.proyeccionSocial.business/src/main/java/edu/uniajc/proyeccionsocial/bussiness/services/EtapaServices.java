@@ -100,4 +100,29 @@ public class EtapaServices implements IEtapa {
         }
     }
 
+    @Override
+    public boolean isInServ(int idEtapa) {
+       try {
+           return dao.isInServ(idEtapa);
+             
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public ArrayList<Etapa> getAllEtapaByServicio(int idServicio) {
+          try {
+
+            ArrayList<Etapa> list = dao.getAllEtapaByServicio(idServicio);
+
+            return list;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
 }

@@ -27,15 +27,7 @@ CREATE TABLE tb_beneficiario (
     modificadoen      DATE
 );
 
-CREATE TABLE tb_etapa (
-    id_etapa        NUMBER(10) NOT NULL,
-    descripcion     VARCHAR2(100) NOT NULL,
-    estado          NUMBER(1) DEFAULT 1 NOT NULL,
-    creadopor       VARCHAR2(50) NOT NULL,
-    creadoen        DATE DEFAULT SYSDATE,
-    modificadopor   VARCHAR2(50),
-    modificadoen    DATE
-);
+
 
 CREATE TABLE tb_listavalor (
     id_listavalor   NUMBER(10) NOT NULL,
@@ -58,7 +50,16 @@ CREATE TABLE tb_listavalordetalle (
     modificadopor          VARCHAR2(50),
     modificadoen           DATE
 );
-
+CREATE TABLE tb_etapa (
+    id_etapa        NUMBER(10) NOT NULL,
+    descripcion     VARCHAR2(100) NOT NULL,
+    estado          NUMBER(1) DEFAULT 1 NOT NULL,
+    creadopor       VARCHAR2(50) NOT NULL,
+    creadoen        DATE DEFAULT SYSDATE,
+    modificadopor   VARCHAR2(50),
+    modificadoen    DATE
+);
+CREATE SEQUENCE  "SQ_TB_ETAPA"  MINVALUE 1 MAXVALUE 9999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE ;
 CREATE TABLE tb_servicioetapa (
     id_servicioetapa   NUMBER(10) NOT NULL,
     id_servicio        NUMBER(10) NOT NULL,

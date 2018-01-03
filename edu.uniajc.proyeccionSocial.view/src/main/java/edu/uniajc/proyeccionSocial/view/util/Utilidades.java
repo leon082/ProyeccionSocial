@@ -7,6 +7,7 @@ package edu.uniajc.proyeccionSocial.view.util;
 
 import edu.uniajc.proyeccionSocial.Model.ListaValorDetalle;
 import edu.uniajc.proyeccionSocial.Model.Programa;
+import edu.uniajc.proyeccionSocial.Model.Servicio;
 import edu.uniajc.proyeccionSocial.Model.Tercero;
 import edu.uniajc.proyeccionSocial.Model.Usuario;
 import edu.uniajc.proyeccionsocial.bussiness.services.ListaValorDetalleServices;
@@ -171,6 +172,18 @@ public class Utilidades {
         ArrayList<SelectItem> items = new ArrayList<SelectItem>();
         for (Programa obj : (ArrayList<Programa>) listProgramas) {
             items.add(new SelectItem(obj.getId_programa(), obj.getDescripcion()));
+        }
+
+        return items;
+
+    }
+    
+    
+    public static ArrayList<SelectItem> llenar_Combo_Servicios( List<Servicio> listServicios) {
+       
+        ArrayList<SelectItem> items = new ArrayList<SelectItem>();
+        for (Servicio obj : (ArrayList<Servicio>) listServicios) {
+            items.add(new SelectItem(obj.getId_servicio(), obj.getDescripcion()));
         }
 
         return items;

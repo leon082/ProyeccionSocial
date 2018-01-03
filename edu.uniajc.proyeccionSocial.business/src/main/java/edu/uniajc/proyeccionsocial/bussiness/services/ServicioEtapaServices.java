@@ -98,4 +98,18 @@ public class ServicioEtapaServices implements IServicioEtapa {
         }
     }
 
+    @Override
+    public boolean deleteEtapaServicioByServicio(int id) {
+          try {
+
+            dao.deleteEtapaServicioByServicio(id);
+
+            return true;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
 }

@@ -77,6 +77,7 @@ public class ProgServBean {
 
                 psServices.createProgramaServicio(crear);
             }
+            actionCombo();
         }
     }
 
