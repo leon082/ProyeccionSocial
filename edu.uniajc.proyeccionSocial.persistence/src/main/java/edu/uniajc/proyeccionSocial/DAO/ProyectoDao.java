@@ -48,17 +48,17 @@ public class ProyectoDao {
             }
 
             SQL = "INSERT INTO TB_PROYECTO"
-                    + " (ID_Proyecto, TituloProyecto, ResumenProyecto, ID_Programa, ID_Servicio,"
-                    + " Estado, CreadoPor, CreadoEn) values(?,?,?,?,?,?,?,?)";
+                    + " (ID_Proyecto, TituloProyecto, ResumenProyecto, ID_Programa, "
+                    + " Estado, CreadoPor, CreadoEn) values(?,?,?,?,?,?,?)";
             ps = this.DBConnection.prepareStatement(SQL);
             ps.setInt(1, proyecto.getId_proyecto());
             ps.setString(2, proyecto.getTituloproyecto());
             ps.setString(3, proyecto.getResumenproyecto());
             ps.setInt(4, proyecto.getId_programa());
-            ps.setInt(5, proyecto.getId_servicio());
-            ps.setInt(6, proyecto.getEstado());
-            ps.setString(7, proyecto.getCreadopor());
-            ps.setDate(8, proyecto.getCreadoen());
+           // ps.setInt(5, proyecto.getId_servicio());
+            ps.setInt(5, proyecto.getEstado());
+            ps.setString(6, proyecto.getCreadopor());
+            ps.setDate(7, proyecto.getCreadoen());
             ps.execute();
 
             ps.close();
@@ -101,7 +101,7 @@ public class ProyectoDao {
 
             PreparedStatement ps = null;
             String SQL = "UPDATE TB_Proyecto SET "
-                    + " TituloProyecto=?, ResumenProyecto=?, ID_Programa=?, ID_Servicio=?,"
+                    + " TituloProyecto=?, ResumenProyecto=?, ID_Programa=?, "
                     + " Estado=?, ModificadoPor=?, ModificadoEn=? "
                     + " where ID_Proyecto = ?";
             ps = this.DBConnection.prepareStatement(SQL);
@@ -109,11 +109,11 @@ public class ProyectoDao {
             ps.setString(1, proyecto.getTituloproyecto());
             ps.setString(2, proyecto.getResumenproyecto());
             ps.setInt(3, proyecto.getId_programa());
-            ps.setInt(4, proyecto.getId_servicio());
-            ps.setInt(5, proyecto.getEstado());
-            ps.setString(6, proyecto.getModificadopor());
-            ps.setDate(7, proyecto.getModificadoen());
-            ps.setInt(8, proyecto.getId_proyecto());
+           // ps.setInt(4, proyecto.getId_servicio());
+            ps.setInt(4, proyecto.getEstado());
+            ps.setString(5, proyecto.getModificadopor());
+            ps.setDate(6, proyecto.getModificadoen());
+            ps.setInt(7, proyecto.getId_proyecto());
 
             ps.execute();
             ps.close();
@@ -142,7 +142,7 @@ public class ProyectoDao {
                 proyecto.setTituloproyecto(rs.getString("TituloProyecto"));
                 proyecto.setResumenproyecto(rs.getString("ResumenProyecto"));
                 proyecto.setId_programa(rs.getInt("ID_Programa"));
-                proyecto.setId_servicio(rs.getInt("ID_Servicio"));
+               // proyecto.setId_servicio(rs.getInt("ID_Servicio"));
                 proyecto.setEstado(rs.getInt("Estado"));
                 proyecto.setCreadopor(rs.getString("CREADOPOR"));
                 proyecto.setModificadopor(rs.getString("MODIFICADOPOR"));

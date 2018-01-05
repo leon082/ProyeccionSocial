@@ -16,7 +16,7 @@ public class Proyecto {
     private String tituloproyecto;
     private String resumenproyecto;
     private int id_programa;
-    private int id_servicio;
+    //private int id_servicio;
     private int estado;
     private String creadopor;
     private Date creadoen;
@@ -55,13 +55,7 @@ public class Proyecto {
         this.id_programa = id_programa;
     }
 
-    public int getId_servicio() {
-        return id_servicio;
-    }
-
-    public void setId_servicio(int id_servicio) {
-        this.id_servicio = id_servicio;
-    }
+    
 
     public int getEstado() {
         return estado;

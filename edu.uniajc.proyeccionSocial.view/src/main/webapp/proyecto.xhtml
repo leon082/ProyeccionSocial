@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <link href="CSS/login.css" rel="stylesheet" type="text/css"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="css/default.css"/>
+        <h:outputStylesheet name="css/cssLayout.css"/>
+        <title>Proyeccion Social</title>
+    </h:head>
+    <body>
+
+        <ui:composition template="Home.xhtml">
+            <ui:define name="content">
+
+
+                <h:form id="forma">           
+                    <p:growl id="grow" showDetail="true" life="5555"/> 
+                    <p:tabView id="tab">
+
+
+                        <p:tab title="Creacion Proyectos"> <!-- Nombre  -->
+                            <h:panelGrid columns="2" cellpadding="5">
+
+                                <p:outputLabel for="add_1" value="Titulo :" />
+                                <p:inputText   id="add_1" value="#{proyectoBean.proyecto.tituloproyecto}" required="true" requiredMessage="Campo requerido"/>                       
+
+                                <p:outputLabel for="add_2" value="Resumen :" />
+                                <p:inputTextarea   id="add_2" rows="6" cols="33" value="#{proyectoBean.proyecto.resumenproyecto}" required="true" requiredMessage="Campo requerido"/>                       
+
+                                <p:outputLabel for="add_3" value="Programa :" />
+                                <p:selectOneMenu  id="add_3" value="#{proyectoBean.idPrograma}" >  
+                                    <p:ajax listener="#{proyectoBean.actionCombo()}" update=":forma:tab:listaProyectos" />
+                                    <f:selectItem itemLabel="Seleccione" itemValue="0" />  
+                                    <f:selectItems value="#{proyectoBean.itemsProgramas}"/>  
+                                </p:selectOneMenu>
+                            </h:panelGrid>
+
+                            <h3 style="margin-top: 0">Servicios y Etapas</h3>
+
+                            <p:dataTable id="listaProyectos" var="proyectoRequest" value="#{proyectoBean.listRequest}" sortBy="#{proyectoRequest.servicio}">
+                                <p:column headerText="Servicio" groupRow="true">
+                                    <h:outputText value="#{proyectoRequest.servicio}" />
+                                </p:column>
+                                <p:column headerText="Etapa">
+                                    <h:outputText value="#{proyectoRequest.etapa}" />
+                                </p:column>
+                               
+                            </p:dataTable>
+
+
+                            <p:separator />
+
+                            <!-- Se actulizan los formularios  forma y  para limpiar y mostrar cambios -->
+                            <p:commandButton 
+                                update=":forma:grow,:forma:tab:add_1,:forma:tab:add_2,:forma:tab:add_3,:forma:tab:listaProyectos"
+                                ajax="true" value="Crear" action="#{proyectoBean.crear()}"
+                                />
+                        </p:tab>
+
+                    </p:tabView>
+
+                </h:form>
+
+                
+            </ui:define>
+
+        </ui:composition>
+
+
+    </body>
+</html>

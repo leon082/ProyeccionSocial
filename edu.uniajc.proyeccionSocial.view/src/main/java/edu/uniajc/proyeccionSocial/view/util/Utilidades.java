@@ -40,6 +40,8 @@ import javax.servlet.http.HttpSession;
 public class Utilidades {
 
     public static String leerTipoIdentificacion = "combo.tipoIdentificacion";
+    public static String leerEmail = "email.correos";
+    public static String leerEmailemisor="cuenta.emisora";
 
     public static String generateHash(String password) throws RuntimeException, NoSuchAlgorithmException {
 
@@ -110,6 +112,32 @@ public class Utilidades {
         }
 
         return items;
+
+    }
+    
+     public static ArrayList<String> findSendEmail() {
+        ListaValorDetalleServices servicio = new ListaValorDetalleServices();
+        int idValor = Integer.valueOf(leerArchivo(leerEmail));
+        List<ListaValorDetalle> lista = servicio.getAllListaValorDetalle(idValor);
+        ArrayList<String> emails = new ArrayList<String>();
+        for (ListaValorDetalle obj : (ArrayList<ListaValorDetalle>) lista) {
+            emails.add(obj.getValor());
+        }
+
+        return emails;
+
+    }
+     
+        public static ArrayList<String> findEmailEmisor() {
+        ListaValorDetalleServices servicio = new ListaValorDetalleServices();
+        int idValor = Integer.valueOf(leerArchivo(leerEmailemisor));
+        List<ListaValorDetalle> lista = servicio.getAllListaValorDetalle(idValor);
+        ArrayList<String> emails = new ArrayList<String>();
+        for (ListaValorDetalle obj : (ArrayList<ListaValorDetalle>) lista) {
+            emails.add(obj.getValor());
+        }
+
+        return emails;
 
     }
 
