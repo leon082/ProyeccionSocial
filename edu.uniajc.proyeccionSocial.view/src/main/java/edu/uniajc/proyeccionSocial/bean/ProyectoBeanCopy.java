@@ -7,7 +7,6 @@ package edu.uniajc.proyeccionSocial.bean;
 
 import edu.uniajc.proyeccionSocial.Model.Beneficiario;
 import edu.uniajc.proyeccionSocial.Model.Etapa;
-import edu.uniajc.proyeccionSocial.Model.Oferente;
 import edu.uniajc.proyeccionSocial.Model.Proyecto;
 import edu.uniajc.proyeccionSocial.Model.Servicio;
 import edu.uniajc.proyeccionSocial.Model.Tercero;
@@ -16,14 +15,12 @@ import edu.uniajc.proyeccionSocial.Model.Usuario;
 import edu.uniajc.proyeccionSocial.view.util.Utilidades;
 import edu.uniajc.proyeccionsocial.bussiness.services.BeneficiarioServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.EtapaServices;
-import edu.uniajc.proyeccionsocial.bussiness.services.OferenteServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.ProgramaServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.ProyectoServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.ServicioServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.TerceroServices;
 import edu.uniajc.proyeccionsocial.interfaces.IBeneficiario;
 import edu.uniajc.proyeccionsocial.interfaces.IEtapa;
-import edu.uniajc.proyeccionsocial.interfaces.IOferente;
 import edu.uniajc.proyeccionsocial.interfaces.IPrograma;
 import edu.uniajc.proyeccionsocial.interfaces.IProyecto;
 import edu.uniajc.proyeccionsocial.interfaces.IServicio;
@@ -51,7 +48,7 @@ import org.primefaces.model.DualListModel;
  */
 @ManagedBean
 @ViewScoped
-public class ProyectoBean {
+public class ProyectoBeanCopy {
 
     //Proyecto Create
     private Proyecto proyecto;
@@ -63,32 +60,28 @@ public class ProyectoBean {
     //Combo Servicios
     private ArrayList<SelectItem> itemsServicios;
     private int idServicio;
-
+    
     //Servicios segun el programa
     private IServicio serviciosServ;
     //etapas segun el servicio
     private IEtapa servicioEtapa;
-    List<Etapa> etapas;
-
+    //Lista para mostrar
+    List<proyectoRequest> listRequest;
     //Usuario Session
     private Usuario usuario;
     //Lista de correos para notificacion
     List<String> correos;
     //Emisor
     List<String> emisor;
-
+    
     //Beneficiarios
-    private ITercero terceroServices;
+    private  ITercero terceroServices;
     private IBeneficiario beneficiarioServices;
     private List<Tercero> beneSource;
     private List<Tercero> beneTarget;
     private DualListModel<Tercero> terceros;
-
-    //Oferentes
-    private List<SelectItem> itemsOferente;
-    private int idOferente;
-    private IOferente oferenteServices;
-
+    
+    
     @PostConstruct
     public void init() {
         //Proyecto create
@@ -101,80 +94,60 @@ public class ProyectoBean {
         serviciosServ = new ServicioServices();
         //Etapas segun el servicio
         servicioEtapa = new EtapaServices();
-        etapas = new ArrayList<Etapa>();
+        //Lista Para mostrrar
+        listRequest = new ArrayList();
         //Usuario
         usuario = Utilidades.cargarUsuario();
         //Beneficiarios
-        initBeneficiarios();
-        //Combo Servicios
-        itemsServicios = new ArrayList<>();
+       initBeneficiarios();
+       //Combo Servicios
+       
+        
 
-        //oferentes
-        itemsOferente = Utilidades.llenar_Combo_Terceros(terceroServices.getAllTercero());
-        oferenteServices = new OferenteServices();
     }
-
-    public void initBeneficiarios() {
-        terceroServices = new TerceroServices();
+    public void initBeneficiarios(){
+         terceroServices=new TerceroServices();
         beneSource = terceroServices.getAllTercero();
         beneTarget = new ArrayList<Tercero>();
         terceros = new DualListModel<Tercero>(beneSource, beneTarget);
         beneficiarioServices = new BeneficiarioServices();
     }
+    
+     public void guardarBeneficiarios( int idProyecto) {
 
-    public void guardarBeneficiarios(int idProyecto) {
-        //borro todos
-        //psServices.deleteProgramaServicioByProg(idPrograma);
-        //creo todos
-        for (Object obj : terceros.getTarget()) {
+        
 
-            String tercero = (String) obj;
+            //borro todos
+            //psServices.deleteProgramaServicioByProg(idPrograma);
+            //creo todos
+            for (Object obj : terceros.getTarget()) {
 
-            Beneficiario crear = new Beneficiario();
+                String tercero = (String) obj;
+                
+                
+                
+                Beneficiario crear = new Beneficiario();
 
-            crear.setCreadopor(usuario.getUsuario());
-            crear.setEstado(1);
-            crear.setId_proyecto(idProyecto);
-            crear.setId_tercero(Integer.valueOf(tercero));
+                crear.setCreadopor(usuario.getUsuario());
+                crear.setEstado(1);
+                crear.setId_proyecto(idProyecto);
+                crear.setId_tercero(Integer.valueOf(tercero));
 
-            beneficiarioServices.createBeneficiario(crear);
-        }
-
-    }
-
-    public void guardarOferente(int idProyecto) {
-
-        Oferente crear = new Oferente();
-
-        crear.setCreadopor(usuario.getUsuario());
-        crear.setEstado(1);
-        crear.setId_proyecto(idProyecto);
-        crear.setId_tercero(idOferente);
-
-        oferenteServices.createOferente(crear);
-
+                beneficiarioServices.createBeneficiario(crear);
+            }
+            
+        
     }
 
     public void actionCombo() {
-        if (idPrograma != 0) {
 
-            //Llenar el combo de Servicios por programa
-            idServicio = 0;
-            itemsServicios = Utilidades.llenar_Combo_ServiciosByPrograma(serviciosServ.getAllServicioByProg(idPrograma));
-        } else {
-            itemsServicios = new ArrayList<>();
-            idServicio = 0;
-        }
-    }
-
-    public void actionComboServicio() {
-
-        //Llenar tabla de etapas
-        if (idServicio != 0) {
-            etapas = servicioEtapa.getAllEtapaByServicio(idServicio);
-        } else {
-            etapas = new ArrayList<>();
-
+        listRequest = new ArrayList();
+        List<Servicio> listServicio = serviciosServ.getAllServicioByProg(idPrograma);
+        for (Servicio objServicio : listServicio) {
+            List<Etapa> listEtapa = servicioEtapa.getAllEtapaByServicio(objServicio.getId_servicio());
+            for (Etapa objEtapa : listEtapa) {
+                listRequest.add(new proyectoRequest(objServicio.getDescripcion(), objEtapa.getDescripcion()));
+            }
         }
 
     }
@@ -183,12 +156,11 @@ public class ProyectoBean {
 
         proyecto.setCreadopor(usuario.getUsuario());
         proyecto.setId_programa(idPrograma);
-        proyecto.setId_servicio(idServicio);
         int result = servicioProyecto.createProyecto(proyecto);
-
+        
         if (result != 0) {
             guardarBeneficiarios(result);
-            guardarOferente(result);
+            //Guardar Oferente
             envioCorreo();
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Operacion realizado con exito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -253,10 +225,36 @@ public class ProyectoBean {
 
     public void limpiarForma() {
         proyecto = new Proyecto();
-        etapas = new ArrayList<>();
+        listRequest = new ArrayList();
         idPrograma = 0;
-        idServicio = 0;
-        idOferente=0;
+
+    }
+
+    public class proyectoRequest {
+
+        public String servicio;
+        public String etapa;
+
+        public proyectoRequest(String servicio, String etapa) {
+            this.servicio = servicio;
+            this.etapa = etapa;
+        }
+
+        public String getServicio() {
+            return servicio;
+        }
+
+        public void setServicio(String servicio) {
+            this.servicio = servicio;
+        }
+
+        public String getEtapa() {
+            return etapa;
+        }
+
+        public void setEtapa(String etapa) {
+            this.etapa = etapa;
+        }
 
     }
 
@@ -316,20 +314,12 @@ public class ProyectoBean {
         this.servicioEtapa = servicioEtapa;
     }
 
-    public ArrayList<SelectItem> getItemsServicios() {
-        return itemsServicios;
+    public List<proyectoRequest> getListRequest() {
+        return listRequest;
     }
 
-    public void setItemsServicios(ArrayList<SelectItem> itemsServicios) {
-        this.itemsServicios = itemsServicios;
-    }
-
-    public int getIdServicio() {
-        return idServicio;
-    }
-
-    public void setIdServicio(int idServicio) {
-        this.idServicio = idServicio;
+    public void setListRequest(List<proyectoRequest> listRequest) {
+        this.listRequest = listRequest;
     }
 
     public Usuario getUsuario() {
@@ -396,37 +386,5 @@ public class ProyectoBean {
         this.terceros = terceros;
     }
 
-    public List<Etapa> getEtapas() {
-        return etapas;
-    }
-
-    public void setEtapas(List<Etapa> etapas) {
-        this.etapas = etapas;
-    }
-
-    public List<SelectItem> getItemsOferente() {
-        return itemsOferente;
-    }
-
-    public void setItemsOferente(List<SelectItem> itemsOferente) {
-        this.itemsOferente = itemsOferente;
-    }
-
-    public int getIdOferente() {
-        return idOferente;
-    }
-
-    public void setIdOferente(int idOferente) {
-        this.idOferente = idOferente;
-    }
-
-    public IOferente getOferenteServices() {
-        return oferenteServices;
-    }
-
-    public void setOferenteServices(IOferente oferenteServices) {
-        this.oferenteServices = oferenteServices;
-    }
     
-
 }

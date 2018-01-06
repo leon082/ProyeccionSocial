@@ -49,7 +49,7 @@ public class OferenteDao {
             }
 
             SQL = "INSERT INTO TB_Oferente"
-                    + " (ID_Oferente,ID_Proyecto,ID_Tercero, EstadoOferente,Observacion,CreadoPor, CreadoEn) "
+                    + " (ID_Oferente,ID_Proyecto,ID_Tercero, Estado,Observacion,CreadoPor, CreadoEn) "
                     + "values(?,?,?,?,?,?,?)";
             ps = this.DBConnection.prepareStatement(SQL);
 
@@ -100,7 +100,7 @@ public class OferenteDao {
 
             PreparedStatement ps = null;
             String SQL = "UPDATE TB_Oferente SET "
-                    + "ID_Proyecto=?,ID_Tercero=?, EstadoOferente=?, Observacion=?,ModificadoPor=?, ModificadoEn=? "
+                    + "ID_Proyecto=?,ID_Tercero=?, Estado=?, Observacion=?,ModificadoPor=?, ModificadoEn=? "
                     + "where ID_Oferente = ?";
             ps = this.DBConnection.prepareStatement(SQL);
 
@@ -174,7 +174,7 @@ public class OferenteDao {
                 oferente.setId_oferente(rs.getInt("ID_Oferente"));
                 oferente.setId_proyecto(rs.getInt("ID_Proyecto"));
                 oferente.setId_tercero(rs.getInt("ID_Tercero"));
-                oferente.setEstado(rs.getInt("EstadoOferente"));
+                oferente.setEstado(rs.getInt("Estado"));
                 oferente.setObservacion(rs.getString("Observacion"));
                 oferente.setCreadopor(rs.getString("CREADOPOR"));
                 oferente.setModificadopor(rs.getString("MODIFICADOPOR"));

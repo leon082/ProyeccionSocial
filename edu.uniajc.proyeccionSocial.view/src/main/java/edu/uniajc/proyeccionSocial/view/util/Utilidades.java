@@ -207,6 +207,28 @@ public class Utilidades {
     }
     
     
+      public static ArrayList<SelectItem> llenar_Combo_ServiciosByPrograma( List<Servicio> listservicios) {
+       
+        ArrayList<SelectItem> items = new ArrayList<SelectItem>();
+        for (Servicio obj : (ArrayList<Servicio>) listservicios) {
+            items.add(new SelectItem(obj.getId_servicio(), obj.getDescripcion()));
+        }
+
+        return items;
+
+    }
+         public static ArrayList<SelectItem> llenar_Combo_Terceros( List<Tercero> listterceros) {
+       
+        ArrayList<SelectItem> items = new ArrayList<SelectItem>();
+        for (Tercero obj : (ArrayList<Tercero>) listterceros) {
+            items.add(new SelectItem(obj.getId_tercero(), obj.getNombreCompleto()));
+        }
+
+        return items;
+
+    }
+      
+    
     public static ArrayList<SelectItem> llenar_Combo_Servicios( List<Servicio> listServicios) {
        
         ArrayList<SelectItem> items = new ArrayList<SelectItem>();

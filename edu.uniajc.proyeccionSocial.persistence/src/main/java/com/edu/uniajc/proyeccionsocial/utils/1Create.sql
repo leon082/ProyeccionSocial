@@ -26,7 +26,7 @@ CREATE TABLE tb_beneficiario (
     modificadopor     VARCHAR2(50),
     modificadoen      DATE
 );
-
+CREATE SEQUENCE  "SQ_TB_BENEFICIARIO"  MINVALUE 1 MAXVALUE 9999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE ;
 
 
 CREATE TABLE tb_listavalor (
@@ -94,6 +94,7 @@ CREATE TABLE tb_oferente (
     modificadopor   VARCHAR2(50),
     modificadoen    DATE
 );
+CREATE SEQUENCE  "SQ_TB_OFERENTE"  MINVALUE 1 MAXVALUE 9999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE ;
 
 CREATE TABLE tb_programa (
     id_programa     NUMBER(10) NOT NULL,
@@ -124,7 +125,7 @@ CREATE TABLE tb_proyecto (
     tituloproyecto    VARCHAR2(100) NOT NULL,
     resumenproyecto   VARCHAR2(700) NOT NULL,
     id_programa       NUMBER(10) NOT NULL,
-    --id_servicio       NUMBER(10) NOT NULL, no va ya que un programa tiene N servicios
+    id_servicio       NUMBER(10) NOT NULL, no 
     estado            NUMBER(1) DEFAULT 1 NOT NULL,
     creadopor         VARCHAR2(50) NOT NULL,
     creadoen          DATE DEFAULT SYSDATE,

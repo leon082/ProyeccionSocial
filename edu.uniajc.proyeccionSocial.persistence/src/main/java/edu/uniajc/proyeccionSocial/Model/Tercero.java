@@ -28,10 +28,17 @@ public class Tercero {
     private Date creadoen;
     private String modificadopor;
     private Date modificadoen;
+    private String nombreCompleto;
 
     public int getId_tercero() {
         return id_tercero;
     }
+
+    public String getNombreCompleto() {
+        return this.primernombre+" "+this.primerapellido;
+    }
+    
+    
 
     public void setId_tercero(int id_tercero) {
         this.id_tercero = id_tercero;
