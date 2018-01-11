@@ -34,7 +34,7 @@ public class ProyectoDao {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
             proyecto.setCreadoen(fechaSQL);
-            proyecto.setEstado(1);
+            proyecto.setEstado(0);
             PreparedStatement ps = null;
 
             String SQL = "select SQ_TB_Proyecto.nextval ID from dual";
@@ -127,14 +127,15 @@ public class ProyectoDao {
 
     }
 
-    public ArrayList<Proyecto> getAllProyecto() {
+    public ArrayList<Proyecto> getAllProyectoPendiente() {
         ArrayList<Proyecto> list = new ArrayList<>(0);
         try {
 
             PreparedStatement ps = null;
 
-            final String SQL = "SELECT * from TB_PROYECTO where estado = 1";
+            final String SQL = "SELECT * from TB_PROYECTO where estado = 0";
             ps = this.DBConnection.prepareStatement(SQL);
+            
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Proyecto proyecto = new Proyecto();
@@ -157,6 +158,29 @@ public class ProyectoDao {
         } catch (SQLException e) {
             Logger.getLogger(ProyectoDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return null;
+        }
+
+    }
+    
+    public boolean tieneProyectoPendiente(String usuario) {
+        ArrayList<Proyecto> list = new ArrayList<>(0);
+        boolean result =false;
+        try {
+
+            PreparedStatement ps = null;
+
+            final String SQL = "SELECT * from TB_PROYECTO where creadopor = ? and estado = 0 or estado = 1";
+            ps = this.DBConnection.prepareStatement(SQL);
+            ps.setString(1, usuario);
+            ResultSet rs = ps.executeQuery();
+             result=rs.next();
+         
+            ps.close();
+
+            return result;
+        } catch (SQLException e) {
+            Logger.getLogger(ProyectoDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            return result;
         }
 
     }

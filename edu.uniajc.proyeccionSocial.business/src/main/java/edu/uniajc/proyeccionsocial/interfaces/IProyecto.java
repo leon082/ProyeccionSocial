@@ -20,6 +20,7 @@ public interface IProyecto {
 
     public boolean updateProyecto(Proyecto proyecto);
 
-    public ArrayList<Proyecto> getAllProyecto();
+    public ArrayList<Proyecto> getAllProyectoPendiente();
+    public boolean tieneProyectoPendiente(String usuario);
 
 }

@@ -26,7 +26,7 @@ public class UsuarioDao {
 
     public UsuarioDao() {
         ConexionBD bd = new ConexionBD();
-        this.DBConnection =  bd.conexion();
+        this.DBConnection = bd.conexion();
     }
 
     public int createUsuario(Usuario user) {
@@ -52,7 +52,7 @@ public class UsuarioDao {
             ps.setInt(1, user.getId_usuario());
             ps.setInt(2, user.getId_tercero());
             ps.setString(3, user.getUsuario());
-            ps.setString(4,user.getContrasena());
+            ps.setString(4, user.getContrasena());
             ps.setInt(5, user.getEstado());
 
             ps.execute();
@@ -97,7 +97,7 @@ public class UsuarioDao {
 
             ps.setInt(1, usuario.getId_tercero());
             ps.setString(2, usuario.getUsuario());
-            ps.setString(3,usuario.getContrasena());
+            ps.setString(3, usuario.getContrasena());
             ps.setInt(4, usuario.getEstado());
             ps.setInt(5, usuario.getId_usuario());
 
@@ -173,7 +173,7 @@ public class UsuarioDao {
         }
 
     }
-    
+
     public Usuario getUsuarioLogin(String user, String contrasena) {
 
         Usuario usuario = null;
@@ -181,12 +181,12 @@ public class UsuarioDao {
 
             PreparedStatement ps = null;
 
-            String SQL = "select * from TB_Usuario where Usuario = '" + user + "' and Contrasena ='"+contrasena+"' and estado = 1";
+            String SQL = "select * from TB_Usuario where Usuario = '" + user + "' and Contrasena ='" + contrasena + "' and estado = 1";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs != null) {
                 rs.next();
-                usuario=new Usuario();
+                usuario = new Usuario();
                 usuario.setId_usuario(rs.getInt("ID_Usuario"));
                 usuario.setId_tercero(rs.getInt("ID_Tercero"));
                 usuario.setUsuario(rs.getString("Usuario"));
@@ -204,8 +204,8 @@ public class UsuarioDao {
         }
 
     }
-    
-     public Usuario getUserByUsername(String user) {
+
+    public Usuario getUserByUsername(String user) {
 
         Usuario usuario = null;
         try {
@@ -235,7 +235,35 @@ public class UsuarioDao {
         }
 
     }
-     
+
+    public String getEmailByUsername(String user) {
+
+        String correo = null;
+        try {
+
+            PreparedStatement ps = null;
+
+            String SQL = "select tercero.correo from tb_usuario usuario inner join tb_tercero tercero on usuario.ID_TERCERO = tercero.ID_TERCERO "
+                    + "where usuario.USUARIO = '" + user + "' ";
+            ps = this.DBConnection.prepareStatement(SQL);
+            ResultSet rs = ps.executeQuery();
+            if (rs != null) {
+                rs.next();
+                
+                correo=rs.getString("correo");
+               
+
+            }
+            ps.close();
+
+            return correo;
+        } catch (SQLException e) {
+            System.out.println("Error en usuario DAO getCorreoByUsername " + e.getMessage());
+            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            return null;
+        }
+
+    }
 
     @PreDestroy
     public void finish() {

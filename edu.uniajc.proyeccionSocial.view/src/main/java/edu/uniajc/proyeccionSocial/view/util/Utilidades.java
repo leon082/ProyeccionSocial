@@ -7,6 +7,7 @@ package edu.uniajc.proyeccionSocial.view.util;
 
 import edu.uniajc.proyeccionSocial.Model.ListaValorDetalle;
 import edu.uniajc.proyeccionSocial.Model.Programa;
+import edu.uniajc.proyeccionSocial.Model.Proyecto;
 import edu.uniajc.proyeccionSocial.Model.Servicio;
 import edu.uniajc.proyeccionSocial.Model.Tercero;
 import edu.uniajc.proyeccionSocial.Model.Usuario;
@@ -31,6 +32,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.faces.model.SelectItem;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -41,7 +48,7 @@ public class Utilidades {
 
     public static String leerTipoIdentificacion = "combo.tipoIdentificacion";
     public static String leerEmail = "email.correos";
-    public static String leerEmailemisor="cuenta.emisora";
+    public static String leerEmailemisor = "cuenta.emisora";
 
     public static String generateHash(String password) throws RuntimeException, NoSuchAlgorithmException {
 
@@ -70,10 +77,11 @@ public class Utilidades {
             Properties propiedades = new Properties();
 
             /**
-             * Cargamos el archivo desde la ruta especificada
-            URL url = this.getClass().getResource("/edu/uniajc/proyeccionSocial/view/util/Configuracion.properties");
-            propiedades = new Properties();
-            propiedades.load(new FileInputStream(new File(url.getFile())));*/
+             * Cargamos el archivo desde la ruta especificada URL url =
+             * this.getClass().getResource("/edu/uniajc/proyeccionSocial/view/util/Configuracion.properties");
+             * propiedades = new Properties(); propiedades.load(new
+             * FileInputStream(new File(url.getFile())));
+             */
             ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
             InputStream resourceAsStream = contextClassLoader.getResourceAsStream("/Configuracion.properties");
             propiedades.load(resourceAsStream);
@@ -114,8 +122,8 @@ public class Utilidades {
         return items;
 
     }
-    
-     public static ArrayList<String> findSendEmail() {
+
+    public static ArrayList<String> findSendEmail() {
         ListaValorDetalleServices servicio = new ListaValorDetalleServices();
         int idValor = Integer.valueOf(leerArchivo(leerEmail));
         List<ListaValorDetalle> lista = servicio.getAllListaValorDetalle(idValor);
@@ -127,8 +135,8 @@ public class Utilidades {
         return emails;
 
     }
-     
-        public static ArrayList<String> findEmailEmisor() {
+
+    public static ArrayList<String> findEmailEmisor() {
         ListaValorDetalleServices servicio = new ListaValorDetalleServices();
         int idValor = Integer.valueOf(leerArchivo(leerEmailemisor));
         List<ListaValorDetalle> lista = servicio.getAllListaValorDetalle(idValor);
@@ -194,9 +202,9 @@ public class Utilidades {
             return false;
         }
     }
-    
-    public static ArrayList<SelectItem> llenar_Combo_Programas( List<Programa> listProgramas) {
-       
+
+    public static ArrayList<SelectItem> llenar_Combo_Programas(List<Programa> listProgramas) {
+
         ArrayList<SelectItem> items = new ArrayList<SelectItem>();
         for (Programa obj : (ArrayList<Programa>) listProgramas) {
             items.add(new SelectItem(obj.getId_programa(), obj.getDescripcion()));
@@ -205,10 +213,9 @@ public class Utilidades {
         return items;
 
     }
-    
-    
-      public static ArrayList<SelectItem> llenar_Combo_ServiciosByPrograma( List<Servicio> listservicios) {
-       
+
+    public static ArrayList<SelectItem> llenar_Combo_ServiciosByPrograma(List<Servicio> listservicios) {
+
         ArrayList<SelectItem> items = new ArrayList<SelectItem>();
         for (Servicio obj : (ArrayList<Servicio>) listservicios) {
             items.add(new SelectItem(obj.getId_servicio(), obj.getDescripcion()));
@@ -217,8 +224,9 @@ public class Utilidades {
         return items;
 
     }
-         public static ArrayList<SelectItem> llenar_Combo_Terceros( List<Tercero> listterceros) {
-       
+
+    public static ArrayList<SelectItem> llenar_Combo_Terceros(List<Tercero> listterceros) {
+
         ArrayList<SelectItem> items = new ArrayList<SelectItem>();
         for (Tercero obj : (ArrayList<Tercero>) listterceros) {
             items.add(new SelectItem(obj.getId_tercero(), obj.getNombreCompleto()));
@@ -227,10 +235,9 @@ public class Utilidades {
         return items;
 
     }
-      
-    
-    public static ArrayList<SelectItem> llenar_Combo_Servicios( List<Servicio> listServicios) {
-       
+
+    public static ArrayList<SelectItem> llenar_Combo_Servicios(List<Servicio> listServicios) {
+
         ArrayList<SelectItem> items = new ArrayList<SelectItem>();
         for (Servicio obj : (ArrayList<Servicio>) listServicios) {
             items.add(new SelectItem(obj.getId_servicio(), obj.getDescripcion()));
@@ -239,13 +246,90 @@ public class Utilidades {
         return items;
 
     }
-    
+
     public static Usuario cargarUsuario() {
         HttpSession session = SessionUtils.getSession();
         String user = (String) session.getAttribute("username");
-        IUsuario usuarioServices= new UsuarioServices();
+        IUsuario usuarioServices = new UsuarioServices();
         Usuario us = usuarioServices.getUserByUsername(user);
         return us;
+    }
+
+    public static String getTextOfEmailCreacion() {
+        String text = "El sistema de Proyeccion Social le notifica que el usuario :usuario "
+                + "ha realizado la creacion de un proyecto para su aprobacion. ";
+        text += "Titulo del proyecto: :titulo";
+
+        return text;
+    }
+
+    public static String getTextOfEmailAprobacion() {
+        String text = "El sistema de Proyeccion Social le notifica que el usuario :usuario ha aprobado su proyecto con titulo :titulo ";
+
+        return text;
+    }
+
+    public static String getTextOfEmailRechazado() {
+        String text = "El sistema de Proyeccion Social le notifica que el usuario :usuario ha rechazado su proyecto con titulo :titulo , favor comunicarse con el administrador.";
+
+        return text;
+    }
+//tipo correo, 0 creacion, 1 aprobacion, 2 rechazado
+
+    public static boolean envioCorreo(List<String> correosDestino,
+            List<String> emisor, Usuario usuario, Proyecto proyecto, int tipoCorreo, String asunto) {
+
+        String text = "";
+        boolean result = false;
+        //Texto
+        if (tipoCorreo == 0) {
+            text = getTextOfEmailCreacion();
+            text = text.replace(":usuario", usuario.getUsuario());
+            text = text.replace(":titulo", proyecto.getTituloproyecto());
+        }
+        if (tipoCorreo == 1) {
+
+            text = getTextOfEmailAprobacion();
+            text = text.replace(":usuario", usuario.getUsuario());
+            text = text.replace(":titulo", proyecto.getTituloproyecto());
+        }
+        if (tipoCorreo == 2) {
+
+            text = getTextOfEmailRechazado();
+            text = text.replace(":usuario", usuario.getUsuario());
+            text = text.replace(":titulo", proyecto.getTituloproyecto());
+        }
+        for (String receptor : correosDestino) {
+            Properties properties = new Properties();
+            Session session;
+            String cuenta = emisor.get(0);
+            String password = emisor.get(1);
+            properties.put("mail.smtp.host", "smtp.gmail.com");
+            properties.put("mail.smtp.starttls.enable", "true");
+            properties.put("mail.smtp.port", 25);
+            properties.put("mail.smtp.mail.sender", cuenta);
+            properties.put("mail.smtp.user", cuenta);
+            properties.put("mail.smtp.auth", "true");
+
+            session = Session.getDefaultInstance(properties);
+            try {
+                MimeMessage message = new MimeMessage(session);
+                message.setFrom(new InternetAddress((String) properties.get("mail.smtp.mail.sender")));
+                message.addRecipient(Message.RecipientType.TO, new InternetAddress(receptor));
+                message.setSubject(asunto);
+                message.setText(text);
+                Transport t = session.getTransport("smtp");
+                t.connect((String) properties.get("mail.smtp.user"), password);
+                t.sendMessage(message, message.getAllRecipients());
+                t.close();
+                result = true;
+            } catch (MessagingException me) {
+                System.out.println("Error, no se pudo enviar el correo --> " + me.getMessage());
+                result = false;
+            }
+        }
+
+        return result;
     }
 
 }

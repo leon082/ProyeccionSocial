@@ -25,7 +25,7 @@ public class OferenteDao {
     private Connection DBConnection = null;
 
     public OferenteDao() {
-  ConexionBD bd= new ConexionBD();
+        ConexionBD bd = new ConexionBD();
         this.DBConnection = bd.conexion();
     }
 
@@ -166,6 +166,40 @@ public class OferenteDao {
             PreparedStatement ps = null;
 
             String SQL = "select * from TB_Oferente where ID_Oferente =" + id + " and estado = 1";
+            ps = this.DBConnection.prepareStatement(SQL);
+            ResultSet rs = ps.executeQuery();
+            if (rs != null) {
+                rs.next();
+
+                oferente.setId_oferente(rs.getInt("ID_Oferente"));
+                oferente.setId_proyecto(rs.getInt("ID_Proyecto"));
+                oferente.setId_tercero(rs.getInt("ID_Tercero"));
+                oferente.setEstado(rs.getInt("Estado"));
+                oferente.setObservacion(rs.getString("Observacion"));
+                oferente.setCreadopor(rs.getString("CREADOPOR"));
+                oferente.setModificadopor(rs.getString("MODIFICADOPOR"));
+                oferente.setCreadoen(rs.getDate("CREADOEN"));
+                oferente.setModificadoen(rs.getDate("MODIFICADOEN"));
+
+            }
+            ps.close();
+
+            return oferente;
+        } catch (SQLException e) {
+            Logger.getLogger(OferenteDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            return null;
+        }
+
+    }
+
+    public Oferente getOferenteByProyecto(int id) {
+
+        Oferente oferente = new Oferente();
+        try {
+
+            PreparedStatement ps = null;
+
+            String SQL = "select * from TB_Oferente where ID_Proyecto =" + id + " and estado = 1";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs != null) {

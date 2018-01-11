@@ -100,4 +100,18 @@ public class OferenteServices implements IOferente {
         }
     }
 
+    @Override
+    public Oferente getOferenteByProyecto(int id) {
+         try {
+
+            Oferente oferente = dao.getOferenteByProyecto(id);
+
+            return oferente;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
 }

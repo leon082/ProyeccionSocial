@@ -158,6 +158,40 @@ public class BeneficiarioDAO {
         }
 
     }
+    
+    public ArrayList<Beneficiario> getAllBeneficiarioByProyect(int idProyect ) {
+        ArrayList<Beneficiario> list = new ArrayList<>(0);
+        try {
+
+            PreparedStatement ps = null;
+
+            final String SQL = "SELECT * from TB_Beneficiario where estado = 1 and id_proyecto = "+idProyect+" ";
+            ps = this.DBConnection.prepareStatement(SQL);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Beneficiario beneficiario = new Beneficiario();
+                beneficiario.setId_beneficiario(rs.getInt("ID_Beneficiario"));
+                beneficiario.setId_proyecto(rs.getInt("ID_Proyecto"));
+                beneficiario.setId_tercero(rs.getInt("ID_Tercero"));
+                beneficiario.setEstado(rs.getInt("Estado"));
+                beneficiario.setObservacion(rs.getString("Observacion"));
+                beneficiario.setCreadopor(rs.getString("CreadoPor"));
+                beneficiario.setModificadopor(rs.getString("ModificadoPor"));
+                beneficiario.setCreadoen(rs.getDate("CreadoEn"));
+                beneficiario.setModificadoen(rs.getDate("ModificadoEn"));
+
+                list.add(beneficiario);
+            }
+            ps.close();
+
+            return list;
+        } catch (SQLException e) {
+            System.out.println("Error en BeneficiariosDAO getAllBeneficiario " + e.getMessage());
+            Logger.getLogger(BeneficiarioDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            return null;
+        }
+
+    }
 
     public Beneficiario getBeneficiarioById(int id) {
 

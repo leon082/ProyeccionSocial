@@ -74,16 +74,27 @@ public class ProyectoServices implements IProyecto {
     }
 
     @Override
-    public ArrayList<Proyecto> getAllProyecto() {
+    public ArrayList<Proyecto> getAllProyectoPendiente() {
         try {
 
-            ArrayList<Proyecto> list = dao.getAllProyecto();
+            ArrayList<Proyecto> list = dao.getAllProyectoPendiente();
 
             return list;
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
+        }
+    }
+
+    @Override
+    public boolean tieneProyectoPendiente(String usuario) {
+        try {
+           return dao.tieneProyectoPendiente(usuario);
+             
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
         }
     }
 

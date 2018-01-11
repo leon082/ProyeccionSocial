@@ -21,6 +21,8 @@ public interface IBeneficiario {
     public boolean updateBeneficiario(Beneficiario beneficiario);
 
     public ArrayList<Beneficiario> getAllBeneficiario();
+    
+    public ArrayList<Beneficiario> getAllBeneficiarioByProyect(int idProyect );
 
     public Beneficiario getBeneficiarioById(int id);
 

@@ -98,4 +98,18 @@ public class BeneficiarioServices implements IBeneficiario {
         }
     }
 
+    @Override
+    public ArrayList<Beneficiario> getAllBeneficiarioByProyect(int idProyect) {
+        try {
+
+            ArrayList<Beneficiario> list = dao.getAllBeneficiarioByProyect(idProyect);
+
+            return list;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
 }

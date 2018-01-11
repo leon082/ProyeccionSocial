@@ -129,4 +129,18 @@ public class UsuarioServices implements IUsuario {
         }
     }
 
+    @Override
+    public String getEmailByUsername(String user) {
+        try {
+           
+            String correo = dao.getEmailByUsername(user.toLowerCase());
+
+            return correo;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
 }
