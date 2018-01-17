@@ -14,7 +14,9 @@ import java.sql.Date;
 public class SoporteProyectoEtapa {
     private int id_soporteproyectoetapa;
     private int id_proyectoetapa;
+    
     private String archivo;
+    
     private String creadopor;
     private Date creadoen;
     private String modificadopor;
@@ -35,6 +37,10 @@ public class SoporteProyectoEtapa {
     public void setId_proyectoetapa(int id_proyectoetapa) {
         this.id_proyectoetapa = id_proyectoetapa;
     }
+
+    
+
+    
 
     public String getArchivo() {
         return archivo;

@@ -274,10 +274,26 @@ public class Utilidades {
 
         return text;
     }
-//tipo correo, 0 creacion, 1 aprobacion, 2 rechazado
+    public static String getTextOfEmailAdjunto() {
+        String text = "El sistema de Proyeccion Social le notifica que el usuario :usuario ha subido un adjunto para su aprobacion, como entrega del proyecto :titulo , Id Etapa: :idProyecto";
+
+        return text;
+    }
+    
+    public static String getTextOfEmailAprobarEntrega() {
+        String text = "El sistema de Proyeccion Social le notifica que el usuario :usuario ha realizado la aprobacion de la etapa del proyecto :titulo .";
+
+        return text;
+    }
+    public static String getTextOfEmailRechazarEntrega() {
+        String text = "El sistema de Proyeccion Social le notifica que el usuario :usuario ha rechazado la aprobacion de la etapa del proyecto :titulo . Favor realizar de nuevo la entrega";
+
+        return text;
+    }
+    //tipo correo, 0 creacion, 1 aprobacion, 2 rechazado , 3 entrega , 4 aprobarEntrega , 5 Rechazar entrega
 
     public static boolean envioCorreo(List<String> correosDestino,
-            List<String> emisor, Usuario usuario, Proyecto proyecto, int tipoCorreo, String asunto) {
+            List<String> emisor, Usuario usuario, Proyecto proyecto, int tipoCorreo, String asunto , int idEtapa) {
 
         String text = "";
         boolean result = false;
@@ -296,6 +312,25 @@ public class Utilidades {
         if (tipoCorreo == 2) {
 
             text = getTextOfEmailRechazado();
+            text = text.replace(":usuario", usuario.getUsuario());
+            text = text.replace(":titulo", proyecto.getTituloproyecto());
+        }
+        if(tipoCorreo==3){
+            text = getTextOfEmailAdjunto();
+            text = text.replace(":usuario", usuario.getUsuario());
+            text = text.replace(":titulo", proyecto.getTituloproyecto());
+            text = text.replace(":idProyecto",String.valueOf(idEtapa));
+            
+        }
+        if (tipoCorreo == 4) {
+
+            text = getTextOfEmailAprobarEntrega();
+            text = text.replace(":usuario", usuario.getUsuario());
+            text = text.replace(":titulo", proyecto.getTituloproyecto());
+        }
+          if (tipoCorreo == 5) {
+
+            text = getTextOfEmailRechazarEntrega();
             text = text.replace(":usuario", usuario.getUsuario());
             text = text.replace(":titulo", proyecto.getTituloproyecto());
         }

@@ -119,8 +119,6 @@ public class EtapaBean {
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
 
-    
-
     }
 
     public IEtapa getServicios() {

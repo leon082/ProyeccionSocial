@@ -66,8 +66,8 @@ public class ProgServBean {
             for (Object obj : servicios.getTarget()) {
 
                 String servicio = (String) obj;
-                System.out.println("servicio"+servicio);
-                
+                System.out.println("servicio" + servicio);
+
                 ProgramaServicio crear = new ProgramaServicio();
 
                 crear.setCreadopor(usuario.getUsuario());

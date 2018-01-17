@@ -10,10 +10,7 @@ import edu.uniajc.proyeccionSocial.Model.Usuario;
 
 import edu.uniajc.proyeccionSocial.view.util.Utilidades;
 import edu.uniajc.proyeccionsocial.bussiness.services.TerceroServices;
-import edu.uniajc.proyeccionsocial.bussiness.services.UsuarioServices;
 import edu.uniajc.proyeccionsocial.interfaces.ITercero;
-import edu.uniajc.proyeccionsocial.interfaces.IUsuario;
-import java.security.NoSuchAlgorithmException;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,7 +31,7 @@ public class TerceroBean {
 
     private ITercero terceroServices;
     private Tercero tercero;
-    
+
     private Usuario usuario;
     private Date fecha;
 
@@ -45,46 +42,44 @@ public class TerceroBean {
     @PostConstruct
     public void init() {
         terceroServices = new TerceroServices();
-        tercero = new Tercero();        
+        tercero = new Tercero();
         usuario = Utilidades.cargarUsuario();
         itemsDocumentos = Utilidades.Consultar_Documentos_combo();
     }
-public void limpiarForma(){
-    tercero = new Tercero(); 
-    
-}
-    public void actionButon() {
-        if(validaciones()){
-            
-        
-        if (!Utilidades.validarTercero(docuSelected, tercero.getNumidentificacion())) {
-            tercero.setId_lv_tipoidentificacion(docuSelected);
-            tercero.setFechanacimiento(Utilidades.dateToSql(fecha));
-            tercero.setCreadopor(usuario.getUsuario());
 
-            if (Utilidades.validarCorreo(tercero.getCorreo())) {
-                terceroServices.createTercero(tercero);
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Persona Creada");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-                limpiarForma();
-                
-            } else {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Info", "Correo No Valido");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-                
-            }
+    public void limpiarForma() {
+        tercero = new Tercero();
 
-        } else if (Utilidades.validarTercero(docuSelected, tercero.getNumidentificacion())) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Info", "Persona ya Existe");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            
-        } 
-        }
-
-        
     }
 
-  
+    public void actionButon() {
+        if (validaciones()) {
+
+            if (!Utilidades.validarTercero(docuSelected, tercero.getNumidentificacion())) {
+                tercero.setId_lv_tipoidentificacion(docuSelected);
+                tercero.setFechanacimiento(Utilidades.dateToSql(fecha));
+                tercero.setCreadopor(usuario.getUsuario());
+
+                if (Utilidades.validarCorreo(tercero.getCorreo())) {
+                    terceroServices.createTercero(tercero);
+                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Persona Creada");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                    limpiarForma();
+
+                } else {
+                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Info", "Correo No Valido");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+
+                }
+
+            } else if (Utilidades.validarTercero(docuSelected, tercero.getNumidentificacion())) {
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Info", "Persona ya Existe");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+
+            }
+        }
+
+    }
 
     public boolean validaciones() {
         boolean result = true;

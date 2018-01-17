@@ -9,7 +9,7 @@ import edu.uniajc.proyeccionSocial.Model.Beneficiario;
 import edu.uniajc.proyeccionSocial.Model.Etapa;
 import edu.uniajc.proyeccionSocial.Model.Oferente;
 import edu.uniajc.proyeccionSocial.Model.Proyecto;
-import edu.uniajc.proyeccionSocial.Model.Servicio;
+import edu.uniajc.proyeccionSocial.Model.ProyectoEtapa;
 import edu.uniajc.proyeccionSocial.Model.Tercero;
 import edu.uniajc.proyeccionSocial.Model.Usuario;
 
@@ -18,6 +18,7 @@ import edu.uniajc.proyeccionsocial.bussiness.services.BeneficiarioServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.EtapaServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.OferenteServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.ProgramaServices;
+import edu.uniajc.proyeccionsocial.bussiness.services.ProyectoEtapaServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.ProyectoServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.ServicioServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.TerceroServices;
@@ -26,23 +27,17 @@ import edu.uniajc.proyeccionsocial.interfaces.IEtapa;
 import edu.uniajc.proyeccionsocial.interfaces.IOferente;
 import edu.uniajc.proyeccionsocial.interfaces.IPrograma;
 import edu.uniajc.proyeccionsocial.interfaces.IProyecto;
+import edu.uniajc.proyeccionsocial.interfaces.IProyectoEtapa;
 import edu.uniajc.proyeccionsocial.interfaces.IServicio;
 import edu.uniajc.proyeccionsocial.interfaces.ITercero;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import org.primefaces.model.DualListModel;
 
 /**
@@ -88,9 +83,15 @@ public class ProyectoBean {
     private List<SelectItem> itemsOferente;
     private int idOferente;
     private IOferente oferenteServices;
+    
+    
+    private IProyectoEtapa servicioProyectoEtapa;
 
     @PostConstruct
     public void init() {
+        //Proyecto etapa
+          
+     servicioProyectoEtapa = new ProyectoEtapaServices();
         //Proyecto create
         proyecto = new Proyecto();
         servicioProyecto = new ProyectoServices();
@@ -178,7 +179,17 @@ public class ProyectoBean {
         }
 
     }
-
+public void  guardarProyectoEtapa (int idProyecto){
+    List<Etapa> list = servicioEtapa.getAllEtapaByServicio(idServicio);
+    for(Etapa e : list){
+        ProyectoEtapa proyectoEtapa = new ProyectoEtapa();
+        proyectoEtapa.setCreadopor(usuario.getUsuario());
+        proyectoEtapa.setEstado(0);
+        proyectoEtapa.setId_etapa(e.getId_etapa());
+        proyectoEtapa.setId_proyecto(idProyecto);
+        servicioProyectoEtapa.createProyectoEtapa(proyectoEtapa);
+    }
+}
     public void crear() {
         if (!servicioProyecto.tieneProyectoPendiente(usuario.getUsuario())) {
 
@@ -190,6 +201,7 @@ public class ProyectoBean {
             if (result != 0) {
                 guardarBeneficiarios(result);
                 guardarOferente(result);
+                guardarProyectoEtapa(result);
                 envioCorreo();
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Operacion realizado con exito");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -211,7 +223,7 @@ public class ProyectoBean {
         correos = Utilidades.findSendEmail();
         //Cuenta emisora
         emisor = Utilidades.findEmailEmisor();
-        Utilidades.envioCorreo(correos, emisor, usuario, proyecto, 0 , "Creacion de Proyecto");
+        Utilidades.envioCorreo(correos, emisor, usuario, proyecto, 0, "Creacion de Proyecto",0);
 
     }
 

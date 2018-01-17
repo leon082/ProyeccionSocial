@@ -50,11 +50,13 @@ public class SoporteProyectoEtapaDAO {
 
             SQL = "INSERT INTO TB_SoporteProyectoEtapa "
                     + "(ID_SoporteProyectoEtapa, id_proyectoetapa, archivo, "
-                    + "CreadoPor, CreadoEn) values(?,?,?,?,?,?) ";
+                    + "CreadoPor, CreadoEn) values(?,?,?,?,?) ";
             ps = this.DBConnection.prepareStatement(SQL);
             
             ps.setInt(1, soporteProyectoEtapa.getId_soporteproyectoetapa());
             ps.setInt(2, soporteProyectoEtapa.getId_proyectoetapa());
+            
+            
             ps.setString(3, soporteProyectoEtapa.getArchivo());
             ps.setString(4, soporteProyectoEtapa.getCreadopor());
             ps.setDate(5, soporteProyectoEtapa.getCreadoen());
@@ -82,11 +84,12 @@ public class SoporteProyectoEtapaDAO {
 
             PreparedStatement ps = null;
             String SQL = "UPDATE TB_SoporteProyectoEtapa SET "
-                    + "id_proyectoetapa=?, archivo=?, "
+                    + "id_proyectoetapa=?,archivo=?, "
                     + "ModificadoPor=?, ModificadoEn=? where ID_SoporteProyectoEtapa = ?";
             ps = this.DBConnection.prepareStatement(SQL);
             
             ps.setInt(1, soporteProyectoEtapa.getId_proyectoetapa());
+            
             ps.setString(2, soporteProyectoEtapa.getArchivo());
             ps.setString(3, soporteProyectoEtapa.getModificadopor());
             ps.setDate(4, soporteProyectoEtapa.getModificadoen());
@@ -117,6 +120,7 @@ public class SoporteProyectoEtapaDAO {
                 SoporteProyectoEtapa soporteProyectoEtapa = new SoporteProyectoEtapa();
                 soporteProyectoEtapa.setId_soporteproyectoetapa(rs.getInt("ID_SoporteProyectoEtapa"));
                 soporteProyectoEtapa.setId_proyectoetapa(rs.getInt("ID_ProyectoEtapa"));
+                
                 soporteProyectoEtapa.setArchivo(rs.getString("Archivo"));
                 soporteProyectoEtapa.setCreadopor(rs.getString("CreadoPor"));
                 soporteProyectoEtapa.setModificadopor(rs.getString("ModificadoPor"));
@@ -149,6 +153,7 @@ public class SoporteProyectoEtapaDAO {
             if (rs != null) {
                 rs.next();
 
+                   
                 soporteProyectoEtapa.setId_soporteproyectoetapa(rs.getInt("ID_SoporteProyectoEtapa"));
                 soporteProyectoEtapa.setId_proyectoetapa(rs.getInt("ID_ProyectoEtapa"));
                 soporteProyectoEtapa.setArchivo(rs.getString("Archivo"));

@@ -36,7 +36,6 @@ public class ServiciosBean {
     private Usuario usuario;
     private Servicio servicio;
     private IServicioEtapa seservices;
-    
 
     @PostConstruct
     public void init() {
@@ -45,14 +44,14 @@ public class ServiciosBean {
         usuario = Utilidades.cargarUsuario();
         servicioServices = new ServicioServices();
         servicio = new Servicio();
-        listServicio=servicioServices.getAllServicio();
+        listServicio = servicioServices.getAllServicio();
         seservices = new ServicioEtapaServices();
 
     }
 
     public void limpiarForm() {
         servicio = new Servicio();
-         listServicio = servicioServices.getAllServicio();
+        listServicio = servicioServices.getAllServicio();
 
     }
 
@@ -71,9 +70,9 @@ public class ServiciosBean {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "No se pudo realizar la operación");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
-        }else{
+        } else {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "El servicio esta asociado a un programa");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
+            FacesContext.getCurrentInstance().addMessage(null, msg);
         }
 
     }
@@ -82,7 +81,6 @@ public class ServiciosBean {
 
         servicio.setCreadopor(usuario.getUsuario());
         int result = servicioServices.createServicio(servicio);
-         
 
         if (result != 0) {
 

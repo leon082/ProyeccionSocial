@@ -53,11 +53,9 @@ public class EditarCuentaBean {
         usuario = Utilidades.cargarUsuario();
         tercero = cargarTercero();
         itemsDocumentos = Utilidades.Consultar_Documentos_combo();
-        docuSelected=tercero.getId_lv_tipoidentificacion();
-        fecha=tercero.getFechanacimiento();
+        docuSelected = tercero.getId_lv_tipoidentificacion();
+        fecha = tercero.getFechanacimiento();
     }
-
-   
 
     public Tercero cargarTercero() {
         Tercero ter = terceroServices.getTerceroById(this.usuario.getId_tercero());
@@ -121,8 +119,6 @@ public class EditarCuentaBean {
 
     }
 
-   
-
     public void setTerceroServices(TerceroServices terceroServices) {
         this.terceroServices = terceroServices;
     }
@@ -134,8 +130,6 @@ public class EditarCuentaBean {
     public void setTercero(Tercero tercero) {
         this.tercero = tercero;
     }
-
-   
 
     public void setUsuarioServices(UsuarioServices usuarioServices) {
         this.usuarioServices = usuarioServices;
@@ -196,7 +190,5 @@ public class EditarCuentaBean {
     public void setUsuarioServices(IUsuario usuarioServices) {
         this.usuarioServices = usuarioServices;
     }
-    
-    
 
 }

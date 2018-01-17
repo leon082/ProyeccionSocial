@@ -9,6 +9,8 @@ import edu.uniajc.proyeccionSocial.Model.Beneficiario;
 import edu.uniajc.proyeccionSocial.Model.Etapa;
 import edu.uniajc.proyeccionSocial.Model.Oferente;
 import edu.uniajc.proyeccionSocial.Model.Proyecto;
+import edu.uniajc.proyeccionSocial.Model.ProyectoEtapa;
+import edu.uniajc.proyeccionSocial.Model.SoporteProyectoEtapa;
 import edu.uniajc.proyeccionSocial.Model.Tercero;
 import edu.uniajc.proyeccionSocial.Model.Usuario;
 
@@ -17,8 +19,10 @@ import edu.uniajc.proyeccionsocial.bussiness.services.BeneficiarioServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.EtapaServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.OferenteServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.ProgramaServices;
+import edu.uniajc.proyeccionsocial.bussiness.services.ProyectoEtapaServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.ProyectoServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.ServicioServices;
+import edu.uniajc.proyeccionsocial.bussiness.services.SoporteProyectoEtapaServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.TerceroServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.UsuarioServices;
 import edu.uniajc.proyeccionsocial.interfaces.IBeneficiario;
@@ -26,17 +30,32 @@ import edu.uniajc.proyeccionsocial.interfaces.IEtapa;
 import edu.uniajc.proyeccionsocial.interfaces.IOferente;
 import edu.uniajc.proyeccionsocial.interfaces.IPrograma;
 import edu.uniajc.proyeccionsocial.interfaces.IProyecto;
+import edu.uniajc.proyeccionsocial.interfaces.IProyectoEtapa;
 import edu.uniajc.proyeccionsocial.interfaces.IServicio;
+import edu.uniajc.proyeccionsocial.interfaces.ISoporteProyectoEtapa;
 import edu.uniajc.proyeccionsocial.interfaces.ITercero;
 import edu.uniajc.proyeccionsocial.interfaces.IUsuario;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 /**
  *
@@ -44,7 +63,7 @@ import javax.faces.model.SelectItem;
  */
 @ManagedBean
 @SessionScoped
-public class ProyectosAprobarBean {
+public class AprobarDocumentosBean {
 
     //Proyecto Create
     private Proyecto proyecto;
@@ -61,7 +80,7 @@ public class ProyectosAprobarBean {
     private IServicio serviciosServ;
     //etapas segun el servicio
     private IEtapa servicioEtapa;
-    List<Etapa> etapas;
+    List<EtapasEntregas> etapas;
 
     //Usuario Session
     private Usuario usuario;
@@ -81,12 +100,26 @@ public class ProyectosAprobarBean {
     private int idOferente;
     private IOferente oferenteServices;
 
-    private List<Proyecto> proyectosAprobar;
+    //Soporte
+    
+    private ISoporteProyectoEtapa servicioSoporte;
+    private String rutaArchivo;
+    private DefaultStreamedContent download;
+    private IProyectoEtapa servicioProyectoEtapa;
+    
+    private String idSoporte;
+    SoporteProyectoEtapa  soporte ;
+       ProyectoEtapa proyectoEtapa;
+    
 
     @PostConstruct
     public void init() {
+        servicioProyectoEtapa = new ProyectoEtapaServices();
+        //Soporte
+        
+        servicioSoporte = new SoporteProyectoEtapaServices();
         //Proyecto create
-        proyecto = new Proyecto();
+
         servicioProyecto = new ProyectoServices();
         //ComboProgramas
         programaservices = new ProgramaServices();
@@ -95,10 +128,11 @@ public class ProyectosAprobarBean {
         serviciosServ = new ServicioServices();
         //Etapas segun el servicio
         servicioEtapa = new EtapaServices();
-        etapas = new ArrayList<Etapa>();
+        etapas = new ArrayList<EtapasEntregas>();
         //Usuario
         usuarioServices = new UsuarioServices();
         usuario = Utilidades.cargarUsuario();
+
         //Beneficiarios
         beneficiarios = new ArrayList<>();
         //Combo Servicios
@@ -109,7 +143,10 @@ public class ProyectosAprobarBean {
         itemsOferente = Utilidades.llenar_Combo_Terceros(terceroServices.getAllTercero());
         oferenteServices = new OferenteServices();
         beneficiarioServices = new BeneficiarioServices();
-        proyectosAprobar = servicioProyecto.getAllProyectoPendiente();
+
+        proyecto = new Proyecto();
+        
+        rutaArchivo="";
     }
 
     public void llenarBeneficiarios() {
@@ -119,6 +156,18 @@ public class ProyectosAprobarBean {
         for (Beneficiario beneficiario : beneficiarioByProyecto) {
             beneficiarios.add(terceroServices.getTerceroById(beneficiario.getId_tercero()));
         }
+    }
+    
+    public void buscar(){
+         soporte = servicioSoporte.getSoporteProyectoEtapaById(Integer.valueOf(idSoporte));
+        proyectoEtapa = servicioProyectoEtapa.getProyectoEtapaById(soporte.getId_proyectoetapa());
+       proyecto = servicioProyecto.getProyectoById(proyectoEtapa.getId_proyecto());
+        setProgramaByProyecto();
+        servByProg();
+        setOferenteByProyecto();
+        llenarEtapas(proyectoEtapa);
+        llenarBeneficiarios();
+        
     }
 
     public void setProgramaByProyecto() {
@@ -142,74 +191,147 @@ public class ProyectosAprobarBean {
             idServicio = 0;
         }
     }
-
-    public void llenarEtapasByServicio() {
-
-        //Llenar tabla de etapas
-        if (idServicio != 0) {
-            etapas = servicioEtapa.getAllEtapaByServicio(idServicio);
-        } else {
-            etapas = new ArrayList<>();
-
-        }
-
-    }
-
-    public void aprobar() {
-
-        proyecto.setEstado(1);
-        servicioProyecto.updateProyecto(proyecto);
+    
+    public void aprobarEntrega(){
+         proyectoEtapa.setEstado(1);
+        servicioProyectoEtapa.updateProyectoEtapa(proyectoEtapa);
         correos = new ArrayList<>();
         correos.add(usuarioServices.getEmailByUsername(usuario.getUsuario()));
         emisor = Utilidades.findEmailEmisor();
-        if (Utilidades.envioCorreo(correos, emisor, usuario, proyecto, 1, "Proyecto Aprobado",0)) {
+        if (Utilidades.envioCorreo(correos, emisor, usuario, proyecto, 4, "Entrega Aprobada",0)) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Operacion realizado con exito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
-        limpiarForma();
-
+        buscar();
+        
     }
-
-    public void rechazar() {
-        proyecto.setEstado(2);
-        servicioProyecto.updateProyecto(proyecto);
+    
+    public void rechazarEntrega(){
+        //3 rechazado
+          proyectoEtapa.setEstado(3);
+        servicioProyectoEtapa.updateProyectoEtapa(proyectoEtapa);
         correos = new ArrayList<>();
         correos.add(usuarioServices.getEmailByUsername(usuario.getUsuario()));
         emisor = Utilidades.findEmailEmisor();
-        if (Utilidades.envioCorreo(correos, emisor, usuario, proyecto, 2, "Proyecto Rechazado",0)) {
+        if (Utilidades.envioCorreo(correos, emisor, usuario, proyecto, 5, "Entrega Rechazada",0)) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Operacion realizado con exito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
-        limpiarForma();
-
+        buscar();
+        
     }
 
-    public void limpiarForma() {
-        proyecto = new Proyecto();
+    public void llenarEtapas(ProyectoEtapa obj) {
         etapas = new ArrayList<>();
-        idPrograma = 0;
-        idServicio = 0;
-        idOferente = 0;
-        proyectosAprobar = servicioProyecto.getAllProyectoPendiente();
-
-    }
-
-    public void actionBoton(Proyecto p) {
-        System.out.println("proyecto seleccionado -->" + p);
-        proyecto = p;
-        /*for(Proyecto p : proyectosAprobar){
-        if(p.getId_proyecto()== id){
-            proyecto=p;
-            break;
+        //Llenar tabla de etapas con la etapa q se debe aprobar
+            EtapasEntregas e = new EtapasEntregas();
+            Etapa etapa = servicioEtapa.getEtapaById(obj.getId_etapa());
+            e.setNombreEtapa(etapa.getDescripcion());
+            e.setIdProyectoEtapa(obj.getId_proyectoetapa());
+            if (obj.getEstado() == 1) {
+                e.setEstado("Aprobado");
+                e.setFlag(true);
+                
+            } 
+            if(obj.getEstado() == 0) {
+                e.setEstado("Faltante");
+                e.setFlag(true);
+            }
+            if(obj.getEstado() == 3){
+                e.setEstado("Rechazado");
+                e.setFlag(true);
+            }
+            if(obj.getEstado() == 2){
+                e.setEstado("Pendiente Aprobacion");
+                e.setFlag(false);
+            }
+            
+            
+            etapas.add(e);
         }
-    }*/
-        setProgramaByProyecto();
-        servByProg();
-        setOferenteByProyecto();
-        llenarEtapasByServicio();
-        llenarBeneficiarios();
+
+    
+
+    public class EtapasEntregas {
+
+        public String nombreEtapa;
+        public String estado;
+        public int idProyectoEtapa;
+        public boolean flag;
+
+        public String getNombreEtapa() {
+            return nombreEtapa;
+        }
+        
+        public void setNombreEtapa(String nombreEtapa) {
+            this.nombreEtapa = nombreEtapa;
+        }
+
+        public String getEstado() {
+            return estado;
+        }
+
+        public void setEstado(String estado) {
+            this.estado = estado;
+        }
+
+      
+
+        public int getIdProyectoEtapa() {
+            return idProyectoEtapa;
+        }
+
+        public void setIdProyectoEtapa(int idProyectoEtapa) {
+            this.idProyectoEtapa = idProyectoEtapa;
+        }
+
+        public boolean isFlag() {
+            return flag;
+        }
+
+        public void setFlag(boolean flag) {
+            this.flag = flag;
+        }
+        
+        
 
     }
+
+  
+    public void setDownload(DefaultStreamedContent download) {
+    this.download = download;
+}
+
+public DefaultStreamedContent getDownload() throws Exception {
+    return download;
+}
+    public  void prepDownload() throws FileNotFoundException { 
+        String ruta = Utilidades.leerArchivo("ruta");
+        String retorno = ruta + soporte.getArchivo();
+        File file = new File(retorno);
+  InputStream input = new FileInputStream(file);
+  ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+  setDownload(new DefaultStreamedContent(input, externalContext.getMimeType(file.getName()), file.getName()));
+    }
+
+    
+    
+     public void envioCorreo() {
+        //Lista de correos para notificacion
+        correos = Utilidades.findSendEmail();
+        //Cuenta emisora
+        emisor = Utilidades.findEmailEmisor();
+        Utilidades.envioCorreo(correos, emisor, usuario, proyecto, 3, "Entrega de Etapa Proyecto",0);
+
+    }
+     
+    
+        
+        
+    
+  
+
+    
 
     public Proyecto getProyecto() {
         return proyecto;
@@ -323,14 +445,6 @@ public class ProyectosAprobarBean {
         this.beneficiarioServices = beneficiarioServices;
     }
 
-    public List<Etapa> getEtapas() {
-        return etapas;
-    }
-
-    public void setEtapas(List<Etapa> etapas) {
-        this.etapas = etapas;
-    }
-
     public List<SelectItem> getItemsOferente() {
         return itemsOferente;
     }
@@ -371,12 +485,69 @@ public class ProyectosAprobarBean {
         this.beneficiarios = beneficiarios;
     }
 
-    public List<Proyecto> getProyectosAprobar() {
-        return proyectosAprobar;
+    public List<EtapasEntregas> getEtapas() {
+        return etapas;
     }
 
-    public void setProyectosAprobar(List<Proyecto> proyectosAprobar) {
-        this.proyectosAprobar = proyectosAprobar;
+    public void setEtapas(List<EtapasEntregas> etapas) {
+        this.etapas = etapas;
     }
+
+  
+    public ISoporteProyectoEtapa getServicioSoporte() {
+        return servicioSoporte;
+    }
+
+    public void setServicioSoporte(ISoporteProyectoEtapa servicioSoporte) {
+        this.servicioSoporte = servicioSoporte;
+    }
+
+    public String getRutaArchivo() {
+        return rutaArchivo;
+    }
+
+    public void setRutaArchivo(String rutaArchivo) {
+        this.rutaArchivo = rutaArchivo;
+    }
+
+    public IProyectoEtapa getServicioProyectoEtapa() {
+        return servicioProyectoEtapa;
+    }
+
+    public void setServicioProyectoEtapa(IProyectoEtapa servicioProyectoEtapa) {
+        this.servicioProyectoEtapa = servicioProyectoEtapa;
+    }
+
+    public String getIdSoporte() {
+        return idSoporte;
+    }
+
+    public void setIdSoporte(String idSoporte) {
+        this.idSoporte = idSoporte;
+    }
+
+    
+
+    
+
+    public SoporteProyectoEtapa getSoporte() {
+        return soporte;
+    }
+
+    public void setSoporte(SoporteProyectoEtapa soporte) {
+        this.soporte = soporte;
+    }
+
+    public ProyectoEtapa getProyectoEtapa() {
+        return proyectoEtapa;
+    }
+
+    public void setProyectoEtapa(ProyectoEtapa proyectoEtapa) {
+        this.proyectoEtapa = proyectoEtapa;
+    }
+
+    
+    
+    
 
 }

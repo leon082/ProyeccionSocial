@@ -98,4 +98,28 @@ public class ProyectoServices implements IProyecto {
         }
     }
 
+    @Override
+    public Proyecto getProyectoByUser(String user) {
+        try{
+        Proyecto proyecto = dao.getProyectoByUser(user);
+
+            return proyecto;
+            } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public Proyecto getProyectoById(int id) {
+      try{
+        Proyecto proyecto = dao.getProyectoById(id);
+
+            return proyecto;
+            } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
 }

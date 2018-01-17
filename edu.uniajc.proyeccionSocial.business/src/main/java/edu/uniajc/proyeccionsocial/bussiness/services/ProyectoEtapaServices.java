@@ -71,10 +71,10 @@ public class ProyectoEtapaServices implements IProyectoEtapa {
     }
 
     @Override
-    public ArrayList<ProyectoEtapa> getAllProyectoEtapa() {
+    public ArrayList<ProyectoEtapa> getAllProyectoEtapaByProyecto(int idProyecto) {
         try {
 
-            ArrayList<ProyectoEtapa> list = dao.getAllProyectoEtapa();
+            ArrayList<ProyectoEtapa> list = dao.getAllProyectoEtapaByProyecto(idProyecto);
 
             return list;
 

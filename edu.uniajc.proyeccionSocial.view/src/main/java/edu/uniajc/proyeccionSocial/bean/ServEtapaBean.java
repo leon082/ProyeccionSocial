@@ -6,8 +6,6 @@
 package edu.uniajc.proyeccionSocial.bean;
 
 import edu.uniajc.proyeccionSocial.Model.Etapa;
-import edu.uniajc.proyeccionSocial.Model.ProgramaServicio;
-import edu.uniajc.proyeccionSocial.Model.Servicio;
 import edu.uniajc.proyeccionSocial.Model.ServicioEtapa;
 import edu.uniajc.proyeccionSocial.Model.Usuario;
 import edu.uniajc.proyeccionSocial.view.util.Utilidades;
@@ -20,12 +18,8 @@ import javax.faces.bean.SessionScoped;
 import org.primefaces.model.DualListModel;
 import edu.uniajc.proyeccionsocial.bussiness.services.ServicioServices;
 import edu.uniajc.proyeccionsocial.interfaces.IServicio;
-import edu.uniajc.proyeccionsocial.bussiness.services.ProgramaServicioServices;
-import edu.uniajc.proyeccionsocial.interfaces.IProgramaServicio;
-import edu.uniajc.proyeccionsocial.bussiness.services.ProgramaServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.ServicioEtapaServices;
 import edu.uniajc.proyeccionsocial.interfaces.IEtapa;
-import edu.uniajc.proyeccionsocial.interfaces.IPrograma;
 import edu.uniajc.proyeccionsocial.interfaces.IServicioEtapa;
 import javax.faces.model.SelectItem;
 
@@ -72,8 +66,8 @@ public class ServEtapaBean {
             for (Object obj : etapas.getTarget()) {
 
                 String etapa = (String) obj;
-                System.out.println("etapa"+etapa);
-                
+                System.out.println("etapa" + etapa);
+
                 ServicioEtapa crear = new ServicioEtapa();
 
                 crear.setCreadopor(usuario.getUsuario());
@@ -102,7 +96,7 @@ public class ServEtapaBean {
 
                     Etapa targed = etapaTarget.get(j);
 
-                    if (source.getId_etapa()== targed.getId_etapa()) {
+                    if (source.getId_etapa() == targed.getId_etapa()) {
 
                         etapaSource.remove(source);
                     }
@@ -180,7 +174,6 @@ public class ServEtapaBean {
         this.idServicio = idServicio;
     }
 
-    
     public Usuario getUsuario() {
         return usuario;
     }

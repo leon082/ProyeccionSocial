@@ -22,5 +22,7 @@ public interface IProyecto {
 
     public ArrayList<Proyecto> getAllProyectoPendiente();
     public boolean tieneProyectoPendiente(String usuario);
+    public Proyecto getProyectoByUser(String user) ;
+    public Proyecto getProyectoById(int id);
 
 }

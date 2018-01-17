@@ -34,7 +34,7 @@ public class ProyectoEtapaDAO {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
             proyectoEtapa.setCreadoen(fechaSQL);
-            proyectoEtapa.setEstado(1);
+            proyectoEtapa.setEstado(0);
             PreparedStatement ps = null;
 
             String SQL = "select SQ_TB_ProyectoEtapa.nextval ID from dual";
@@ -130,13 +130,13 @@ public class ProyectoEtapaDAO {
 
     }
 
-    public ArrayList<ProyectoEtapa> getAllProyectoEtapa() {
+    public ArrayList<ProyectoEtapa> getAllProyectoEtapaByProyecto(int idProyecto) {
         ArrayList<ProyectoEtapa> list = new ArrayList<>(0);
         try {
 
             PreparedStatement ps = null;
 
-            final String SQL = "SELECT * from TB_PROYECTO where estado = 1";
+            final String SQL = "SELECT * from TB_PROYECTOETAPA where ID_Proyecto = "+idProyecto+" ";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -172,7 +172,7 @@ public class ProyectoEtapaDAO {
 
             PreparedStatement ps = null;
 
-            String SQL = "select * from TB_ProyectoEtapa where ID_ProyectoEtapa =" + id + " and estado = 1";
+            String SQL = "select * from TB_ProyectoEtapa where ID_ProyectoEtapa =" + id + " ";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs != null) {

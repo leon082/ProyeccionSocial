@@ -25,8 +25,8 @@ public class ProyectoDao {
     private Connection DBConnection = null;
 
     public ProyectoDao() {
-  ConexionBD bd= new ConexionBD();
-        this.DBConnection =  bd.conexion();
+        ConexionBD bd = new ConexionBD();
+        this.DBConnection = bd.conexion();
     }
 
     public int createProyecto(Proyecto proyecto) {
@@ -55,7 +55,7 @@ public class ProyectoDao {
             ps.setString(2, proyecto.getTituloproyecto());
             ps.setString(3, proyecto.getResumenproyecto());
             ps.setInt(4, proyecto.getId_programa());
-           ps.setInt(5, proyecto.getId_servicio());
+            ps.setInt(5, proyecto.getId_servicio());
             ps.setInt(6, proyecto.getEstado());
             ps.setString(7, proyecto.getCreadopor());
             ps.setDate(8, proyecto.getCreadoen());
@@ -109,7 +109,7 @@ public class ProyectoDao {
             ps.setString(1, proyecto.getTituloproyecto());
             ps.setString(2, proyecto.getResumenproyecto());
             ps.setInt(3, proyecto.getId_programa());
-           ps.setInt(4, proyecto.getId_servicio());
+            ps.setInt(4, proyecto.getId_servicio());
             ps.setInt(5, proyecto.getEstado());
             ps.setString(6, proyecto.getModificadopor());
             ps.setDate(7, proyecto.getModificadoen());
@@ -135,7 +135,7 @@ public class ProyectoDao {
 
             final String SQL = "SELECT * from TB_PROYECTO where estado = 0";
             ps = this.DBConnection.prepareStatement(SQL);
-            
+
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Proyecto proyecto = new Proyecto();
@@ -143,7 +143,7 @@ public class ProyectoDao {
                 proyecto.setTituloproyecto(rs.getString("TituloProyecto"));
                 proyecto.setResumenproyecto(rs.getString("ResumenProyecto"));
                 proyecto.setId_programa(rs.getInt("ID_Programa"));
-               proyecto.setId_servicio(rs.getInt("ID_Servicio"));
+                proyecto.setId_servicio(rs.getInt("ID_Servicio"));
                 proyecto.setEstado(rs.getInt("Estado"));
                 proyecto.setCreadopor(rs.getString("CREADOPOR"));
                 proyecto.setModificadopor(rs.getString("MODIFICADOPOR"));
@@ -161,10 +161,10 @@ public class ProyectoDao {
         }
 
     }
-    
+
     public boolean tieneProyectoPendiente(String usuario) {
         ArrayList<Proyecto> list = new ArrayList<>(0);
-        boolean result =false;
+        boolean result = false;
         try {
 
             PreparedStatement ps = null;
@@ -173,14 +173,86 @@ public class ProyectoDao {
             ps = this.DBConnection.prepareStatement(SQL);
             ps.setString(1, usuario);
             ResultSet rs = ps.executeQuery();
-             result=rs.next();
-         
+            result = rs.next();
+
             ps.close();
 
             return result;
         } catch (SQLException e) {
             Logger.getLogger(ProyectoDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return result;
+        }
+
+    }
+
+    public Proyecto getProyectoByUser(String user) {
+
+        Proyecto proyecto = new Proyecto();
+        try {
+
+            PreparedStatement ps = null;
+
+            String SQL = "select * from TB_Proyecto where creadopor = '" + user + "' and estado = 1";
+            ps = this.DBConnection.prepareStatement(SQL);
+            ResultSet rs = ps.executeQuery();
+            if (rs != null) {
+                rs.next();
+
+                proyecto.setId_proyecto(rs.getInt("ID_Proyecto"));
+                proyecto.setTituloproyecto(rs.getString("TituloProyecto"));
+                proyecto.setResumenproyecto(rs.getString("ResumenProyecto"));
+                proyecto.setId_programa(rs.getInt("ID_Programa"));
+                proyecto.setId_servicio(rs.getInt("ID_Servicio"));
+                proyecto.setEstado(rs.getInt("Estado"));
+                proyecto.setCreadopor(rs.getString("CREADOPOR"));
+                proyecto.setModificadopor(rs.getString("MODIFICADOPOR"));
+                proyecto.setCreadoen(rs.getDate("CREADOEN"));
+                proyecto.setModificadoen(rs.getDate("MODIFICADOEN"));
+
+            }
+            ps.close();
+
+            return proyecto;
+        } catch (SQLException e) {
+            System.out.println("Error proyectoDao getProyectoByUser " + e.getMessage());
+            Logger.getLogger(ProgramaDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            return null;
+        }
+
+    }
+    
+     public Proyecto getProyectoById(int id) {
+
+        Proyecto proyecto = new Proyecto();
+        try {
+
+            PreparedStatement ps = null;
+
+            String SQL = "select * from TB_Proyecto where id_proyecto = " + id + " and estado = 1";
+            ps = this.DBConnection.prepareStatement(SQL);
+            ResultSet rs = ps.executeQuery();
+            if (rs != null) {
+                rs.next();
+
+                proyecto.setId_proyecto(rs.getInt("ID_Proyecto"));
+                proyecto.setTituloproyecto(rs.getString("TituloProyecto"));
+                proyecto.setResumenproyecto(rs.getString("ResumenProyecto"));
+                proyecto.setId_programa(rs.getInt("ID_Programa"));
+                proyecto.setId_servicio(rs.getInt("ID_Servicio"));
+                proyecto.setEstado(rs.getInt("Estado"));
+                proyecto.setCreadopor(rs.getString("CREADOPOR"));
+                proyecto.setModificadopor(rs.getString("MODIFICADOPOR"));
+                proyecto.setCreadoen(rs.getDate("CREADOEN"));
+                proyecto.setModificadoen(rs.getDate("MODIFICADOEN"));
+
+            }
+            ps.close();
+
+            return proyecto;
+        } catch (SQLException e) {
+            System.out.println("Error proyectoDao getProyectoByUser " + e.getMessage());
+            Logger.getLogger(ProgramaDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            return null;
         }
 
     }

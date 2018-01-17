@@ -60,7 +60,7 @@ public class ProyectoBeanCopy {
     //Combo Servicios
     private ArrayList<SelectItem> itemsServicios;
     private int idServicio;
-    
+
     //Servicios segun el programa
     private IServicio serviciosServ;
     //etapas segun el servicio
@@ -73,15 +73,14 @@ public class ProyectoBeanCopy {
     List<String> correos;
     //Emisor
     List<String> emisor;
-    
+
     //Beneficiarios
-    private  ITercero terceroServices;
+    private ITercero terceroServices;
     private IBeneficiario beneficiarioServices;
     private List<Tercero> beneSource;
     private List<Tercero> beneTarget;
     private DualListModel<Tercero> terceros;
-    
-    
+
     @PostConstruct
     public void init() {
         //Proyecto create
@@ -99,44 +98,38 @@ public class ProyectoBeanCopy {
         //Usuario
         usuario = Utilidades.cargarUsuario();
         //Beneficiarios
-       initBeneficiarios();
-       //Combo Servicios
-       
-        
+        initBeneficiarios();
+        //Combo Servicios
 
     }
-    public void initBeneficiarios(){
-         terceroServices=new TerceroServices();
+
+    public void initBeneficiarios() {
+        terceroServices = new TerceroServices();
         beneSource = terceroServices.getAllTercero();
         beneTarget = new ArrayList<Tercero>();
         terceros = new DualListModel<Tercero>(beneSource, beneTarget);
         beneficiarioServices = new BeneficiarioServices();
     }
-    
-     public void guardarBeneficiarios( int idProyecto) {
 
-        
+    public void guardarBeneficiarios(int idProyecto) {
 
-            //borro todos
-            //psServices.deleteProgramaServicioByProg(idPrograma);
-            //creo todos
-            for (Object obj : terceros.getTarget()) {
+        //borro todos
+        //psServices.deleteProgramaServicioByProg(idPrograma);
+        //creo todos
+        for (Object obj : terceros.getTarget()) {
 
-                String tercero = (String) obj;
-                
-                
-                
-                Beneficiario crear = new Beneficiario();
+            String tercero = (String) obj;
 
-                crear.setCreadopor(usuario.getUsuario());
-                crear.setEstado(1);
-                crear.setId_proyecto(idProyecto);
-                crear.setId_tercero(Integer.valueOf(tercero));
+            Beneficiario crear = new Beneficiario();
 
-                beneficiarioServices.createBeneficiario(crear);
-            }
-            
-        
+            crear.setCreadopor(usuario.getUsuario());
+            crear.setEstado(1);
+            crear.setId_proyecto(idProyecto);
+            crear.setId_tercero(Integer.valueOf(tercero));
+
+            beneficiarioServices.createBeneficiario(crear);
+        }
+
     }
 
     public void actionCombo() {
@@ -157,7 +150,7 @@ public class ProyectoBeanCopy {
         proyecto.setCreadopor(usuario.getUsuario());
         proyecto.setId_programa(idPrograma);
         int result = servicioProyecto.createProyecto(proyecto);
-        
+
         if (result != 0) {
             guardarBeneficiarios(result);
             //Guardar Oferente
@@ -386,5 +379,4 @@ public class ProyectoBeanCopy {
         this.terceros = terceros;
     }
 
-    
 }

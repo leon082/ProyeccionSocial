@@ -34,15 +34,14 @@ public class ProgramaBean {
     private List<Programa> listaPrograma;
 
     //datos user
-    
     private Usuario usuario;
 
     @PostConstruct
     public void init() {
         servicios = new ProgramaServices();
         programa = new Programa();
-        psServicios=new ProgramaServicioServices();
-        
+        psServicios = new ProgramaServicioServices();
+
         usuario = Utilidades.cargarUsuario();
         listaPrograma = servicios.getAllPrograma();
     }
@@ -52,7 +51,6 @@ public class ProgramaBean {
         listaPrograma = servicios.getAllPrograma();
     }
 
-  
     public void crear() {
 
         programa.setCreadopor(usuario.getUsuario());

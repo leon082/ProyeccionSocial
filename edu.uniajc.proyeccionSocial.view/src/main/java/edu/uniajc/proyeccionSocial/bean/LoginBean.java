@@ -5,7 +5,6 @@
  */
 package edu.uniajc.proyeccionSocial.bean;
 
-
 import edu.uniajc.proyeccionSocial.Model.Usuario;
 import edu.uniajc.proyeccionSocial.view.util.SessionUtils;
 import edu.uniajc.proyeccionSocial.view.util.Utilidades;
@@ -30,20 +29,20 @@ public class LoginBean implements Serializable {
 
     private String nombre;
     private String clave;
-    private IUsuario usuarioServices;    
-    private Usuario user;    
+    private IUsuario usuarioServices;
+    private Usuario user;
     // private boolean logeado = false;
 
     /*  public boolean estaLogeado() {
         return logeado;
     }*/
-   @PostConstruct
-    public void init(){
-        
+    @PostConstruct
+    public void init() {
+
         usuarioServices = new UsuarioServices();
-        
+
     }
-   
+
     /*public String login() {
 
         if (nombre != null && nombre.equals("admin") && clave != null
@@ -60,7 +59,6 @@ public class LoginBean implements Serializable {
             return "login.xhtml";
         }
     }*/
-     
     public String login() {
         try {
             user = usuarioServices.getUsuarioLogin(nombre, Utilidades.generateHash(clave));
@@ -84,30 +82,21 @@ public class LoginBean implements Serializable {
         }
     }
 
-  
     public String logout() {
 
         HttpSession session = SessionUtils.getSession();
         session.invalidate();
         return "login.xhtml";
     }
-    
-     public String registrar() {
-         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Saludo", "Formualrio de Registro");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+
+    public String registrar() {
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Saludo", "Formualrio de Registro");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
 
         return "registrar.xhtml";
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-     public String getNombre() {
+
+    public String getNombre() {
         return nombre;
     }
 

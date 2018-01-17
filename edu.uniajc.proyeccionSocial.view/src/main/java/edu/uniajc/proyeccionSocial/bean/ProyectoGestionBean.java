@@ -9,6 +9,8 @@ import edu.uniajc.proyeccionSocial.Model.Beneficiario;
 import edu.uniajc.proyeccionSocial.Model.Etapa;
 import edu.uniajc.proyeccionSocial.Model.Oferente;
 import edu.uniajc.proyeccionSocial.Model.Proyecto;
+import edu.uniajc.proyeccionSocial.Model.ProyectoEtapa;
+import edu.uniajc.proyeccionSocial.Model.SoporteProyectoEtapa;
 import edu.uniajc.proyeccionSocial.Model.Tercero;
 import edu.uniajc.proyeccionSocial.Model.Usuario;
 
@@ -17,8 +19,10 @@ import edu.uniajc.proyeccionsocial.bussiness.services.BeneficiarioServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.EtapaServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.OferenteServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.ProgramaServices;
+import edu.uniajc.proyeccionsocial.bussiness.services.ProyectoEtapaServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.ProyectoServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.ServicioServices;
+import edu.uniajc.proyeccionsocial.bussiness.services.SoporteProyectoEtapaServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.TerceroServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.UsuarioServices;
 import edu.uniajc.proyeccionsocial.interfaces.IBeneficiario;
@@ -26,9 +30,18 @@ import edu.uniajc.proyeccionsocial.interfaces.IEtapa;
 import edu.uniajc.proyeccionsocial.interfaces.IOferente;
 import edu.uniajc.proyeccionsocial.interfaces.IPrograma;
 import edu.uniajc.proyeccionsocial.interfaces.IProyecto;
+import edu.uniajc.proyeccionsocial.interfaces.IProyectoEtapa;
 import edu.uniajc.proyeccionsocial.interfaces.IServicio;
+import edu.uniajc.proyeccionsocial.interfaces.ISoporteProyectoEtapa;
 import edu.uniajc.proyeccionsocial.interfaces.ITercero;
 import edu.uniajc.proyeccionsocial.interfaces.IUsuario;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -37,6 +50,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import org.primefaces.event.FileUploadEvent;
 
 /**
  *
@@ -44,7 +58,7 @@ import javax.faces.model.SelectItem;
  */
 @ManagedBean
 @SessionScoped
-public class ProyectosAprobarBean {
+public class ProyectoGestionBean {
 
     //Proyecto Create
     private Proyecto proyecto;
@@ -61,7 +75,7 @@ public class ProyectosAprobarBean {
     private IServicio serviciosServ;
     //etapas segun el servicio
     private IEtapa servicioEtapa;
-    List<Etapa> etapas;
+    List<EtapasEntregas> etapas;
 
     //Usuario Session
     private Usuario usuario;
@@ -81,12 +95,21 @@ public class ProyectosAprobarBean {
     private int idOferente;
     private IOferente oferenteServices;
 
-    private List<Proyecto> proyectosAprobar;
+    //Soporte
+    private SoporteProyectoEtapa soporte;
+    private ISoporteProyectoEtapa servicioSoporte;
+    private String rutaArchivo;
+
+    private IProyectoEtapa servicioProyectoEtapa;
 
     @PostConstruct
     public void init() {
+        servicioProyectoEtapa = new ProyectoEtapaServices();
+        //Soporte
+        soporte = new SoporteProyectoEtapa();
+        servicioSoporte = new SoporteProyectoEtapaServices();
         //Proyecto create
-        proyecto = new Proyecto();
+
         servicioProyecto = new ProyectoServices();
         //ComboProgramas
         programaservices = new ProgramaServices();
@@ -95,10 +118,11 @@ public class ProyectosAprobarBean {
         serviciosServ = new ServicioServices();
         //Etapas segun el servicio
         servicioEtapa = new EtapaServices();
-        etapas = new ArrayList<Etapa>();
+        etapas = new ArrayList<EtapasEntregas>();
         //Usuario
         usuarioServices = new UsuarioServices();
         usuario = Utilidades.cargarUsuario();
+
         //Beneficiarios
         beneficiarios = new ArrayList<>();
         //Combo Servicios
@@ -109,7 +133,10 @@ public class ProyectosAprobarBean {
         itemsOferente = Utilidades.llenar_Combo_Terceros(terceroServices.getAllTercero());
         oferenteServices = new OferenteServices();
         beneficiarioServices = new BeneficiarioServices();
-        proyectosAprobar = servicioProyecto.getAllProyectoPendiente();
+
+        proyecto = new Proyecto();
+        cargarProyectoByUsuario();
+        rutaArchivo="";
     }
 
     public void llenarBeneficiarios() {
@@ -143,73 +170,199 @@ public class ProyectosAprobarBean {
         }
     }
 
-    public void llenarEtapasByServicio() {
-
+    public void llenarEtapasByProyecto() {
+        etapas = new ArrayList<EtapasEntregas>();
         //Llenar tabla de etapas
-        if (idServicio != 0) {
-            etapas = servicioEtapa.getAllEtapaByServicio(idServicio);
-        } else {
-            etapas = new ArrayList<>();
-
+        //Lista de etapas segun Proyecto
+        List<ProyectoEtapa> proyectoEtapas = servicioProyectoEtapa.getAllProyectoEtapaByProyecto(proyecto.getId_proyecto());
+        for (ProyectoEtapa obj : proyectoEtapas) {
+            EtapasEntregas e = new EtapasEntregas();
+            Etapa etapa = servicioEtapa.getEtapaById(obj.getId_etapa());
+            e.setNombreEtapa(etapa.getDescripcion());
+            e.setIdProyectoEtapa(obj.getId_proyectoetapa());
+            if (obj.getEstado() == 1) {
+                e.setEstado("Aprobado");
+                e.setFlag(true);
+                
+            } 
+            if(obj.getEstado() == 0) {
+                e.setEstado("Faltante");
+                e.setFlag(false);
+            }
+            if(obj.getEstado() == 3){
+                e.setEstado("Rechazado");
+                e.setFlag(false);
+            }
+            if(obj.getEstado() == 2){
+                e.setEstado("Pendiente Aprobacion");
+                e.setFlag(true);
+            }
+            
+            
+            etapas.add(e);
         }
 
     }
 
-    public void aprobar() {
+    public class EtapasEntregas {
 
-        proyecto.setEstado(1);
-        servicioProyecto.updateProyecto(proyecto);
-        correos = new ArrayList<>();
-        correos.add(usuarioServices.getEmailByUsername(usuario.getUsuario()));
-        emisor = Utilidades.findEmailEmisor();
-        if (Utilidades.envioCorreo(correos, emisor, usuario, proyecto, 1, "Proyecto Aprobado",0)) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Operacion realizado con exito");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+        public String nombreEtapa;
+        public String estado;
+        public int idProyectoEtapa;
+        public boolean flag;
+
+        public String getNombreEtapa() {
+            return nombreEtapa;
         }
-        limpiarForma();
+        
+        public void setNombreEtapa(String nombreEtapa) {
+            this.nombreEtapa = nombreEtapa;
+        }
+
+        public String getEstado() {
+            return estado;
+        }
+
+        public void setEstado(String estado) {
+            this.estado = estado;
+        }
+
+      
+
+        public int getIdProyectoEtapa() {
+            return idProyectoEtapa;
+        }
+
+        public void setIdProyectoEtapa(int idProyectoEtapa) {
+            this.idProyectoEtapa = idProyectoEtapa;
+        }
+
+        public boolean isFlag() {
+            return flag;
+        }
+
+        public void setFlag(boolean flag) {
+            this.flag = flag;
+        }
+        
+        
 
     }
 
-    public void rechazar() {
-        proyecto.setEstado(2);
-        servicioProyecto.updateProyecto(proyecto);
-        correos = new ArrayList<>();
-        correos.add(usuarioServices.getEmailByUsername(usuario.getUsuario()));
-        emisor = Utilidades.findEmailEmisor();
-        if (Utilidades.envioCorreo(correos, emisor, usuario, proyecto, 2, "Proyecto Rechazado",0)) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Operacion realizado con exito");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
-        limpiarForma();
+  
 
-    }
+    public void cargarProyectoByUsuario() {
 
-    public void limpiarForma() {
-        proyecto = new Proyecto();
-        etapas = new ArrayList<>();
-        idPrograma = 0;
-        idServicio = 0;
-        idOferente = 0;
-        proyectosAprobar = servicioProyecto.getAllProyectoPendiente();
+        proyecto = servicioProyecto.getProyectoByUser(usuario.getUsuario());
 
-    }
-
-    public void actionBoton(Proyecto p) {
-        System.out.println("proyecto seleccionado -->" + p);
-        proyecto = p;
-        /*for(Proyecto p : proyectosAprobar){
-        if(p.getId_proyecto()== id){
-            proyecto=p;
-            break;
-        }
-    }*/
         setProgramaByProyecto();
         servByProg();
         setOferenteByProyecto();
-        llenarEtapasByServicio();
+        llenarEtapasByProyecto();
         llenarBeneficiarios();
 
     }
+
+    public void handleFileUpload(FileUploadEvent event) throws IOException, Exception {
+
+        System.out.println("si entra 4444:" + event.getFile().getFileName());
+
+        String name = "_" + 4 + event.getFile().getFileName();
+        String ruta = Utilidades.leerArchivo("ruta");
+
+        String retorno = ruta + name;
+        System.out.println("si entra 222:" + retorno);
+        File filePrueba = new File(ruta);
+        //pregunto si el directorio existe sino lo creo
+        if (!filePrueba.exists()) {
+            filePrueba.mkdirs();
+        }
+        filePrueba = new File(retorno);
+        //luego adiciono el archivo y lo mando a crear
+        InputStream is = event.getFile().getInputstream();
+        OutputStream out = new FileOutputStream(filePrueba);
+        byte buf[] = new byte[1024];
+        int len;
+        while ((len = is.read(buf)) > 0) {
+            out.write(buf, 0, len);
+        }
+        is.close();
+        out.close();
+        rutaArchivo = name;
+        if(!"".equals(rutaArchivo)){
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Archivo subido, no olvide guardar.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            }
+
+    }
+    
+     public void envioCorreo(int idEtapa) {
+        //Lista de correos para notificacion
+        correos = Utilidades.findSendEmail();
+        //Cuenta emisora
+        emisor = Utilidades.findEmailEmisor();
+        Utilidades.envioCorreo(correos, emisor, usuario, proyecto, 3, "Entrega de Etapa Proyecto",idEtapa);
+
+    }
+     
+    public void actionBoton(EtapasEntregas etapaEntrega){
+            if(!"".equals(rutaArchivo)){
+               int result= guardarSoporte(etapaEntrega.getIdProyectoEtapa());
+               envioCorreo(result);
+               System.out.println("ProyectoEtapa "+etapaEntrega.getIdProyectoEtapa());
+                ProyectoEtapa proyectoE = servicioProyectoEtapa.getProyectoEtapaById(etapaEntrega.getIdProyectoEtapa());
+                proyectoE.setEstado(2);
+                servicioProyectoEtapa.updateProyectoEtapa(proyectoE);
+                
+                llenarEtapasByProyecto();
+                rutaArchivo="";
+            }
+    }
+        
+        
+    
+    public int guardarSoporte(int idProyectoEtapa) {
+        soporte.setArchivo(rutaArchivo);
+        soporte.setCreadopor(usuario.getUsuario());
+        soporte.setId_proyectoetapa(idProyectoEtapa);
+        int result=servicioSoporte.createSoporteProyectoEtapa(soporte);
+        if(result!=0){
+            
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Entrega Realizada.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        return result;
+    }
+
+    /*public byte[] read(File file) throws IOException {
+
+        ByteArrayOutputStream ous = null;
+        InputStream ios = null;
+        try {
+            byte[] buffer = new byte[4096];
+            ous = new ByteArrayOutputStream();
+            ios = new FileInputStream(file);
+            int read = 0;
+            while ((read = ios.read(buffer)) != -1) {
+                ous.write(buffer, 0, read);
+            }
+        } finally {
+            try {
+                if (ous != null) {
+                    ous.close();
+                }
+            } catch (IOException e) {
+            }
+
+            try {
+                if (ios != null) {
+                    ios.close();
+                }
+            } catch (IOException e) {
+            }
+        }
+        return ous.toByteArray();
+    }*/
 
     public Proyecto getProyecto() {
         return proyecto;
@@ -323,14 +476,6 @@ public class ProyectosAprobarBean {
         this.beneficiarioServices = beneficiarioServices;
     }
 
-    public List<Etapa> getEtapas() {
-        return etapas;
-    }
-
-    public void setEtapas(List<Etapa> etapas) {
-        this.etapas = etapas;
-    }
-
     public List<SelectItem> getItemsOferente() {
         return itemsOferente;
     }
@@ -371,12 +516,44 @@ public class ProyectosAprobarBean {
         this.beneficiarios = beneficiarios;
     }
 
-    public List<Proyecto> getProyectosAprobar() {
-        return proyectosAprobar;
+    public List<EtapasEntregas> getEtapas() {
+        return etapas;
     }
 
-    public void setProyectosAprobar(List<Proyecto> proyectosAprobar) {
-        this.proyectosAprobar = proyectosAprobar;
+    public void setEtapas(List<EtapasEntregas> etapas) {
+        this.etapas = etapas;
+    }
+
+    public SoporteProyectoEtapa getSoporte() {
+        return soporte;
+    }
+
+    public void setSoporte(SoporteProyectoEtapa soporte) {
+        this.soporte = soporte;
+    }
+
+    public ISoporteProyectoEtapa getServicioSoporte() {
+        return servicioSoporte;
+    }
+
+    public void setServicioSoporte(ISoporteProyectoEtapa servicioSoporte) {
+        this.servicioSoporte = servicioSoporte;
+    }
+
+    public String getRutaArchivo() {
+        return rutaArchivo;
+    }
+
+    public void setRutaArchivo(String rutaArchivo) {
+        this.rutaArchivo = rutaArchivo;
+    }
+
+    public IProyectoEtapa getServicioProyectoEtapa() {
+        return servicioProyectoEtapa;
+    }
+
+    public void setServicioProyectoEtapa(IProyectoEtapa servicioProyectoEtapa) {
+        this.servicioProyectoEtapa = servicioProyectoEtapa;
     }
 
 }

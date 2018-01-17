@@ -48,7 +48,13 @@
 
                             <p:separator />
                             <h:panelGrid columns="2" cellpadding="5">
-
+                                
+                                <p:outputLabel for="add_7" value="Oferente del Proyecto: " />
+                                <p:selectOneMenu  id="add_7" value="#{proyectosAprobarBean.idOferente}" disabled="true" >  
+                                    <f:selectItem itemLabel="Seleccione" itemValue="0" />  
+                                    <f:selectItems value="#{proyectosAprobarBean.itemsOferente}"/>  
+                                </p:selectOneMenu>
+                                
                                 <p:outputLabel for="add_1" value="Titulo :" />
                                 <p:inputText   id="add_1" value="#{proyectosAprobarBean.proyecto.tituloproyecto}" readonly="true"/>                       
 
@@ -76,18 +82,14 @@
                             <h3 style="margin-top: 0">Etapas</h3>
 
                             <p:dataTable id="listaEtapas" var="etapa" value="#{proyectosAprobarBean.etapas}" >
-                                <p:column headerText="Etapa" groupRow="true">
+                                <p:column headerText="Etapa" >
                                     <h:outputText value="#{etapa.descripcion}" />
                                 </p:column>
 
 
                             </p:dataTable>
                             
-                             <p:outputLabel for="add_7" value="Oferente :" />
-                                <p:selectOneMenu  id="add_7" value="#{proyectosAprobarBean.idOferente}" disabled="true" >  
-                                    <f:selectItem itemLabel="Seleccione" itemValue="0" />  
-                                    <f:selectItems value="#{proyectosAprobarBean.itemsOferente}"/>  
-                                </p:selectOneMenu>
+                             
                                 
                                    <h3 style="margin-top: 0">Beneficiarios</h3>
 
