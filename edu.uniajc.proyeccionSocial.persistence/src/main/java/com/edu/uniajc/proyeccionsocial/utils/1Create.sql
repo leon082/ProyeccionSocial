@@ -133,12 +133,12 @@ CREATE TABLE tb_proyecto (
     modificadoen      DATE
 );
 CREATE SEQUENCE  "SQ_TB_PROYECTO"  MINVALUE 1 MAXVALUE 9999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE ;
-
+--No se para que la usan, ya se pero se elimina por soporteproyectoEtapa
 CREATE TABLE tb_proyectoetapa (
     id_proyectoetapa   NUMBER(10) NOT NULL,
     id_proyecto        NUMBER(10) NOT NULL,
     id_etapa           NUMBER(10) NOT NULL,
-    estado             NUMBER(1) DEFAULT 1 NOT NULL,
+    estado             NUMBER(1)  NOT NULL,
     observacion        VARCHAR2(300),
     fechainicio        DATE,
     fechafin           DATE,
@@ -147,6 +147,7 @@ CREATE TABLE tb_proyectoetapa (
     modificadopor      VARCHAR2(50),
     modificadoen       DATE
 );
+CREATE SEQUENCE  "SQ_TB_PROYECTOETAPA"  MINVALUE 1 MAXVALUE 9999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE ;
 
 CREATE TABLE tb_rol (
     id_rol          NUMBER(10) NOT NULL,
@@ -168,6 +169,7 @@ CREATE TABLE tb_soporteproyectoetapa (
     modificadopor             VARCHAR2(50),
     modificadoen              DATE
 );
+CREATE SEQUENCE  "SQ_TB_SOPORTEPROYECTOETAPA"  MINVALUE 1 MAXVALUE 9999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE ;
 
 CREATE TABLE tb_tercero (
     id_tercero                 NUMBER(10) NOT NULL,
