@@ -21,20 +21,19 @@ import javax.annotation.PreDestroy;
  * @author rlara
  */
 public class SoporteProyectoEtapaDAO {
-    
+
     private Connection DBConnection = null;
 
     public SoporteProyectoEtapaDAO() {
-          ConexionBD bd= new ConexionBD();
+        ConexionBD bd = new ConexionBD();
         this.DBConnection = bd.conexion();
     }
-    
+
     public int createSoporteProyectoEtapa(SoporteProyectoEtapa soporteProyectoEtapa) {
         try {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
             soporteProyectoEtapa.setCreadoen(fechaSQL);
-            
 
             PreparedStatement ps = null;
 
@@ -52,11 +51,10 @@ public class SoporteProyectoEtapaDAO {
                     + "(ID_SoporteProyectoEtapa, id_proyectoetapa, archivo, "
                     + "CreadoPor, CreadoEn) values(?,?,?,?,?) ";
             ps = this.DBConnection.prepareStatement(SQL);
-            
+
             ps.setInt(1, soporteProyectoEtapa.getId_soporteproyectoetapa());
             ps.setInt(2, soporteProyectoEtapa.getId_proyectoetapa());
-            
-            
+
             ps.setString(3, soporteProyectoEtapa.getArchivo());
             ps.setString(4, soporteProyectoEtapa.getCreadopor());
             ps.setDate(5, soporteProyectoEtapa.getCreadoen());
@@ -87,16 +85,16 @@ public class SoporteProyectoEtapaDAO {
                     + "id_proyectoetapa=?,archivo=?, "
                     + "ModificadoPor=?, ModificadoEn=? where ID_SoporteProyectoEtapa = ?";
             ps = this.DBConnection.prepareStatement(SQL);
-            
+
             ps.setInt(1, soporteProyectoEtapa.getId_proyectoetapa());
-            
+
             ps.setString(2, soporteProyectoEtapa.getArchivo());
             ps.setString(3, soporteProyectoEtapa.getModificadopor());
             ps.setDate(4, soporteProyectoEtapa.getModificadoen());
             ps.setInt(5, soporteProyectoEtapa.getId_soporteproyectoetapa());
             ps.execute();
             ps.close();
-            
+
             return true;
 
         } catch (SQLException e) {
@@ -120,7 +118,7 @@ public class SoporteProyectoEtapaDAO {
                 SoporteProyectoEtapa soporteProyectoEtapa = new SoporteProyectoEtapa();
                 soporteProyectoEtapa.setId_soporteproyectoetapa(rs.getInt("ID_SoporteProyectoEtapa"));
                 soporteProyectoEtapa.setId_proyectoetapa(rs.getInt("ID_ProyectoEtapa"));
-                
+
                 soporteProyectoEtapa.setArchivo(rs.getString("Archivo"));
                 soporteProyectoEtapa.setCreadopor(rs.getString("CreadoPor"));
                 soporteProyectoEtapa.setModificadopor(rs.getString("ModificadoPor"));
@@ -153,7 +151,6 @@ public class SoporteProyectoEtapaDAO {
             if (rs != null) {
                 rs.next();
 
-                   
                 soporteProyectoEtapa.setId_soporteproyectoetapa(rs.getInt("ID_SoporteProyectoEtapa"));
                 soporteProyectoEtapa.setId_proyectoetapa(rs.getInt("ID_ProyectoEtapa"));
                 soporteProyectoEtapa.setArchivo(rs.getString("Archivo"));

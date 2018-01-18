@@ -21,14 +21,14 @@ import javax.annotation.PreDestroy;
  * @author rlara
  */
 public class TerceroDAO {
-    
+
     private Connection DBConnection = null;
 
     public TerceroDAO() {
-          ConexionBD bd= new ConexionBD();
+        ConexionBD bd = new ConexionBD();
         this.DBConnection = bd.conexion();
     }
-    
+
     public int createTercero(Tercero tercero) {
         try {
             java.util.Date fecha = new java.util.Date();
@@ -54,7 +54,7 @@ public class TerceroDAO {
                     + "FechaNacimiento, TelefonoFijo, TelefonoCelular, Correo, Estado, "
                     + "CreadoPor, CreadoEn) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
             ps = this.DBConnection.prepareStatement(SQL);
-            
+
             ps.setInt(1, tercero.getId_tercero());
             ps.setInt(2, tercero.getId_lv_tipoidentificacion());
             ps.setString(3, tercero.getNumidentificacion());
@@ -116,7 +116,7 @@ public class TerceroDAO {
                     + "FechaNacimiento=?, TelefonoFijo=?, TelefonoCelular=?, Correo =?, "
                     + "Estado=?, ModificadoPor=?, ModificadoEn=? where ID_Tercero = ?";
             ps = this.DBConnection.prepareStatement(SQL);
-            
+
             ps.setInt(1, tercero.getId_lv_tipoidentificacion());
             ps.setString(2, tercero.getNumidentificacion());
             ps.setString(3, tercero.getPrimernombre());
@@ -133,7 +133,7 @@ public class TerceroDAO {
             ps.setInt(14, tercero.getId_tercero());
             ps.execute();
             ps.close();
-            
+
             return true;
 
         } catch (SQLException e) {
@@ -197,7 +197,7 @@ public class TerceroDAO {
             ResultSet rs = ps.executeQuery();
             if (rs != null) {
                 rs.next();
-                
+
                 tercero.setId_tercero(rs.getInt("ID_Tercero"));
                 tercero.setId_lv_tipoidentificacion(rs.getInt("ID_LV_TipoIdentificacion"));
                 tercero.setNumidentificacion(rs.getString("NumIdentificacion"));
@@ -224,14 +224,12 @@ public class TerceroDAO {
             Logger.getLogger(TerceroDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return null;
         }
-        
-         
 
     }
-    
+
     public Tercero getTerceroByIdentificacion(int tipoDoc, String doc) {
 
-        Tercero tercero =null;
+        Tercero tercero = null;
         try {
 
             PreparedStatement ps = null;
@@ -240,8 +238,8 @@ public class TerceroDAO {
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs != null) {
-                rs.next();  
-                tercero= new Tercero();
+                rs.next();
+                tercero = new Tercero();
                 tercero.setId_tercero(rs.getInt("ID_Tercero"));
                 tercero.setId_lv_tipoidentificacion(rs.getInt("ID_LV_TipoIdentificacion"));
                 tercero.setNumidentificacion(rs.getString("NumIdentificacion"));

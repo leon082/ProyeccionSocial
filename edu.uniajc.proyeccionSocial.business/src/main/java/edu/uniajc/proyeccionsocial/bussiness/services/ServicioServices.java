@@ -100,7 +100,7 @@ public class ServicioServices implements IServicio {
 
     @Override
     public ArrayList<Servicio> getAllServicioByProg(int idProg) {
-         try {
+        try {
 
             ArrayList<Servicio> list = dao.getAllServicioByProg(idProg);
 
@@ -115,8 +115,8 @@ public class ServicioServices implements IServicio {
     @Override
     public boolean isInProg(int idServicio) {
         try {
-           return dao.isInProg(idServicio);
-             
+            return dao.isInProg(idServicio);
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;

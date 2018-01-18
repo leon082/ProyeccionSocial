@@ -23,6 +23,6 @@ public interface IOferente {
     public ArrayList<Oferente> getAllOferente();
 
     public Oferente getOferenteById(int id);
-    
+
     public Oferente getOferenteByProyecto(int id);
 }

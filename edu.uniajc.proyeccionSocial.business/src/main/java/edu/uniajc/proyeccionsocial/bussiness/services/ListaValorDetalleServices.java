@@ -71,7 +71,7 @@ public class ListaValorDetalleServices implements IListaValorDetalle {
     }
 
     @Override
-    public ArrayList<ListaValorDetalle> getAllListaValorDetalle( int idValor) {
+    public ArrayList<ListaValorDetalle> getAllListaValorDetalle(int idValor) {
         try {
 
             ArrayList<ListaValorDetalle> list = dao.getAllListaValorDetalle(idValor);

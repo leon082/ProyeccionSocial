@@ -24,8 +24,8 @@
                     <p:growl id="grow" showDetail="true" life="5555"/> 
                     <h3 style="margin-top: 0">Servicios</h3>
 
-                  
-                    
+
+
                     <p:selectOneMenu  id="add_1" value="#{servEtapaBean.idServicio}" >  
                         <p:ajax listener="#{servEtapaBean.actionCombo()}" update=":forma:pickList" />
                         <f:selectItem itemLabel="Seleccione" itemValue="0" />  
@@ -35,7 +35,7 @@
                     <h3 style="margin-top: 0">Añadir Etapas</h3>
 
                     <p:pickList id="pickList" value="#{servEtapaBean.etapas}" var="etapa" itemLabel="#{etapa.descripcion}" itemValue="#{etapa.id_etapa}" >
-                                <f:facet name="sourceCaption">Etapas Disponibles</f:facet>
+                        <f:facet name="sourceCaption">Etapas Disponibles</f:facet>
                         <f:facet name="targetCaption">Etapas Vinculados</f:facet>
                     </p:pickList>
 

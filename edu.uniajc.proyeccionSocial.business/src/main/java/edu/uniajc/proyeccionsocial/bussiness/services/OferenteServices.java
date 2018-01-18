@@ -102,7 +102,7 @@ public class OferenteServices implements IOferente {
 
     @Override
     public Oferente getOferenteByProyecto(int id) {
-         try {
+        try {
 
             Oferente oferente = dao.getOferenteByProyecto(id);
 

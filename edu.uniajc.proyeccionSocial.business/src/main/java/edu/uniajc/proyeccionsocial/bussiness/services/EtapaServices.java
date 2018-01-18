@@ -102,9 +102,9 @@ public class EtapaServices implements IEtapa {
 
     @Override
     public boolean isInServ(int idEtapa) {
-       try {
-           return dao.isInServ(idEtapa);
-             
+        try {
+            return dao.isInServ(idEtapa);
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;
@@ -113,7 +113,7 @@ public class EtapaServices implements IEtapa {
 
     @Override
     public ArrayList<Etapa> getAllEtapaByServicio(int idServicio) {
-          try {
+        try {
 
             ArrayList<Etapa> list = dao.getAllEtapaByServicio(idServicio);
 

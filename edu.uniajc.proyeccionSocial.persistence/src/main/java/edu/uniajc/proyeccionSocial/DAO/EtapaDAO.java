@@ -25,8 +25,8 @@ public class EtapaDAO {
     private Connection DBConnection = null;
 
     public EtapaDAO() {
-  ConexionBD bd= new ConexionBD();
-  
+        ConexionBD bd = new ConexionBD();
+
         this.DBConnection = bd.conexion();
     }
 
@@ -56,8 +56,8 @@ public class EtapaDAO {
             ps.setInt(1, etapa.getId_etapa());
             ps.setString(2, etapa.getDescripcion());
             ps.setInt(3, etapa.getEstado());
-            ps.setString(4,etapa.getCreadopor());
-            ps.setDate(5,etapa.getCreadoen());
+            ps.setString(4, etapa.getCreadopor());
+            ps.setDate(5, etapa.getCreadoen());
 
             ps.execute();
 
@@ -103,10 +103,9 @@ public class EtapaDAO {
 
             ps.setString(1, etapa.getDescripcion());
             ps.setInt(2, etapa.getEstado());
-            ps.setString(3,etapa.getModificadopor());
-            ps.setDate(4,etapa.getModificadoen());
+            ps.setString(3, etapa.getModificadopor());
+            ps.setDate(4, etapa.getModificadoen());
             ps.setInt(5, etapa.getId_etapa());
-            
 
             ps.execute();
             ps.close();
@@ -180,12 +179,11 @@ public class EtapaDAO {
         }
 
     }
-    
+
     public boolean isInServ(int idEtapa) {
-      
-         boolean result = false;
+
+        boolean result = false;
         try {
-           
 
             PreparedStatement ps = null;
 
@@ -194,10 +192,9 @@ public class EtapaDAO {
                     + "where ps.ESTADO = 1 and s.id_etapa = " + idEtapa + " ";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
-            
-               
-               result=rs.next();
-         
+
+            result = rs.next();
+
             ps.close();
 
             return result;
@@ -208,9 +205,9 @@ public class EtapaDAO {
         }
 
     }
-    
+
     public ArrayList<Etapa> getAllEtapaByServicio(int idServicio) {
-       
+
         ArrayList<Etapa> list = new ArrayList<>(0);
         try {
 
@@ -243,7 +240,6 @@ public class EtapaDAO {
         }
 
     }
-    
 
     @PreDestroy
     public void finish() {

@@ -23,7 +23,7 @@ public interface ITercero {
     public ArrayList<Tercero> getAllTercero();
 
     public Tercero getTerceroById(int id);
-    
+
     public Tercero getTerceroByIdentificacion(int tipoDoc, String doc);
 
 }

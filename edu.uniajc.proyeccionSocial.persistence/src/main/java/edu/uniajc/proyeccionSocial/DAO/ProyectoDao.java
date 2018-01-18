@@ -220,8 +220,8 @@ public class ProyectoDao {
         }
 
     }
-    
-     public Proyecto getProyectoById(int id) {
+
+    public Proyecto getProyectoById(int id) {
 
         Proyecto proyecto = new Proyecto();
         try {

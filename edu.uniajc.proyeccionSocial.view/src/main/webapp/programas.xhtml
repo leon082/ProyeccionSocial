@@ -19,99 +19,99 @@
             <ui:define name="content">
 
 
-        <h:form id="forma">           
-            <p:growl id="grow" showDetail="true" life="5555"/> 
-            <p:tabView id="tab">
+                <h:form id="forma">           
+                    <p:growl id="grow" showDetail="true" life="5555"/> 
+                    <p:tabView id="tab">
 
 
-                <p:tab title="Gestion Programas"> <!-- Nombre  -->
-                    <h:panelGrid columns="4" cellpadding="5">
-                        <p:outputLabel for="add_1" value="Descripcion :" />
-                        <p:inputText   id="add_1" value="#{programaBean.programa.descripcion}" required="true" requiredMessage="Campo requerido"/>                       
-                    </h:panelGrid>
-                    <p:separator />
+                        <p:tab title="Gestion Programas"> <!-- Nombre  -->
+                            <h:panelGrid columns="4" cellpadding="5">
+                                <p:outputLabel for="add_1" value="Descripcion :" />
+                                <p:inputText   id="add_1" value="#{programaBean.programa.descripcion}" required="true" requiredMessage="Campo requerido"/>                       
+                            </h:panelGrid>
+                            <p:separator />
 
-                    <!-- Se actulizan los formularios  forma y forma2 para limpiar y mostrar cambios -->
-                    <p:commandButton 
-                        update=":forma:grow,:forma:tab:add_1,:forma2:listaPrograma"
-                        ajax="true" value="Crear" action="#{programaBean.crear}"
-                        />
-                </p:tab>
+                            <!-- Se actulizan los formularios  forma y forma2 para limpiar y mostrar cambios -->
+                            <p:commandButton 
+                                update=":forma:grow,:forma:tab:add_1,:forma2:listaPrograma"
+                                ajax="true" value="Crear" action="#{programaBean.crear}"
+                                />
+                        </p:tab>
 
-            </p:tabView>
+                    </p:tabView>
 
-        </h:form>
+                </h:form>
 
-        <h:form id="forma2">
+                <h:form id="forma2">
 
-            <p:dataTable id="listaPrograma" value="#{programaBean.listaPrograma}"
-                         var="programa" 
-                         paginator="true" 
-                         rows="20" 
-                         editable="true"
-                         paginatorPosition="bottom"
-                         >
+                    <p:dataTable id="listaPrograma" value="#{programaBean.listaPrograma}"
+                                 var="programa" 
+                                 paginator="true" 
+                                 rows="20" 
+                                 editable="true"
+                                 paginatorPosition="bottom"
+                                 >
 
-                <p:ajax event="rowEdit" listener="#{programaBean.modificar}" update=":forma:grow" />
+                        <p:ajax event="rowEdit" listener="#{programaBean.modificar}" update=":forma:grow" />
 
-                <p:column headerText="Codigo Programa">
-                    <p:outputLabel value="#{programa.id_programa}"></p:outputLabel>
+                        <p:column headerText="Codigo Programa">
+                            <p:outputLabel value="#{programa.id_programa}"></p:outputLabel>
 
-                </p:column>
+                        </p:column>
 
-                <p:column  headerText="Descripciones ">
-                    <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{programa.descripcion}" /></f:facet>
-                        <f:facet name="input">
-                            <p:inputText id="modeldescripcion" value="#{programa.descripcion}" required="true" requiredMessage="Campo requerido" />
-                        </f:facet>
-                    </p:cellEditor>
-                </p:column>
+                        <p:column  headerText="Descripciones ">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{programa.descripcion}" /></f:facet>
+                                <f:facet name="input">
+                                    <p:inputText id="modeldescripcion" value="#{programa.descripcion}" required="true" requiredMessage="Campo requerido" />
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
 
-                <p:column headerText="Creado Por">
-                    <p:outputLabel value="#{programa.creadopor}"></p:outputLabel>
+                        <p:column headerText="Creado Por">
+                            <p:outputLabel value="#{programa.creadopor}"></p:outputLabel>
 
-                </p:column>
+                        </p:column>
 
-                <p:column headerText="Creado En">
-                    <p:outputLabel value="#{programa.creadoen}"></p:outputLabel>
+                        <p:column headerText="Creado En">
+                            <p:outputLabel value="#{programa.creadoen}"></p:outputLabel>
 
-                </p:column>
+                        </p:column>
 
-                <p:column headerText="Modificado Por">
-                    <p:outputLabel value="#{programa.modificadopor}"></p:outputLabel>
+                        <p:column headerText="Modificado Por">
+                            <p:outputLabel value="#{programa.modificadopor}"></p:outputLabel>
 
-                </p:column>
+                        </p:column>
 
-                <p:column headerText="Modificado En">
-                    <p:outputLabel value="#{programa.modificadoen}"></p:outputLabel>
+                        <p:column headerText="Modificado En">
+                            <p:outputLabel value="#{programa.modificadoen}"></p:outputLabel>
 
-                </p:column>               
-
-
-
-
-                <!-- Editar -->
-                <p:column style="width:30px">
-                    <p:rowEditor />
-                </p:column>
-                <!-- Borrar -->
-                <p:column headerText="" style="width:30px" >
-                    <p:commandButton 
-                        update=":forma:grow,:forma2:listaPrograma"
-                        ajax="true" icon="ui-icon-trash"
-                        action="#{programaBean.eliminar(programa.id_programa)}" />
-                </p:column> 
+                        </p:column>               
 
 
 
-            </p:dataTable>
 
-        </h:form>
-                 </ui:define>
+                        <!-- Editar -->
+                        <p:column style="width:30px">
+                            <p:rowEditor />
+                        </p:column>
+                        <!-- Borrar -->
+                        <p:column headerText="" style="width:30px" >
+                            <p:commandButton 
+                                update=":forma:grow,:forma2:listaPrograma"
+                                ajax="true" icon="ui-icon-trash"
+                                action="#{programaBean.eliminar(programa.id_programa)}" />
+                        </p:column> 
+
+
+
+                    </p:dataTable>
+
+                </h:form>
+            </ui:define>
 
         </ui:composition>
 
-       
+
     </body>
 </html>

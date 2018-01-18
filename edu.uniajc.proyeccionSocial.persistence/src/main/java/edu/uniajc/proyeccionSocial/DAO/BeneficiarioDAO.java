@@ -25,7 +25,7 @@ public class BeneficiarioDAO {
     private Connection DBConnection = null;
 
     public BeneficiarioDAO() {
-  ConexionBD bd= new ConexionBD();
+        ConexionBD bd = new ConexionBD();
         this.DBConnection = bd.conexion();
     }
 
@@ -158,14 +158,14 @@ public class BeneficiarioDAO {
         }
 
     }
-    
-    public ArrayList<Beneficiario> getAllBeneficiarioByProyect(int idProyect ) {
+
+    public ArrayList<Beneficiario> getAllBeneficiarioByProyect(int idProyect) {
         ArrayList<Beneficiario> list = new ArrayList<>(0);
         try {
 
             PreparedStatement ps = null;
 
-            final String SQL = "SELECT * from TB_Beneficiario where estado = 1 and id_proyecto = "+idProyect+" ";
+            final String SQL = "SELECT * from TB_Beneficiario where estado = 1 and id_proyecto = " + idProyect + " ";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

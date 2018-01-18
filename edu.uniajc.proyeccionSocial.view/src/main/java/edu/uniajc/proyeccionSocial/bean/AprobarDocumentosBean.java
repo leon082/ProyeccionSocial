@@ -35,15 +35,10 @@ import edu.uniajc.proyeccionsocial.interfaces.IServicio;
 import edu.uniajc.proyeccionsocial.interfaces.ISoporteProyectoEtapa;
 import edu.uniajc.proyeccionsocial.interfaces.ITercero;
 import edu.uniajc.proyeccionsocial.interfaces.IUsuario;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -53,9 +48,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
-import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.StreamedContent;
 
 /**
  *
@@ -101,22 +94,20 @@ public class AprobarDocumentosBean {
     private IOferente oferenteServices;
 
     //Soporte
-    
     private ISoporteProyectoEtapa servicioSoporte;
     private String rutaArchivo;
     private DefaultStreamedContent download;
     private IProyectoEtapa servicioProyectoEtapa;
-    
+
     private String idSoporte;
-    SoporteProyectoEtapa  soporte ;
-       ProyectoEtapa proyectoEtapa;
-    
+    SoporteProyectoEtapa soporte;
+    ProyectoEtapa proyectoEtapa;
 
     @PostConstruct
     public void init() {
         servicioProyectoEtapa = new ProyectoEtapaServices();
         //Soporte
-        
+
         servicioSoporte = new SoporteProyectoEtapaServices();
         //Proyecto create
 
@@ -145,8 +136,8 @@ public class AprobarDocumentosBean {
         beneficiarioServices = new BeneficiarioServices();
 
         proyecto = new Proyecto();
-        
-        rutaArchivo="";
+
+        rutaArchivo = "";
     }
 
     public void llenarBeneficiarios() {
@@ -157,17 +148,17 @@ public class AprobarDocumentosBean {
             beneficiarios.add(terceroServices.getTerceroById(beneficiario.getId_tercero()));
         }
     }
-    
-    public void buscar(){
-         soporte = servicioSoporte.getSoporteProyectoEtapaById(Integer.valueOf(idSoporte));
+
+    public void buscar() {
+        soporte = servicioSoporte.getSoporteProyectoEtapaById(Integer.valueOf(idSoporte));
         proyectoEtapa = servicioProyectoEtapa.getProyectoEtapaById(soporte.getId_proyectoetapa());
-       proyecto = servicioProyecto.getProyectoById(proyectoEtapa.getId_proyecto());
+        proyecto = servicioProyecto.getProyectoById(proyectoEtapa.getId_proyecto());
         setProgramaByProyecto();
         servByProg();
         setOferenteByProyecto();
         llenarEtapas(proyectoEtapa);
         llenarBeneficiarios();
-        
+
     }
 
     public void setProgramaByProyecto() {
@@ -191,66 +182,63 @@ public class AprobarDocumentosBean {
             idServicio = 0;
         }
     }
-    
-    public void aprobarEntrega(){
-         proyectoEtapa.setEstado(1);
+
+    public void aprobarEntrega() {
+        proyectoEtapa.setEstado(1);
         servicioProyectoEtapa.updateProyectoEtapa(proyectoEtapa);
         correos = new ArrayList<>();
         correos.add(usuarioServices.getEmailByUsername(usuario.getUsuario()));
         emisor = Utilidades.findEmailEmisor();
-        if (Utilidades.envioCorreo(correos, emisor, usuario, proyecto, 4, "Entrega Aprobada",0)) {
+        if (Utilidades.envioCorreo(correos, emisor, usuario, proyecto, 4, "Entrega Aprobada", 0)) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Operacion realizado con exito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
         buscar();
-        
+
     }
-    
-    public void rechazarEntrega(){
+
+    public void rechazarEntrega() {
         //3 rechazado
-          proyectoEtapa.setEstado(3);
+        proyectoEtapa.setEstado(3);
         servicioProyectoEtapa.updateProyectoEtapa(proyectoEtapa);
         correos = new ArrayList<>();
         correos.add(usuarioServices.getEmailByUsername(usuario.getUsuario()));
         emisor = Utilidades.findEmailEmisor();
-        if (Utilidades.envioCorreo(correos, emisor, usuario, proyecto, 5, "Entrega Rechazada",0)) {
+        if (Utilidades.envioCorreo(correos, emisor, usuario, proyecto, 5, "Entrega Rechazada", 0)) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Operacion realizado con exito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
         buscar();
-        
+
     }
 
     public void llenarEtapas(ProyectoEtapa obj) {
         etapas = new ArrayList<>();
         //Llenar tabla de etapas con la etapa q se debe aprobar
-            EtapasEntregas e = new EtapasEntregas();
-            Etapa etapa = servicioEtapa.getEtapaById(obj.getId_etapa());
-            e.setNombreEtapa(etapa.getDescripcion());
-            e.setIdProyectoEtapa(obj.getId_proyectoetapa());
-            if (obj.getEstado() == 1) {
-                e.setEstado("Aprobado");
-                e.setFlag(true);
-                
-            } 
-            if(obj.getEstado() == 0) {
-                e.setEstado("Faltante");
-                e.setFlag(true);
-            }
-            if(obj.getEstado() == 3){
-                e.setEstado("Rechazado");
-                e.setFlag(true);
-            }
-            if(obj.getEstado() == 2){
-                e.setEstado("Pendiente Aprobacion");
-                e.setFlag(false);
-            }
-            
-            
-            etapas.add(e);
+        EtapasEntregas e = new EtapasEntregas();
+        Etapa etapa = servicioEtapa.getEtapaById(obj.getId_etapa());
+        e.setNombreEtapa(etapa.getDescripcion());
+        e.setIdProyectoEtapa(obj.getId_proyectoetapa());
+        if (obj.getEstado() == 1) {
+            e.setEstado("Aprobado");
+            e.setFlag(true);
+
+        }
+        if (obj.getEstado() == 0) {
+            e.setEstado("Faltante");
+            e.setFlag(true);
+        }
+        if (obj.getEstado() == 3) {
+            e.setEstado("Rechazado");
+            e.setFlag(true);
+        }
+        if (obj.getEstado() == 2) {
+            e.setEstado("Pendiente Aprobacion");
+            e.setFlag(false);
         }
 
-    
+        etapas.add(e);
+    }
 
     public class EtapasEntregas {
 
@@ -262,7 +250,7 @@ public class AprobarDocumentosBean {
         public String getNombreEtapa() {
             return nombreEtapa;
         }
-        
+
         public void setNombreEtapa(String nombreEtapa) {
             this.nombreEtapa = nombreEtapa;
         }
@@ -274,8 +262,6 @@ public class AprobarDocumentosBean {
         public void setEstado(String estado) {
             this.estado = estado;
         }
-
-      
 
         public int getIdProyectoEtapa() {
             return idProyectoEtapa;
@@ -292,46 +278,34 @@ public class AprobarDocumentosBean {
         public void setFlag(boolean flag) {
             this.flag = flag;
         }
-        
-        
 
     }
 
-  
     public void setDownload(DefaultStreamedContent download) {
-    this.download = download;
-}
+        this.download = download;
+    }
 
-public DefaultStreamedContent getDownload() throws Exception {
-    return download;
-}
-    public  void prepDownload() throws FileNotFoundException { 
+    public DefaultStreamedContent getDownload() throws Exception {
+        return download;
+    }
+
+    public void prepDownload() throws FileNotFoundException {
         String ruta = Utilidades.leerArchivo("ruta");
         String retorno = ruta + soporte.getArchivo();
         File file = new File(retorno);
-  InputStream input = new FileInputStream(file);
-  ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-  setDownload(new DefaultStreamedContent(input, externalContext.getMimeType(file.getName()), file.getName()));
+        InputStream input = new FileInputStream(file);
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        setDownload(new DefaultStreamedContent(input, externalContext.getMimeType(file.getName()), file.getName()));
     }
 
-    
-    
-     public void envioCorreo() {
+    public void envioCorreo() {
         //Lista de correos para notificacion
         correos = Utilidades.findSendEmail();
         //Cuenta emisora
         emisor = Utilidades.findEmailEmisor();
-        Utilidades.envioCorreo(correos, emisor, usuario, proyecto, 3, "Entrega de Etapa Proyecto",0);
+        Utilidades.envioCorreo(correos, emisor, usuario, proyecto, 3, "Entrega de Etapa Proyecto", 0);
 
     }
-     
-    
-        
-        
-    
-  
-
-    
 
     public Proyecto getProyecto() {
         return proyecto;
@@ -493,7 +467,6 @@ public DefaultStreamedContent getDownload() throws Exception {
         this.etapas = etapas;
     }
 
-  
     public ISoporteProyectoEtapa getServicioSoporte() {
         return servicioSoporte;
     }
@@ -526,10 +499,6 @@ public DefaultStreamedContent getDownload() throws Exception {
         this.idSoporte = idSoporte;
     }
 
-    
-
-    
-
     public SoporteProyectoEtapa getSoporte() {
         return soporte;
     }
@@ -545,9 +514,5 @@ public DefaultStreamedContent getDownload() throws Exception {
     public void setProyectoEtapa(ProyectoEtapa proyectoEtapa) {
         this.proyectoEtapa = proyectoEtapa;
     }
-
-    
-    
-    
 
 }

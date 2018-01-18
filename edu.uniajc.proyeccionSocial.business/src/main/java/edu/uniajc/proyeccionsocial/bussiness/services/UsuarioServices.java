@@ -32,7 +32,7 @@ public class UsuarioServices implements IUsuario {
             if (user != null) {
                 user.setUsuario(user.getUsuario().toLowerCase());
                 int flag = dao.createUsuario(user);
- 
+
                 return flag;
             } else {
                 System.out.println("Faltan Datos en pantalla");
@@ -103,8 +103,8 @@ public class UsuarioServices implements IUsuario {
 
     @Override
     public Usuario getUsuarioLogin(String user, String password) {
-       try {
-           
+        try {
+
             Usuario usuario = dao.getUsuarioLogin(user.toLowerCase(), password);
 
             return usuario;
@@ -117,8 +117,8 @@ public class UsuarioServices implements IUsuario {
 
     @Override
     public Usuario getUserByUsername(String user) {
-         try {
-           
+        try {
+
             Usuario usuario = dao.getUserByUsername(user.toLowerCase());
 
             return usuario;
@@ -132,7 +132,7 @@ public class UsuarioServices implements IUsuario {
     @Override
     public String getEmailByUsername(String user) {
         try {
-           
+
             String correo = dao.getEmailByUsername(user.toLowerCase());
 
             return correo;

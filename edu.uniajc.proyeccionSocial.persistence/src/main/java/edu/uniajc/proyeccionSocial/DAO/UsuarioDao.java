@@ -249,9 +249,8 @@ public class UsuarioDao {
             ResultSet rs = ps.executeQuery();
             if (rs != null) {
                 rs.next();
-                
-                correo=rs.getString("correo");
-               
+
+                correo = rs.getString("correo");
 
             }
             ps.close();

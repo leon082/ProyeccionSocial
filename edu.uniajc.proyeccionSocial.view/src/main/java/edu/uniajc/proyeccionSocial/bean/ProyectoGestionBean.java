@@ -35,9 +35,7 @@ import edu.uniajc.proyeccionsocial.interfaces.IServicio;
 import edu.uniajc.proyeccionsocial.interfaces.ISoporteProyectoEtapa;
 import edu.uniajc.proyeccionsocial.interfaces.ITercero;
 import edu.uniajc.proyeccionsocial.interfaces.IUsuario;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -136,7 +134,7 @@ public class ProyectoGestionBean {
 
         proyecto = new Proyecto();
         cargarProyectoByUsuario();
-        rutaArchivo="";
+        rutaArchivo = "";
     }
 
     public void llenarBeneficiarios() {
@@ -183,22 +181,21 @@ public class ProyectoGestionBean {
             if (obj.getEstado() == 1) {
                 e.setEstado("Aprobado");
                 e.setFlag(true);
-                
-            } 
-            if(obj.getEstado() == 0) {
+
+            }
+            if (obj.getEstado() == 0) {
                 e.setEstado("Faltante");
                 e.setFlag(false);
             }
-            if(obj.getEstado() == 3){
+            if (obj.getEstado() == 3) {
                 e.setEstado("Rechazado");
                 e.setFlag(false);
             }
-            if(obj.getEstado() == 2){
+            if (obj.getEstado() == 2) {
                 e.setEstado("Pendiente Aprobacion");
                 e.setFlag(true);
             }
-            
-            
+
             etapas.add(e);
         }
 
@@ -214,7 +211,7 @@ public class ProyectoGestionBean {
         public String getNombreEtapa() {
             return nombreEtapa;
         }
-        
+
         public void setNombreEtapa(String nombreEtapa) {
             this.nombreEtapa = nombreEtapa;
         }
@@ -226,8 +223,6 @@ public class ProyectoGestionBean {
         public void setEstado(String estado) {
             this.estado = estado;
         }
-
-      
 
         public int getIdProyectoEtapa() {
             return idProyectoEtapa;
@@ -244,12 +239,8 @@ public class ProyectoGestionBean {
         public void setFlag(boolean flag) {
             this.flag = flag;
         }
-        
-        
 
     }
-
-  
 
     public void cargarProyectoByUsuario() {
 
@@ -289,80 +280,48 @@ public class ProyectoGestionBean {
         is.close();
         out.close();
         rutaArchivo = name;
-        if(!"".equals(rutaArchivo)){
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Archivo subido, no olvide guardar.");
+        if (!"".equals(rutaArchivo)) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Archivo subido, no olvide guardar.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            }
+        }
 
     }
-    
-     public void envioCorreo(int idEtapa) {
+
+    public void envioCorreo(int idEtapa) {
         //Lista de correos para notificacion
         correos = Utilidades.findSendEmail();
         //Cuenta emisora
         emisor = Utilidades.findEmailEmisor();
-        Utilidades.envioCorreo(correos, emisor, usuario, proyecto, 3, "Entrega de Etapa Proyecto",idEtapa);
+        Utilidades.envioCorreo(correos, emisor, usuario, proyecto, 3, "Entrega de Etapa Proyecto", idEtapa);
 
     }
-     
-    public void actionBoton(EtapasEntregas etapaEntrega){
-            if(!"".equals(rutaArchivo)){
-               int result= guardarSoporte(etapaEntrega.getIdProyectoEtapa());
-               envioCorreo(result);
-               System.out.println("ProyectoEtapa "+etapaEntrega.getIdProyectoEtapa());
-                ProyectoEtapa proyectoE = servicioProyectoEtapa.getProyectoEtapaById(etapaEntrega.getIdProyectoEtapa());
-                proyectoE.setEstado(2);
-                servicioProyectoEtapa.updateProyectoEtapa(proyectoE);
-                
-                llenarEtapasByProyecto();
-                rutaArchivo="";
-            }
+
+    public void actionBoton(EtapasEntregas etapaEntrega) {
+        if (!"".equals(rutaArchivo)) {
+            int result = guardarSoporte(etapaEntrega.getIdProyectoEtapa());
+            envioCorreo(result);
+            System.out.println("ProyectoEtapa " + etapaEntrega.getIdProyectoEtapa());
+            ProyectoEtapa proyectoE = servicioProyectoEtapa.getProyectoEtapaById(etapaEntrega.getIdProyectoEtapa());
+            proyectoE.setEstado(2);
+            servicioProyectoEtapa.updateProyectoEtapa(proyectoE);
+
+            llenarEtapasByProyecto();
+            rutaArchivo = "";
+        }
     }
-        
-        
-    
+
     public int guardarSoporte(int idProyectoEtapa) {
         soporte.setArchivo(rutaArchivo);
         soporte.setCreadopor(usuario.getUsuario());
         soporte.setId_proyectoetapa(idProyectoEtapa);
-        int result=servicioSoporte.createSoporteProyectoEtapa(soporte);
-        if(result!=0){
-            
+        int result = servicioSoporte.createSoporteProyectoEtapa(soporte);
+        if (result != 0) {
+
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Entrega Realizada.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
         return result;
     }
-
-    /*public byte[] read(File file) throws IOException {
-
-        ByteArrayOutputStream ous = null;
-        InputStream ios = null;
-        try {
-            byte[] buffer = new byte[4096];
-            ous = new ByteArrayOutputStream();
-            ios = new FileInputStream(file);
-            int read = 0;
-            while ((read = ios.read(buffer)) != -1) {
-                ous.write(buffer, 0, read);
-            }
-        } finally {
-            try {
-                if (ous != null) {
-                    ous.close();
-                }
-            } catch (IOException e) {
-            }
-
-            try {
-                if (ios != null) {
-                    ios.close();
-                }
-            } catch (IOException e) {
-            }
-        }
-        return ous.toByteArray();
-    }*/
 
     public Proyecto getProyecto() {
         return proyecto;

@@ -18,86 +18,86 @@
     <h:body>
         <ui:composition template="Home.xhtml">
             <ui:define name="content">
-        <p:growl id="mensajes" showDetail="true" life="2000" />
-        
-                    <h:form>
-                        
-                        <h:panelGrid columns="2">
-                            
-                            <p:panel  >
+                <p:growl id="mensajes" showDetail="true" life="2000" />
 
-                                <p:tab title ="Datos Persona">
-                                    <h:panelGrid columns="2" >
+                <h:form>
 
-                                        <h:panelGrid columns="1">
-                                            <p:outputLabel for="add_1" value="Tipo de Documento :" />
-                                            <p:selectOneMenu  id="add_1" value="#{terceroBean.docuSelected}" required="true" requiredMessage="Campo requerido" >  
-                                                <f:selectItem itemLabel="Seleccione" itemValue="" />  
-                                                <f:selectItems value="#{terceroBean.itemsDocumentos}"/>  
-                                            </p:selectOneMenu> 
-                                        </h:panelGrid>
+                    <h:panelGrid columns="2">
 
+                        <p:panel  >
 
+                            <p:tab title ="Datos Persona">
+                                <h:panelGrid columns="2" >
 
-                                        <h:panelGrid columns="1">
-                                            <p:outputLabel for="doc" value="Documento:" />
-                                            <p:inputMask id="doc" value="#{terceroBean.tercero.numidentificacion}" mask="9999999999" required="true" requiredMessage="Campo requerido"/>
-                                        </h:panelGrid>
-
-                                        <h:panelGrid columns="1">
-                                            <p:outputLabel for="pNombre" value="Primer Nombre:" />
-                                            <p:inputText id="pNombre" value="#{terceroBean.tercero.primernombre}" required="true" requiredMessage="Campo requerido"/>
-                                        </h:panelGrid>
-
-                                        <h:panelGrid columns="1">
-                                            <p:outputLabel for="sNombre" value="Segundo Nombre:" />
-                                            <p:inputText id="sNombre" value="#{terceroBean.tercero.segundonombre}"  />
-                                        </h:panelGrid>
-
-                                        <h:panelGrid columns="1">
-                                            <p:outputLabel for="pApellido" value="Primer Apellido:" />
-                                            <p:inputText id="pApellido" value="#{terceroBean.tercero.primerapellido}" required="true" requiredMessage="Campo requerido"/>
-                                        </h:panelGrid>
-
-                                        <h:panelGrid columns="1">
-                                            <p:outputLabel for="sApellido" value="Segundo Apellido:" />
-                                            <p:inputText id="sApellido" value="#{terceroBean.tercero.segundoapellido}" />
-                                        </h:panelGrid>
-
-                                        <h:panelGrid columns="1">
-                                            <p:outputLabel for="fechaNacimiento" value="Fecha Nacimiento:" />
-                                            <p:calendar id="fechaNacimiento" value="#{terceroBean.fecha}" showOn="button" required="true" requiredMessage="Campo requerido" />
-                                        </h:panelGrid>
-
-                                        <h:panelGrid columns="1">
-                                            <p:outputLabel for="phoneFijo" value="Telefono:" />
-                                            <p:inputMask id="phoneFijo" value="#{terceroBean.tercero.telefonofijo}" mask="9999999" />
-                                        </h:panelGrid>
-
-
-                                        <h:panelGrid columns="1">
-                                            <p:outputLabel for="phoneCel" value="Telefono Celular" />
-                                            <p:inputMask id="phoneCel" value="#{terceroBean.tercero.telefonocelular}" mask="(999) 999-9999"/>
-                                        </h:panelGrid>
-
-                                        <h:panelGrid columns="1">
-                                            <p:outputLabel for="correo" value="Correo Electronico:" />
-                                            <p:inputText id="correo" value="#{terceroBean.tercero.correo}" required="true" requiredMessage="Campo requerido"/>
-                                        </h:panelGrid>
-                                          
-                                        
-
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel for="add_1" value="Tipo de Documento :" />
+                                        <p:selectOneMenu  id="add_1" value="#{terceroBean.docuSelected}" required="true" requiredMessage="Campo requerido" >  
+                                            <f:selectItem itemLabel="Seleccione" itemValue="" />  
+                                            <f:selectItems value="#{terceroBean.itemsDocumentos}"/>  
+                                        </p:selectOneMenu> 
                                     </h:panelGrid>
-                                    <p:separator />
 
-                                    <p:commandButton 
-                                        value="Crear" action="#{terceroBean.actionButon()}" update=":mensajes"/>
-                                </p:tab>
-                            </p:panel>
-                        </h:panelGrid>
 
-                    </h:form>
-                
+
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel for="doc" value="Documento:" />
+                                        <p:inputMask id="doc" value="#{terceroBean.tercero.numidentificacion}" mask="9999999999" required="true" requiredMessage="Campo requerido"/>
+                                    </h:panelGrid>
+
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel for="pNombre" value="Primer Nombre:" />
+                                        <p:inputText id="pNombre" value="#{terceroBean.tercero.primernombre}" required="true" requiredMessage="Campo requerido"/>
+                                    </h:panelGrid>
+
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel for="sNombre" value="Segundo Nombre:" />
+                                        <p:inputText id="sNombre" value="#{terceroBean.tercero.segundonombre}"  />
+                                    </h:panelGrid>
+
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel for="pApellido" value="Primer Apellido:" />
+                                        <p:inputText id="pApellido" value="#{terceroBean.tercero.primerapellido}" required="true" requiredMessage="Campo requerido"/>
+                                    </h:panelGrid>
+
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel for="sApellido" value="Segundo Apellido:" />
+                                        <p:inputText id="sApellido" value="#{terceroBean.tercero.segundoapellido}" />
+                                    </h:panelGrid>
+
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel for="fechaNacimiento" value="Fecha Nacimiento:" />
+                                        <p:calendar id="fechaNacimiento" value="#{terceroBean.fecha}" showOn="button" required="true" requiredMessage="Campo requerido" />
+                                    </h:panelGrid>
+
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel for="phoneFijo" value="Telefono:" />
+                                        <p:inputMask id="phoneFijo" value="#{terceroBean.tercero.telefonofijo}" mask="9999999" />
+                                    </h:panelGrid>
+
+
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel for="phoneCel" value="Telefono Celular" />
+                                        <p:inputMask id="phoneCel" value="#{terceroBean.tercero.telefonocelular}" mask="(999) 999-9999"/>
+                                    </h:panelGrid>
+
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel for="correo" value="Correo Electronico:" />
+                                        <p:inputText id="correo" value="#{terceroBean.tercero.correo}" required="true" requiredMessage="Campo requerido"/>
+                                    </h:panelGrid>
+
+
+
+                                </h:panelGrid>
+                                <p:separator />
+
+                                <p:commandButton 
+                                    value="Crear" action="#{terceroBean.actionButon()}" update=":mensajes"/>
+                            </p:tab>
+                        </p:panel>
+                    </h:panelGrid>
+
+                </h:form>
+
             </ui:define>
 
         </ui:composition>

@@ -162,7 +162,7 @@ public class ProyectosAprobarBean {
         correos = new ArrayList<>();
         correos.add(usuarioServices.getEmailByUsername(usuario.getUsuario()));
         emisor = Utilidades.findEmailEmisor();
-        if (Utilidades.envioCorreo(correos, emisor, usuario, proyecto, 1, "Proyecto Aprobado",0)) {
+        if (Utilidades.envioCorreo(correos, emisor, usuario, proyecto, 1, "Proyecto Aprobado", 0)) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Operacion realizado con exito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
@@ -176,7 +176,7 @@ public class ProyectosAprobarBean {
         correos = new ArrayList<>();
         correos.add(usuarioServices.getEmailByUsername(usuario.getUsuario()));
         emisor = Utilidades.findEmailEmisor();
-        if (Utilidades.envioCorreo(correos, emisor, usuario, proyecto, 2, "Proyecto Rechazado",0)) {
+        if (Utilidades.envioCorreo(correos, emisor, usuario, proyecto, 2, "Proyecto Rechazado", 0)) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Operacion realizado con exito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }

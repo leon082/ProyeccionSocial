@@ -25,15 +25,15 @@ public class RolDao {
     private Connection DBConnection = null;
 
     public RolDao() {
-  ConexionBD bd= new ConexionBD();
-  
+        ConexionBD bd = new ConexionBD();
+
         this.DBConnection = bd.conexion();
     }
 
     public int createRol(Rol rol) {
         try {
-            
-             java.util.Date fecha = new java.util.Date();
+
+            java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
             rol.setCreadoen(fechaSQL);
             rol.setEstado(1);

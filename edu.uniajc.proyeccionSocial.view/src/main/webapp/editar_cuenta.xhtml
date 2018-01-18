@@ -16,18 +16,18 @@
     </h:head>
 
     <h:body>
-       
-       <ui:composition template="Home.xhtml">
+
+        <ui:composition template="Home.xhtml">
             <ui:define name="content">
-                 <p:growl id="mensajes" showDetail="true" life="2000" />
-                  <h:form>
-                 <p:tabView id="tab">
-                 <p:tab title="Gestion Usuario">
-                   
-                       
-                        <h:panelGrid columns="2">
-                           
-                        
+                <p:growl id="mensajes" showDetail="true" life="2000" />
+                <h:form>
+                    <p:tabView id="tab">
+                        <p:tab title="Gestion Usuario">
+
+
+                            <h:panelGrid columns="2">
+
+
 
                                 <p:tab title ="Datos Usuario">
                                     <h:panelGrid columns="2" >
@@ -87,17 +87,17 @@
                                             <p:outputLabel for="correo" value="Correo Electronico:" />
                                             <p:inputText id="correo" value="#{editarCuentaBean.tercero.correo}" required="true" requiredMessage="Campo requerido"/>
                                         </h:panelGrid>
-                                          
+
                                         <h:panelGrid columns="1">
                                             <p:outputLabel  value="Usuario:" />
                                             <p:inputText value="#{editarCuentaBean.usuario.usuario}" required="true" requiredMessage="Campo requerido" disabled="true"/>
-                                            
+
                                         </h:panelGrid>
-                                         
+
                                         <h:panelGrid columns="1">
                                             <p:outputLabel  value="Contraseña:" />
                                             <p:password value="#{editarCuentaBean.contra}" required="true" requiredMessage="Campo requerido"/>
-                                            
+
                                         </h:panelGrid>
 
                                     </h:panelGrid>
@@ -105,16 +105,16 @@
 
                                     <p:commandButton 
                                         value="Registrar" action="#{editarCuentaBean.actionButon()}" update=":mensajes"/>
-                                
-                           </p:tab>
-                        </h:panelGrid>
-                    
-                             
-                            </p:tab>
-                                </p:tabView>
 
-                    </h:form>
-                     
+                                </p:tab>
+                            </h:panelGrid>
+
+
+                        </p:tab>
+                    </p:tabView>
+
+                </h:form>
+
             </ui:define>
 
         </ui:composition>

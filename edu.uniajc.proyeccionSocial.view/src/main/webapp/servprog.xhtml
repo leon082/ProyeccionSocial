@@ -24,8 +24,8 @@
                     <p:growl id="grow" showDetail="true" life="5555"/> 
                     <h3 style="margin-top: 0">Programas</h3>
 
-                  
-                    
+
+
                     <p:selectOneMenu  id="add_1" value="#{progServBean.idPrograma}" >  
                         <p:ajax listener="#{progServBean.actionCombo()}" update=":forma:pickList" />
                         <f:selectItem itemLabel="Seleccione" itemValue="0" />  
@@ -35,7 +35,7 @@
                     <h3 style="margin-top: 0">Añadir Servicios</h3>
 
                     <p:pickList id="pickList" value="#{progServBean.servicios}" var="servicio" itemLabel="#{servicio.descripcion}" itemValue="#{servicio.id_servicio}" >
-                                <f:facet name="sourceCaption">Servicios Disponibles</f:facet>
+                        <f:facet name="sourceCaption">Servicios Disponibles</f:facet>
                         <f:facet name="targetCaption">Servicios Vinculados</f:facet>
                     </p:pickList>
 

@@ -21,14 +21,14 @@ import javax.annotation.PreDestroy;
  * @author rlara
  */
 public class ListaValorDetalleDAO {
-    
+
     private Connection DBConnection = null;
 
     public ListaValorDetalleDAO() {
-          ConexionBD bd= new ConexionBD();
+        ConexionBD bd = new ConexionBD();
         this.DBConnection = bd.conexion();
     }
-    
+
     public int createListaValorDetalle(ListaValorDetalle listaValorDetalle) {
         try {
             java.util.Date fecha = new java.util.Date();
@@ -51,7 +51,7 @@ public class ListaValorDetalleDAO {
                     + "(ID_ListaValorDetalle, ID_ListaValor, Valor, Estado, "
                     + "CreadoPor, CreadoEn) values(?,?,?,?,?,?) ";
             ps = this.DBConnection.prepareStatement(SQL);
-            
+
             ps.setInt(1, listaValorDetalle.getId_listavalordetalle());
             ps.setInt(2, listaValorDetalle.getId_listavalor());
             ps.setString(3, listaValorDetalle.getValor());
@@ -103,7 +103,7 @@ public class ListaValorDetalleDAO {
                     + "ID_ListaValor=?, Valor=?, Estado=?, "
                     + "ModificadoPor=?, ModificadoEn=? where ID_ListaValorDetalle = ?";
             ps = this.DBConnection.prepareStatement(SQL);
-            
+
             ps.setInt(1, listaValorDetalle.getId_listavalor());
             ps.setString(2, listaValorDetalle.getValor());
             ps.setInt(3, listaValorDetalle.getEstado());
@@ -112,7 +112,7 @@ public class ListaValorDetalleDAO {
             ps.setInt(6, listaValorDetalle.getId_listavalordetalle());
             ps.execute();
             ps.close();
-            
+
             return true;
 
         } catch (SQLException e) {

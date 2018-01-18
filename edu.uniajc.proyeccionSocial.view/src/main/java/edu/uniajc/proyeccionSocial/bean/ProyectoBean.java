@@ -83,15 +83,14 @@ public class ProyectoBean {
     private List<SelectItem> itemsOferente;
     private int idOferente;
     private IOferente oferenteServices;
-    
-    
+
     private IProyectoEtapa servicioProyectoEtapa;
 
     @PostConstruct
     public void init() {
         //Proyecto etapa
-          
-     servicioProyectoEtapa = new ProyectoEtapaServices();
+
+        servicioProyectoEtapa = new ProyectoEtapaServices();
         //Proyecto create
         proyecto = new Proyecto();
         servicioProyecto = new ProyectoServices();
@@ -179,17 +178,19 @@ public class ProyectoBean {
         }
 
     }
-public void  guardarProyectoEtapa (int idProyecto){
-    List<Etapa> list = servicioEtapa.getAllEtapaByServicio(idServicio);
-    for(Etapa e : list){
-        ProyectoEtapa proyectoEtapa = new ProyectoEtapa();
-        proyectoEtapa.setCreadopor(usuario.getUsuario());
-        proyectoEtapa.setEstado(0);
-        proyectoEtapa.setId_etapa(e.getId_etapa());
-        proyectoEtapa.setId_proyecto(idProyecto);
-        servicioProyectoEtapa.createProyectoEtapa(proyectoEtapa);
+
+    public void guardarProyectoEtapa(int idProyecto) {
+        List<Etapa> list = servicioEtapa.getAllEtapaByServicio(idServicio);
+        for (Etapa e : list) {
+            ProyectoEtapa proyectoEtapa = new ProyectoEtapa();
+            proyectoEtapa.setCreadopor(usuario.getUsuario());
+            proyectoEtapa.setEstado(0);
+            proyectoEtapa.setId_etapa(e.getId_etapa());
+            proyectoEtapa.setId_proyecto(idProyecto);
+            servicioProyectoEtapa.createProyectoEtapa(proyectoEtapa);
+        }
     }
-}
+
     public void crear() {
         if (!servicioProyecto.tieneProyectoPendiente(usuario.getUsuario())) {
 
@@ -223,7 +224,7 @@ public void  guardarProyectoEtapa (int idProyecto){
         correos = Utilidades.findSendEmail();
         //Cuenta emisora
         emisor = Utilidades.findEmailEmisor();
-        Utilidades.envioCorreo(correos, emisor, usuario, proyecto, 0, "Creacion de Proyecto",0);
+        Utilidades.envioCorreo(correos, emisor, usuario, proyecto, 0, "Creacion de Proyecto", 0);
 
     }
 

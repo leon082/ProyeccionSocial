@@ -155,7 +155,7 @@ public class ServicioDAO {
     }
 
     public ArrayList<Servicio> getAllServicioByProg(int idProg) {
-       // getAllEtapaByServicio
+        // getAllEtapaByServicio
         ArrayList<Servicio> list = new ArrayList<>(0);
         try {
 
@@ -190,10 +190,9 @@ public class ServicioDAO {
     }
 
     public boolean isInProg(int idServicio) {
-      
-         boolean result = false;
+
+        boolean result = false;
         try {
-           
 
             PreparedStatement ps = null;
 
@@ -202,10 +201,9 @@ public class ServicioDAO {
                     + "where ps.ESTADO = 1 and s.ID_SERVICIO = " + idServicio + " ";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
-            
-               
-               result=rs.next();
-         
+
+            result = rs.next();
+
             ps.close();
 
             return result;

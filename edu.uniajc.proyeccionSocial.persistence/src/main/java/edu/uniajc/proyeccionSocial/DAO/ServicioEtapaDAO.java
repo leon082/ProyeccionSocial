@@ -25,7 +25,7 @@ public class ServicioEtapaDAO {
     private Connection DBConnection = null;
 
     public ServicioEtapaDAO() {
-  ConexionBD bd= new ConexionBD();
+        ConexionBD bd = new ConexionBD();
         this.DBConnection = bd.conexion();
     }
 
@@ -90,8 +90,8 @@ public class ServicioEtapaDAO {
         }
 
     }
-    
-     public boolean deleteEtapaServicioByServicio(int id) {
+
+    public boolean deleteEtapaServicioByServicio(int id) {
         try {
 
             String SQL = "DELETE FROM tb_servicioetapa WHERE "

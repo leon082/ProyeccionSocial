@@ -15,12 +15,9 @@ import edu.uniajc.proyeccionsocial.bussiness.services.ListaValorDetalleServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.TerceroServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.UsuarioServices;
 import edu.uniajc.proyeccionsocial.interfaces.IUsuario;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -274,17 +271,19 @@ public class Utilidades {
 
         return text;
     }
+
     public static String getTextOfEmailAdjunto() {
         String text = "El sistema de Proyeccion Social le notifica que el usuario :usuario ha subido un adjunto para su aprobacion, como entrega del proyecto :titulo , Id Etapa: :idProyecto";
 
         return text;
     }
-    
+
     public static String getTextOfEmailAprobarEntrega() {
         String text = "El sistema de Proyeccion Social le notifica que el usuario :usuario ha realizado la aprobacion de la etapa del proyecto :titulo .";
 
         return text;
     }
+
     public static String getTextOfEmailRechazarEntrega() {
         String text = "El sistema de Proyeccion Social le notifica que el usuario :usuario ha rechazado la aprobacion de la etapa del proyecto :titulo . Favor realizar de nuevo la entrega";
 
@@ -293,7 +292,7 @@ public class Utilidades {
     //tipo correo, 0 creacion, 1 aprobacion, 2 rechazado , 3 entrega , 4 aprobarEntrega , 5 Rechazar entrega
 
     public static boolean envioCorreo(List<String> correosDestino,
-            List<String> emisor, Usuario usuario, Proyecto proyecto, int tipoCorreo, String asunto , int idEtapa) {
+            List<String> emisor, Usuario usuario, Proyecto proyecto, int tipoCorreo, String asunto, int idEtapa) {
 
         String text = "";
         boolean result = false;
@@ -315,12 +314,12 @@ public class Utilidades {
             text = text.replace(":usuario", usuario.getUsuario());
             text = text.replace(":titulo", proyecto.getTituloproyecto());
         }
-        if(tipoCorreo==3){
+        if (tipoCorreo == 3) {
             text = getTextOfEmailAdjunto();
             text = text.replace(":usuario", usuario.getUsuario());
             text = text.replace(":titulo", proyecto.getTituloproyecto());
-            text = text.replace(":idProyecto",String.valueOf(idEtapa));
-            
+            text = text.replace(":idProyecto", String.valueOf(idEtapa));
+
         }
         if (tipoCorreo == 4) {
 
@@ -328,7 +327,7 @@ public class Utilidades {
             text = text.replace(":usuario", usuario.getUsuario());
             text = text.replace(":titulo", proyecto.getTituloproyecto());
         }
-          if (tipoCorreo == 5) {
+        if (tipoCorreo == 5) {
 
             text = getTextOfEmailRechazarEntrega();
             text = text.replace(":usuario", usuario.getUsuario());

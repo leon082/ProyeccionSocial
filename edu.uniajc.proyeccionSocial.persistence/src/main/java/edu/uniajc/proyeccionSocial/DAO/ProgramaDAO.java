@@ -21,14 +21,14 @@ import javax.annotation.PreDestroy;
  * @author rlara
  */
 public class ProgramaDAO {
-    
+
     private Connection DBConnection = null;
 
     public ProgramaDAO() {
-          ConexionBD bd= new ConexionBD();
+        ConexionBD bd = new ConexionBD();
         this.DBConnection = bd.conexion();
     }
-    
+
     public int createPrograma(Programa programa) {
         try {
             java.util.Date fecha = new java.util.Date();
@@ -51,7 +51,7 @@ public class ProgramaDAO {
                     + "(ID_Programa, Descripcion, Estado, "
                     + "CreadoPor, CreadoEn) values(?,?,?,?,?) ";
             ps = this.DBConnection.prepareStatement(SQL);
-            
+
             ps.setInt(1, programa.getId_programa());
             ps.setString(2, programa.getDescripcion());
             ps.setInt(3, programa.getEstado());
@@ -102,7 +102,7 @@ public class ProgramaDAO {
                     + "Descripcion=?, Estado=?, ModificadoPor=?, ModificadoEn=? "
                     + "where ID_Programa = ?";
             ps = this.DBConnection.prepareStatement(SQL);
-            
+
             ps.setString(1, programa.getDescripcion());
             ps.setInt(2, programa.getEstado());
             ps.setString(3, programa.getModificadopor());
@@ -110,7 +110,7 @@ public class ProgramaDAO {
             ps.setInt(5, programa.getId_programa());
             ps.execute();
             ps.close();
-            
+
             return true;
 
         } catch (SQLException e) {

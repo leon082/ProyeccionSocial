@@ -25,7 +25,7 @@ public class ProgramaServicioDAO {
     private Connection DBConnection = null;
 
     public ProgramaServicioDAO() {
-  ConexionBD bd= new ConexionBD();
+        ConexionBD bd = new ConexionBD();
         this.DBConnection = bd.conexion();
     }
 
@@ -89,7 +89,7 @@ public class ProgramaServicioDAO {
         }
 
     }
-    
+
     public boolean deleteProgramaServicioByProg(int id) {
         try {
 

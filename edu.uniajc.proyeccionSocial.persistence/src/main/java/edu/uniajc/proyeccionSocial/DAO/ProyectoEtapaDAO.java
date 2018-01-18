@@ -25,8 +25,8 @@ public class ProyectoEtapaDAO {
     private Connection DBConnection = null;
 
     public ProyectoEtapaDAO() {
-  ConexionBD bd= new ConexionBD();
-        this.DBConnection =  bd.conexion();
+        ConexionBD bd = new ConexionBD();
+        this.DBConnection = bd.conexion();
     }
 
     public int createProyectoEtapa(ProyectoEtapa proyectoEtapa) {
@@ -136,7 +136,7 @@ public class ProyectoEtapaDAO {
 
             PreparedStatement ps = null;
 
-            final String SQL = "SELECT * from TB_PROYECTOETAPA where ID_Proyecto = "+idProyecto+" ";
+            final String SQL = "SELECT * from TB_PROYECTOETAPA where ID_Proyecto = " + idProyecto + " ";
             ps = this.DBConnection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -164,7 +164,7 @@ public class ProyectoEtapaDAO {
         }
 
     }
-    
+
     public ProyectoEtapa getProyectoEtapaById(int id) {
 
         ProyectoEtapa proyectoEtapa = new ProyectoEtapa();

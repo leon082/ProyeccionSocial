@@ -90,8 +90,8 @@ public class ProyectoServices implements IProyecto {
     @Override
     public boolean tieneProyectoPendiente(String usuario) {
         try {
-           return dao.tieneProyectoPendiente(usuario);
-             
+            return dao.tieneProyectoPendiente(usuario);
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;
@@ -100,11 +100,11 @@ public class ProyectoServices implements IProyecto {
 
     @Override
     public Proyecto getProyectoByUser(String user) {
-        try{
-        Proyecto proyecto = dao.getProyectoByUser(user);
+        try {
+            Proyecto proyecto = dao.getProyectoByUser(user);
 
             return proyecto;
-            } catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
         }
@@ -112,11 +112,11 @@ public class ProyectoServices implements IProyecto {
 
     @Override
     public Proyecto getProyectoById(int id) {
-      try{
-        Proyecto proyecto = dao.getProyectoById(id);
+        try {
+            Proyecto proyecto = dao.getProyectoById(id);
 
             return proyecto;
-            } catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
         }

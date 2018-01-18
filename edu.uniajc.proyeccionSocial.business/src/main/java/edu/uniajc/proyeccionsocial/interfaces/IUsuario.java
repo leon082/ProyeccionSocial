@@ -27,7 +27,7 @@ public interface IUsuario {
     public Usuario getUsuarioLogin(String user, String password);
 
     public Usuario getUserByUsername(String user);
-    
+
     public String getEmailByUsername(String user);
 
 }

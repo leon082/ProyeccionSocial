@@ -21,14 +21,14 @@ import javax.annotation.PreDestroy;
  * @author rlara
  */
 public class UsuarioRolDAO {
-    
+
     private Connection DBConnection = null;
 
     public UsuarioRolDAO() {
-          ConexionBD bd= new ConexionBD();
+        ConexionBD bd = new ConexionBD();
         this.DBConnection = bd.conexion();
     }
-    
+
     public int createUsuarioRol(UsuarioRol usuarioRol) {
         try {
             java.util.Date fecha = new java.util.Date();
@@ -52,7 +52,7 @@ public class UsuarioRolDAO {
                     + "(ID_UsuarioRol, ID_Usuario, ID_Rol, Estado, "
                     + "CreadoPor, CreadoEn) values(?,?,?,?,?,?) ";
             ps = this.DBConnection.prepareStatement(SQL);
-            
+
             ps.setInt(1, usuarioRol.getId_usuariorol());
             ps.setInt(2, usuarioRol.getId_usuario());
             ps.setInt(3, usuarioRol.getId_rol());
@@ -104,7 +104,7 @@ public class UsuarioRolDAO {
                     + "ID_Usuario=?, ID_Rol=?, Estado=?, "
                     + "ModificadoPor=?, ModificadoEn=? where ID_UsuarioRol = ?";
             ps = this.DBConnection.prepareStatement(SQL);
-            
+
             ps.setInt(1, usuarioRol.getId_usuario());
             ps.setInt(2, usuarioRol.getId_rol());
             ps.setInt(3, usuarioRol.getEstado());
@@ -113,7 +113,7 @@ public class UsuarioRolDAO {
             ps.setInt(6, usuarioRol.getId_usuariorol());
             ps.execute();
             ps.close();
-            
+
             return true;
 
         } catch (SQLException e) {

@@ -24,7 +24,8 @@ public interface IEtapa {
     public ArrayList<Etapa> getAllEtapa();
 
     public Etapa getEtapaById(int id);
+
     public boolean isInServ(int idEtapa);
-    
-    public ArrayList<Etapa> getAllEtapaByServicio (int idServicio);
+
+    public ArrayList<Etapa> getAllEtapaByServicio(int idServicio);
 }

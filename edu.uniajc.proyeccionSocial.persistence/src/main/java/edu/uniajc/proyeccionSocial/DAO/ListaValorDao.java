@@ -25,8 +25,8 @@ public class ListaValorDao {
     private Connection DBConnection = null;
 
     public ListaValorDao() {
-  ConexionBD bd= new ConexionBD();
-        this.DBConnection =  bd.conexion();
+        ConexionBD bd = new ConexionBD();
+        this.DBConnection = bd.conexion();
     }
 
     public int createListaValor(ListaValor listaValor) {
