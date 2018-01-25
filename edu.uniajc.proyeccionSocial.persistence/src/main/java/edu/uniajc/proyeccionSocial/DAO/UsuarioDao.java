@@ -204,6 +204,8 @@ public class UsuarioDao {
         }
 
     }
+    
+    
 
     public Usuario getUserByUsername(String user) {
 

@@ -79,6 +79,8 @@ public class RegistrarBean {
 
                     idUsuario = usuarioServices.createUsuario(usuario);
                     if (idUsuario != 0) {
+                        usuario.setId_usuario(idUsuario);
+                        Utilidades.asignarRolCreador(usuario);
                         result = true;
                     }
 

@@ -25,11 +25,11 @@
                 <div id="menuHome">
                     <h:form>  
                         <p:growl id="messages"/>
-                        <p:menubar>       
+                       <!-- <p:menubar>       
                             <p:submenu label="Menu">
                                 <p:menuitem value="Crear Tercero" icon="ui-icon-close" action="tercero.xhtml"/>
-                                <p:menuitem value="Gestion Programa" icon="ui-icon-close" action="programas.xhtml"/>
-                                <p:menuitem value="Gestion Servicio" icon="ui-icon-close" action="servicios.xhtml"/>
+                                <p:menuitem value="Gestion Programas" icon="ui-icon-close" action="programas.xhtml"/>
+                                <p:menuitem value="Gestion Servicios" icon="ui-icon-close" action="servicios.xhtml"/>
                                 <p:menuitem value="Gestion Etapas" icon="ui-icon-close" action="etapas.xhtml"/>
                                 <p:menuitem value="Programas y Servicios" icon="ui-icon-close" action="servprog.xhtml"/>
                                 <p:menuitem value="Servicios y Etapas" icon="ui-icon-close" action="servEtapa.xhtml"/>
@@ -38,6 +38,18 @@
                                 <p:menuitem value="Gestion de Proyecto" icon="ui-icon-close" action="gestionProyecto.xhtml"/>                                 
                                 <p:menuitem value="Aprobar Entregas" icon="ui-icon-close" action="aprobacionArchivos.xhtml"/>                                 
                                 <p:menuitem value="Editar Cuenta" icon="ui-icon-close" action="editar_cuenta.xhtml"/>   
+                                
+                            </p:submenu>
+                        </p:menubar>
+                        -->
+                         <p:menubar>
+                            <p:submenu label="Inicio" icon="ui-icon-document" >
+                                <p:menuitem value="Inicio"  />
+                            </p:submenu>
+                            <p:submenu label="Listados" icon="ui-icon-document" >
+                                <c:forEach items="#{loginBean.listaModulos}" var="menu">
+                                   <p:menuitem value="#{menu.descripcion}" outcome="#{menu.ruta}"/>
+                                </c:forEach>
                                 <p:menuitem value="Salir" icon="ui-icon-close" action="#{loginBean.logout}"/>
                             </p:submenu>
                         </p:menubar>

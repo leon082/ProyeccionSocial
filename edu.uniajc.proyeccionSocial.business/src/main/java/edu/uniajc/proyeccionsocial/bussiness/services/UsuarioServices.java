@@ -30,7 +30,7 @@ public class UsuarioServices implements IUsuario {
 
             // validacion de Data
             if (user != null) {
-                user.setUsuario(user.getUsuario().toLowerCase());
+                user.setUsuario(user.getUsuario().toLowerCase().trim());
                 int flag = dao.createUsuario(user);
 
                 return flag;

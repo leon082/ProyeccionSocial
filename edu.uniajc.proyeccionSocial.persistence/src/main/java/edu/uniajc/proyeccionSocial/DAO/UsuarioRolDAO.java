@@ -91,6 +91,25 @@ public class UsuarioRolDAO {
         }
 
     }
+    
+      public boolean deleteRolesByUser(int idUser) {
+        try {
+
+            String SQL = "DELETE FROM TB_UsuarioRol WHERE "
+                    + "ID_Usuario =" + idUser + " ";
+
+            PreparedStatement ps = this.DBConnection.prepareStatement(SQL);
+            ps.execute();
+            ps.close();
+            return true;
+
+        } catch (SQLException e) {
+            System.out.println("Error en deleteRolesByUser " + e.getMessage());
+            Logger.getLogger(UsuarioRolDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            return false;
+        }
+
+    }
 
     public boolean updateUsuarioRol(UsuarioRol usuarioRol) {
         try {

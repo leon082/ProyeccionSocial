@@ -9,6 +9,7 @@ import edu.uniajc.proyeccionsocial.interfaces.IRol;
 import edu.uniajc.proyeccionSocial.DAO.RolDao;
 import edu.uniajc.proyeccionSocial.Model.Rol;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -93,6 +94,20 @@ public class RolServices implements IRol {
             Rol rol = dao.getRolById(id);
 
             return rol;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public List<Rol> getRolesByUser(int idUsuario) {
+         try {
+
+            List<Rol> list = dao.getRolesByUser(idUsuario);
+
+            return list;
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

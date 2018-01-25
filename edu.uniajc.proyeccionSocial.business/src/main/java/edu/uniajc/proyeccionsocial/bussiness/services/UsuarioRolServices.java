@@ -98,4 +98,18 @@ public class UsuarioRolServices implements IUsuarioRol {
         }
     }
 
+    @Override
+    public boolean deleteRolesByUser(int idUser) {
+        try {
+
+            dao.deleteRolesByUser(idUser);
+
+            return true;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
 }

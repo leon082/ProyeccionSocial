@@ -23,5 +23,7 @@ public interface IUsuarioRol {
     public ArrayList<UsuarioRol> getAllUsuarioRol();
 
     public UsuarioRol getUsuarioRolById(int id);
+    
+    public boolean deleteRolesByUser(int idUser);
 
 }

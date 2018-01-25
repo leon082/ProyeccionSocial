@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PreDestroy;
@@ -174,6 +175,33 @@ public class RolDao {
             return null;
         }
 
+    }
+    
+      public List<Rol> getRolesByUser(int idUsuario) {
+        List<Rol> listaRoles = new ArrayList<>();
+
+        try {
+            PreparedStatement ps = null;
+
+            String SQL = "select TB_Rol.* from TB_ROL inner join TB_USUARIOROL on TB_ROL.ID_ROL = TB_USUARIOROL.ID_ROL and TB_USUARIOROL.ID_USUARIO = " + idUsuario + " and TB_ROL.estado = 1";
+            ps = this.DBConnection.prepareStatement(SQL);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Rol rol = new Rol();
+                rol.setId_rol(rs.getInt("ID_Rol"));
+                rol.setValor(rs.getString("Valor"));
+                rol.setDescripcion(rs.getString("Descripcion"));
+                rol.setEstado(rs.getInt("Estado"));
+                listaRoles.add(rol);
+            }
+            ps.close();
+
+            return listaRoles;
+        } catch (SQLException e) {
+            System.out.println("Error en Rol DAO getRolesByUser " + e.getMessage());
+            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            return null;
+        }
     }
 
     @PreDestroy

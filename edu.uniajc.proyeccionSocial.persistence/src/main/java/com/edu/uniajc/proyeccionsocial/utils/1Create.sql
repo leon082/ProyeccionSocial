@@ -125,7 +125,7 @@ CREATE TABLE tb_proyecto (
     tituloproyecto    VARCHAR2(100) NOT NULL,
     resumenproyecto   VARCHAR2(700) NOT NULL,
     id_programa       NUMBER(10) NOT NULL,
-    id_servicio       NUMBER(10) NOT NULL, no 
+    id_servicio       NUMBER(10) NOT NULL,  
     estado            NUMBER(1) DEFAULT 1 NOT NULL,
     creadopor         VARCHAR2(50) NOT NULL,
     creadoen          DATE DEFAULT SYSDATE,
@@ -133,7 +133,7 @@ CREATE TABLE tb_proyecto (
     modificadoen      DATE
 );
 CREATE SEQUENCE  "SQ_TB_PROYECTO"  MINVALUE 1 MAXVALUE 9999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE ;
---No se para que la usan, ya se pero se elimina por soporteproyectoEtapa
+
 CREATE TABLE tb_proyectoetapa (
     id_proyectoetapa   NUMBER(10) NOT NULL,
     id_proyecto        NUMBER(10) NOT NULL,
@@ -149,16 +149,7 @@ CREATE TABLE tb_proyectoetapa (
 );
 CREATE SEQUENCE  "SQ_TB_PROYECTOETAPA"  MINVALUE 1 MAXVALUE 9999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE ;
 
-CREATE TABLE tb_rol (
-    id_rol          NUMBER(10) NOT NULL,
-    valor           VARCHAR2(50) NOT NULL,
-    descripcion     VARCHAR2(100) NOT NULL,
-    estado          NUMBER(10) NOT NULL,
-    creadopor       VARCHAR2(50) NOT NULL,
-    creadoen        DATE DEFAULT SYSDATE,
-    modificadopor   VARCHAR2(50),
-    modificadoen    DATE
-);
+
 
 CREATE TABLE tb_soporteproyectoetapa (
     id_soporteproyectoetapa   NUMBER(10) NOT NULL,
@@ -190,6 +181,7 @@ CREATE TABLE tb_tercero (
     modificadoen               DATE
 	
 );
+CREATE SEQUENCE  "SQ_TB_TERCERO"  MINVALUE 1 MAXVALUE 9999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE ;
 
   CREATE TABLE tb_usuario
   (
@@ -199,7 +191,20 @@ CREATE TABLE tb_tercero (
     contrasena      VARCHAR2(200) NOT NULL,
     estado          NUMBER(10) NOT NULL
   ) ;
+  CREATE SEQUENCE  "SQ_TB_USUARIO"  MINVALUE 1 MAXVALUE 9999999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE ;
   
+  CREATE TABLE tb_rol (
+    id_rol          NUMBER(10) NOT NULL,
+    valor           VARCHAR2(50) NOT NULL,
+    descripcion     VARCHAR2(100) NOT NULL,
+    estado          NUMBER(10) NOT NULL,
+    creadopor       VARCHAR2(50) NOT NULL,
+    creadoen        DATE DEFAULT SYSDATE,
+    modificadopor   VARCHAR2(50),
+    modificadoen    DATE
+);
+CREATE SEQUENCE  "SQ_TB_ROL"  MINVALUE 1 MAXVALUE 9999999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE ;
+
 CREATE TABLE tb_usuariorol (
     id_usuariorol   NUMBER(10) NOT NULL,
     id_usuario      NUMBER(10) NOT NULL,
@@ -210,6 +215,20 @@ CREATE TABLE tb_usuariorol (
     modificadopor   VARCHAR2(50),
     modificadoen    DATE
 );
+CREATE SEQUENCE  "SQ_TB_USUARIOROL"  MINVALUE 1 MAXVALUE 9999999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE ;
+--definir cada rol a que modulo puede acceder
+CREATE TABLE tb_modulo (
+    id_modulo   NUMBER(10) NOT NULL,
+    id_rol      NUMBER(10) NOT NULL,
+	descripcion  VARCHAR2(50) NOT NULL,
+	ruta  VARCHAR2(50) NOT NULL,
+	estado      NUMBER(1) DEFAULT 1 NOT NULL
+    
+);
+CREATE SEQUENCE  "SQ_TB_MODULO"  MINVALUE 1 MAXVALUE 9999999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE ;
+
+
+
 
 ALTER TABLE tb_beneficiario
     ADD CONSTRAINT ck_beneficiario_001 CHECK ( estado IN (
@@ -757,5 +776,3 @@ ALTER TABLE tb_usuariorol
         REFERENCES tb_rol ( id_rol )
     NOT DEFERRABLE;
 	
-CREATE SEQUENCE  "SQ_TB_TERCERO"  MINVALUE 1 MAXVALUE 9999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE ;
-CREATE SEQUENCE  "SQ_TB_USUARIO"  MINVALUE 1 MAXVALUE 9999999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE ;

@@ -11,10 +11,13 @@ import edu.uniajc.proyeccionSocial.Model.Proyecto;
 import edu.uniajc.proyeccionSocial.Model.Servicio;
 import edu.uniajc.proyeccionSocial.Model.Tercero;
 import edu.uniajc.proyeccionSocial.Model.Usuario;
+import edu.uniajc.proyeccionSocial.Model.UsuarioRol;
 import edu.uniajc.proyeccionsocial.bussiness.services.ListaValorDetalleServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.TerceroServices;
+import edu.uniajc.proyeccionsocial.bussiness.services.UsuarioRolServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.UsuarioServices;
 import edu.uniajc.proyeccionsocial.interfaces.IUsuario;
+import edu.uniajc.proyeccionsocial.interfaces.IUsuarioRol;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,6 +49,7 @@ public class Utilidades {
     public static String leerTipoIdentificacion = "combo.tipoIdentificacion";
     public static String leerEmail = "email.correos";
     public static String leerEmailemisor = "cuenta.emisora";
+    public static String leerRolCreador = "rol.creador";
 
     public static String generateHash(String password) throws RuntimeException, NoSuchAlgorithmException {
 
@@ -242,6 +246,17 @@ public class Utilidades {
 
         return items;
 
+    }
+
+    public static void asignarRolCreador(Usuario user) {
+        int creador = Integer.valueOf(leerArchivo(leerRolCreador));
+        IUsuarioRol asignar = new UsuarioRolServices();
+        UsuarioRol usuarioRol = new UsuarioRol();
+        usuarioRol.setId_usuario(user.getId_usuario());
+        usuarioRol.setId_rol(creador);
+        usuarioRol.setCreadopor("System");
+        usuarioRol.setEstado(1);
+        asignar.createUsuarioRol(usuarioRol);
     }
 
     public static Usuario cargarUsuario() {

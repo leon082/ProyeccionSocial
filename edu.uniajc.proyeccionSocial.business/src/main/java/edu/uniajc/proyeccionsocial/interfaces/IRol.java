@@ -7,6 +7,7 @@ package edu.uniajc.proyeccionsocial.interfaces;
 
 import edu.uniajc.proyeccionSocial.Model.Rol;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -23,5 +24,7 @@ public interface IRol {
     public ArrayList<Rol> getAllRol();
 
     public Rol getRolById(int id);
+    
+    public List<Rol> getRolesByUser(int idUsuario);
 
 }

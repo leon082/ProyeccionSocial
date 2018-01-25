@@ -5,17 +5,23 @@
  */
 package edu.uniajc.proyeccionSocial.bean;
 
+import edu.uniajc.proyeccionSocial.Model.Opciones_menu;
 import edu.uniajc.proyeccionSocial.Model.Usuario;
 import edu.uniajc.proyeccionSocial.view.util.SessionUtils;
 import edu.uniajc.proyeccionSocial.view.util.Utilidades;
+import edu.uniajc.proyeccionsocial.bussiness.services.MenuServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.UsuarioServices;
+import edu.uniajc.proyeccionsocial.interfaces.IOpciones_menu;
 import edu.uniajc.proyeccionsocial.interfaces.IUsuario;
+import java.io.IOException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
@@ -30,7 +36,9 @@ public class LoginBean implements Serializable {
     private String nombre;
     private String clave;
     private IUsuario usuarioServices;
+    private IOpciones_menu menuServices;
     private Usuario user;
+    private List<Opciones_menu> listaModulos;
     // private boolean logeado = false;
 
     /*  public boolean estaLogeado() {
@@ -40,6 +48,7 @@ public class LoginBean implements Serializable {
     public void init() {
 
         usuarioServices = new UsuarioServices();
+        menuServices = new MenuServices();
 
     }
 
@@ -62,6 +71,7 @@ public class LoginBean implements Serializable {
     public String login() {
         try {
             user = usuarioServices.getUsuarioLogin(nombre, Utilidades.generateHash(clave));
+            listaModulos = menuServices.getMenuByUser(user);
             if (user != null) {
                 HttpSession session = SessionUtils.getSession();
                 session.setAttribute("username", nombre);
@@ -89,6 +99,12 @@ public class LoginBean implements Serializable {
         return "login.xhtml";
     }
 
+    public void logoutTest() throws IOException {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ec.invalidateSession();
+        ec.redirect(ec.getRequestContextPath() + "/home.xhtml");
+    }
+
     public String registrar() {
         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Saludo", "Formualrio de Registro");
         FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -111,5 +127,31 @@ public class LoginBean implements Serializable {
     public void setClave(String clave) {
         this.clave = clave;
     }
+
+    public IUsuario getUsuarioServices() {
+        return usuarioServices;
+    }
+
+    public void setUsuarioServices(IUsuario usuarioServices) {
+        this.usuarioServices = usuarioServices;
+    }
+
+    public Usuario getUser() {
+        return user;
+    }
+
+    public void setUser(Usuario user) {
+        this.user = user;
+    }
+
+    public List<Opciones_menu> getListaModulos() {
+        return listaModulos;
+    }
+
+    public void setListaModulos(List<Opciones_menu> listaModulos) {
+        this.listaModulos = listaModulos;
+    }
+    
+    
 
 }
