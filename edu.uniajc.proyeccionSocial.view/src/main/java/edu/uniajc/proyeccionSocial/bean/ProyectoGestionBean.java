@@ -245,12 +245,17 @@ public class ProyectoGestionBean {
     public void cargarProyectoByUsuario() {
 
         proyecto = servicioProyecto.getProyectoByUser(usuario.getUsuario());
-
-        setProgramaByProyecto();
+        if(proyecto!= null){
+            setProgramaByProyecto();
         servByProg();
         setOferenteByProyecto();
         llenarEtapasByProyecto();
         llenarBeneficiarios();
+        }else{
+             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "No tiene Proyecto aprobado.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+        
 
     }
 
@@ -308,6 +313,9 @@ public class ProyectoGestionBean {
             llenarEtapasByProyecto();
             rutaArchivo = "";
         }
+        /*else{
+            
+        }*/
     }
 
     public int guardarSoporte(int idProyectoEtapa) {

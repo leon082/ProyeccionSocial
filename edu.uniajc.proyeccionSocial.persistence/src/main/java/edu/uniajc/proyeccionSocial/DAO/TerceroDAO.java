@@ -184,6 +184,46 @@ public class TerceroDAO {
         }
 
     }
+    public ArrayList<Tercero> getAllTerceroUsuario() {
+        ArrayList<Tercero> list = new ArrayList<>(0);
+        try {
+
+            PreparedStatement ps = null;
+
+            final String SQL = "select TB_tercero.* from TB_tercero inner join TB_usuario on tb_tercero.id_tercero = TB_USUARIO.ID_TERCERO";
+            ps = this.DBConnection.prepareStatement(SQL);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Tercero tercero = new Tercero();
+                tercero.setId_tercero(rs.getInt("ID_Tercero"));
+                tercero.setId_lv_tipoidentificacion(rs.getInt("ID_LV_TipoIdentificacion"));
+                tercero.setNumidentificacion(rs.getString("NumIdentificacion"));
+                tercero.setPrimernombre(rs.getString("PrimerNombre"));
+                tercero.setSegundonombre(rs.getString("SegundoNombre"));
+                tercero.setPrimerapellido(rs.getString("PrimerApellido"));
+                tercero.setSegundoapellido(rs.getString("SegundoApellido"));
+                tercero.setFechanacimiento(rs.getDate("FechaNacimiento"));
+                tercero.setTelefonofijo(rs.getString("TelefonoFijo"));
+                tercero.setTelefonocelular(rs.getString("TelefonoCelular"));
+                tercero.setCorreo(rs.getString("Correo"));
+                tercero.setEstado(rs.getInt("Estado"));
+                tercero.setCreadopor(rs.getString("CreadoPor"));
+                tercero.setModificadopor(rs.getString("ModificadoPor"));
+                tercero.setCreadoen(rs.getDate("CreadoEn"));
+                tercero.setModificadoen(rs.getDate("ModificadoEn"));
+
+                list.add(tercero);
+            }
+            ps.close();
+
+            return list;
+        } catch (SQLException e) {
+            System.out.println("Error en TerceroDAO getAllTercero " + e.getMessage());
+            Logger.getLogger(TerceroDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            return null;
+        }
+
+    }
 
     public Tercero getTerceroById(int id) {
 

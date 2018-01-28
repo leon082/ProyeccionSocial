@@ -169,7 +169,7 @@ public class ProyectoDao {
 
             PreparedStatement ps = null;
 
-            final String SQL = "SELECT * from TB_PROYECTO where creadopor = ? and estado = 0 or estado = 1";
+            final String SQL = "SELECT * from TB_PROYECTO where creadopor = ? and (estado = 0 or estado = 1)";
             ps = this.DBConnection.prepareStatement(SQL);
             ps.setString(1, usuario);
             ResultSet rs = ps.executeQuery();

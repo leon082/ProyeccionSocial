@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <link href="CSS/login.css" rel="stylesheet" type="text/css"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="css/default.css"/>
+        <h:outputStylesheet name="css/cssLayout.css"/>
+        <title>Proyeccion Social</title>
+    </h:head>
+    <body>
+
+        <ui:composition template="Home.xhtml">
+            <ui:define name="content">
+
+
+                <h:form id="forma">           
+                    <p:growl id="grow" showDetail="true" life="5555"/> 
+                    <p:tabView id="tab">
+
+
+                        <p:tab title="Reporte Proyectos"> <!-- Nombre  -->
+                            <h:panelGrid columns="4" cellpadding="5">
+
+                                <p:outputLabel for="add_3" value="Programa :" />
+                                <p:selectOneMenu  id="add_3" value="#{reporteProyectoBean.idPrograma}" >  
+                                    <p:ajax listener="#{reporteProyectoBean.actionComboProgramas()}" update=":forma:tab:add_4" />
+                                    <f:selectItem itemLabel="Seleccione" itemValue="0" />  
+                                    <f:selectItems value="#{reporteProyectoBean.programas}"/>  
+                                </p:selectOneMenu>
+
+                                <p:outputLabel for="add_4" value="Servicio :"  />
+                                <p:selectOneMenu  id="add_4" value="#{reporteProyectoBean.idServicio}" >  
+                                    <f:selectItem itemLabel="Seleccione" itemValue="0" />  
+                                    <f:selectItems value="#{reporteProyectoBean.servicios}"/>  
+                                </p:selectOneMenu>
+
+                                <p:outputLabel for="add_5" value="Oferente :"  />
+                                <p:selectOneMenu  id="add_5" value="#{reporteProyectoBean.idTerceroOferente}" >  
+                                    <f:selectItem itemLabel="Seleccione" itemValue="0" />  
+                                    <f:selectItems value="#{reporteProyectoBean.tercerosOferentes}"/>  
+                                </p:selectOneMenu>
+
+                                <p:outputLabel for="add_6" value="Creado Por :"  />
+                                <p:selectOneMenu  id="add_6" value="#{reporteProyectoBean.idTerceroCreadoPor}" >  
+                                    <f:selectItem itemLabel="Seleccione" itemValue="0" />  
+                                    <f:selectItems value="#{reporteProyectoBean.tercerosUsuarios}"/>  
+                                </p:selectOneMenu>
+
+                                <p:outputLabel for="add_7" value="Estado :"  />
+                                <p:selectOneMenu  id="add_7" value="#{reporteProyectoBean.estado}" >  
+                                    <f:selectItem itemLabel="Seleccione" itemValue="-1" />  
+                                    <f:selectItem itemLabel="Creado" itemValue="0" />  
+                                    <f:selectItem itemLabel="Aprobado" itemValue="1" />  
+                                    <f:selectItem itemLabel="Rechazado" itemValue="2" />  
+
+
+
+
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel for="add_8" value="Creado Desde: " />
+                                <p:calendar id="add_8" value="#{reporteProyectoBean.fechaDesde}" showOn="button"  />
+
+                                <p:outputLabel for="add_9" value="Creado Hasta: " />
+                                <p:calendar id="add_9" value="#{reporteProyectoBean.fechaDesde}" showOn="button"  />
+
+                            </h:panelGrid>
+                            <p:separator />
+
+                            <!-- Se actulizan los formularios  forma y forma2 para limpiar y mostrar cambios -->
+                            <p:commandButton 
+                                update=":forma:grow,:forma:tab:add_3,:forma:tab:add_4,:forma:tab:add_5,:forma:tab:add_6,:forma:tab:add_7,:forma:tab:add_8,:forma:tab:add_9,:forma2:listaReporte"
+                                ajax="true" value="Consultar" action="#{reporteProyectoBean.findReport()}"
+                                />
+                        </p:tab>
+
+                    </p:tabView>
+
+                </h:form>
+
+                <h:form id="forma2">
+
+                    <p:dataTable id="listaReporte" value="#{reporteProyectoBean.listaReporte}"
+                                 var="reporte" 
+                                 paginator="true" 
+                                 rows="20" 
+                                 paginatorPosition="bottom"
+
+                                 >
+
+
+
+
+                        <p:column headerText="Titulo Proyecto">
+                            <p:outputLabel value="#{reporte.tituloProyecto}"></p:outputLabel>
+
+                        </p:column>
+
+                        <p:column headerText="Programa">
+                            <p:outputLabel value="#{reporte.programa}"></p:outputLabel>
+
+                        </p:column>
+
+                        <p:column headerText="Servicio">
+                            <p:outputLabel value="#{reporte.servicio}"></p:outputLabel>
+
+                        </p:column>
+
+                        <p:column headerText="Oferente">
+                            <p:outputLabel value="#{reporte.oferente}"></p:outputLabel>
+
+                        </p:column>
+
+                        <p:column headerText="Creado Por">
+                            <p:outputLabel value="#{reporte.creadoPor}"></p:outputLabel>
+
+                        </p:column>
+
+                        <p:column headerText="Creado En">
+                            <p:outputLabel value="#{reporte.fechaCreate}"></p:outputLabel>
+
+                        </p:column>
+
+
+                        <p:column headerText="Estado">
+                            <p:outputLabel value="#{reporte.estado}"></p:outputLabel>
+
+                        </p:column>
+
+
+
+                    </p:dataTable>
+                    <h3>Reportes de Proyectos</h3>
+                    <h:commandLink>
+                        <p:graphicImage value="resources/image/XLS.png" width="50" />
+                        <p:dataExporter type="xls" target="listaReporte" fileName="reporteProyectos" />
+                    </h:commandLink>
+
+                    <h:commandLink>
+                        <p:graphicImage value="resources/image/pdf.png" width="50" />
+                        <p:dataExporter type="pdf" target="listaReporte" fileName="reporteProyectos"  />
+                    </h:commandLink>
+
+                    
+                    <p:separator></p:separator>
+                    <p:commandButton 
+                        update=":forma:grow,:forma:tab:add_3,:forma:tab:add_4,:forma:tab:add_5,:forma:tab:add_6,:forma:tab:add_7,:forma:tab:add_8,:forma:tab:add_9,:forma2:listaReporte"
+                        ajax="true" value="Limpiar" action="#{reporteProyectoBean.clear()}"
+                        />
+
+
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+
+    </body>
+</html>

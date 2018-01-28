@@ -25,5 +25,7 @@ public interface ITercero {
     public Tercero getTerceroById(int id);
 
     public Tercero getTerceroByIdentificacion(int tipoDoc, String doc);
+    
+    public ArrayList<Tercero> getAllTerceroUsuario();
 
 }

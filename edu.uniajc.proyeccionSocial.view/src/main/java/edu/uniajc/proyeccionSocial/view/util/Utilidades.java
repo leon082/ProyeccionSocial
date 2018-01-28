@@ -162,8 +162,13 @@ public class Utilidades {
     }
 
     public static Date dateToSql(java.util.Date fecha) {
-        java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
+        if(fecha!=null){
+            java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
         return fechaSQL;
+        }else{
+            return null;
+        }
+        
     }
 
     public static boolean validarTercero(int tipo, String doc) {
@@ -227,6 +232,17 @@ public class Utilidades {
     }
 
     public static ArrayList<SelectItem> llenar_Combo_Terceros(List<Tercero> listterceros) {
+
+        ArrayList<SelectItem> items = new ArrayList<SelectItem>();
+        for (Tercero obj : (ArrayList<Tercero>) listterceros) {
+            items.add(new SelectItem(obj.getId_tercero(), obj.getNombreCompleto()));
+        }
+
+        return items;
+
+    }
+    
+            public static ArrayList<SelectItem> llenar_Combo_TerceroUsuarios(List<Tercero> listterceros) {
 
         ArrayList<SelectItem> items = new ArrayList<SelectItem>();
         for (Tercero obj : (ArrayList<Tercero>) listterceros) {

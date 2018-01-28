@@ -113,4 +113,18 @@ public class TerceroServices implements ITercero {
         }
     }
 
+    @Override
+    public ArrayList<Tercero> getAllTerceroUsuario() {
+         try {
+
+            ArrayList<Tercero> list = dao.getAllTerceroUsuario();
+
+            return list;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
 }

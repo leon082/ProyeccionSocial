@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PreDestroy;
 
 /**
  *
@@ -101,5 +102,18 @@ public class Opciones_menuDAO {
         }
 
         return flag;
+    }
+    
+    @PreDestroy
+    public void finish() {
+        try {
+
+            DBConnection.close();
+
+        } catch (SQLException sqle) {
+            System.out.println("Error en ProgramaDAO finish" + sqle.getMessage());
+            Logger.getLogger(ProgramaDAO.class.getName()).log(Level.SEVERE, null, sqle.getMessage());
+        }
+
     }
 }
