@@ -14,7 +14,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PreDestroy;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 
 /**
  *
@@ -22,12 +23,6 @@ import javax.annotation.PreDestroy;
  */
 public class OferenteDao {
 
-    private Connection DBConnection = null;
-
-    public OferenteDao() {
-        ConexionBD bd = new ConexionBD();
-        this.DBConnection = bd.conexion();
-    }
 
     public int createOferente(Oferente oferente) {
         try {
@@ -39,7 +34,7 @@ public class OferenteDao {
             PreparedStatement ps = null;
 
             String SQL = "select SQ_TB_Oferente.nextval ID from dual";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             int codigo = 0;
 
@@ -51,7 +46,7 @@ public class OferenteDao {
             SQL = "INSERT INTO TB_Oferente"
                     + " (ID_Oferente,ID_Proyecto,ID_Tercero, Estado,Observacion,CreadoPor, CreadoEn) "
                     + "values(?,?,?,?,?,?,?)";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
 
             ps.setInt(1, oferente.getId_oferente());
             ps.setInt(2, oferente.getId_proyecto());
@@ -78,7 +73,7 @@ public class OferenteDao {
 
             String SQL = "UPDATE TB_Oferente SET Estado=0 WHERE ID_Oferente =" + id + " ";
 
-            PreparedStatement ps = this.DBConnection.prepareStatement(SQL);
+            PreparedStatement ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ps.execute();
             ps.close();
             return true;
@@ -102,7 +97,7 @@ public class OferenteDao {
             String SQL = "UPDATE TB_Oferente SET "
                     + "ID_Proyecto=?,ID_Tercero=?, Estado=?, Observacion=?,ModificadoPor=?, ModificadoEn=? "
                     + "where ID_Oferente = ?";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
 
             ps.setInt(1, oferente.getId_proyecto());
             ps.setInt(2, oferente.getId_tercero());
@@ -131,7 +126,7 @@ public class OferenteDao {
             PreparedStatement ps = null;
 
             final String SQL = "SELECT * from TB_Oferente where estado = 1";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Oferente oferente = new Oferente();
@@ -166,10 +161,10 @@ public class OferenteDao {
             PreparedStatement ps = null;
 
             String SQL = "select * from TB_Oferente where ID_Oferente =" + id + " and estado = 1";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
-            if (rs != null) {
-                rs.next();
+            if (rs.next()) {
+                
 
                 oferente.setId_oferente(rs.getInt("ID_Oferente"));
                 oferente.setId_proyecto(rs.getInt("ID_Proyecto"));
@@ -194,16 +189,16 @@ public class OferenteDao {
 
     public Oferente getOferenteByProyecto(int id) {
 
-        Oferente oferente = new Oferente();
+        Oferente oferente= new Oferente();
         try {
 
             PreparedStatement ps = null;
 
             String SQL = "select * from TB_Oferente where ID_Proyecto =" + id + " and estado = 1";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
-            if (rs != null) {
-                rs.next();
+            if (rs.next()) {
+                
 
                 oferente.setId_oferente(rs.getInt("ID_Oferente"));
                 oferente.setId_proyecto(rs.getInt("ID_Proyecto"));
@@ -226,17 +221,6 @@ public class OferenteDao {
 
     }
 
-    @PreDestroy
-    public void finish() {
-        try {
-
-            DBConnection.close();
-
-        } catch (SQLException sqle) {
-            System.out.println("Error en Oferente DAO finish " + sqle.getMessage());
-            Logger.getLogger(OferenteDao.class.getName()).log(Level.SEVERE, null, sqle.getMessage());
-        }
-
-    }
+   
 
 }

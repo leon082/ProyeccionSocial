@@ -96,8 +96,6 @@ public class Utilidades {
             /**
              * Imprimimos los valores
              */
-            System.out.println("Nombre: " + nombre);
-
             return nombre;
 
         } catch (FileNotFoundException e) {
@@ -162,13 +160,13 @@ public class Utilidades {
     }
 
     public static Date dateToSql(java.util.Date fecha) {
-        if(fecha!=null){
+        if (fecha != null) {
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
-        return fechaSQL;
-        }else{
+            return fechaSQL;
+        } else {
             return null;
         }
-        
+
     }
 
     public static boolean validarTercero(int tipo, String doc) {
@@ -241,8 +239,8 @@ public class Utilidades {
         return items;
 
     }
-    
-            public static ArrayList<SelectItem> llenar_Combo_TerceroUsuarios(List<Tercero> listterceros) {
+
+    public static ArrayList<SelectItem> llenar_Combo_TerceroUsuarios(List<Tercero> listterceros) {
 
         ArrayList<SelectItem> items = new ArrayList<SelectItem>();
         for (Tercero obj : (ArrayList<Tercero>) listterceros) {
@@ -367,8 +365,13 @@ public class Utilidades {
         for (String receptor : correosDestino) {
             Properties properties = new Properties();
             Session session;
-            String cuenta = emisor.get(0);
-            String password = emisor.get(1);
+            String cuenta="";
+            String password="";
+            if (emisor != null && emisor.size() > 0) {
+                 cuenta = emisor.get(0);
+                 password = emisor.get(1);
+            }
+
             properties.put("mail.smtp.host", "smtp.gmail.com");
             properties.put("mail.smtp.starttls.enable", "true");
             properties.put("mail.smtp.port", 25);

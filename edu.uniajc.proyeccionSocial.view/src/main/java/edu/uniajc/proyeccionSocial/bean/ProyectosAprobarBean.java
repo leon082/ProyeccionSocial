@@ -85,6 +85,8 @@ public class ProyectosAprobarBean {
 
     @PostConstruct
     public void init() {
+         correos = new ArrayList<>();
+        emisor = new ArrayList<>();
         //Proyecto create
         proyecto = new Proyecto();
         servicioProyecto = new ProyectoServices();
@@ -109,6 +111,7 @@ public class ProyectosAprobarBean {
         itemsOferente = Utilidades.llenar_Combo_Terceros(terceroServices.getAllTercero());
         oferenteServices = new OferenteServices();
         beneficiarioServices = new BeneficiarioServices();
+        proyectosAprobar = new ArrayList<>();
         proyectosAprobar = servicioProyecto.getAllProyectoPendiente();
     }
 

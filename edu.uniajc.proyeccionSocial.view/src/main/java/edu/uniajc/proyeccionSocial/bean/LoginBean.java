@@ -18,6 +18,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -49,6 +50,7 @@ public class LoginBean implements Serializable {
 
         usuarioServices = new UsuarioServices();
         menuServices = new MenuServices();
+        listaModulos=new ArrayList<>();
 
     }
 
@@ -71,13 +73,13 @@ public class LoginBean implements Serializable {
     public String login() {
         try {
             user = usuarioServices.getUsuarioLogin(nombre, Utilidades.generateHash(clave));
-            listaModulos = menuServices.getMenuByUser(user);
+            
             if (user != null) {
+                listaModulos = menuServices.getMenuByUser(user);
                 HttpSession session = SessionUtils.getSession();
                 session.setAttribute("username", nombre);
 
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Saludo", "Bienvenido");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
+              
                 return "Home.xhtml";
             } else {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Credenciales no validas");

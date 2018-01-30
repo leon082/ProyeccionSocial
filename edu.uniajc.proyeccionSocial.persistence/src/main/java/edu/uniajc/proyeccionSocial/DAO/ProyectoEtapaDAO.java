@@ -14,20 +14,14 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PreDestroy;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 
 /**
  *
  * @author luis.leon
  */
 public class ProyectoEtapaDAO {
-
-    private Connection DBConnection = null;
-
-    public ProyectoEtapaDAO() {
-        ConexionBD bd = new ConexionBD();
-        this.DBConnection = bd.conexion();
-    }
 
     public int createProyectoEtapa(ProyectoEtapa proyectoEtapa) {
         try {
@@ -38,7 +32,7 @@ public class ProyectoEtapaDAO {
             PreparedStatement ps = null;
 
             String SQL = "select SQ_TB_ProyectoEtapa.nextval ID from dual";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             int codigo = 0;
 
@@ -51,7 +45,7 @@ public class ProyectoEtapaDAO {
                     + " (id_proyectoetapa, id_proyecto, id_etapa, estado, "
                     + "observacion, fechainicio, fechafin, CreadoPor, CreadoEn) "
                     + "values(?,?,?,?,?,?,?,?,?)";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ps.setInt(1, proyectoEtapa.getId_proyectoetapa());
             ps.setInt(2, proyectoEtapa.getId_proyecto());
             ps.setInt(3, proyectoEtapa.getId_etapa());
@@ -81,7 +75,7 @@ public class ProyectoEtapaDAO {
 
             String SQL = "UPDATE TB_ProyectoEtapa SET Estado=0 WHERE ID_ProyectoEtapa =" + id + " ";
 
-            PreparedStatement ps = this.DBConnection.prepareStatement(SQL);
+            PreparedStatement ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ps.execute();
             ps.close();
             return true;
@@ -106,7 +100,7 @@ public class ProyectoEtapaDAO {
                     + "id_proyecto=?, id_etapa=?, estado=?, observacion=?, "
                     + "fechainicio=?, fechafin=?, ModificadoPor=?, ModificadoEn=? "
                     + " where ID_ProyectoEtapa = ?";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
 
             ps.setInt(1, proyectoEtapa.getId_proyecto());
             ps.setInt(2, proyectoEtapa.getId_etapa());
@@ -137,7 +131,7 @@ public class ProyectoEtapaDAO {
             PreparedStatement ps = null;
 
             final String SQL = "SELECT * from TB_PROYECTOETAPA where ID_Proyecto = " + idProyecto + " ";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 ProyectoEtapa proyectoEtapa = new ProyectoEtapa();
@@ -173,10 +167,10 @@ public class ProyectoEtapaDAO {
             PreparedStatement ps = null;
 
             String SQL = "select * from TB_ProyectoEtapa where ID_ProyectoEtapa =" + id + " ";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
-            if (rs != null) {
-                rs.next();
+            if (rs.next()) {
+                
                 proyectoEtapa.setId_proyectoetapa(rs.getInt("ID_ProyectoEtapa"));
                 proyectoEtapa.setId_proyecto(rs.getInt("ID_Proyecto"));
                 proyectoEtapa.setId_etapa(rs.getInt("ID_Etapa"));
@@ -200,16 +194,5 @@ public class ProyectoEtapaDAO {
 
     }
 
-    @PreDestroy
-    public void finish() {
-        try {
-
-            DBConnection.close();
-
-        } catch (SQLException sqle) {
-            System.out.println("Error en ProyectoEtapa DAO finish " + sqle.getMessage());
-            Logger.getLogger(ProyectoEtapaDAO.class.getName()).log(Level.SEVERE, null, sqle.getMessage());
-        }
-
-    }
+    
 }

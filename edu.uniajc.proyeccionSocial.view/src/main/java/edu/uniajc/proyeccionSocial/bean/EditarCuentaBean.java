@@ -49,10 +49,14 @@ public class EditarCuentaBean {
         terceroServices = new TerceroServices();
         usuarioServices = new UsuarioServices();
         usuario = Utilidades.cargarUsuario();
-        tercero = cargarTercero();
+        tercero = new Tercero();
         itemsDocumentos = Utilidades.Consultar_Documentos_combo();
-        docuSelected = tercero.getId_lv_tipoidentificacion();
-        fecha = tercero.getFechanacimiento();
+        tercero = cargarTercero();
+        if (tercero != null) {
+            docuSelected = tercero.getId_lv_tipoidentificacion();
+            fecha = tercero.getFechanacimiento();
+        }
+
     }
 
     public Tercero cargarTercero() {

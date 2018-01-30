@@ -88,6 +88,9 @@ public class ProyectoBean {
 
     @PostConstruct
     public void init() {
+
+        correos = new ArrayList<>();
+        emisor = new ArrayList<>();
         //Proyecto etapa
 
         servicioProyectoEtapa = new ProyectoEtapaServices();
@@ -104,6 +107,8 @@ public class ProyectoBean {
         etapas = new ArrayList<Etapa>();
         //Usuario
         usuario = Utilidades.cargarUsuario();
+        terceroServices = new TerceroServices();
+        beneficiarioServices = new BeneficiarioServices();
         //Beneficiarios
         initBeneficiarios();
         //Combo Servicios
@@ -115,11 +120,12 @@ public class ProyectoBean {
     }
 
     public void initBeneficiarios() {
-        terceroServices = new TerceroServices();
+
+        beneSource = new ArrayList<Tercero>();
         beneSource = terceroServices.getAllTercero();
         beneTarget = new ArrayList<Tercero>();
         terceros = new DualListModel<Tercero>(beneSource, beneTarget);
-        beneficiarioServices = new BeneficiarioServices();
+
     }
 
     public void guardarBeneficiarios(int idProyecto) {
@@ -192,29 +198,37 @@ public class ProyectoBean {
     }
 
     public void crear() {
-        if (!servicioProyecto.tieneProyectoPendiente(usuario.getUsuario())) {
+        if (etapas != null) {
+            if (etapas.size() > 0) {
+                if (!servicioProyecto.tieneProyectoPendiente(usuario.getUsuario())) {
 
-            proyecto.setCreadopor(usuario.getUsuario());
-            proyecto.setId_programa(idPrograma);
-            proyecto.setId_servicio(idServicio);
-            int result = servicioProyecto.createProyecto(proyecto);
+                    proyecto.setCreadopor(usuario.getUsuario());
+                    proyecto.setId_programa(idPrograma);
+                    proyecto.setId_servicio(idServicio);
+                    int result = servicioProyecto.createProyecto(proyecto);
 
-            if (result != 0) {
-                guardarBeneficiarios(result);
-                guardarOferente(result);
-                guardarProyectoEtapa(result);
-                envioCorreo();
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Operacion realizado con exito");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-                limpiarForma();
+                    if (result != 0) {
+                        guardarBeneficiarios(result);
+                        guardarOferente(result);
+                        guardarProyectoEtapa(result);
+                        envioCorreo();
+                        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Operacion realizado con exito");
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+                        limpiarForma();
+                    } else {
+                        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "No se pudo realizar la operaciónn");
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
+
+                    }
+                } else {
+                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Tiene un proyecto pendiente");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                }
             } else {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "No se pudo realizar la operaciónn");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "el proyecto debe tener etapas");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
-
             }
-        } else {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Tiene un proyecto pendiente");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+
         }
 
     }
@@ -234,6 +248,7 @@ public class ProyectoBean {
         idPrograma = 0;
         idServicio = 0;
         idOferente = 0;
+        initBeneficiarios();
 
     }
 

@@ -14,20 +14,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PreDestroy;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 
 /**
  *
  * @author rlara
  */
 public class ServicioDAO {
-
-    private Connection DBConnection = null;
-
-    public ServicioDAO() {
-        ConexionBD bd = new ConexionBD();
-        this.DBConnection = bd.conexion();
-    }
 
     public int createServicio(Servicio servicio) {
         try {
@@ -39,7 +33,7 @@ public class ServicioDAO {
             PreparedStatement ps = null;
 
             String SQL = "select SQ_TB_Servicio.nextval ID from dual";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             int codigo = 0;
 
@@ -51,7 +45,7 @@ public class ServicioDAO {
             SQL = "INSERT INTO TB_Servicio "
                     + "(ID_Servicio, Descripcion, Estado, "
                     + "CreadoPor, CreadoEn) values(?,?,?,?,?) ";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
 
             ps.setInt(1, servicio.getId_servicio());
             ps.setString(2, servicio.getDescripcion());
@@ -78,7 +72,7 @@ public class ServicioDAO {
 
             String SQL = "UPDATE TB_Servicio SET Estado=0 WHERE ID_Servicio =" + id + " ";
 
-            PreparedStatement ps = this.DBConnection.prepareStatement(SQL);
+            PreparedStatement ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ps.execute();
             ps.close();
             return true;
@@ -102,7 +96,7 @@ public class ServicioDAO {
             String SQL = "UPDATE TB_Servicio SET "
                     + "Descripcion=?, Estado=?, ModificadoPor=?, ModificadoEn=? "
                     + "where ID_Servicio = ?";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
 
             ps.setString(1, servicio.getDescripcion());
             ps.setInt(2, servicio.getEstado());
@@ -129,7 +123,7 @@ public class ServicioDAO {
             PreparedStatement ps = null;
 
             final String SQL = "SELECT * from TB_Servicio where estado = 1";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Servicio servicio = new Servicio();
@@ -164,7 +158,7 @@ public class ServicioDAO {
             final String SQL = "select s.* from tb_servicio s \n"
                     + "inner join TB_PROGRAMASERVICIO ps on s.ID_SERVICIO = ps.ID_SERVICIO\n"
                     + "where ps.ESTADO=1 and  ps.ID_PROGRAMA= " + idProg + " ";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Servicio servicio = new Servicio();
@@ -199,7 +193,7 @@ public class ServicioDAO {
             final String SQL = "select s.* from tb_servicio s \n"
                     + "inner join TB_PROGRAMASERVICIO ps on s.ID_SERVICIO = ps.ID_SERVICIO\n"
                     + "where ps.ESTADO = 1 and s.ID_SERVICIO = " + idServicio + " ";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
 
             result = rs.next();
@@ -223,10 +217,11 @@ public class ServicioDAO {
             PreparedStatement ps = null;
 
             String SQL = "select * from TB_Servicio where ID_Servicio =" + id + " and estado = 1";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
-            if (rs != null) {
-                rs.next();
+            if (rs.next()) {
+
+                
 
                 servicio.setId_servicio(rs.getInt("ID_Servicio"));
                 servicio.setDescripcion(rs.getString("Descripcion"));
@@ -248,16 +243,5 @@ public class ServicioDAO {
 
     }
 
-    @PreDestroy
-    public void finish() {
-        try {
-
-            DBConnection.close();
-
-        } catch (SQLException sqle) {
-            System.out.println("Error en ServicioDAO finish" + sqle.getMessage());
-            Logger.getLogger(ServicioDAO.class.getName()).log(Level.SEVERE, null, sqle.getMessage());
-        }
-
-    }
+  
 }

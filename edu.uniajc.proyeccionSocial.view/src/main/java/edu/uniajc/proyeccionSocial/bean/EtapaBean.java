@@ -13,6 +13,7 @@ import edu.uniajc.proyeccionsocial.bussiness.services.ServicioEtapaServices;
 
 import edu.uniajc.proyeccionsocial.interfaces.IEtapa;
 import edu.uniajc.proyeccionsocial.interfaces.IServicioEtapa;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;

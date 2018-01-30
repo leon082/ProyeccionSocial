@@ -44,6 +44,7 @@ public class ServiciosBean {
         usuario = Utilidades.cargarUsuario();
         servicioServices = new ServicioServices();
         servicio = new Servicio();
+        listServicio=new ArrayList<>();
         listServicio = servicioServices.getAllServicio();
         seservices = new ServicioEtapaServices();
 

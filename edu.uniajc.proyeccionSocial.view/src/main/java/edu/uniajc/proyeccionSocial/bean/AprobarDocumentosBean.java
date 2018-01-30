@@ -105,6 +105,7 @@ public class AprobarDocumentosBean {
 
     @PostConstruct
     public void init() {
+        proyectoEtapa=new ProyectoEtapa();
         servicioProyectoEtapa = new ProyectoEtapaServices();
         //Soporte
 
@@ -151,6 +152,7 @@ public class AprobarDocumentosBean {
 
     public void buscar() {
         soporte = servicioSoporte.getSoporteProyectoEtapaById(Integer.valueOf(idSoporte));
+        if(soporte!=null){
         proyectoEtapa = servicioProyectoEtapa.getProyectoEtapaById(soporte.getId_proyectoetapa());
         proyecto = servicioProyecto.getProyectoById(proyectoEtapa.getId_proyecto());
         setProgramaByProyecto();
@@ -158,6 +160,10 @@ public class AprobarDocumentosBean {
         setOferenteByProyecto();
         llenarEtapas(proyectoEtapa);
         llenarBeneficiarios();
+        }else{
+             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Entrega no existente");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
 
     }
 
@@ -188,6 +194,7 @@ public class AprobarDocumentosBean {
         servicioProyectoEtapa.updateProyectoEtapa(proyectoEtapa);
         correos = new ArrayList<>();
         correos.add(usuarioServices.getEmailByUsername(usuario.getUsuario()));
+        emisor = new ArrayList<>();
         emisor = Utilidades.findEmailEmisor();
         if (Utilidades.envioCorreo(correos, emisor, usuario, proyecto, 4, "Entrega Aprobada", 0)) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Operacion realizado con exito");

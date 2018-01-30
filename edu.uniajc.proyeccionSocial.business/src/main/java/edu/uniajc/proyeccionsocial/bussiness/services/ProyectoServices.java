@@ -105,7 +105,7 @@ public class ProyectoServices implements IProyecto {
 
             return proyecto;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Error en grProyectoByUser Services"+e.getMessage());
             return null;
         }
     }

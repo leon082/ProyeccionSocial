@@ -48,6 +48,7 @@ public class ServEtapaBean {
         etapaServices = new EtapaServices();
         seServices = new ServicioEtapaServices();
         servicioservices = new ServicioServices();
+         etapaSource = new ArrayList<Etapa>();
         etapaSource = etapaServices.getAllEtapa();
         usuario = Utilidades.cargarUsuario();
         etapaTarget = new ArrayList<Etapa>();

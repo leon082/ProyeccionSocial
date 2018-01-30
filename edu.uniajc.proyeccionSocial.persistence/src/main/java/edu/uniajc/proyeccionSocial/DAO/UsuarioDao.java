@@ -7,14 +7,13 @@ package edu.uniajc.proyeccionSocial.DAO;
 
 import com.edu.uniajc.proyeccionsocial.utils.ConexionBD;
 import edu.uniajc.proyeccionSocial.Model.Usuario;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PreDestroy;
+import javax.annotation.PostConstruct;
 
 /**
  *
@@ -22,20 +21,13 @@ import javax.annotation.PreDestroy;
  */
 public class UsuarioDao {
 
-    private Connection DBConnection = null;
-
-    public UsuarioDao() {
-        ConexionBD bd = new ConexionBD();
-        this.DBConnection = bd.conexion();
-    }
-
     public int createUsuario(Usuario user) {
         try {
             user.setEstado(1);
             PreparedStatement ps = null;
 
             String SQL = "select SQ_TB_Usuario.nextval ID from dual";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             int codigo = 0;
 
@@ -47,7 +39,7 @@ public class UsuarioDao {
             SQL = "INSERT INTO TB_Usuario"
                     + " (ID_Usuario, ID_Tercero, Usuario, Contrasena, Estado) "
                     + " values(?,?,?,?,?)";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
 
             ps.setInt(1, user.getId_usuario());
             ps.setInt(2, user.getId_tercero());
@@ -58,6 +50,7 @@ public class UsuarioDao {
             ps.execute();
 
             ps.close();
+            rs.close();
 
             return codigo;
         } catch (SQLException e) {
@@ -73,7 +66,7 @@ public class UsuarioDao {
 
             String SQL = "UPDATE TB_Usuario SET Estado=0 WHERE ID_Usuario =" + id + " ";
 
-            PreparedStatement ps = this.DBConnection.prepareStatement(SQL);
+            PreparedStatement ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ps.execute();
             ps.close();
             return true;
@@ -93,7 +86,7 @@ public class UsuarioDao {
             String SQL = "UPDATE TB_Usuario SET "
                     + " ID_Tercero=?, Usuario=?, Estado=? , contrasena=? "
                     + " where ID_Usuario = ?";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
 
             ps.setInt(1, usuario.getId_tercero());
             ps.setString(2, usuario.getUsuario());
@@ -120,7 +113,7 @@ public class UsuarioDao {
             PreparedStatement ps = null;
 
             final String SQL = "SELECT * from TB_Usuario where estado = 1";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Usuario usuario = new Usuario();
@@ -151,10 +144,10 @@ public class UsuarioDao {
             PreparedStatement ps = null;
 
             String SQL = "select * from TB_Usuario where ID_Usuario =" + id + " and estado = 1";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
-            if (rs != null) {
-                rs.next();
+            if (rs.next()) {
+
                 usuario = new Usuario();
                 usuario.setId_usuario(rs.getInt("ID_Usuario"));
                 usuario.setId_tercero(rs.getInt("ID_Tercero"));
@@ -182,10 +175,10 @@ public class UsuarioDao {
             PreparedStatement ps = null;
 
             String SQL = "select * from TB_Usuario where Usuario = '" + user + "' and Contrasena ='" + contrasena + "' and estado = 1";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
-            if (rs != null) {
-                rs.next();
+            if (rs.next()) {
+
                 usuario = new Usuario();
                 usuario.setId_usuario(rs.getInt("ID_Usuario"));
                 usuario.setId_tercero(rs.getInt("ID_Tercero"));
@@ -204,8 +197,6 @@ public class UsuarioDao {
         }
 
     }
-    
-    
 
     public Usuario getUserByUsername(String user) {
 
@@ -215,10 +206,10 @@ public class UsuarioDao {
             PreparedStatement ps = null;
 
             String SQL = "select * from TB_Usuario where Usuario ='" + user + "' ";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
-            if (rs != null) {
-                rs.next();
+            if (rs.next()) {
+
                 usuario = new Usuario();
                 usuario.setId_usuario(rs.getInt("ID_Usuario"));
                 usuario.setId_tercero(rs.getInt("ID_Tercero"));
@@ -247,10 +238,9 @@ public class UsuarioDao {
 
             String SQL = "select tercero.correo from tb_usuario usuario inner join tb_tercero tercero on usuario.ID_TERCERO = tercero.ID_TERCERO "
                     + "where usuario.USUARIO = '" + user + "' ";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
-            if (rs != null) {
-                rs.next();
+            if (rs.next()) {
 
                 correo = rs.getString("correo");
 
@@ -262,19 +252,6 @@ public class UsuarioDao {
             System.out.println("Error en usuario DAO getCorreoByUsername " + e.getMessage());
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return null;
-        }
-
-    }
-
-    @PreDestroy
-    public void finish() {
-        try {
-
-            DBConnection.close();
-
-        } catch (SQLException sqle) {
-            System.out.println("Error en Usuario DAO finish " + sqle.getMessage());
-            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, sqle.getMessage());
         }
 
     }

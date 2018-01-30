@@ -102,6 +102,8 @@ public class ProyectoGestionBean {
 
     @PostConstruct
     public void init() {
+         correos = new ArrayList<>();
+        emisor = new ArrayList<>();
         servicioProyectoEtapa = new ProyectoEtapaServices();
         //Soporte
         soporte = new SoporteProyectoEtapa();
@@ -245,8 +247,8 @@ public class ProyectoGestionBean {
     public void cargarProyectoByUsuario() {
 
         proyecto = servicioProyecto.getProyectoByUser(usuario.getUsuario());
-        if(proyecto!= null){
-            setProgramaByProyecto();
+        if(proyecto != null){
+        setProgramaByProyecto();
         servByProg();
         setOferenteByProyecto();
         llenarEtapasByProyecto();

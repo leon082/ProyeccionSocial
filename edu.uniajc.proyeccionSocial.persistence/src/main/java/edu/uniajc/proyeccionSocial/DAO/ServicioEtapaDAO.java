@@ -14,20 +14,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PreDestroy;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 
 /**
  *
  * @author luis.leon
  */
 public class ServicioEtapaDAO {
-
-    private Connection DBConnection = null;
-
-    public ServicioEtapaDAO() {
-        ConexionBD bd = new ConexionBD();
-        this.DBConnection = bd.conexion();
-    }
 
     public int createServicioEtapa(ServicioEtapa servicioEtapa) {
         try {
@@ -39,7 +33,7 @@ public class ServicioEtapaDAO {
             PreparedStatement ps = null;
 
             String SQL = "select SQ_TB_ServicioEtapa.nextval ID from dual";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             int codigo = 0;
 
@@ -51,7 +45,7 @@ public class ServicioEtapaDAO {
             SQL = "INSERT INTO TB_ServicioEtapa"
                     + " (ID_ServicioEtapa, ID_Servicio, id_ETAPA , "
                     + "Estado,CreadoPor, CreadoEn) values(?,?,?,?,?,?)";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
 
             ps.setInt(1, servicioEtapa.getId_servicioetapa());
             ps.setInt(2, servicioEtapa.getId_servicio());
@@ -78,7 +72,7 @@ public class ServicioEtapaDAO {
             String SQL = "UPDATE TB_ServicioEtapa SET Estado=0 WHERE "
                     + "ID_ServicioEtapa =" + id + " ";
 
-            PreparedStatement ps = this.DBConnection.prepareStatement(SQL);
+            PreparedStatement ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ps.execute();
             ps.close();
             return true;
@@ -97,7 +91,7 @@ public class ServicioEtapaDAO {
             String SQL = "DELETE FROM tb_servicioetapa WHERE "
                     + "id_servicio =" + id + " ";
 
-            PreparedStatement ps = this.DBConnection.prepareStatement(SQL);
+            PreparedStatement ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ps.execute();
             ps.close();
             return true;
@@ -121,7 +115,7 @@ public class ServicioEtapaDAO {
             String SQL = "UPDATE TB_ServicioEtapa SET "
                     + "ID_Servicio=?, ID_Etapa=?, Estado=?, ModificadoPor=?, ModificadoEn=? "
                     + "where ID_ServicioEtapa = ?";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
 
             ps.setInt(1, servicioEtapa.getId_servicio());
             ps.setInt(2, servicioEtapa.getId_servicio());
@@ -149,7 +143,7 @@ public class ServicioEtapaDAO {
             PreparedStatement ps = null;
 
             final String SQL = "SELECT * from TB_ServicioEtapa where estado = 1";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 ServicioEtapa servicioEtapa = new ServicioEtapa();
@@ -183,10 +177,10 @@ public class ServicioEtapaDAO {
             PreparedStatement ps = null;
 
             String SQL = "select * from TB_ServicioEtapa where ID_ServicioEtapa =" + id + " and estado = 1";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
-            if (rs != null) {
-                rs.next();
+            if (rs.next()) {
+                
                 servicioEtapa.setId_servicioetapa(rs.getInt("ID_ServicioEtapa"));
                 servicioEtapa.setId_servicio(rs.getInt("ID_Servicio"));
                 servicioEtapa.setId_etapa(rs.getInt("ID_Etapa"));
@@ -207,17 +201,6 @@ public class ServicioEtapaDAO {
 
     }
 
-    @PreDestroy
-    public void finish() {
-        try {
-
-            DBConnection.close();
-
-        } catch (SQLException sqle) {
-            System.out.println("Error en ServicioEtapa DAO finish " + sqle.getMessage());
-            Logger.getLogger(ServicioEtapaDAO.class.getName()).log(Level.SEVERE, null, sqle.getMessage());
-        }
-
-    }
+ 
 
 }

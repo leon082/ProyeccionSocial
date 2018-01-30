@@ -59,6 +59,8 @@ public class AsignarRolBean {
         servicioUsuario = new UsuarioServices();
         servicioTercero = new TerceroServices();
         servicioRoles = new RolServices();
+        rolesTarget = new ArrayList<Rol>();
+         rolesSource= new ArrayList<Rol>();
         iniciarRoles();
         bloquearRoles = true;
         bloquearGuardar = true;

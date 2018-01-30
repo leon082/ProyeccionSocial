@@ -16,7 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PreDestroy;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 
 /**
  *
@@ -24,12 +25,6 @@ import javax.annotation.PreDestroy;
  */
 public class Opciones_menuDAO {
 
-    private Connection DBConnection = null;
-
-    public Opciones_menuDAO() {
-        ConexionBD bd = new ConexionBD();
-        this.DBConnection = bd.conexion();
-    }
 
     public List<Integer> cargarRoles(int idUsuario) {
         List<Integer> listaRoles = new ArrayList<>();
@@ -38,7 +33,7 @@ public class Opciones_menuDAO {
             PreparedStatement ps = null;
 
             String SQL = "select id_rol from TB_USUARIOROL where id_usuario = " + idUsuario + " and estado = 1";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int rol = rs.getInt("ID_ROL");
@@ -62,7 +57,7 @@ public class Opciones_menuDAO {
             PreparedStatement ps = null;
             for (int rol : roles) {
                 String SQL = "select id_modulo, descripcion , ruta from TB_MODULO where id_rol = " + rol + " ";
-                ps = this.DBConnection.prepareStatement(SQL);
+                ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                     
@@ -104,16 +99,5 @@ public class Opciones_menuDAO {
         return flag;
     }
     
-    @PreDestroy
-    public void finish() {
-        try {
-
-            DBConnection.close();
-
-        } catch (SQLException sqle) {
-            System.out.println("Error en ProgramaDAO finish" + sqle.getMessage());
-            Logger.getLogger(ProgramaDAO.class.getName()).log(Level.SEVERE, null, sqle.getMessage());
-        }
-
-    }
+   
 }

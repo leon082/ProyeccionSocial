@@ -48,6 +48,7 @@ public class ProgServBean {
         servicioServices = new ServicioServices();
         psServices = new ProgramaServicioServices();
         programaservices = new ProgramaServices();
+        servSource = new ArrayList<Servicio>();
         servSource = servicioServices.getAllServicio();
         usuario = Utilidades.cargarUsuario();
         servTarget = new ArrayList<Servicio>();

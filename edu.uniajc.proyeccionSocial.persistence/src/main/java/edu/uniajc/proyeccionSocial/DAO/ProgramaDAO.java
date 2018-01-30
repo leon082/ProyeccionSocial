@@ -14,20 +14,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PreDestroy;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 
 /**
  *
  * @author rlara
  */
 public class ProgramaDAO {
-
-    private Connection DBConnection = null;
-
-    public ProgramaDAO() {
-        ConexionBD bd = new ConexionBD();
-        this.DBConnection = bd.conexion();
-    }
 
     public int createPrograma(Programa programa) {
         try {
@@ -38,7 +32,7 @@ public class ProgramaDAO {
             PreparedStatement ps = null;
 
             String SQL = "select SQ_TB_Programa.nextval ID from dual";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             int codigo = 0;
 
@@ -50,7 +44,7 @@ public class ProgramaDAO {
             SQL = "INSERT INTO TB_Programa "
                     + "(ID_Programa, Descripcion, Estado, "
                     + "CreadoPor, CreadoEn) values(?,?,?,?,?) ";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
 
             ps.setInt(1, programa.getId_programa());
             ps.setString(2, programa.getDescripcion());
@@ -77,7 +71,7 @@ public class ProgramaDAO {
 
             String SQL = "UPDATE TB_Programa SET Estado=0 WHERE ID_Programa =" + id + " ";
 
-            PreparedStatement ps = this.DBConnection.prepareStatement(SQL);
+            PreparedStatement ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ps.execute();
             ps.close();
             return true;
@@ -101,7 +95,7 @@ public class ProgramaDAO {
             String SQL = "UPDATE TB_Programa SET "
                     + "Descripcion=?, Estado=?, ModificadoPor=?, ModificadoEn=? "
                     + "where ID_Programa = ?";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
 
             ps.setString(1, programa.getDescripcion());
             ps.setInt(2, programa.getEstado());
@@ -128,7 +122,7 @@ public class ProgramaDAO {
             PreparedStatement ps = null;
 
             final String SQL = "SELECT * from TB_Programa where estado = 1";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Programa programa = new Programa();
@@ -161,10 +155,10 @@ public class ProgramaDAO {
             PreparedStatement ps = null;
 
             String SQL = "select * from TB_Programa where ID_Programa =" + id + " and estado = 1";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
-            if (rs != null) {
-                rs.next();
+            if (rs.next()) {
+                
 
                 programa.setId_programa(rs.getInt("ID_Programa"));
                 programa.setDescripcion(rs.getString("Descripcion"));
@@ -186,16 +180,5 @@ public class ProgramaDAO {
 
     }
 
-    @PreDestroy
-    public void finish() {
-        try {
-
-            DBConnection.close();
-
-        } catch (SQLException sqle) {
-            System.out.println("Error en ProgramaDAO finish" + sqle.getMessage());
-            Logger.getLogger(ProgramaDAO.class.getName()).log(Level.SEVERE, null, sqle.getMessage());
-        }
-
-    }
+    
 }

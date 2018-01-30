@@ -14,20 +14,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PreDestroy;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 
 /**
  *
  * @author luis.leon
  */
 public class ListaValorDao {
-
-    private Connection DBConnection = null;
-
-    public ListaValorDao() {
-        ConexionBD bd = new ConexionBD();
-        this.DBConnection = bd.conexion();
-    }
 
     public int createListaValor(ListaValor listaValor) {
         try {
@@ -39,7 +33,7 @@ public class ListaValorDao {
             PreparedStatement ps = null;
 
             String SQL = "select SQ_TB_ListaValor.nextval ID from dual";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             int codigo = 0;
 
@@ -51,7 +45,7 @@ public class ListaValorDao {
             SQL = "INSERT INTO TB_ListaValor"
                     + " (ID_ListaValor, Agrupacion, Descripcion, Estado, CreadoPor, CreadoEn) "
                     + " values(?,?,?,?,?,?)";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
 
             ps.setInt(1, listaValor.getId_listavalor());
             ps.setString(2, listaValor.getAgrupacion());
@@ -78,7 +72,7 @@ public class ListaValorDao {
 
             String SQL = "UPDATE TB_ListaValor SET Estado=0 WHERE ID_ListaValor =" + id + " ";
 
-            PreparedStatement ps = this.DBConnection.prepareStatement(SQL);
+            PreparedStatement ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ps.execute();
             ps.close();
             return true;
@@ -102,7 +96,7 @@ public class ListaValorDao {
             String SQL = "UPDATE TB_ListaValor SET "
                     + " Agrupacion=?, Descripcion=?, Estado=?, ModificadoPor=?, "
                     + "ModificadoEn=? WHERE ID_ListaValor = ?";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
 
             ps.setString(1, listaValor.getAgrupacion());
             ps.setString(2, listaValor.getDescripcion());
@@ -130,7 +124,7 @@ public class ListaValorDao {
             PreparedStatement ps = null;
 
             final String SQL = "SELECT * from TB_ListaValor where estado = 1";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 ListaValor listaValor = new ListaValor();
@@ -158,16 +152,17 @@ public class ListaValorDao {
 
     public ListaValor getListaValorById(int id) {
 
-        ListaValor listaValor = new ListaValor();
+        ListaValor listaValor =  new ListaValor();
         try {
 
             PreparedStatement ps = null;
 
             String SQL = "select * from TB_ListaValor where ID_ListaValor =" + id + " and estado = 1";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
-            if (rs != null) {
-                rs.next();
+            if (rs.next()) {
+                
+                
 
                 listaValor.setId_listavalor(rs.getInt("ID_ListaValor"));
                 listaValor.setAgrupacion(rs.getString("Agrupacion"));
@@ -190,17 +185,6 @@ public class ListaValorDao {
 
     }
 
-    @PreDestroy
-    public void finish() {
-        try {
-
-            DBConnection.close();
-
-        } catch (SQLException sqle) {
-            System.out.println("Error en ListaValor DAO finish " + sqle.getMessage());
-            Logger.getLogger(ListaValorDao.class.getName()).log(Level.SEVERE, null, sqle.getMessage());
-        }
-
-    }
+   
 
 }

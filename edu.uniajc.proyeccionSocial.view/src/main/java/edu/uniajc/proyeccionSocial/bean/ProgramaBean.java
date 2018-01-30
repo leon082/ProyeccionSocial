@@ -12,6 +12,7 @@ import edu.uniajc.proyeccionsocial.bussiness.services.ProgramaServices;
 import edu.uniajc.proyeccionsocial.interfaces.IPrograma;
 import edu.uniajc.proyeccionsocial.bussiness.services.ProgramaServicioServices;
 import edu.uniajc.proyeccionsocial.interfaces.IProgramaServicio;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -43,6 +44,7 @@ public class ProgramaBean {
         psServicios = new ProgramaServicioServices();
 
         usuario = Utilidades.cargarUsuario();
+        listaPrograma=new ArrayList<>();
         listaPrograma = servicios.getAllPrograma();
     }
 

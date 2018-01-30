@@ -13,23 +13,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PreDestroy;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 
 /**
  *
  * @author LuisLeon
  */
 public class ReporteProyectoDAO {
-
-    private Connection DBConnection = null;
-
-    public ReporteProyectoDAO() {
-        ConexionBD bd = new ConexionBD();
-        this.DBConnection = bd.conexion();
-    }
 
     public ArrayList<ReporteProyecto> getAllProyect(int idPrograma, int idServicio, int idTerceroOferente, int idTerceroCreadoPor, Date fechaDesde, Date fechaHasta, int estado) {
         ArrayList<ReporteProyecto> listaProyectos = new ArrayList<>();
@@ -70,7 +63,7 @@ public class ReporteProyectoDAO {
                     + " and tb_proyecto.creadoen between nvl(?, to_date('01011990','ddmmyyyy'))"
                     + " and nvl(?, to_date('31122049','ddmmyyyy'))"
                     + " and tb_proyecto.estado = DECODE(?, -1,tb_proyecto.estado, ?) ";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             
             ps.setInt(1, idPrograma); 
             ps.setInt(2, idPrograma); 
@@ -119,16 +112,5 @@ public class ReporteProyectoDAO {
 
     }
     
-    @PreDestroy
-    public void finish() {
-        try {
-
-            DBConnection.close();
-
-        } catch (SQLException sqle) {
-            System.out.println("Error en ProgramaDAO finish" + sqle.getMessage());
-            Logger.getLogger(ProgramaDAO.class.getName()).log(Level.SEVERE, null, sqle.getMessage());
-        }
-
-    }
+   
 }

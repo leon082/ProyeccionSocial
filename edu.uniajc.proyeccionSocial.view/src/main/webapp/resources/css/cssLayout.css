@@ -1,6 +1,8 @@
-#divGeneral{
-    margin: 0 auto;
-    width: 1000px;
+#divGeneral {
+   margin: 0 auto;
+       margin-top: 0px;
+   width: 52%;
+   margin-top: 4%;
 }
 
 .no-border {
@@ -29,6 +31,7 @@
     color: white;
     padding: 5px;
     margin: 0px 0px 10px 0px;
+    border-radius: 4px;
 }
 
 #bottom {
@@ -61,6 +64,7 @@
     position: relative;
     background-color: #ffffff;
     padding: 5px;
+    border-radius: 4px;
 }
 
 .left_content {

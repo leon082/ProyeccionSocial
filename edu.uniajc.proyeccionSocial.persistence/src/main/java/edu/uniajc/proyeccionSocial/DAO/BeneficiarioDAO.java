@@ -7,27 +7,19 @@ package edu.uniajc.proyeccionSocial.DAO;
 
 import com.edu.uniajc.proyeccionsocial.utils.ConexionBD;
 import edu.uniajc.proyeccionSocial.Model.Beneficiario;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PreDestroy;
+import javax.annotation.PostConstruct;
 
 /**
  *
  * @author luis.leon
  */
 public class BeneficiarioDAO {
-
-    private Connection DBConnection = null;
-
-    public BeneficiarioDAO() {
-        ConexionBD bd = new ConexionBD();
-        this.DBConnection = bd.conexion();
-    }
 
     public int createBeneficiario(Beneficiario beneficiario) {
         try {
@@ -39,7 +31,7 @@ public class BeneficiarioDAO {
             PreparedStatement ps = null;
 
             String SQL = "select SQ_TB_Beneficiario.nextval ID from dual";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             int codigo = 0;
 
@@ -51,7 +43,7 @@ public class BeneficiarioDAO {
             SQL = "INSERT INTO TB_Beneficiario"
                     + " (ID_Beneficiario, ID_Proyecto, ID_Tercero, Estado, "
                     + "Observacion, CreadoPor, CreadoEn) values(?,?,?,?,?,?,?)";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
 
             ps.setInt(1, beneficiario.getId_beneficiario());
             ps.setInt(2, beneficiario.getId_proyecto());
@@ -78,7 +70,7 @@ public class BeneficiarioDAO {
 
             String SQL = "UPDATE TB_Beneficiario SET Estado=0 WHERE ID_Beneficiario =" + id + " ";
 
-            PreparedStatement ps = this.DBConnection.prepareStatement(SQL);
+            PreparedStatement ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ps.execute();
             ps.close();
             return true;
@@ -103,7 +95,7 @@ public class BeneficiarioDAO {
                     + "ID_Proyecto=?, ID_Tercero=?, Estado=?, "
                     + "Observacion=?, ModificadoPor=?, ModificadoEn=? "
                     + "where ID_Beneficiario = ?";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
 
             ps.setInt(1, beneficiario.getId_proyecto());
             ps.setInt(2, beneficiario.getId_tercero());
@@ -132,7 +124,7 @@ public class BeneficiarioDAO {
             PreparedStatement ps = null;
 
             final String SQL = "SELECT * from TB_Beneficiario where estado = 1";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Beneficiario beneficiario = new Beneficiario();
@@ -166,7 +158,7 @@ public class BeneficiarioDAO {
             PreparedStatement ps = null;
 
             final String SQL = "SELECT * from TB_Beneficiario where estado = 1 and id_proyecto = " + idProyect + " ";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Beneficiario beneficiario = new Beneficiario();
@@ -201,10 +193,9 @@ public class BeneficiarioDAO {
             PreparedStatement ps = null;
 
             String SQL = "select * from TB_Beneficiario where ID_Beneficiario =" + id + " and estado = 1";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
-            if (rs != null) {
-                rs.next();
+            if (rs.next()) {
 
                 beneficiario.setId_beneficiario(rs.getInt("ID_Beneficiario"));
                 beneficiario.setId_proyecto(rs.getInt("ID_Proyecto"));
@@ -227,17 +218,6 @@ public class BeneficiarioDAO {
 
     }
 
-    @PreDestroy
-    public void finish() {
-        try {
-
-            DBConnection.close();
-
-        } catch (SQLException sqle) {
-            System.out.println("Error en BeneficiarioDAO finish " + sqle.getMessage());
-            Logger.getLogger(BeneficiarioDAO.class.getName()).log(Level.SEVERE, null, sqle.getMessage());
-        }
-
-    }
+ 
 
 }

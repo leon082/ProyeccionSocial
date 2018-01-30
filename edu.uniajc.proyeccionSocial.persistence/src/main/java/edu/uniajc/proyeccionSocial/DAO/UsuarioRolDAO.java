@@ -14,20 +14,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PreDestroy;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 
 /**
  *
  * @author rlara
  */
 public class UsuarioRolDAO {
-
-    private Connection DBConnection = null;
-
-    public UsuarioRolDAO() {
-        ConexionBD bd = new ConexionBD();
-        this.DBConnection = bd.conexion();
-    }
 
     public int createUsuarioRol(UsuarioRol usuarioRol) {
         try {
@@ -39,7 +33,7 @@ public class UsuarioRolDAO {
             PreparedStatement ps = null;
 
             String SQL = "select SQ_TB_UsuarioRol.nextval ID from dual";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             int codigo = 0;
 
@@ -51,7 +45,7 @@ public class UsuarioRolDAO {
             SQL = "INSERT INTO TB_UsuarioRol "
                     + "(ID_UsuarioRol, ID_Usuario, ID_Rol, Estado, "
                     + "CreadoPor, CreadoEn) values(?,?,?,?,?,?) ";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
 
             ps.setInt(1, usuarioRol.getId_usuariorol());
             ps.setInt(2, usuarioRol.getId_usuario());
@@ -79,7 +73,7 @@ public class UsuarioRolDAO {
 
             String SQL = "UPDATE TB_UsuarioRol SET Estado=0 WHERE ID_UsuarioRol =" + id + " ";
 
-            PreparedStatement ps = this.DBConnection.prepareStatement(SQL);
+            PreparedStatement ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ps.execute();
             ps.close();
             return true;
@@ -98,7 +92,7 @@ public class UsuarioRolDAO {
             String SQL = "DELETE FROM TB_UsuarioRol WHERE "
                     + "ID_Usuario =" + idUser + " ";
 
-            PreparedStatement ps = this.DBConnection.prepareStatement(SQL);
+            PreparedStatement ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ps.execute();
             ps.close();
             return true;
@@ -122,7 +116,7 @@ public class UsuarioRolDAO {
             String SQL = "UPDATE TB_UsuarioRol SET "
                     + "ID_Usuario=?, ID_Rol=?, Estado=?, "
                     + "ModificadoPor=?, ModificadoEn=? where ID_UsuarioRol = ?";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
 
             ps.setInt(1, usuarioRol.getId_usuario());
             ps.setInt(2, usuarioRol.getId_rol());
@@ -150,7 +144,7 @@ public class UsuarioRolDAO {
             PreparedStatement ps = null;
 
             final String SQL = "SELECT * from TB_UsuarioRol where estado = 1";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 UsuarioRol usuarioRol = new UsuarioRol();
@@ -178,16 +172,16 @@ public class UsuarioRolDAO {
 
     public UsuarioRol getUsuarioRolById(int id) {
 
-        UsuarioRol usuarioRol = new UsuarioRol();
+        UsuarioRol usuarioRol=new UsuarioRol();
         try {
 
             PreparedStatement ps = null;
 
             String SQL = "select * from TB_UsuarioRol where ID_UsuarioRol =" + id + " and estado = 1";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
-            if (rs != null) {
-                rs.next();
+            if (rs.next()) {
+                
 
                 usuarioRol.setId_usuariorol(rs.getInt("ID_UsuarioRol"));
                 usuarioRol.setId_usuario(rs.getInt("ID_Usuario"));
@@ -210,16 +204,5 @@ public class UsuarioRolDAO {
 
     }
 
-    @PreDestroy
-    public void finish() {
-        try {
-
-            DBConnection.close();
-
-        } catch (SQLException sqle) {
-            System.out.println("Error en UsuarioRolDAO finish" + sqle.getMessage());
-            Logger.getLogger(UsuarioRolDAO.class.getName()).log(Level.SEVERE, null, sqle.getMessage());
-        }
-
-    }
+    
 }

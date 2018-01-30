@@ -14,20 +14,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PreDestroy;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 
 /**
  *
  * @author rlara
  */
 public class ListaValorDetalleDAO {
-
-    private Connection DBConnection = null;
-
-    public ListaValorDetalleDAO() {
-        ConexionBD bd = new ConexionBD();
-        this.DBConnection = bd.conexion();
-    }
 
     public int createListaValorDetalle(ListaValorDetalle listaValorDetalle) {
         try {
@@ -38,7 +32,7 @@ public class ListaValorDetalleDAO {
             PreparedStatement ps = null;
 
             String SQL = "select SQ_TB_ListaValorDetalle.nextval ID from dual";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             int codigo = 0;
 
@@ -50,7 +44,7 @@ public class ListaValorDetalleDAO {
             SQL = "INSERT INTO TB_ListaValorDetalle "
                     + "(ID_ListaValorDetalle, ID_ListaValor, Valor, Estado, "
                     + "CreadoPor, CreadoEn) values(?,?,?,?,?,?) ";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
 
             ps.setInt(1, listaValorDetalle.getId_listavalordetalle());
             ps.setInt(2, listaValorDetalle.getId_listavalor());
@@ -78,7 +72,7 @@ public class ListaValorDetalleDAO {
 
             String SQL = "UPDATE TB_ListaValorDetalle SET Estado=0 WHERE ID_ListaValorDetalle =" + id + " ";
 
-            PreparedStatement ps = this.DBConnection.prepareStatement(SQL);
+            PreparedStatement ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ps.execute();
             ps.close();
             return true;
@@ -102,7 +96,7 @@ public class ListaValorDetalleDAO {
             String SQL = "UPDATE TB_ListaValorDetalle SET "
                     + "ID_ListaValor=?, Valor=?, Estado=?, "
                     + "ModificadoPor=?, ModificadoEn=? where ID_ListaValorDetalle = ?";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
 
             ps.setInt(1, listaValorDetalle.getId_listavalor());
             ps.setString(2, listaValorDetalle.getValor());
@@ -130,7 +124,7 @@ public class ListaValorDetalleDAO {
             PreparedStatement ps = null;
 
             final String SQL = "SELECT * from TB_ListaValorDetalle where ID_ListaValor =" + idValor + " and estado = 1";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 ListaValorDetalle listaValorDetalle = new ListaValorDetalle();
@@ -158,16 +152,16 @@ public class ListaValorDetalleDAO {
 
     public ListaValorDetalle getListaValorDetalleById(int id) {
 
-        ListaValorDetalle listaValorDetalle = new ListaValorDetalle();
+        ListaValorDetalle  listaValorDetalle= new ListaValorDetalle();
         try {
 
             PreparedStatement ps = null;
 
             String SQL = "select * from TB_ListaValorDetalle where ID_ListaValorDetalle =" + id + " and estado = 1";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
-            if (rs != null) {
-                rs.next();
+            if (rs.next()) {
+               
 
                 listaValorDetalle.setId_listavalordetalle(rs.getInt("ID_ListaValorDetalle"));
                 listaValorDetalle.setId_listavalor(rs.getInt("ID_ListaValor"));
@@ -190,16 +184,5 @@ public class ListaValorDetalleDAO {
 
     }
 
-    @PreDestroy
-    public void finish() {
-        try {
-
-            DBConnection.close();
-
-        } catch (SQLException sqle) {
-            System.out.println("Error en ListaValorDetalleDAO finish" + sqle.getMessage());
-            Logger.getLogger(ListaValorDetalleDAO.class.getName()).log(Level.SEVERE, null, sqle.getMessage());
-        }
-
-    }
+  
 }

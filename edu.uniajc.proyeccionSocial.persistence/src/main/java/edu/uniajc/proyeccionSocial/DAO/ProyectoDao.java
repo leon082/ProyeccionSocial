@@ -14,20 +14,14 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PreDestroy;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 
 /**
  *
  * @author luis.leon
  */
 public class ProyectoDao {
-
-    private Connection DBConnection = null;
-
-    public ProyectoDao() {
-        ConexionBD bd = new ConexionBD();
-        this.DBConnection = bd.conexion();
-    }
 
     public int createProyecto(Proyecto proyecto) {
         try {
@@ -38,7 +32,7 @@ public class ProyectoDao {
             PreparedStatement ps = null;
 
             String SQL = "select SQ_TB_Proyecto.nextval ID from dual";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             int codigo = 0;
 
@@ -50,7 +44,7 @@ public class ProyectoDao {
             SQL = "INSERT INTO TB_PROYECTO"
                     + " (ID_Proyecto, TituloProyecto, ResumenProyecto, ID_Programa, id_servicio,"
                     + " Estado, CreadoPor, CreadoEn) values(?,?,?,?,?,?,?,?)";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ps.setInt(1, proyecto.getId_proyecto());
             ps.setString(2, proyecto.getTituloproyecto());
             ps.setString(3, proyecto.getResumenproyecto());
@@ -79,7 +73,7 @@ public class ProyectoDao {
 
             String SQL = "UPDATE TB_Proyecto SET Estado=0 WHERE ID_Proyecto =" + id + " ";
 
-            PreparedStatement ps = this.DBConnection.prepareStatement(SQL);
+            PreparedStatement ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ps.execute();
             ps.close();
             return true;
@@ -104,7 +98,7 @@ public class ProyectoDao {
                     + " TituloProyecto=?, ResumenProyecto=?, ID_Programa=?, id_servicio=?, "
                     + " Estado=?, ModificadoPor=?, ModificadoEn=? "
                     + " where ID_Proyecto = ?";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
 
             ps.setString(1, proyecto.getTituloproyecto());
             ps.setString(2, proyecto.getResumenproyecto());
@@ -134,7 +128,7 @@ public class ProyectoDao {
             PreparedStatement ps = null;
 
             final String SQL = "SELECT * from TB_PROYECTO where estado = 0";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -170,7 +164,7 @@ public class ProyectoDao {
             PreparedStatement ps = null;
 
             final String SQL = "SELECT * from TB_PROYECTO where creadopor = ? and (estado = 0 or estado = 1)";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ps.setString(1, usuario);
             ResultSet rs = ps.executeQuery();
             result = rs.next();
@@ -187,17 +181,17 @@ public class ProyectoDao {
 
     public Proyecto getProyectoByUser(String user) {
 
-        Proyecto proyecto = new Proyecto();
+        Proyecto proyecto = null;
         try {
 
             PreparedStatement ps = null;
 
             String SQL = "select * from TB_Proyecto where creadopor = '" + user + "' and estado = 1";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
-            if (rs != null) {
-                rs.next();
-
+            if (rs.next()) {
+                 proyecto = new Proyecto();
+                
                 proyecto.setId_proyecto(rs.getInt("ID_Proyecto"));
                 proyecto.setTituloproyecto(rs.getString("TituloProyecto"));
                 proyecto.setResumenproyecto(rs.getString("ResumenProyecto"));
@@ -229,10 +223,9 @@ public class ProyectoDao {
             PreparedStatement ps = null;
 
             String SQL = "select * from TB_Proyecto where id_proyecto = " + id + " and estado = 1";
-            ps = this.DBConnection.prepareStatement(SQL);
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
-            if (rs != null) {
-                rs.next();
+            if (rs.next()) {                
 
                 proyecto.setId_proyecto(rs.getInt("ID_Proyecto"));
                 proyecto.setTituloproyecto(rs.getString("TituloProyecto"));
@@ -257,16 +250,5 @@ public class ProyectoDao {
 
     }
 
-    @PreDestroy
-    public void finish() {
-        try {
-
-            DBConnection.close();
-
-        } catch (SQLException sqle) {
-            System.out.println("Error en Proyecto DAO finish " + sqle.getMessage());
-            Logger.getLogger(ProyectoDao.class.getName()).log(Level.SEVERE, null, sqle.getMessage());
-        }
-
-    }
+   
 }

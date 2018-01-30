@@ -20,24 +20,20 @@ public class UsuarioServices implements IUsuario {
     UsuarioDao dao;
 
     public UsuarioServices() {
-
         this.dao = new UsuarioDao();
     }
 
     @Override
     public int createUsuario(Usuario user) {
         try {
-
             // validacion de Data
             if (user != null) {
                 user.setUsuario(user.getUsuario().toLowerCase().trim());
                 int flag = dao.createUsuario(user);
-
                 return flag;
             } else {
                 System.out.println("Faltan Datos en pantalla");
                 return 0;
-
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -62,11 +58,8 @@ public class UsuarioServices implements IUsuario {
     @Override
     public boolean updateUsuario(Usuario usuario) {
         try {
-
             dao.updateUsuario(usuario);
-
             return true;
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;
@@ -76,11 +69,8 @@ public class UsuarioServices implements IUsuario {
     @Override
     public ArrayList<Usuario> getAllUsuario() {
         try {
-
             ArrayList<Usuario> list = dao.getAllUsuario();
-
             return list;
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
@@ -90,11 +80,8 @@ public class UsuarioServices implements IUsuario {
     @Override
     public Usuario getUserById(int id) {
         try {
-
             Usuario usuario = dao.getUserById(id);
-
             return usuario;
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
@@ -104,13 +91,11 @@ public class UsuarioServices implements IUsuario {
     @Override
     public Usuario getUsuarioLogin(String user, String password) {
         try {
-
             Usuario usuario = dao.getUsuarioLogin(user.toLowerCase(), password);
-
             return usuario;
-
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("---------------------------------------- USUARIO SERVICE ----------------------------------------");
+            System.out.print(e);
             return null;
         }
     }
@@ -118,11 +103,8 @@ public class UsuarioServices implements IUsuario {
     @Override
     public Usuario getUserByUsername(String user) {
         try {
-
             Usuario usuario = dao.getUserByUsername(user.toLowerCase());
-
             return usuario;
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
@@ -132,15 +114,11 @@ public class UsuarioServices implements IUsuario {
     @Override
     public String getEmailByUsername(String user) {
         try {
-
             String correo = dao.getEmailByUsername(user.toLowerCase());
-
             return correo;
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
         }
     }
-
 }
