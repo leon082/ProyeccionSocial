@@ -31,7 +31,7 @@
 
                                     <h:panelGrid columns="1">
                                         <p:outputLabel for="add_1" value="Tipo de Documento :" />
-                                        <p:selectOneMenu  id="add_1" value="#{terceroBean.docuSelected}" required="true" requiredMessage="Campo requerido" >  
+                                        <p:selectOneMenu  id="add_1" value="#{terceroBean.docuSelected}" required="true" requiredMessage="Tipo documento requerido" >  
                                             <f:selectItem itemLabel="Seleccione" itemValue="" />  
                                             <f:selectItems value="#{terceroBean.itemsDocumentos}"/>  
                                         </p:selectOneMenu> 
@@ -41,12 +41,12 @@
 
                                     <h:panelGrid columns="1">
                                         <p:outputLabel for="doc" value="Documento:" />
-                                        <p:inputMask id="doc" value="#{terceroBean.tercero.numidentificacion}" mask="9999999999" required="true" requiredMessage="Campo requerido"/>
+                                        <p:inputMask id="doc" value="#{terceroBean.tercero.numidentificacion}" mask="9999999999" required="true" requiredMessage="Documento requerido"/>
                                     </h:panelGrid>
 
                                     <h:panelGrid columns="1">
                                         <p:outputLabel for="pNombre" value="Primer Nombre:" />
-                                        <p:inputText id="pNombre" value="#{terceroBean.tercero.primernombre}" required="true" requiredMessage="Campo requerido"/>
+                                        <p:inputText id="pNombre" value="#{terceroBean.tercero.primernombre}" required="true" requiredMessage="Nombre requerido"/>
                                     </h:panelGrid>
 
                                     <h:panelGrid columns="1">
@@ -56,7 +56,7 @@
 
                                     <h:panelGrid columns="1">
                                         <p:outputLabel for="pApellido" value="Primer Apellido:" />
-                                        <p:inputText id="pApellido" value="#{terceroBean.tercero.primerapellido}" required="true" requiredMessage="Campo requerido"/>
+                                        <p:inputText id="pApellido" value="#{terceroBean.tercero.primerapellido}" required="true" requiredMessage="Apellido requerido"/>
                                     </h:panelGrid>
 
                                     <h:panelGrid columns="1">
@@ -66,7 +66,7 @@
 
                                     <h:panelGrid columns="1">
                                         <p:outputLabel for="fechaNacimiento" value="Fecha Nacimiento:" />
-                                        <p:calendar id="fechaNacimiento" value="#{terceroBean.fecha}" showOn="button" required="true" requiredMessage="Campo requerido" />
+                                        <p:calendar id="fechaNacimiento" value="#{terceroBean.fecha}" showOn="button" required="true" requiredMessage="Fecha requerido" />
                                     </h:panelGrid>
 
                                     <h:panelGrid columns="1">
@@ -82,7 +82,7 @@
 
                                     <h:panelGrid columns="1">
                                         <p:outputLabel for="correo" value="Correo Electronico:" />
-                                        <p:inputText id="correo" value="#{terceroBean.tercero.correo}" required="true" requiredMessage="Campo requerido"/>
+                                        <p:inputText id="correo" value="#{terceroBean.tercero.correo}" required="true" requiredMessage="Correo requerido"/>
                                     </h:panelGrid>
 
 

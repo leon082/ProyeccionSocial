@@ -29,7 +29,7 @@
                     <h:form>
                         <p:spacer height="110"></p:spacer>
                         <h:panelGrid columns="2">
-                            <p:spacer width ="300"></p:spacer>
+                            
                             <p:panel  >
 
                                 <p:tab title ="Datos Usuario">
@@ -37,7 +37,7 @@
 
                                         <h:panelGrid columns="1">
                                             <p:outputLabel for="add_1" value="Tipo de Documento :" />
-                                            <p:selectOneMenu  id="add_1" value="#{registrarBean.docuSelected}" required="true" requiredMessage="Campo requerido" >  
+                                            <p:selectOneMenu  id="add_1" value="#{registrarBean.docuSelected}" required="true" requiredMessage="Tipo documento requerido" >  
                                                 <f:selectItem itemLabel="Seleccione" itemValue="" />  
                                                 <f:selectItems value="#{registrarBean.itemsDocumentos}"/>  
                                             </p:selectOneMenu> 
@@ -47,12 +47,12 @@
 
                                         <h:panelGrid columns="1">
                                             <p:outputLabel for="doc" value="Documento:" />
-                                            <p:inputMask id="doc" value="#{registrarBean.tercero.numidentificacion}" mask="9999999999" required="true" requiredMessage="Campo requerido"/>
+                                            <p:inputMask id="doc" value="#{registrarBean.tercero.numidentificacion}" mask="9999999999" required="true" requiredMessage="Documento requerido"/>
                                         </h:panelGrid>
 
                                         <h:panelGrid columns="1">
                                             <p:outputLabel for="pNombre" value="Primer Nombre:" />
-                                            <p:inputText id="pNombre" value="#{registrarBean.tercero.primernombre}" required="true" requiredMessage="Campo requerido"/>
+                                            <p:inputText id="pNombre" value="#{registrarBean.tercero.primernombre}" required="true" requiredMessage="Primer Nombre requerido"/>
                                         </h:panelGrid>
 
                                         <h:panelGrid columns="1">
@@ -62,7 +62,7 @@
 
                                         <h:panelGrid columns="1">
                                             <p:outputLabel for="pApellido" value="Primer Apellido:" />
-                                            <p:inputText id="pApellido" value="#{registrarBean.tercero.primerapellido}" required="true" requiredMessage="Campo requerido"/>
+                                            <p:inputText id="pApellido" value="#{registrarBean.tercero.primerapellido}" required="true" requiredMessage="Primer Apellido requerido"/>
                                         </h:panelGrid>
 
                                         <h:panelGrid columns="1">
@@ -72,7 +72,7 @@
 
                                         <h:panelGrid columns="1">
                                             <p:outputLabel for="fechaNacimiento" value="Fecha Nacimiento:" />
-                                            <p:calendar id="fechaNacimiento" value="#{registrarBean.fecha}" showOn="button" required="true" requiredMessage="Campo requerido" />
+                                            <p:calendar id="fechaNacimiento" value="#{registrarBean.fecha}" showOn="button" required="true" requiredMessage="Fecha Nacimiento requerido" />
                                         </h:panelGrid>
 
                                         <h:panelGrid columns="1">
@@ -88,18 +88,18 @@
 
                                         <h:panelGrid columns="1">
                                             <p:outputLabel for="correo" value="Correo Electronico:" />
-                                            <p:inputText id="correo" value="#{registrarBean.tercero.correo}" required="true" requiredMessage="Campo requerido"/>
+                                            <p:inputText id="correo" value="#{registrarBean.tercero.correo}" required="true" requiredMessage="Correo requerido"/>
                                         </h:panelGrid>
 
                                         <h:panelGrid columns="1">
                                             <p:outputLabel  value="Usuario:" />
-                                            <p:inputText value="#{registrarBean.username}" required="true" requiredMessage="Campo requerido"/>
+                                            <p:inputText value="#{registrarBean.username}" required="true" requiredMessage="Usuario requerido"/>
 
                                         </h:panelGrid>
 
                                         <h:panelGrid columns="1">
                                             <p:outputLabel  value="Contraseña:" />
-                                            <p:password value="#{registrarBean.contra}" required="true" requiredMessage="Campo requerido"/>
+                                            <p:password value="#{registrarBean.contra}" required="true" requiredMessage="Contraseña requerido"/>
 
                                         </h:panelGrid>
 
@@ -108,6 +108,8 @@
 
                                     <p:commandButton 
                                         value="Registrar" action="#{registrarBean.actionButon()}" update=":mensajes"/>
+                                    <p:commandButton 
+                                        value="Home" action="login.xhtml" update=":mensajes" process="@this" />
                                 </p:tab>
                             </p:panel>
                         </h:panelGrid>

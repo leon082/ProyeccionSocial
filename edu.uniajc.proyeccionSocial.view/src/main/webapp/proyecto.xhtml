@@ -28,32 +28,32 @@
                             <h:panelGrid columns="2" cellpadding="5">
 
                                 <p:outputLabel for="add_1" value="Titulo :" />
-                                <p:inputText   id="add_1" value="#{proyectoBean.proyecto.tituloproyecto}" required="true" requiredMessage="Campo requerido"/>                       
+                                <p:inputText   id="add_1" value="#{proyectoBean.proyecto.tituloproyecto}" required="true" requiredMessage="Titulo requerido"/>                       
 
                                 <p:outputLabel for="add_2" value="Resumen :" />
-                                <p:inputTextarea   id="add_2" rows="6" cols="33" value="#{proyectoBean.proyecto.resumenproyecto}" required="true" requiredMessage="Campo requerido"/>                       
+                                <p:inputTextarea   id="add_2" rows="6" cols="33" value="#{proyectoBean.proyecto.resumenproyecto}" required="true" requiredMessage="Resumen requerido"/>                       
 
                                 <p:outputLabel for="add_7" value="Oferente :" />
-                                <p:selectOneMenu  id="add_7" value="#{proyectoBean.idOferente}" required="true" requiredMessage="Campo requerido">  
+                                <p:selectOneMenu  id="add_7" value="#{proyectoBean.idOferente}" required="true" requiredMessage="Oferente requerido">  
                                     <f:selectItem itemLabel="Seleccione" itemValue="0" />  
                                     <f:selectItems value="#{proyectoBean.itemsOferente}"/>  
                                 </p:selectOneMenu>
 
                                 <p:outputLabel for="add_3" value="Beneficiarios :" />
-                                <p:pickList id="pickList" value="#{proyectoBean.terceros}" var="tercero" itemLabel="#{tercero.nombreCompleto}" itemValue="#{tercero.id_tercero}" required="true" requiredMessage="Campo requerido">
+                                <p:pickList id="pickList" value="#{proyectoBean.terceros}" var="tercero" itemLabel="#{tercero.nombreCompleto}" itemValue="#{tercero.id_tercero}" required="true" requiredMessage="Beneficiario requerido">
                                     <f:facet name="sourceCaption">Beneficiarios Disponibles</f:facet>
                                     <f:facet name="targetCaption">Beneficiarios Vinculados</f:facet>
                                 </p:pickList>
 
                                 <p:outputLabel for="add_3" value="Programa :" />
-                                <p:selectOneMenu  id="add_3" value="#{proyectoBean.idPrograma}" required="true" requiredMessage="Campo requerido">  
+                                <p:selectOneMenu  id="add_3" value="#{proyectoBean.idPrograma}" required="true" requiredMessage="Programa requerido">  
                                     <p:ajax listener="#{proyectoBean.actionCombo()}" update=":forma:tab:add_4" />
                                     <f:selectItem itemLabel="Seleccione" itemValue="0" />  
                                     <f:selectItems value="#{proyectoBean.itemsProgramas}"/>  
                                 </p:selectOneMenu>
 
                                 <p:outputLabel for="add_4" value="Servicio :"  />
-                                <p:selectOneMenu  id="add_4" value="#{proyectoBean.idServicio}" required="true" requiredMessage="Campo requerido">  
+                                <p:selectOneMenu  id="add_4" value="#{proyectoBean.idServicio}" required="true" requiredMessage="Servicio requerido">  
                                     <p:ajax listener="#{proyectoBean.actionComboServicio()}" update=":forma:tab:listaEtapas" />
                                     <f:selectItem itemLabel="Seleccione" itemValue="0" />  
                                     <f:selectItems value="#{proyectoBean.itemsServicios}"/>  
@@ -62,7 +62,7 @@
 
                             <h3 style="margin-top: 0">Etapas</h3>
 
-                            <p:dataTable id="listaEtapas" var="etapa" value="#{proyectoBean.etapas}" >
+                            <p:dataTable id="listaEtapas" var="etapa" value="#{proyectoBean.etapas}"  >
                                 <p:column headerText="Etapa" groupRow="true">
                                     <h:outputText value="#{etapa.descripcion}" />
                                 </p:column>

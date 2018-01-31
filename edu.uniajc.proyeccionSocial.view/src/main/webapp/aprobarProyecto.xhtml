@@ -108,12 +108,16 @@
 
                             <!-- Se actulizan los formularios  forma y  para limpiar y mostrar cambios -->
                             <p:commandButton 
-                                update=":forma:grow,:forma:tab:add_1,:forma:tab:add_2,:forma:tab:add_3,:forma:tab:add_4,:forma:tab:add_7,:forma:tab:listaEtapas,:forma:tab:listaBeneficiarios,:forma:tab:listaProyectos"
+                                id="aprobar"
+                                update=":forma:grow,:forma:tab:add_1,:forma:tab:add_2,:forma:tab:add_3,:forma:tab:add_4,:forma:tab:add_7,:forma:tab:listaEtapas,:forma:tab:listaBeneficiarios,:forma:tab:listaProyectos,:forma:tab:rechazar"
                                 ajax="true" value="Aprobar" action="#{proyectosAprobarBean.aprobar()}"
+                                disabled="#{proyectosAprobarBean.showAprobar}"
                                 />
                             <p:commandButton 
-                                update=":forma:grow,:forma:tab:add_1,:forma:tab:add_2,:forma:tab:add_3,:forma:tab:add_4,:forma:tab:add_7,:forma:tab:listaEtapas,:forma:tab:listaBeneficiarios,:forma:tab:listaProyectos"
+                                id="rechazar"
+                                update=":forma:grow,:forma:tab:add_1,:forma:tab:add_2,:forma:tab:add_3,:forma:tab:add_4,:forma:tab:add_7,:forma:tab:listaEtapas,:forma:tab:listaBeneficiarios,:forma:tab:listaProyectos,:forma:tab:aprobar"
                                 ajax="true" value="Rechazar" action="#{proyectosAprobarBean.rechazar()}"
+                                disabled="#{proyectosAprobarBean.showRechazar}"
                                 />
                         </p:tab>
 

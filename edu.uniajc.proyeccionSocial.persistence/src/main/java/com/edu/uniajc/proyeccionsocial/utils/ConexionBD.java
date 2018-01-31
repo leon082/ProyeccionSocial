@@ -32,8 +32,9 @@ public class ConexionBD {
             connection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
             System.out.println(connection);
         } catch (SQLException | NamingException e) {
-            System.out.println("Error en ConexionBD init -> " + e.getMessage());
+            System.out.println("Error en ConexionBD init -> " + e.getMessage() + " Error -> "+e);
             System.out.println(e);
+             Logger.getLogger(EtapaDAO.class.getName()).log(Level.SEVERE, null, e.getMessage()+ " Error en ConexionBD init -> "+e);
         }
     }
 

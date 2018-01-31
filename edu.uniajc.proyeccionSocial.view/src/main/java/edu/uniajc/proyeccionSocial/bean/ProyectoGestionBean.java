@@ -315,9 +315,11 @@ public class ProyectoGestionBean {
             llenarEtapasByProyecto();
             rutaArchivo = "";
         }
-        /*else{
+        else{
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Debe subir un archivo.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
             
-        }*/
+        }
     }
 
     public int guardarSoporte(int idProyectoEtapa) {

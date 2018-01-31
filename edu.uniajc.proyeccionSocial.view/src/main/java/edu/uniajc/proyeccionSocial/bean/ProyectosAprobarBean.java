@@ -82,9 +82,13 @@ public class ProyectosAprobarBean {
     private IOferente oferenteServices;
 
     private List<Proyecto> proyectosAprobar;
+    private boolean showAprobar;
+    private boolean showRechazar;
 
     @PostConstruct
     public void init() {
+        showAprobar=true;
+        showRechazar=true;
          correos = new ArrayList<>();
         emisor = new ArrayList<>();
         //Proyecto create
@@ -170,6 +174,7 @@ public class ProyectosAprobarBean {
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
         limpiarForma();
+        ocultarBotones();
 
     }
 
@@ -184,6 +189,7 @@ public class ProyectosAprobarBean {
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
         limpiarForma();
+        ocultarBotones();
 
     }
 
@@ -194,6 +200,7 @@ public class ProyectosAprobarBean {
         idServicio = 0;
         idOferente = 0;
         proyectosAprobar = servicioProyecto.getAllProyectoPendiente();
+        beneficiarios = new ArrayList<>();
 
     }
 
@@ -211,7 +218,17 @@ public class ProyectosAprobarBean {
         setOferenteByProyecto();
         llenarEtapasByServicio();
         llenarBeneficiarios();
+        mostrarBotones();
 
+    }
+    
+    public void mostrarBotones(){
+        showAprobar=false;
+        showRechazar=false;
+    }
+     public void ocultarBotones(){
+        showAprobar=true;
+        showRechazar=true;
     }
 
     public Proyecto getProyecto() {
@@ -382,4 +399,21 @@ public class ProyectosAprobarBean {
         this.proyectosAprobar = proyectosAprobar;
     }
 
+    public boolean isShowAprobar() {
+        return showAprobar;
+    }
+
+    public void setShowAprobar(boolean showAprobar) {
+        this.showAprobar = showAprobar;
+    }
+
+    public boolean isShowRechazar() {
+        return showRechazar;
+    }
+
+    public void setShowRechazar(boolean showRechazar) {
+        this.showRechazar = showRechazar;
+    }
+    
+    
 }
