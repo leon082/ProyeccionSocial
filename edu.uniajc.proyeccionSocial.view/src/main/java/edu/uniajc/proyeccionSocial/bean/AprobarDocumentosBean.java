@@ -105,7 +105,7 @@ public class AprobarDocumentosBean {
 
     @PostConstruct
     public void init() {
-        proyectoEtapa=new ProyectoEtapa();
+        proyectoEtapa = new ProyectoEtapa();
         servicioProyectoEtapa = new ProyectoEtapaServices();
         //Soporte
 
@@ -152,16 +152,16 @@ public class AprobarDocumentosBean {
 
     public void buscar() {
         soporte = servicioSoporte.getSoporteProyectoEtapaById(Integer.valueOf(idSoporte));
-        if(soporte!=null){
-        proyectoEtapa = servicioProyectoEtapa.getProyectoEtapaById(soporte.getId_proyectoetapa());
-        proyecto = servicioProyecto.getProyectoById(proyectoEtapa.getId_proyecto());
-        setProgramaByProyecto();
-        servByProg();
-        setOferenteByProyecto();
-        llenarEtapas(proyectoEtapa);
-        llenarBeneficiarios();
-        }else{
-             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Entrega no existente");
+        if (soporte != null) {
+            proyectoEtapa = servicioProyectoEtapa.getProyectoEtapaById(soporte.getId_proyectoetapa());
+            proyecto = servicioProyecto.getProyectoById(proyectoEtapa.getId_proyecto());
+            setProgramaByProyecto();
+            servByProg();
+            setOferenteByProyecto();
+            llenarEtapas(proyectoEtapa);
+            llenarBeneficiarios();
+        } else {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Entrega no existente");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
 
@@ -200,8 +200,28 @@ public class AprobarDocumentosBean {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Operacion realizado con exito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
+        if(finalizarProyecto()){
+            proyecto.setEstado(3);
+            servicioProyecto.updateProyecto(proyecto);
+             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Con esta entrega el proyecto queda finalizado.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
         buscar();
 
+    }
+
+    public boolean finalizarProyecto() {
+        List<ProyectoEtapa> proyectoEtapas = servicioProyectoEtapa.getAllProyectoEtapaByProyecto(proyecto.getId_proyecto());
+        boolean flag = true;
+        for (ProyectoEtapa etapa : proyectoEtapas) {
+            if (etapa.getEstado() == 0
+                    || etapa.getEstado() == 3
+                    || etapa.getEstado() == 2) {
+                flag=false;
+                break;
+            }
+        }
+        return flag;
     }
 
     public void rechazarEntrega() {
