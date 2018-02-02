@@ -200,10 +200,10 @@ public class AprobarDocumentosBean {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Operacion realizado con exito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
-        if(finalizarProyecto()){
+        if (finalizarProyecto()) {
             proyecto.setEstado(3);
             servicioProyecto.updateProyecto(proyecto);
-             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Con esta entrega el proyecto queda finalizado.");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Con esta entrega el proyecto queda finalizado.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
         buscar();
@@ -217,7 +217,7 @@ public class AprobarDocumentosBean {
             if (etapa.getEstado() == 0
                     || etapa.getEstado() == 3
                     || etapa.getEstado() == 2) {
-                flag=false;
+                flag = false;
                 break;
             }
         }
