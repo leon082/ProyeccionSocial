@@ -194,6 +194,76 @@ public class ProyectoDao {
         }
 
     }
+      public ArrayList<Proyecto> getAllProyectoFinalizado(){
+        ArrayList<Proyecto> list = new ArrayList<>(0);
+        try {
+
+            PreparedStatement ps = null;
+
+            final String SQL = "SELECT * from TB_PROYECTO where estado = 3";
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Proyecto proyecto = new Proyecto();
+                proyecto.setId_proyecto(rs.getInt("ID_Proyecto"));
+                proyecto.setTituloproyecto(rs.getString("TituloProyecto"));
+                proyecto.setResumenproyecto(rs.getString("ResumenProyecto"));
+                proyecto.setId_programa(rs.getInt("ID_Programa"));
+                proyecto.setId_servicio(rs.getInt("ID_Servicio"));
+                proyecto.setEstado(rs.getInt("Estado"));
+                proyecto.setFacultad(rs.getInt("Facultad"));
+                proyecto.setCreadopor(rs.getString("CREADOPOR"));
+                proyecto.setModificadopor(rs.getString("MODIFICADOPOR"));
+                proyecto.setCreadoen(rs.getDate("CREADOEN"));
+                proyecto.setModificadoen(rs.getDate("MODIFICADOEN"));
+
+                list.add(proyecto);
+            }
+            ps.close();
+
+            return list;
+        } catch (SQLException e) {
+            Logger.getLogger(ProyectoDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            return null;
+        }
+
+    }
+         public ArrayList<Proyecto> getAllProyectoCancelado() {
+        ArrayList<Proyecto> list = new ArrayList<>(0);
+        try {
+
+            PreparedStatement ps = null;
+
+            final String SQL = "SELECT * from TB_PROYECTO where estado = 4";
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Proyecto proyecto = new Proyecto();
+                proyecto.setId_proyecto(rs.getInt("ID_Proyecto"));
+                proyecto.setTituloproyecto(rs.getString("TituloProyecto"));
+                proyecto.setResumenproyecto(rs.getString("ResumenProyecto"));
+                proyecto.setId_programa(rs.getInt("ID_Programa"));
+                proyecto.setId_servicio(rs.getInt("ID_Servicio"));
+                proyecto.setEstado(rs.getInt("Estado"));
+                proyecto.setFacultad(rs.getInt("Facultad"));
+                proyecto.setCreadopor(rs.getString("CREADOPOR"));
+                proyecto.setModificadopor(rs.getString("MODIFICADOPOR"));
+                proyecto.setCreadoen(rs.getDate("CREADOEN"));
+                proyecto.setModificadoen(rs.getDate("MODIFICADOEN"));
+
+                list.add(proyecto);
+            }
+            ps.close();
+
+            return list;
+        } catch (SQLException e) {
+            Logger.getLogger(ProyectoDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            return null;
+        }
+
+    }
 
     public boolean tieneProyectoPendiente(String usuario) {
         ArrayList<Proyecto> list = new ArrayList<>(0);

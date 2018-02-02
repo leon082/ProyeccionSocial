@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <link href="CSS/login.css" rel="stylesheet" type="text/css"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="css/default.css"/>
+        <h:outputStylesheet name="css/cssLayout.css"/>
+        <title>Proyeccion Social</title>
+    </h:head>
+    <body>
+
+        <ui:composition template="Home.xhtml">
+            <ui:define name="content">
+
+
+                <h:form id="forma">           
+                    <p:growl id="grow" showDetail="true" life="5555"/> 
+                    <p:tabView id="tab">
+
+
+
+                        <p:tab title="Proyectos Terminados"> <!-- Nombre  -->
+                            <h3 style="margin-top: 0">Proyectos Terminados</h3>
+
+                            <p:dataTable id="listaProyectos" var="proyecto" value="#{proyectosTerminadosBean.proyectosAprobar}" >
+                                <p:column headerText="Titulo" groupRow="true">
+                                    <h:outputText value="#{proyecto.tituloproyecto}" />
+                                </p:column>
+                                <p:column headerText="" style="width:30px" >
+                                    <p:commandButton 
+                                        update=":forma:grow,:forma:tab:add_1,:forma:tab:add_2,:forma:tab:add_3,:forma:tab:add_4,:forma:tab:add_7,:forma:tab:listaEtapas,:forma:tab:listaBeneficiarios"
+                                        ajax="true" icon="ui-icon-search" 
+                                        action="#{proyectosTerminadosBean.actionBoton(proyecto)}">
+
+                                    </p:commandButton>
+
+                                </p:column> 
+
+
+                            </p:dataTable>
+
+
+                            <p:separator />
+                            <h:panelGrid columns="2" cellpadding="5">
+
+                                <p:outputLabel for="add_7" value="Oferente del Proyecto: " />
+                                <p:selectOneMenu  id="add_7" value="#{proyectosTerminadosBean.idOferente}" disabled="true" >  
+                                    <f:selectItem itemLabel="Seleccione" itemValue="0" />  
+                                    <f:selectItems value="#{proyectosTerminadosBean.itemsOferente}"/>  
+                                </p:selectOneMenu>
+
+                                <p:outputLabel for="add_1" value="Titulo :" />
+                                <p:inputText   id="add_1" value="#{proyectosTerminadosBean.proyecto.tituloproyecto}" readonly="true"/>                       
+
+                                <p:outputLabel for="add_2" value="Resumen :" />
+                                <p:inputTextarea   id="add_2" rows="6" cols="33" value="#{proyectosTerminadosBean.proyecto.resumenproyecto}" readonly="true"/>                       
+
+
+
+
+                                <p:outputLabel for="add_3" value="Programa :" />
+                                <p:selectOneMenu  id="add_3" value="#{proyectosTerminadosBean.idPrograma}" disabled="true">  
+
+                                    <f:selectItem itemLabel="Seleccione" itemValue="0" />  
+                                    <f:selectItems value="#{proyectosTerminadosBean.itemsProgramas}"/>  
+                                </p:selectOneMenu>
+
+                                <p:outputLabel for="add_4" value="Servicio :"  />
+                                <p:selectOneMenu  id="add_4" value="#{proyectosTerminadosBean.idServicio}" disabled="true">  
+
+                                    <f:selectItem itemLabel="Seleccione" itemValue="0" />  
+                                    <f:selectItems value="#{proyectosTerminadosBean.itemsServicios}"/>  
+                                </p:selectOneMenu>
+                            </h:panelGrid>
+
+                            <h3 style="margin-top: 0">Etapas</h3>
+
+                            <p:dataTable id="listaEtapas" var="etapa" value="#{proyectosTerminadosBean.etapas}" >
+                                <p:column headerText="Etapa" >
+                                    <h:outputText value="#{etapa.descripcion}" />
+                                </p:column>
+
+
+                            </p:dataTable>
+
+
+
+                            <h3 style="margin-top: 0">Beneficiarios</h3>
+
+                            <p:dataTable id="listaBeneficiarios" var="beneficiario" value="#{proyectosTerminadosBean.beneficiarios}" >
+                                <p:column headerText="Beneficiario" groupRow="true">
+                                    <h:outputText value="#{beneficiario.nombreCompleto}" />
+                                </p:column>
+
+
+                            </p:dataTable>
+
+
+                            <p:separator />
+
+
+
+                            <!-- Se actulizan los formularios  forma y  para limpiar y mostrar cambios -->
+                            <p:commandButton 
+                                id="finalizar"
+                                update=":forma:grow,:forma:tab:add_1,:forma:tab:add_2,:forma:tab:add_3,:forma:tab:add_4,:forma:tab:add_7,:forma:tab:listaEtapas,:forma:tab:listaBeneficiarios,:forma:tab:listaProyectos"
+                                ajax="true" value="Limpiar" action="#{proyectosTerminadosBean.limpiarForma()}"
+                                
+                                />
+                            
+                        </p:tab>
+
+                    </p:tabView>
+
+                </h:form>
+
+
+            </ui:define>
+
+        </ui:composition>
+
+
+    </body>
+</html>

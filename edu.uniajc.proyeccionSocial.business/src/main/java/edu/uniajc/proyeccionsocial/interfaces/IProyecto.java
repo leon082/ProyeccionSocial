@@ -23,6 +23,9 @@ public interface IProyecto {
     public ArrayList<Proyecto> getAllProyectoPendiente();
     
     public ArrayList<Proyecto> getAllProyectoAprobado();
+    
+     public ArrayList<Proyecto> getAllProyectoFinalizado();
+      public ArrayList<Proyecto> getAllProyectoCancelado();
 
     public boolean tieneProyectoPendiente(String usuario);
 

@@ -136,4 +136,32 @@ public class ProyectoServices implements IProyecto {
         }
     }
 
+    @Override
+    public ArrayList<Proyecto> getAllProyectoFinalizado() {
+        try {
+
+            ArrayList<Proyecto> list = dao.getAllProyectoFinalizado();
+
+            return list;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public ArrayList<Proyecto> getAllProyectoCancelado() {
+       try {
+
+            ArrayList<Proyecto> list = dao.getAllProyectoCancelado();
+
+            return list;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
 }
