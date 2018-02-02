@@ -43,7 +43,7 @@ public class ProyectoDao {
 
             SQL = "INSERT INTO TB_PROYECTO"
                     + " (ID_Proyecto, TituloProyecto, ResumenProyecto, ID_Programa, id_servicio,"
-                    + " Estado, CreadoPor, CreadoEn) values(?,?,?,?,?,?,?,?)";
+                    + " Estado, CreadoPor, CreadoEn , facultad) values(?,?,?,?,?,?,?,?,?)";
             ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
             ps.setInt(1, proyecto.getId_proyecto());
             ps.setString(2, proyecto.getTituloproyecto());
@@ -53,6 +53,7 @@ public class ProyectoDao {
             ps.setInt(6, proyecto.getEstado());
             ps.setString(7, proyecto.getCreadopor());
             ps.setDate(8, proyecto.getCreadoen());
+            ps.setInt(9, proyecto.getFacultad());
             ps.execute();
 
             ps.close();
@@ -96,7 +97,7 @@ public class ProyectoDao {
             PreparedStatement ps = null;
             String SQL = "UPDATE TB_Proyecto SET "
                     + " TituloProyecto=?, ResumenProyecto=?, ID_Programa=?, id_servicio=?, "
-                    + " Estado=?, ModificadoPor=?, ModificadoEn=? "
+                    + " Estado=?, ModificadoPor=?, ModificadoEn=? , facultad=?"
                     + " where ID_Proyecto = ?";
             ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
 
@@ -107,7 +108,8 @@ public class ProyectoDao {
             ps.setInt(5, proyecto.getEstado());
             ps.setString(6, proyecto.getModificadopor());
             ps.setDate(7, proyecto.getModificadoen());
-            ps.setInt(8, proyecto.getId_proyecto());
+            ps.setInt(8, proyecto.getFacultad());
+            ps.setInt(9, proyecto.getId_proyecto());
 
             ps.execute();
             ps.close();
@@ -139,6 +141,43 @@ public class ProyectoDao {
                 proyecto.setId_programa(rs.getInt("ID_Programa"));
                 proyecto.setId_servicio(rs.getInt("ID_Servicio"));
                 proyecto.setEstado(rs.getInt("Estado"));
+                proyecto.setFacultad(rs.getInt("Facultad"));
+                proyecto.setCreadopor(rs.getString("CREADOPOR"));
+                proyecto.setModificadopor(rs.getString("MODIFICADOPOR"));
+                proyecto.setCreadoen(rs.getDate("CREADOEN"));
+                proyecto.setModificadoen(rs.getDate("MODIFICADOEN"));
+
+                list.add(proyecto);
+            }
+            ps.close();
+
+            return list;
+        } catch (SQLException e) {
+            Logger.getLogger(ProyectoDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            return null;
+        }
+
+    }
+    
+     public ArrayList<Proyecto> getAllProyectoAprobado() {
+        ArrayList<Proyecto> list = new ArrayList<>(0);
+        try {
+
+            PreparedStatement ps = null;
+
+            final String SQL = "SELECT * from TB_PROYECTO where estado = 1";
+            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Proyecto proyecto = new Proyecto();
+                proyecto.setId_proyecto(rs.getInt("ID_Proyecto"));
+                proyecto.setTituloproyecto(rs.getString("TituloProyecto"));
+                proyecto.setResumenproyecto(rs.getString("ResumenProyecto"));
+                proyecto.setId_programa(rs.getInt("ID_Programa"));
+                proyecto.setId_servicio(rs.getInt("ID_Servicio"));
+                proyecto.setEstado(rs.getInt("Estado"));
+                proyecto.setFacultad(rs.getInt("Facultad"));
                 proyecto.setCreadopor(rs.getString("CREADOPOR"));
                 proyecto.setModificadopor(rs.getString("MODIFICADOPOR"));
                 proyecto.setCreadoen(rs.getDate("CREADOEN"));
@@ -198,6 +237,7 @@ public class ProyectoDao {
                 proyecto.setId_programa(rs.getInt("ID_Programa"));
                 proyecto.setId_servicio(rs.getInt("ID_Servicio"));
                 proyecto.setEstado(rs.getInt("Estado"));
+                proyecto.setFacultad(rs.getInt("Facultad"));
                 proyecto.setCreadopor(rs.getString("CREADOPOR"));
                 proyecto.setModificadopor(rs.getString("MODIFICADOPOR"));
                 proyecto.setCreadoen(rs.getDate("CREADOEN"));
@@ -233,6 +273,7 @@ public class ProyectoDao {
                 proyecto.setId_programa(rs.getInt("ID_Programa"));
                 proyecto.setId_servicio(rs.getInt("ID_Servicio"));
                 proyecto.setEstado(rs.getInt("Estado"));
+                proyecto.setFacultad(rs.getInt("Facultad"));
                 proyecto.setCreadopor(rs.getString("CREADOPOR"));
                 proyecto.setModificadopor(rs.getString("MODIFICADOPOR"));
                 proyecto.setCreadoen(rs.getDate("CREADOEN"));

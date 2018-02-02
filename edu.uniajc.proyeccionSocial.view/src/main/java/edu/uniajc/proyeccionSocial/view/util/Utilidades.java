@@ -47,6 +47,7 @@ import javax.servlet.http.HttpSession;
 public class Utilidades {
 
     public static String leerTipoIdentificacion = "combo.tipoIdentificacion";
+    public static String leerFacultades = "combo.facultades";
     public static String leerEmail = "email.correos";
     public static String leerEmailemisor = "cuenta.emisora";
     public static String leerRolCreador = "rol.creador";
@@ -112,6 +113,19 @@ public class Utilidades {
     public static ArrayList<SelectItem> Consultar_Documentos_combo() {
         ListaValorDetalleServices servicio = new ListaValorDetalleServices();
         int idValor = Integer.valueOf(leerArchivo(leerTipoIdentificacion));
+        List<ListaValorDetalle> lista = servicio.getAllListaValorDetalle(idValor);
+        ArrayList<SelectItem> items = new ArrayList<SelectItem>();
+        for (ListaValorDetalle obj : (ArrayList<ListaValorDetalle>) lista) {
+            items.add(new SelectItem(obj.getId_listavalordetalle(), obj.getValor()));
+        }
+
+        return items;
+
+    }
+    
+    public static ArrayList<SelectItem> Consultar_Facultades_combo() {
+        ListaValorDetalleServices servicio = new ListaValorDetalleServices();
+        int idValor = Integer.valueOf(leerArchivo(leerFacultades));
         List<ListaValorDetalle> lista = servicio.getAllListaValorDetalle(idValor);
         ArrayList<SelectItem> items = new ArrayList<SelectItem>();
         for (ListaValorDetalle obj : (ArrayList<ListaValorDetalle>) lista) {
@@ -318,7 +332,12 @@ public class Utilidades {
 
         return text;
     }
-    //tipo correo, 0 creacion, 1 aprobacion, 2 rechazado , 3 entrega , 4 aprobarEntrega , 5 Rechazar entrega
+    public static String getTextOfEmailCancelarProyecto() {
+        String text = "El sistema de Proyeccion Social le notifica que el usuario :usuario ha cancelado su proyecto :titulo .";
+
+        return text;
+    }
+    //tipo correo, 0 creacion, 1 aprobacion, 2 rechazado , 3 entrega , 4 aprobarEntrega , 5 Rechazar entrega , 6 cancelar proyecto
 
     public static boolean envioCorreo(List<String> correosDestino,
             List<String> emisor, Usuario usuario, Proyecto proyecto, int tipoCorreo, String asunto, int idEtapa) {
@@ -359,6 +378,12 @@ public class Utilidades {
         if (tipoCorreo == 5) {
 
             text = getTextOfEmailRechazarEntrega();
+            text = text.replace(":usuario", usuario.getUsuario());
+            text = text.replace(":titulo", proyecto.getTituloproyecto());
+        }
+        if (tipoCorreo == 6) {
+
+            text = getTextOfEmailCancelarProyecto();
             text = text.replace(":usuario", usuario.getUsuario());
             text = text.replace(":titulo", proyecto.getTituloproyecto());
         }

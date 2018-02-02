@@ -22,6 +22,17 @@ public class Proyecto {
     private Date creadoen;
     private String modificadopor;
     private Date modificadoen;
+    private int facultad;
+
+    public int getFacultad() {
+        return facultad;
+    }
+
+    public void setFacultad(int facultad) {
+        this.facultad = facultad;
+    }
+    
+    
 
     public int getId_proyecto() {
         return id_proyecto;

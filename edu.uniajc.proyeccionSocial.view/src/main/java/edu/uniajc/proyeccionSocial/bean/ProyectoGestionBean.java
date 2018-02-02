@@ -68,6 +68,8 @@ public class ProyectoGestionBean {
     //Combo Servicios
     private ArrayList<SelectItem> itemsServicios;
     private int idServicio;
+    private ArrayList<SelectItem> itemsFacultad;
+    private int facultad;
 
     //Servicios segun el programa
     private IServicio serviciosServ;
@@ -102,7 +104,7 @@ public class ProyectoGestionBean {
 
     @PostConstruct
     public void init() {
-         correos = new ArrayList<>();
+        correos = new ArrayList<>();
         emisor = new ArrayList<>();
         servicioProyectoEtapa = new ProyectoEtapaServices();
         //Soporte
@@ -133,10 +135,12 @@ public class ProyectoGestionBean {
         itemsOferente = Utilidades.llenar_Combo_Terceros(terceroServices.getAllTercero());
         oferenteServices = new OferenteServices();
         beneficiarioServices = new BeneficiarioServices();
-
+        itemsFacultad = Utilidades.Consultar_Facultades_combo();
+        facultad = 0;
         proyecto = new Proyecto();
         cargarProyectoByUsuario();
         rutaArchivo = "";
+        
     }
 
     public void llenarBeneficiarios() {
@@ -247,17 +251,17 @@ public class ProyectoGestionBean {
     public void cargarProyectoByUsuario() {
 
         proyecto = servicioProyecto.getProyectoByUser(usuario.getUsuario());
-        if(proyecto != null){
-        setProgramaByProyecto();
-        servByProg();
-        setOferenteByProyecto();
-        llenarEtapasByProyecto();
-        llenarBeneficiarios();
-        }else{
-             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "No tiene Proyecto aprobado.");
+        if (proyecto != null) {
+            facultad = proyecto.getFacultad();
+            setProgramaByProyecto();
+            servByProg();
+            setOferenteByProyecto();
+            llenarEtapasByProyecto();
+            llenarBeneficiarios();
+        } else {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "No tiene Proyecto aprobado.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
-        
 
     }
 
@@ -314,11 +318,10 @@ public class ProyectoGestionBean {
 
             llenarEtapasByProyecto();
             rutaArchivo = "";
-        }
-        else{
+        } else {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Debe subir un archivo.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            
+
         }
     }
 
@@ -346,6 +349,24 @@ public class ProyectoGestionBean {
     public IProyecto getServicioProyecto() {
         return servicioProyecto;
     }
+
+    public ArrayList<SelectItem> getItemsFacultad() {
+        return itemsFacultad;
+    }
+
+    public void setItemsFacultad(ArrayList<SelectItem> itemsFacultad) {
+        this.itemsFacultad = itemsFacultad;
+    }
+
+    public int getFacultad() {
+        return facultad;
+    }
+
+    public void setFacultad(int facultad) {
+        this.facultad = facultad;
+    }
+    
+    
 
     public void setServicioProyecto(IProyecto servicioProyecto) {
         this.servicioProyecto = servicioProyecto;

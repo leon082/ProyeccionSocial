@@ -21,6 +21,8 @@ public interface IProyecto {
     public boolean updateProyecto(Proyecto proyecto);
 
     public ArrayList<Proyecto> getAllProyectoPendiente();
+    
+    public ArrayList<Proyecto> getAllProyectoAprobado();
 
     public boolean tieneProyectoPendiente(String usuario);
 

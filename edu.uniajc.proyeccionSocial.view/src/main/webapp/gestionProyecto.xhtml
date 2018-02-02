@@ -40,7 +40,13 @@
 
                                 <p:outputLabel for="add_2" value="Resumen :" />
                                 <p:inputTextarea   id="add_2" rows="6" cols="33" value="#{proyectoGestionBean.proyecto.resumenproyecto}" readonly="true"/>                       
-
+                                
+                                <p:outputLabel for="add_8" value="Facultad :" />
+                                <p:selectOneMenu  id="add_8" value="#{proyectoGestionBean.facultad}"  disabled="true">  
+                                    <f:selectItem itemLabel="Seleccione" itemValue="0" />  
+                                    <f:selectItems value="#{proyectoGestionBean.itemsFacultad}"/>  
+                                </p:selectOneMenu>
+                                
                                 <p:outputLabel for="add_3" value="Programa :" />
                                 <p:selectOneMenu  id="add_3" value="#{proyectoGestionBean.idPrograma}" disabled="true">  
 

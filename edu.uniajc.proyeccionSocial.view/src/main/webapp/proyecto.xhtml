@@ -32,7 +32,13 @@
 
                                 <p:outputLabel for="add_2" value="Resumen :" />
                                 <p:inputTextarea   id="add_2" rows="6" cols="33" value="#{proyectoBean.proyecto.resumenproyecto}" required="true" requiredMessage="Resumen requerido"/>                       
-
+                                
+                                 <p:outputLabel for="add_8" value="Facultad :" />
+                                 <p:selectOneMenu  id="add_8" value="#{proyectoBean.facultad}" required="true" requiredMessage="Oferente requerido">  
+                                    <f:selectItem itemLabel="Seleccione" itemValue="0" />  
+                                    <f:selectItems value="#{proyectoBean.itemsFacultad}"/>  
+                                </p:selectOneMenu>
+                                 
                                 <p:outputLabel for="add_7" value="Oferente :" />
                                 <p:selectOneMenu  id="add_7" value="#{proyectoBean.idOferente}" required="true" requiredMessage="Oferente requerido">  
                                     <f:selectItem itemLabel="Seleccione" itemValue="0" />  
@@ -77,7 +83,7 @@
 
                             <!-- Se actulizan los formularios  forma y  para limpiar y mostrar cambios -->
                             <p:commandButton 
-                                update=":forma:grow,:forma:tab:add_1,:forma:tab:add_2,:forma:tab:add_3,:forma:tab:add_7,:forma:tab:listaEtapas"
+                                update=":forma:grow,:forma:tab:add_1,:forma:tab:add_2,:forma:tab:add_3,:forma:tab:add_4,:forma:tab:add_8,:forma:tab:pickList,:forma:tab:add_7,:forma:tab:listaEtapas"
                                 ajax="true" value="Crear" action="#{proyectoBean.crear()}"
                                 />
                         </p:tab>

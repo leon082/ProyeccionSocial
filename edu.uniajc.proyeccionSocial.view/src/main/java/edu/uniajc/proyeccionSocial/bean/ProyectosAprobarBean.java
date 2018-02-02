@@ -84,6 +84,10 @@ public class ProyectosAprobarBean {
     private List<Proyecto> proyectosAprobar;
     private boolean showAprobar;
     private boolean showRechazar;
+    
+      //Combos
+    private ArrayList<SelectItem> itemsFacultad;
+    private int facultad;
 
     @PostConstruct
     public void init() {
@@ -117,6 +121,9 @@ public class ProyectosAprobarBean {
         beneficiarioServices = new BeneficiarioServices();
         proyectosAprobar = new ArrayList<>();
         proyectosAprobar = servicioProyecto.getAllProyectoPendiente();
+        
+        itemsFacultad = Utilidades.Consultar_Facultades_combo();
+        facultad=0;
     }
 
     public void llenarBeneficiarios() {
@@ -167,7 +174,7 @@ public class ProyectosAprobarBean {
         proyecto.setEstado(1);
         servicioProyecto.updateProyecto(proyecto);
         correos = new ArrayList<>();
-        correos.add(usuarioServices.getEmailByUsername(usuario.getUsuario()));
+        correos.add(usuarioServices.getEmailByUsername(proyecto.getCreadopor()));
         emisor = Utilidades.findEmailEmisor();
         if (Utilidades.envioCorreo(correos, emisor, usuario, proyecto, 1, "Proyecto Aprobado", 0)) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Operacion realizado con exito");
@@ -182,7 +189,7 @@ public class ProyectosAprobarBean {
         proyecto.setEstado(2);
         servicioProyecto.updateProyecto(proyecto);
         correos = new ArrayList<>();
-        correos.add(usuarioServices.getEmailByUsername(usuario.getUsuario()));
+        correos.add(usuarioServices.getEmailByUsername(proyecto.getCreadopor()));
         emisor = Utilidades.findEmailEmisor();
         if (Utilidades.envioCorreo(correos, emisor, usuario, proyecto, 2, "Proyecto Rechazado", 0)) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Operacion realizado con exito");
@@ -199,6 +206,7 @@ public class ProyectosAprobarBean {
         idPrograma = 0;
         idServicio = 0;
         idOferente = 0;
+        facultad=0;
         proyectosAprobar = servicioProyecto.getAllProyectoPendiente();
         beneficiarios = new ArrayList<>();
 
@@ -213,6 +221,7 @@ public class ProyectosAprobarBean {
             break;
         }
     }*/
+        facultad=proyecto.getFacultad();
         setProgramaByProyecto();
         servByProg();
         setOferenteByProyecto();
@@ -413,6 +422,22 @@ public class ProyectosAprobarBean {
 
     public void setShowRechazar(boolean showRechazar) {
         this.showRechazar = showRechazar;
+    }
+
+    public ArrayList<SelectItem> getItemsFacultad() {
+        return itemsFacultad;
+    }
+
+    public void setItemsFacultad(ArrayList<SelectItem> itemsFacultad) {
+        this.itemsFacultad = itemsFacultad;
+    }
+
+    public int getFacultad() {
+        return facultad;
+    }
+
+    public void setFacultad(int facultad) {
+        this.facultad = facultad;
     }
     
     

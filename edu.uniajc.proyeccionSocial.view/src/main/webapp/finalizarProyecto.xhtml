@@ -25,18 +25,18 @@
 
 
 
-                        <p:tab title="Aprobacion de Proyectos"> <!-- Nombre  -->
-                            <h3 style="margin-top: 0">Proyectos Pendientes</h3>
+                        <p:tab title="Cancelar Proyectos"> <!-- Nombre  -->
+                            <h3 style="margin-top: 0">Proyectos Aprobados</h3>
 
-                            <p:dataTable id="listaProyectos" var="proyecto" value="#{proyectosAprobarBean.proyectosAprobar}" >
+                            <p:dataTable id="listaProyectos" var="proyecto" value="#{finalizarProyectoBean.proyectosAprobar}" >
                                 <p:column headerText="Titulo" groupRow="true">
                                     <h:outputText value="#{proyecto.tituloproyecto}" />
                                 </p:column>
                                 <p:column headerText="" style="width:30px" >
                                     <p:commandButton 
-                                        update=":forma:grow,:forma:tab:add_1,:forma:tab:add_2,:forma:tab:add_3,:forma:tab:add_4,:forma:tab:add_8,:forma:tab:add_7,:forma:tab:listaEtapas,:forma:tab:listaBeneficiarios,:forma:tab:rechazar,:forma:tab:aprobar"
+                                        update=":forma:grow,:forma:tab:add_1,:forma:tab:add_2,:forma:tab:add_3,:forma:tab:add_4,:forma:tab:add_7,:forma:tab:listaEtapas,:forma:tab:listaBeneficiarios,:forma:tab:finalizar"
                                         ajax="true" icon="ui-icon-search" 
-                                        action="#{proyectosAprobarBean.actionBoton(proyecto)}">
+                                        action="#{finalizarProyectoBean.actionBoton(proyecto)}">
 
                                     </p:commandButton>
 
@@ -50,42 +50,38 @@
                             <h:panelGrid columns="2" cellpadding="5">
 
                                 <p:outputLabel for="add_7" value="Oferente del Proyecto: " />
-                                <p:selectOneMenu  id="add_7" value="#{proyectosAprobarBean.idOferente}" disabled="true" >  
+                                <p:selectOneMenu  id="add_7" value="#{finalizarProyectoBean.idOferente}" disabled="true" >  
                                     <f:selectItem itemLabel="Seleccione" itemValue="0" />  
-                                    <f:selectItems value="#{proyectosAprobarBean.itemsOferente}"/>  
+                                    <f:selectItems value="#{finalizarProyectoBean.itemsOferente}"/>  
                                 </p:selectOneMenu>
 
                                 <p:outputLabel for="add_1" value="Titulo :" />
-                                <p:inputText   id="add_1" value="#{proyectosAprobarBean.proyecto.tituloproyecto}" readonly="true"/>                       
+                                <p:inputText   id="add_1" value="#{finalizarProyectoBean.proyecto.tituloproyecto}" readonly="true"/>                       
 
                                 <p:outputLabel for="add_2" value="Resumen :" />
-                                <p:inputTextarea   id="add_2" rows="6" cols="33" value="#{proyectosAprobarBean.proyecto.resumenproyecto}" readonly="true"/>                       
+                                <p:inputTextarea   id="add_2" rows="6" cols="33" value="#{finalizarProyectoBean.proyecto.resumenproyecto}" readonly="true"/>                       
 
-                                <p:outputLabel for="add_8" value="Facultad :" />
-                                <p:selectOneMenu  id="add_8" value="#{proyectosAprobarBean.facultad}"  disabled="true">  
-                                    <f:selectItem itemLabel="Seleccione" itemValue="0" />  
-                                    <f:selectItems value="#{proyectosAprobarBean.itemsFacultad}"/>  
-                                </p:selectOneMenu>
+
 
 
                                 <p:outputLabel for="add_3" value="Programa :" />
-                                <p:selectOneMenu  id="add_3" value="#{proyectosAprobarBean.idPrograma}" disabled="true">  
+                                <p:selectOneMenu  id="add_3" value="#{finalizarProyectoBean.idPrograma}" disabled="true">  
 
                                     <f:selectItem itemLabel="Seleccione" itemValue="0" />  
-                                    <f:selectItems value="#{proyectosAprobarBean.itemsProgramas}"/>  
+                                    <f:selectItems value="#{finalizarProyectoBean.itemsProgramas}"/>  
                                 </p:selectOneMenu>
 
                                 <p:outputLabel for="add_4" value="Servicio :"  />
-                                <p:selectOneMenu  id="add_4" value="#{proyectosAprobarBean.idServicio}" disabled="true">  
+                                <p:selectOneMenu  id="add_4" value="#{finalizarProyectoBean.idServicio}" disabled="true">  
 
                                     <f:selectItem itemLabel="Seleccione" itemValue="0" />  
-                                    <f:selectItems value="#{proyectosAprobarBean.itemsServicios}"/>  
+                                    <f:selectItems value="#{finalizarProyectoBean.itemsServicios}"/>  
                                 </p:selectOneMenu>
                             </h:panelGrid>
 
                             <h3 style="margin-top: 0">Etapas</h3>
 
-                            <p:dataTable id="listaEtapas" var="etapa" value="#{proyectosAprobarBean.etapas}" >
+                            <p:dataTable id="listaEtapas" var="etapa" value="#{finalizarProyectoBean.etapas}" >
                                 <p:column headerText="Etapa" >
                                     <h:outputText value="#{etapa.descripcion}" />
                                 </p:column>
@@ -97,7 +93,7 @@
 
                             <h3 style="margin-top: 0">Beneficiarios</h3>
 
-                            <p:dataTable id="listaBeneficiarios" var="beneficiario" value="#{proyectosAprobarBean.beneficiarios}" >
+                            <p:dataTable id="listaBeneficiarios" var="beneficiario" value="#{finalizarProyectoBean.beneficiarios}" >
                                 <p:column headerText="Beneficiario" groupRow="true">
                                     <h:outputText value="#{beneficiario.nombreCompleto}" />
                                 </p:column>
@@ -112,17 +108,12 @@
 
                             <!-- Se actulizan los formularios  forma y  para limpiar y mostrar cambios -->
                             <p:commandButton 
-                                id="aprobar"
-                                update=":forma:grow,:forma:tab:add_1,:forma:tab:add_2,:forma:tab:add_3,:forma:tab:add_4,:forma:tab:add_7,:forma:tab:add_8,:forma:tab:listaEtapas,:forma:tab:listaBeneficiarios,:forma:tab:listaProyectos,:forma:tab:rechazar,:forma:tab:aprobar"
-                                ajax="true" value="Aprobar" action="#{proyectosAprobarBean.aprobar()}"
-                                disabled="#{proyectosAprobarBean.showAprobar}"
+                                id="finalizar"
+                                update=":forma:grow,:forma:tab:add_1,:forma:tab:add_2,:forma:tab:add_3,:forma:tab:add_4,:forma:tab:add_7,:forma:tab:listaEtapas,:forma:tab:listaBeneficiarios,:forma:tab:listaProyectos,:forma:tab:finalizar"
+                                ajax="true" value="Finalizar" action="#{finalizarProyectoBean.finalizar()}"
+                                disabled="#{finalizarProyectoBean.showAprobar}"
                                 />
-                            <p:commandButton 
-                                id="rechazar"
-                                update=":forma:grow,:forma:tab:add_1,:forma:tab:add_2,:forma:tab:add_3,:forma:tab:add_4,:forma:tab:add_7,:forma:tab:add_8,:forma:tab:listaEtapas,:forma:tab:listaBeneficiarios,:forma:tab:listaProyectos,:forma:tab:rechazar,:forma:tab:aprobar"
-                                ajax="true" value="Rechazar" action="#{proyectosAprobarBean.rechazar()}"
-                                disabled="#{proyectosAprobarBean.showRechazar}"
-                                />
+                            
                         </p:tab>
 
                     </p:tabView>

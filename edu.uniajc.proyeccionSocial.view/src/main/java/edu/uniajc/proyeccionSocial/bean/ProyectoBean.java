@@ -85,6 +85,10 @@ public class ProyectoBean {
     private IOferente oferenteServices;
 
     private IProyectoEtapa servicioProyectoEtapa;
+    
+     //Combos
+    private ArrayList<SelectItem> itemsFacultad;
+    private int facultad;
 
     @PostConstruct
     public void init() {
@@ -117,6 +121,9 @@ public class ProyectoBean {
         //oferentes
         itemsOferente = Utilidades.llenar_Combo_Terceros(terceroServices.getAllTercero());
         oferenteServices = new OferenteServices();
+        
+        itemsFacultad = Utilidades.Consultar_Facultades_combo();
+        facultad=0;
     }
 
     public void initBeneficiarios() {
@@ -205,6 +212,7 @@ public class ProyectoBean {
                     proyecto.setCreadopor(usuario.getUsuario());
                     proyecto.setId_programa(idPrograma);
                     proyecto.setId_servicio(idServicio);
+                    proyecto.setFacultad(facultad);
                     int result = servicioProyecto.createProyecto(proyecto);
 
                     if (result != 0) {
@@ -248,6 +256,7 @@ public class ProyectoBean {
         idPrograma = 0;
         idServicio = 0;
         idOferente = 0;
+        facultad=0;
         initBeneficiarios();
 
     }
@@ -419,5 +428,31 @@ public class ProyectoBean {
     public void setOferenteServices(IOferente oferenteServices) {
         this.oferenteServices = oferenteServices;
     }
+
+    public IProyectoEtapa getServicioProyectoEtapa() {
+        return servicioProyectoEtapa;
+    }
+
+    public void setServicioProyectoEtapa(IProyectoEtapa servicioProyectoEtapa) {
+        this.servicioProyectoEtapa = servicioProyectoEtapa;
+    }
+
+    public ArrayList<SelectItem> getItemsFacultad() {
+        return itemsFacultad;
+    }
+
+    public void setItemsFacultad(ArrayList<SelectItem> itemsFacultad) {
+        this.itemsFacultad = itemsFacultad;
+    }
+
+    public int getFacultad() {
+        return facultad;
+    }
+
+    public void setFacultad(int facultad) {
+        this.facultad = facultad;
+    }
+    
+    
 
 }
