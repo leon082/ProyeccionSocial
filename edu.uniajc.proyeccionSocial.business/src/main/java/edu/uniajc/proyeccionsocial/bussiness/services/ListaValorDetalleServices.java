@@ -10,6 +10,7 @@ import edu.uniajc.proyeccionSocial.persistence.DAO.ListaValorDetalleDAO;
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IListaValorDetalleDao;
 
 import edu.uniajc.proyeccionSocial.persistence.Model.ListaValorDetalle;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 /**
@@ -20,9 +21,9 @@ public class ListaValorDetalleServices implements IListaValorDetalle {
 
     IListaValorDetalleDao dao;
 
-    public ListaValorDetalleServices() {
+    public ListaValorDetalleServices(Connection connection) {
 
-        this.dao = new ListaValorDetalleDAO();
+        this.dao = new ListaValorDetalleDAO(connection);
     }
 
     @Override

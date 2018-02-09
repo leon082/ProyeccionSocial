@@ -10,6 +10,7 @@ import edu.uniajc.proyeccionSocial.persistence.DAO.ServicioDAO;
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IServicioDao;
 
 import edu.uniajc.proyeccionSocial.persistence.Model.Servicio;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 /**
@@ -20,9 +21,9 @@ public class ServicioServices implements IServicio {
 
     IServicioDao dao;
 
-    public ServicioServices() {
+    public ServicioServices(Connection connection) {
 
-        this.dao = new ServicioDAO();
+        this.dao = new ServicioDAO(connection);
     }
 
     @Override

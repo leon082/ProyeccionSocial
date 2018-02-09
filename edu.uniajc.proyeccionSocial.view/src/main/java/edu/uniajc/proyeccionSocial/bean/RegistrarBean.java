@@ -7,13 +7,17 @@ package edu.uniajc.proyeccionSocial.bean;
 
 import edu.uniajc.proyeccionSocial.persistence.Model.Tercero;
 import edu.uniajc.proyeccionSocial.persistence.Model.Usuario;
+import edu.uniajc.proyeccionSocial.persistence.utils.ConexionBD;
 
 import edu.uniajc.proyeccionSocial.view.util.Utilidades;
 import edu.uniajc.proyeccionsocial.bussiness.services.TerceroServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.UsuarioServices;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.ITercero;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IUsuario;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IUsuarioRol;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,21 +45,26 @@ public class RegistrarBean {
     private String username;
     private String contra;
     private Date fecha;
+    Connection connection;
 
     //Combos
     private ArrayList<SelectItem> itemsDocumentos;
     private int docuSelected;
+    private IUsuarioRol usuarioRolServices;
 
     @PostConstruct
     public void init() {
-        terceroServices = new TerceroServices();
+        
         tercero = new Tercero();
-        usuarioServices = new UsuarioServices();
+       
         usuario = new Usuario();
         itemsDocumentos = Utilidades.Consultar_Documentos_combo();
     }
 
     public boolean registrar() {
+        connection = new ConexionBD().getConnection();
+        terceroServices = new TerceroServices(connection);
+         usuarioServices = new UsuarioServices(connection);
         boolean result = false;
         if (!Utilidades.validarTercero(docuSelected, tercero.getNumidentificacion())
                 && !Utilidades.validarUsuario(username)) {
@@ -103,17 +112,28 @@ public class RegistrarBean {
 
         return result;
     }
+    
+    public void cerrarConeccion(){
+        try {
+            connection.close();
+        } catch (SQLException e) {
+
+        }
+    }
 
     public String actionButon() {
         if (valdiaciones()) {
 
             if (registrar()) {
+                
+               cerrarConeccion();
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Usuario Creado");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 return "login.xhtml";
             } else {
                 terceroServices.deleteTercero(idTercero);
                 usuarioServices.deleteUsuario(idUsuario);
+                cerrarConeccion();
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Info", "Error, intentelo de nuevo");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 return "registrar.xhtml";

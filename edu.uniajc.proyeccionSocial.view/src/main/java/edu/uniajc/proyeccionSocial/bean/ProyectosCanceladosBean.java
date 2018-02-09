@@ -93,28 +93,28 @@ public class ProyectosCanceladosBean {
         emisor = new ArrayList<>();
         //Proyecto create
         proyecto = new Proyecto();
-        servicioProyecto = new ProyectoServices();
+        servicioProyecto = new ProyectoServices(Utilidades.getConnection());
         //ComboProgramas
-        programaservices = new ProgramaServices();
+        programaservices = new ProgramaServices(Utilidades.getConnection());
         itemsProgramas = Utilidades.llenar_Combo_Programas(programaservices.getAllPrograma());
         //Servicios segun el programa
-        serviciosServ = new ServicioServices();
+        serviciosServ = new ServicioServices(Utilidades.getConnection());
         //Etapas segun el servicio
-        servicioEtapa = new EtapaServices();
+        servicioEtapa = new EtapaServices(Utilidades.getConnection());
         etapas = new ArrayList<Etapa>();
         //Usuario
-        usuarioServices = new UsuarioServices();
+        usuarioServices = new UsuarioServices(Utilidades.getConnection());
         usuario = Utilidades.cargarUsuario();
         //Beneficiarios
         beneficiarios = new ArrayList<>();
         //Combo Servicios
         itemsServicios = new ArrayList<>();
-        terceroServices = new TerceroServices();
+        terceroServices = new TerceroServices(Utilidades.getConnection());
 
         //oferentes
         itemsOferente = Utilidades.llenar_Combo_Terceros(terceroServices.getAllTercero());
-        oferenteServices = new OferenteServices();
-        beneficiarioServices = new BeneficiarioServices();
+        oferenteServices = new OferenteServices(Utilidades.getConnection());
+        beneficiarioServices = new BeneficiarioServices(Utilidades.getConnection());
         proyectosAprobar = new ArrayList<>();
         proyectosAprobar = servicioProyecto.getAllProyectoCancelado();
     }

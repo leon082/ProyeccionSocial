@@ -52,13 +52,13 @@ public class AsignarRolBean {
     @PostConstruct
     public void init() {
         userName="";
-        servicioUserRol = new UsuarioRolServices();
+        servicioUserRol = new UsuarioRolServices(Utilidades.getConnection());
         usuario = new Usuario();
         tercero = new Tercero();
         userSession = Utilidades.cargarUsuario();
-        servicioUsuario = new UsuarioServices();
-        servicioTercero = new TerceroServices();
-        servicioRoles = new RolServices();
+        servicioUsuario = new UsuarioServices(Utilidades.getConnection());
+        servicioTercero = new TerceroServices(Utilidades.getConnection());
+        servicioRoles = new RolServices(Utilidades.getConnection());
         rolesTarget = new ArrayList<Rol>();
          rolesSource= new ArrayList<Rol>();
         iniciarRoles();

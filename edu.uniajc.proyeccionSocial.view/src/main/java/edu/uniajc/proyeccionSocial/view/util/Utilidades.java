@@ -12,6 +12,9 @@ import edu.uniajc.proyeccionSocial.persistence.Model.Servicio;
 import edu.uniajc.proyeccionSocial.persistence.Model.Tercero;
 import edu.uniajc.proyeccionSocial.persistence.Model.Usuario;
 import edu.uniajc.proyeccionSocial.persistence.Model.UsuarioRol;
+import static edu.uniajc.proyeccionSocial.view.util.Utilidades.getConnection;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IListaValorDetalle;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.ITercero;
 import edu.uniajc.proyeccionsocial.bussiness.services.ListaValorDetalleServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.TerceroServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.UsuarioRolServices;
@@ -24,6 +27,7 @@ import java.io.InputStream;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +73,13 @@ public class Utilidades {
 
         return sb.toString();
     }
+    public static Connection getConnection() {
+        HttpSession session = SessionUtils.getSession();
+        Connection connection = (Connection) session.getAttribute("username");
+       
+       
+        return connection;
+    }
 
     public static String leerArchivo(String leer) {
         try {
@@ -111,7 +122,7 @@ public class Utilidades {
     }
 
     public static ArrayList<SelectItem> Consultar_Documentos_combo() {
-        ListaValorDetalleServices servicio = new ListaValorDetalleServices();
+        IListaValorDetalle servicio = new ListaValorDetalleServices(getConnection());
         int idValor = Integer.valueOf(leerArchivo(leerTipoIdentificacion));
         List<ListaValorDetalle> lista = servicio.getAllListaValorDetalle(idValor);
         ArrayList<SelectItem> items = new ArrayList<SelectItem>();
@@ -124,7 +135,7 @@ public class Utilidades {
     }
     
     public static ArrayList<SelectItem> Consultar_Facultades_combo() {
-        ListaValorDetalleServices servicio = new ListaValorDetalleServices();
+        IListaValorDetalle servicio = new ListaValorDetalleServices(getConnection());
         int idValor = Integer.valueOf(leerArchivo(leerFacultades));
         List<ListaValorDetalle> lista = servicio.getAllListaValorDetalle(idValor);
         ArrayList<SelectItem> items = new ArrayList<SelectItem>();
@@ -137,7 +148,7 @@ public class Utilidades {
     }
 
     public static ArrayList<String> findSendEmail() {
-        ListaValorDetalleServices servicio = new ListaValorDetalleServices();
+        IListaValorDetalle servicio = new ListaValorDetalleServices(getConnection());
         int idValor = Integer.valueOf(leerArchivo(leerEmail));
         List<ListaValorDetalle> lista = servicio.getAllListaValorDetalle(idValor);
         ArrayList<String> emails = new ArrayList<String>();
@@ -150,7 +161,7 @@ public class Utilidades {
     }
 
     public static ArrayList<String> findEmailEmisor() {
-        ListaValorDetalleServices servicio = new ListaValorDetalleServices();
+        IListaValorDetalle servicio = new ListaValorDetalleServices(getConnection());
         int idValor = Integer.valueOf(leerArchivo(leerEmailemisor));
         List<ListaValorDetalle> lista = servicio.getAllListaValorDetalle(idValor);
         ArrayList<String> emails = new ArrayList<String>();
@@ -184,7 +195,7 @@ public class Utilidades {
     }
 
     public static boolean validarTercero(int tipo, String doc) {
-        TerceroServices terceroServices = new TerceroServices();
+        ITercero terceroServices = new TerceroServices(getConnection());
         Tercero tercero = terceroServices.getTerceroByIdentificacion(tipo, doc);
         try {
             if (tercero.getNumidentificacion().length() > 0) {
@@ -198,7 +209,7 @@ public class Utilidades {
     }
 
     public static boolean validarUsuario(String user) {
-        UsuarioServices usuarioServices = new UsuarioServices();
+        IUsuario usuarioServices = new UsuarioServices(getConnection());
         Usuario usuario = usuarioServices.getUserByUsername(user);
         try {
             if (usuario.getUsuario().length() > 0) {
@@ -278,7 +289,7 @@ public class Utilidades {
 
     public static void asignarRolCreador(Usuario user) {
         int creador = Integer.valueOf(leerArchivo(leerRolCreador));
-        IUsuarioRol asignar = new UsuarioRolServices();
+        IUsuarioRol asignar = new UsuarioRolServices(getConnection());
         UsuarioRol usuarioRol = new UsuarioRol();
         usuarioRol.setId_usuario(user.getId_usuario());
         usuarioRol.setId_rol(creador);
@@ -290,7 +301,7 @@ public class Utilidades {
     public static Usuario cargarUsuario() {
         HttpSession session = SessionUtils.getSession();
         String user = (String) session.getAttribute("username");
-        IUsuario usuarioServices = new UsuarioServices();
+        IUsuario usuarioServices = new UsuarioServices(getConnection());
         Usuario us = usuarioServices.getUserByUsername(user);
         return us;
     }

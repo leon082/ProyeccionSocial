@@ -5,7 +5,6 @@
  */
 package edu.uniajc.proyeccionSocial.persistence.DAO;
 
-import edu.uniajc.proyeccionSocial.persistence.utils.ConexionBD;
 import edu.uniajc.proyeccionSocial.persistence.Model.Opciones_menu;
 import edu.uniajc.proyeccionSocial.persistence.Model.Usuario;
 import java.sql.PreparedStatement;
@@ -16,13 +15,19 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IOpciones_menuDao;
+import java.sql.Connection;
 
 /**
  *
  * @author luis.leon
  */
-public class Opciones_menuDAO implements IOpciones_menuDao{
+public class Opciones_menuDAO implements IOpciones_menuDao {
 
+    Connection connection;
+
+    public Opciones_menuDAO(Connection connection) {
+        this.connection = connection;
+    }
 
     public List<Integer> cargarRoles(int idUsuario) {
         List<Integer> listaRoles = new ArrayList<>();
@@ -31,7 +36,7 @@ public class Opciones_menuDAO implements IOpciones_menuDao{
             PreparedStatement ps = null;
 
             String SQL = "select id_rol from TB_USUARIOROL where id_usuario = " + idUsuario + " and estado = 1";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int rol = rs.getInt("ID_ROL");
@@ -61,12 +66,12 @@ public class Opciones_menuDAO implements IOpciones_menuDao{
             PreparedStatement ps = null;
             for (int rol : roles) {
                 String SQL = "select id_modulo, descripcion , ruta from TB_MODULO where id_rol = " + rol + " ";
-                ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+                ps = connection.prepareStatement(SQL);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
-                    
+
                     String ruta = rs.getString("RUTA");
-                    
+
                     if (!validarRepetido(listaModulos, ruta)) {
                         Opciones_menu menu = new Opciones_menu();
                         menu.setDescripcion(rs.getString("DESCRIPCION"));
@@ -102,6 +107,5 @@ public class Opciones_menuDAO implements IOpciones_menuDao{
 
         return flag;
     }
-    
-   
+
 }

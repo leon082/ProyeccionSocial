@@ -59,10 +59,10 @@ public class ReporteProyectoBean {
     public void init() {
 
         listaReporte = new ArrayList<>();
-        reporteServices = new ReporteProyectoServices();
-        progServices = new ProgramaServices();
-        servServices = new ServicioServices();
-        terceroServices = new TerceroServices();
+        reporteServices = new ReporteProyectoServices(Utilidades.getConnection());
+        progServices = new ProgramaServices(Utilidades.getConnection());
+        servServices = new ServicioServices(Utilidades.getConnection());
+        terceroServices = new TerceroServices(Utilidades.getConnection());
         servicios = new ArrayList<SelectItem>();
         tercerosOferentes = Utilidades.llenar_Combo_Terceros(terceroServices.getAllTercero());
         programas = Utilidades.llenar_Combo_Programas(progServices.getAllPrograma());

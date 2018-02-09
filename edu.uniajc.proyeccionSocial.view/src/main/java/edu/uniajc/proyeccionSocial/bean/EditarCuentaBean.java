@@ -46,8 +46,8 @@ public class EditarCuentaBean {
 
     @PostConstruct
     public void init() {
-        terceroServices = new TerceroServices();
-        usuarioServices = new UsuarioServices();
+        terceroServices = new TerceroServices(Utilidades.getConnection());
+        usuarioServices = new UsuarioServices(Utilidades.getConnection());
         usuario = Utilidades.cargarUsuario();
         tercero = new Tercero();
         itemsDocumentos = Utilidades.Consultar_Documentos_combo();

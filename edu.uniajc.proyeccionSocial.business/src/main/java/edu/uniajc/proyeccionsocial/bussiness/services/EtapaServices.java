@@ -9,6 +9,7 @@ import edu.uniajc.proyeccionSocial.persistence.DAO.EtapaDAO;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IEtapa;
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IEtapaDao;
 import edu.uniajc.proyeccionSocial.persistence.Model.Etapa;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 /**
@@ -19,9 +20,9 @@ public class EtapaServices implements IEtapa {
 
     IEtapaDao dao;
 
-    public EtapaServices() {
+    public EtapaServices(Connection connection) {
 
-        this.dao = new EtapaDAO();
+        this.dao = new EtapaDAO(connection);
     }
 
     @Override

@@ -45,9 +45,9 @@ public class ProgServBean {
 
     @PostConstruct
     public void init() {
-        servicioServices = new ServicioServices();
-        psServices = new ProgramaServicioServices();
-        programaservices = new ProgramaServices();
+        servicioServices = new ServicioServices(Utilidades.getConnection());
+        psServices = new ProgramaServicioServices(Utilidades.getConnection());
+        programaservices = new ProgramaServices(Utilidades.getConnection());
         servSource = new ArrayList<Servicio>();
         servSource = servicioServices.getAllServicio();
         usuario = Utilidades.cargarUsuario();

@@ -5,7 +5,6 @@
  */
 package edu.uniajc.proyeccionSocial.persistence.DAO;
 
-import edu.uniajc.proyeccionSocial.persistence.utils.ConexionBD;
 import edu.uniajc.proyeccionSocial.persistence.Model.SoporteProyectoEtapa;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,12 +13,19 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import edu.uniajc.proyeccionSocial.persistence.interfaces.ISoporteProyectoEtapaDao;
+import java.sql.Connection;
 
 /**
  *
  * @author rlara
  */
 public class SoporteProyectoEtapaDAO implements ISoporteProyectoEtapaDao {
+
+    Connection connection;
+
+    public SoporteProyectoEtapaDAO(Connection connection) {
+        this.connection = connection;
+    }
 
     /**
      *
@@ -36,7 +42,7 @@ public class SoporteProyectoEtapaDAO implements ISoporteProyectoEtapaDao {
             PreparedStatement ps = null;
 
             String SQL = "select SQ_TB_SoporteProyectoEtapa.nextval ID from dual";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             int codigo = 0;
 
@@ -48,7 +54,7 @@ public class SoporteProyectoEtapaDAO implements ISoporteProyectoEtapaDao {
             SQL = "INSERT INTO TB_SoporteProyectoEtapa "
                     + "(ID_SoporteProyectoEtapa, id_proyectoetapa, archivo, "
                     + "CreadoPor, CreadoEn) values(?,?,?,?,?) ";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
 
             ps.setInt(1, soporteProyectoEtapa.getId_soporteproyectoetapa());
             ps.setInt(2, soporteProyectoEtapa.getId_proyectoetapa());
@@ -88,7 +94,7 @@ public class SoporteProyectoEtapaDAO implements ISoporteProyectoEtapaDao {
             String SQL = "UPDATE TB_SoporteProyectoEtapa SET "
                     + "id_proyectoetapa=?,archivo=?, "
                     + "ModificadoPor=?, ModificadoEn=? where ID_SoporteProyectoEtapa = ?";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
 
             ps.setInt(1, soporteProyectoEtapa.getId_proyectoetapa());
 
@@ -121,7 +127,7 @@ public class SoporteProyectoEtapaDAO implements ISoporteProyectoEtapaDao {
             PreparedStatement ps = null;
 
             final String SQL = "SELECT * from TB_SoporteProyectoEtapa";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 SoporteProyectoEtapa soporteProyectoEtapa = new SoporteProyectoEtapa();
@@ -155,16 +161,15 @@ public class SoporteProyectoEtapaDAO implements ISoporteProyectoEtapaDao {
     @Override
     public SoporteProyectoEtapa getSoporteProyectoEtapaById(int id) {
 
-        SoporteProyectoEtapa soporteProyectoEtapa= new SoporteProyectoEtapa();
+        SoporteProyectoEtapa soporteProyectoEtapa = new SoporteProyectoEtapa();
         try {
 
             PreparedStatement ps = null;
 
             String SQL = "select * from TB_SoporteProyectoEtapa where ID_SoporteProyectoEtapa =" + id + " ";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                
 
                 soporteProyectoEtapa.setId_soporteproyectoetapa(rs.getInt("ID_SoporteProyectoEtapa"));
                 soporteProyectoEtapa.setId_proyectoetapa(rs.getInt("ID_ProyectoEtapa"));
@@ -186,5 +191,4 @@ public class SoporteProyectoEtapaDAO implements ISoporteProyectoEtapaDao {
 
     }
 
-  
 }

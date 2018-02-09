@@ -10,6 +10,7 @@ import edu.uniajc.proyeccionSocial.persistence.interfaces.IUsuarioDao;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IUsuario;
 
 import edu.uniajc.proyeccionSocial.persistence.Model.Usuario;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 /**
@@ -20,8 +21,8 @@ public class UsuarioServices implements IUsuario {
 
     IUsuarioDao dao;
 
-    public UsuarioServices() {
-        this.dao = new UsuarioDao();
+    public UsuarioServices(Connection connection) {
+        this.dao = new UsuarioDao(connection);
     }
 
     @Override

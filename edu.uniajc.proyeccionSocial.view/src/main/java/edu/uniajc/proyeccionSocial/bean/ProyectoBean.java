@@ -97,22 +97,22 @@ public class ProyectoBean {
         emisor = new ArrayList<>();
         //Proyecto etapa
 
-        servicioProyectoEtapa = new ProyectoEtapaServices();
+        servicioProyectoEtapa = new ProyectoEtapaServices(Utilidades.getConnection());
         //Proyecto create
         proyecto = new Proyecto();
-        servicioProyecto = new ProyectoServices();
+        servicioProyecto = new ProyectoServices(Utilidades.getConnection());
         //ComboProgramas
-        programaservices = new ProgramaServices();
+        programaservices = new ProgramaServices(Utilidades.getConnection());
         itemsProgramas = Utilidades.llenar_Combo_Programas(programaservices.getAllPrograma());
         //Servicios segun el programa
-        serviciosServ = new ServicioServices();
+        serviciosServ = new ServicioServices(Utilidades.getConnection());
         //Etapas segun el servicio
-        servicioEtapa = new EtapaServices();
+        servicioEtapa = new EtapaServices(Utilidades.getConnection());
         etapas = new ArrayList<Etapa>();
         //Usuario
         usuario = Utilidades.cargarUsuario();
-        terceroServices = new TerceroServices();
-        beneficiarioServices = new BeneficiarioServices();
+        terceroServices = new TerceroServices(Utilidades.getConnection());
+        beneficiarioServices = new BeneficiarioServices(Utilidades.getConnection());
         //Beneficiarios
         initBeneficiarios();
         //Combo Servicios
@@ -120,7 +120,7 @@ public class ProyectoBean {
 
         //oferentes
         itemsOferente = Utilidades.llenar_Combo_Terceros(terceroServices.getAllTercero());
-        oferenteServices = new OferenteServices();
+        oferenteServices = new OferenteServices(Utilidades.getConnection());
         
         itemsFacultad = Utilidades.Consultar_Facultades_combo();
         facultad=0;

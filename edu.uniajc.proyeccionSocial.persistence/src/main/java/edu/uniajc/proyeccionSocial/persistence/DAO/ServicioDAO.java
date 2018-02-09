@@ -5,7 +5,6 @@
  */
 package edu.uniajc.proyeccionSocial.persistence.DAO;
 
-import edu.uniajc.proyeccionSocial.persistence.utils.ConexionBD;
 import edu.uniajc.proyeccionSocial.persistence.Model.Servicio;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,12 +13,19 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IServicioDao;
+import java.sql.Connection;
 
 /**
  *
  * @author rlara
  */
-public class ServicioDAO implements IServicioDao{
+public class ServicioDAO implements IServicioDao {
+
+    Connection connection;
+
+    public ServicioDAO(Connection connection) {
+        this.connection = connection;
+    }
 
     /**
      *
@@ -37,7 +43,7 @@ public class ServicioDAO implements IServicioDao{
             PreparedStatement ps = null;
 
             String SQL = "select SQ_TB_Servicio.nextval ID from dual";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             int codigo = 0;
 
@@ -49,7 +55,7 @@ public class ServicioDAO implements IServicioDao{
             SQL = "INSERT INTO TB_Servicio "
                     + "(ID_Servicio, Descripcion, Estado, "
                     + "CreadoPor, CreadoEn) values(?,?,?,?,?) ";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
 
             ps.setInt(1, servicio.getId_servicio());
             ps.setString(2, servicio.getDescripcion());
@@ -82,7 +88,7 @@ public class ServicioDAO implements IServicioDao{
 
             String SQL = "UPDATE TB_Servicio SET Estado=0 WHERE ID_Servicio =" + id + " ";
 
-            PreparedStatement ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            PreparedStatement ps = connection.prepareStatement(SQL);
             ps.execute();
             ps.close();
             return true;
@@ -112,7 +118,7 @@ public class ServicioDAO implements IServicioDao{
             String SQL = "UPDATE TB_Servicio SET "
                     + "Descripcion=?, Estado=?, ModificadoPor=?, ModificadoEn=? "
                     + "where ID_Servicio = ?";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
 
             ps.setString(1, servicio.getDescripcion());
             ps.setInt(2, servicio.getEstado());
@@ -144,7 +150,7 @@ public class ServicioDAO implements IServicioDao{
             PreparedStatement ps = null;
 
             final String SQL = "SELECT * from TB_Servicio where estado = 1";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Servicio servicio = new Servicio();
@@ -185,7 +191,7 @@ public class ServicioDAO implements IServicioDao{
             final String SQL = "select s.* from tb_servicio s \n"
                     + "inner join TB_PROGRAMASERVICIO ps on s.ID_SERVICIO = ps.ID_SERVICIO\n"
                     + "where ps.ESTADO=1 and  ps.ID_PROGRAMA= " + idProg + " ";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Servicio servicio = new Servicio();
@@ -226,7 +232,7 @@ public class ServicioDAO implements IServicioDao{
             final String SQL = "select s.* from tb_servicio s \n"
                     + "inner join TB_PROGRAMASERVICIO ps on s.ID_SERVICIO = ps.ID_SERVICIO\n"
                     + "where ps.ESTADO = 1 and s.ID_SERVICIO = " + idServicio + " ";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
 
             result = rs.next();
@@ -256,11 +262,9 @@ public class ServicioDAO implements IServicioDao{
             PreparedStatement ps = null;
 
             String SQL = "select * from TB_Servicio where ID_Servicio =" + id + " and estado = 1";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-
-                
 
                 servicio.setId_servicio(rs.getInt("ID_Servicio"));
                 servicio.setDescripcion(rs.getString("Descripcion"));
@@ -282,5 +286,4 @@ public class ServicioDAO implements IServicioDao{
 
     }
 
-  
 }

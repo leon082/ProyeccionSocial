@@ -5,7 +5,6 @@
  */
 package edu.uniajc.proyeccionSocial.persistence.DAO;
 
-import edu.uniajc.proyeccionSocial.persistence.utils.ConexionBD;
 import edu.uniajc.proyeccionSocial.persistence.Model.ProyectoEtapa;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -14,12 +13,19 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IProyectoEtapaDao;
+import java.sql.Connection;
 
 /**
  *
  * @author luis.leon
  */
 public class ProyectoEtapaDAO implements IProyectoEtapaDao {
+
+    Connection connection;
+
+    public ProyectoEtapaDAO(Connection connection) {
+        this.connection = connection;
+    }
 
     /**
      *
@@ -36,7 +42,7 @@ public class ProyectoEtapaDAO implements IProyectoEtapaDao {
             PreparedStatement ps = null;
 
             String SQL = "select SQ_TB_ProyectoEtapa.nextval ID from dual";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             int codigo = 0;
 
@@ -49,7 +55,7 @@ public class ProyectoEtapaDAO implements IProyectoEtapaDao {
                     + " (id_proyectoetapa, id_proyecto, id_etapa, estado, "
                     + "observacion, fechainicio, fechafin, CreadoPor, CreadoEn) "
                     + "values(?,?,?,?,?,?,?,?,?)";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ps.setInt(1, proyectoEtapa.getId_proyectoetapa());
             ps.setInt(2, proyectoEtapa.getId_proyecto());
             ps.setInt(3, proyectoEtapa.getId_etapa());
@@ -85,7 +91,7 @@ public class ProyectoEtapaDAO implements IProyectoEtapaDao {
 
             String SQL = "UPDATE TB_ProyectoEtapa SET Estado=0 WHERE ID_ProyectoEtapa =" + id + " ";
 
-            PreparedStatement ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            PreparedStatement ps = connection.prepareStatement(SQL);
             ps.execute();
             ps.close();
             return true;
@@ -116,7 +122,7 @@ public class ProyectoEtapaDAO implements IProyectoEtapaDao {
                     + "id_proyecto=?, id_etapa=?, estado=?, observacion=?, "
                     + "fechainicio=?, fechafin=?, ModificadoPor=?, ModificadoEn=? "
                     + " where ID_ProyectoEtapa = ?";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
 
             ps.setInt(1, proyectoEtapa.getId_proyecto());
             ps.setInt(2, proyectoEtapa.getId_etapa());
@@ -153,7 +159,7 @@ public class ProyectoEtapaDAO implements IProyectoEtapaDao {
             PreparedStatement ps = null;
 
             final String SQL = "SELECT * from TB_PROYECTOETAPA where ID_Proyecto = " + idProyecto + " ";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 ProyectoEtapa proyectoEtapa = new ProyectoEtapa();
@@ -195,10 +201,10 @@ public class ProyectoEtapaDAO implements IProyectoEtapaDao {
             PreparedStatement ps = null;
 
             String SQL = "select * from TB_ProyectoEtapa where ID_ProyectoEtapa =" + id + " ";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                
+
                 proyectoEtapa.setId_proyectoetapa(rs.getInt("ID_ProyectoEtapa"));
                 proyectoEtapa.setId_proyecto(rs.getInt("ID_Proyecto"));
                 proyectoEtapa.setId_etapa(rs.getInt("ID_Etapa"));
@@ -222,5 +228,4 @@ public class ProyectoEtapaDAO implements IProyectoEtapaDao {
 
     }
 
-    
 }

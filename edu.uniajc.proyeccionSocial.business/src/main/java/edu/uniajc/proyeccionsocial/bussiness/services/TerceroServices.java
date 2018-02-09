@@ -10,6 +10,7 @@ import edu.uniajc.proyeccionSocial.persistence.DAO.TerceroDAO;
 import edu.uniajc.proyeccionSocial.persistence.interfaces.ITerceroDao;
 
 import edu.uniajc.proyeccionSocial.persistence.Model.Tercero;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 /**
@@ -20,9 +21,9 @@ public class TerceroServices implements ITercero {
 
     ITerceroDao dao;
 
-    public TerceroServices() {
+    public TerceroServices(Connection connection) {
 
-        this.dao = new TerceroDAO();
+        this.dao = new TerceroDAO(connection);
     }
 
     @Override

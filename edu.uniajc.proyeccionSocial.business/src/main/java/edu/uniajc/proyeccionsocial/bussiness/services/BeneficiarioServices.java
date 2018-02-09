@@ -10,6 +10,7 @@ import edu.uniajc.proyeccionsocial.bussiness.interfaces.IBeneficiario;
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IBeneficiarioDao;
 
 import edu.uniajc.proyeccionSocial.persistence.Model.Beneficiario;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 /**
@@ -20,9 +21,9 @@ public class BeneficiarioServices implements IBeneficiario {
 
     IBeneficiarioDao dao;
 
-    public BeneficiarioServices() {
+    public BeneficiarioServices( Connection connection) {
 
-        this.dao = new BeneficiarioDAO();
+        this.dao = new BeneficiarioDAO(connection);
     }
 
     @Override

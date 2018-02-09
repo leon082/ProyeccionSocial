@@ -42,9 +42,9 @@ public class EtapaBean {
 
     @PostConstruct
     public void init() {
-        servicios = new EtapaServices();
+        servicios = new EtapaServices(Utilidades.getConnection());
         etapa = new Etapa();
-        seservices = new ServicioEtapaServices();
+        seservices = new ServicioEtapaServices(Utilidades.getConnection());
 
         usuario = Utilidades.cargarUsuario();
         listaEtapa = servicios.getAllEtapa();

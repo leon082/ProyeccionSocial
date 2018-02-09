@@ -10,6 +10,7 @@ import edu.uniajc.proyeccionsocial.bussiness.interfaces.IProyecto;
 import edu.uniajc.proyeccionSocial.persistence.DAO.ProyectoDao;
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IProyectoDao;
 import edu.uniajc.proyeccionSocial.persistence.Model.Proyecto;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 /**
@@ -20,9 +21,9 @@ public class ProyectoServices implements IProyecto {
 
     IProyectoDao dao;
 
-    public ProyectoServices() {
+    public ProyectoServices(Connection connection) {
 
-        this.dao = new ProyectoDao();
+        this.dao = new ProyectoDao(connection);
     }
 
     @Override

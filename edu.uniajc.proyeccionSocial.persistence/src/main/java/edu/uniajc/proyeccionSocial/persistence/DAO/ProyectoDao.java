@@ -5,7 +5,6 @@
  */
 package edu.uniajc.proyeccionSocial.persistence.DAO;
 
-import edu.uniajc.proyeccionSocial.persistence.utils.ConexionBD;
 import edu.uniajc.proyeccionSocial.persistence.Model.Proyecto;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -14,12 +13,19 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IProyectoDao;
+import java.sql.Connection;
 
 /**
  *
  * @author luis.leon
  */
-public class ProyectoDao implements IProyectoDao{
+public class ProyectoDao implements IProyectoDao {
+
+    Connection connection;
+
+    public ProyectoDao(Connection connection) {
+        this.connection = connection;
+    }
 
     /**
      *
@@ -36,7 +42,7 @@ public class ProyectoDao implements IProyectoDao{
             PreparedStatement ps = null;
 
             String SQL = "select SQ_TB_Proyecto.nextval ID from dual";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             int codigo = 0;
 
@@ -48,7 +54,7 @@ public class ProyectoDao implements IProyectoDao{
             SQL = "INSERT INTO TB_PROYECTO"
                     + " (ID_Proyecto, TituloProyecto, ResumenProyecto, ID_Programa, id_servicio,"
                     + " Estado, CreadoPor, CreadoEn , facultad) values(?,?,?,?,?,?,?,?,?)";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ps.setInt(1, proyecto.getId_proyecto());
             ps.setString(2, proyecto.getTituloproyecto());
             ps.setString(3, proyecto.getResumenproyecto());
@@ -84,7 +90,7 @@ public class ProyectoDao implements IProyectoDao{
 
             String SQL = "UPDATE TB_Proyecto SET Estado=0 WHERE ID_Proyecto =" + id + " ";
 
-            PreparedStatement ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            PreparedStatement ps = connection.prepareStatement(SQL);
             ps.execute();
             ps.close();
             return true;
@@ -115,7 +121,7 @@ public class ProyectoDao implements IProyectoDao{
                     + " TituloProyecto=?, ResumenProyecto=?, ID_Programa=?, id_servicio=?, "
                     + " Estado=?, ModificadoPor=?, ModificadoEn=? , facultad=?"
                     + " where ID_Proyecto = ?";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
 
             ps.setString(1, proyecto.getTituloproyecto());
             ps.setString(2, proyecto.getResumenproyecto());
@@ -151,7 +157,7 @@ public class ProyectoDao implements IProyectoDao{
             PreparedStatement ps = null;
 
             final String SQL = "SELECT * from TB_PROYECTO where estado = 0";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -179,20 +185,20 @@ public class ProyectoDao implements IProyectoDao{
         }
 
     }
-    
+
     /**
      *
      * @return
      */
     @Override
-     public ArrayList<Proyecto> getAllProyectoAprobado() {
+    public ArrayList<Proyecto> getAllProyectoAprobado() {
         ArrayList<Proyecto> list = new ArrayList<>(0);
         try {
 
             PreparedStatement ps = null;
 
             final String SQL = "SELECT * from TB_PROYECTO where estado = 1";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -226,14 +232,14 @@ public class ProyectoDao implements IProyectoDao{
      * @return
      */
     @Override
-      public ArrayList<Proyecto> getAllProyectoFinalizado(){
+    public ArrayList<Proyecto> getAllProyectoFinalizado() {
         ArrayList<Proyecto> list = new ArrayList<>(0);
         try {
 
             PreparedStatement ps = null;
 
             final String SQL = "SELECT * from TB_PROYECTO where estado = 3";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -267,14 +273,14 @@ public class ProyectoDao implements IProyectoDao{
      * @return
      */
     @Override
-         public ArrayList<Proyecto> getAllProyectoCancelado() {
+    public ArrayList<Proyecto> getAllProyectoCancelado() {
         ArrayList<Proyecto> list = new ArrayList<>(0);
         try {
 
             PreparedStatement ps = null;
 
             final String SQL = "SELECT * from TB_PROYECTO where estado = 4";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -317,7 +323,7 @@ public class ProyectoDao implements IProyectoDao{
             PreparedStatement ps = null;
 
             final String SQL = "SELECT * from TB_PROYECTO where creadopor = ? and (estado = 0 or estado = 1)";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ps.setString(1, usuario);
             ResultSet rs = ps.executeQuery();
             result = rs.next();
@@ -346,11 +352,11 @@ public class ProyectoDao implements IProyectoDao{
             PreparedStatement ps = null;
 
             String SQL = "select * from TB_Proyecto where creadopor = '" + user + "' and estado = 1";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                 proyecto = new Proyecto();
-                
+                proyecto = new Proyecto();
+
                 proyecto.setId_proyecto(rs.getInt("ID_Proyecto"));
                 proyecto.setTituloproyecto(rs.getString("TituloProyecto"));
                 proyecto.setResumenproyecto(rs.getString("ResumenProyecto"));
@@ -389,9 +395,9 @@ public class ProyectoDao implements IProyectoDao{
             PreparedStatement ps = null;
 
             String SQL = "select * from TB_Proyecto where id_proyecto = " + id + " and estado = 1";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {                
+            if (rs.next()) {
 
                 proyecto.setId_proyecto(rs.getInt("ID_Proyecto"));
                 proyecto.setTituloproyecto(rs.getString("TituloProyecto"));
@@ -417,5 +423,4 @@ public class ProyectoDao implements IProyectoDao{
 
     }
 
-   
 }

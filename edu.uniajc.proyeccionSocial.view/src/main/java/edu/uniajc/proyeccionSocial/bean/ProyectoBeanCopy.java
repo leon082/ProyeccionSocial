@@ -85,14 +85,14 @@ public class ProyectoBeanCopy {
     public void init() {
         //Proyecto create
         proyecto = new Proyecto();
-        servicioProyecto = new ProyectoServices();
+        servicioProyecto = new ProyectoServices(Utilidades.getConnection());
         //ComboProgramas
-        programaservices = new ProgramaServices();
+        programaservices = new ProgramaServices(Utilidades.getConnection());
         itemsProgramas = Utilidades.llenar_Combo_Programas(programaservices.getAllPrograma());
         //Servicios segun el programa
-        serviciosServ = new ServicioServices();
+        serviciosServ = new ServicioServices(Utilidades.getConnection());
         //Etapas segun el servicio
-        servicioEtapa = new EtapaServices();
+        servicioEtapa = new EtapaServices(Utilidades.getConnection());
         //Lista Para mostrrar
         listRequest = new ArrayList();
         //Usuario
@@ -104,11 +104,11 @@ public class ProyectoBeanCopy {
     }
 
     public void initBeneficiarios() {
-        terceroServices = new TerceroServices();
+        terceroServices = new TerceroServices(Utilidades.getConnection());
         beneSource = terceroServices.getAllTercero();
         beneTarget = new ArrayList<Tercero>();
         terceros = new DualListModel<Tercero>(beneSource, beneTarget);
-        beneficiarioServices = new BeneficiarioServices();
+        beneficiarioServices = new BeneficiarioServices(Utilidades.getConnection());
     }
 
     public void guardarBeneficiarios(int idProyecto) {

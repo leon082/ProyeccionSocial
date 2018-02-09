@@ -5,7 +5,6 @@
  */
 package edu.uniajc.proyeccionSocial.persistence.DAO;
 
-import edu.uniajc.proyeccionSocial.persistence.utils.ConexionBD;
 import edu.uniajc.proyeccionSocial.persistence.Model.ServicioEtapa;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,12 +13,19 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IServicioEtapaDao;
+import java.sql.Connection;
 
 /**
  *
  * @author luis.leon
  */
 public class ServicioEtapaDAO implements IServicioEtapaDao {
+
+    Connection connection;
+
+    public ServicioEtapaDAO(Connection connection) {
+        this.connection = connection;
+    }
 
     /**
      *
@@ -37,7 +43,7 @@ public class ServicioEtapaDAO implements IServicioEtapaDao {
             PreparedStatement ps = null;
 
             String SQL = "select SQ_TB_ServicioEtapa.nextval ID from dual";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             int codigo = 0;
 
@@ -49,7 +55,7 @@ public class ServicioEtapaDAO implements IServicioEtapaDao {
             SQL = "INSERT INTO TB_ServicioEtapa"
                     + " (ID_ServicioEtapa, ID_Servicio, id_ETAPA , "
                     + "Estado,CreadoPor, CreadoEn) values(?,?,?,?,?,?)";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
 
             ps.setInt(1, servicioEtapa.getId_servicioetapa());
             ps.setInt(2, servicioEtapa.getId_servicio());
@@ -82,7 +88,7 @@ public class ServicioEtapaDAO implements IServicioEtapaDao {
             String SQL = "UPDATE TB_ServicioEtapa SET Estado=0 WHERE "
                     + "ID_ServicioEtapa =" + id + " ";
 
-            PreparedStatement ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            PreparedStatement ps = connection.prepareStatement(SQL);
             ps.execute();
             ps.close();
             return true;
@@ -107,7 +113,7 @@ public class ServicioEtapaDAO implements IServicioEtapaDao {
             String SQL = "DELETE FROM tb_servicioetapa WHERE "
                     + "id_servicio =" + id + " ";
 
-            PreparedStatement ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            PreparedStatement ps = connection.prepareStatement(SQL);
             ps.execute();
             ps.close();
             return true;
@@ -137,7 +143,7 @@ public class ServicioEtapaDAO implements IServicioEtapaDao {
             String SQL = "UPDATE TB_ServicioEtapa SET "
                     + "ID_Servicio=?, ID_Etapa=?, Estado=?, ModificadoPor=?, ModificadoEn=? "
                     + "where ID_ServicioEtapa = ?";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
 
             ps.setInt(1, servicioEtapa.getId_servicio());
             ps.setInt(2, servicioEtapa.getId_servicio());
@@ -170,7 +176,7 @@ public class ServicioEtapaDAO implements IServicioEtapaDao {
             PreparedStatement ps = null;
 
             final String SQL = "SELECT * from TB_ServicioEtapa where estado = 1";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 ServicioEtapa servicioEtapa = new ServicioEtapa();
@@ -210,10 +216,10 @@ public class ServicioEtapaDAO implements IServicioEtapaDao {
             PreparedStatement ps = null;
 
             String SQL = "select * from TB_ServicioEtapa where ID_ServicioEtapa =" + id + " and estado = 1";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                
+
                 servicioEtapa.setId_servicioetapa(rs.getInt("ID_ServicioEtapa"));
                 servicioEtapa.setId_servicio(rs.getInt("ID_Servicio"));
                 servicioEtapa.setId_etapa(rs.getInt("ID_Etapa"));
@@ -233,7 +239,5 @@ public class ServicioEtapaDAO implements IServicioEtapaDao {
         }
 
     }
-
- 
 
 }

@@ -10,6 +10,7 @@ import edu.uniajc.proyeccionSocial.persistence.DAO.ServicioEtapaDAO;
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IServicioEtapaDao;
 
 import edu.uniajc.proyeccionSocial.persistence.Model.ServicioEtapa;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 /**
@@ -20,9 +21,9 @@ public class ServicioEtapaServices implements IServicioEtapa {
 
     IServicioEtapaDao dao;
 
-    public ServicioEtapaServices() {
+    public ServicioEtapaServices(Connection connection) {
 
-        this.dao = new ServicioEtapaDAO();
+        this.dao = new ServicioEtapaDAO(connection);
     }
 
     @Override

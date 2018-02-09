@@ -5,7 +5,6 @@
  */
 package edu.uniajc.proyeccionSocial.persistence.DAO;
 
-import edu.uniajc.proyeccionSocial.persistence.utils.ConexionBD;
 import edu.uniajc.proyeccionSocial.persistence.Model.Oferente;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,13 +13,18 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IOferenteDao;
+import java.sql.Connection;
 
 /**
  *
  * @author luis.leon
  */
 public class OferenteDao implements IOferenteDao{
+    Connection connection;
 
+    public OferenteDao(Connection connection) {
+        this.connection = connection;
+    }
     /**
      *
      * @param oferente
@@ -37,7 +41,7 @@ public class OferenteDao implements IOferenteDao{
             PreparedStatement ps = null;
 
             String SQL = "select SQ_TB_Oferente.nextval ID from dual";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             int codigo = 0;
 
@@ -49,7 +53,7 @@ public class OferenteDao implements IOferenteDao{
             SQL = "INSERT INTO TB_Oferente"
                     + " (ID_Oferente,ID_Proyecto,ID_Tercero, Estado,Observacion,CreadoPor, CreadoEn) "
                     + "values(?,?,?,?,?,?,?)";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
 
             ps.setInt(1, oferente.getId_oferente());
             ps.setInt(2, oferente.getId_proyecto());
@@ -82,7 +86,7 @@ public class OferenteDao implements IOferenteDao{
 
             String SQL = "UPDATE TB_Oferente SET Estado=0 WHERE ID_Oferente =" + id + " ";
 
-            PreparedStatement ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            PreparedStatement ps =connection.prepareStatement(SQL);
             ps.execute();
             ps.close();
             return true;
@@ -112,7 +116,7 @@ public class OferenteDao implements IOferenteDao{
             String SQL = "UPDATE TB_Oferente SET "
                     + "ID_Proyecto=?,ID_Tercero=?, Estado=?, Observacion=?,ModificadoPor=?, ModificadoEn=? "
                     + "where ID_Oferente = ?";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
 
             ps.setInt(1, oferente.getId_proyecto());
             ps.setInt(2, oferente.getId_tercero());
@@ -146,7 +150,7 @@ public class OferenteDao implements IOferenteDao{
             PreparedStatement ps = null;
 
             final String SQL = "SELECT * from TB_Oferente where estado = 1";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Oferente oferente = new Oferente();
@@ -187,7 +191,7 @@ public class OferenteDao implements IOferenteDao{
             PreparedStatement ps = null;
 
             String SQL = "select * from TB_Oferente where ID_Oferente =" + id + " and estado = 1";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 
@@ -227,7 +231,7 @@ public class OferenteDao implements IOferenteDao{
             PreparedStatement ps = null;
 
             String SQL = "select * from TB_Oferente where ID_Proyecto =" + id + " and estado = 1";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 

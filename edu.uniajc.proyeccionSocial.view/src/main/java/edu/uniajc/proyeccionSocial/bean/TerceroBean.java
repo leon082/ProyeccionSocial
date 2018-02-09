@@ -41,7 +41,7 @@ public class TerceroBean {
 
     @PostConstruct
     public void init() {
-        terceroServices = new TerceroServices();
+        terceroServices = new TerceroServices(Utilidades.getConnection());
         tercero = new Tercero();
         usuario = Utilidades.cargarUsuario();
         itemsDocumentos = Utilidades.Consultar_Documentos_combo();

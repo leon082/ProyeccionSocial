@@ -45,9 +45,9 @@ public class ServEtapaBean {
 
     @PostConstruct
     public void init() {
-        etapaServices = new EtapaServices();
-        seServices = new ServicioEtapaServices();
-        servicioservices = new ServicioServices();
+        etapaServices = new EtapaServices(Utilidades.getConnection());
+        seServices = new ServicioEtapaServices(Utilidades.getConnection());
+        servicioservices = new ServicioServices(Utilidades.getConnection());
          etapaSource = new ArrayList<Etapa>();
         etapaSource = etapaServices.getAllEtapa();
         usuario = Utilidades.cargarUsuario();

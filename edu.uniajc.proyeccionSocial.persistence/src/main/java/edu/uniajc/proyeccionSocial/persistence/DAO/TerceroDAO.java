@@ -5,7 +5,6 @@
  */
 package edu.uniajc.proyeccionSocial.persistence.DAO;
 
-import edu.uniajc.proyeccionSocial.persistence.utils.ConexionBD;
 import edu.uniajc.proyeccionSocial.persistence.Model.Tercero;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,12 +13,19 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import edu.uniajc.proyeccionSocial.persistence.interfaces.ITerceroDao;
+import java.sql.Connection;
 
 /**
  *
  * @author rlara
  */
 public class TerceroDAO implements ITerceroDao {
+
+    Connection connection;
+
+    public TerceroDAO(Connection connection) {
+        this.connection = connection;
+    }
 
     /**
      *
@@ -37,7 +43,7 @@ public class TerceroDAO implements ITerceroDao {
             PreparedStatement ps = null;
 
             String SQL = "select SQ_TB_Tercero.nextval ID from dual";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             int codigo = 0;
 
@@ -51,7 +57,7 @@ public class TerceroDAO implements ITerceroDao {
                     + "PrimerNombre, SegundoNombre, PrimerApellido, SegundoApellido, "
                     + "FechaNacimiento, TelefonoFijo, TelefonoCelular, Correo, Estado, "
                     + "CreadoPor, CreadoEn) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
 
             ps.setInt(1, tercero.getId_tercero());
             ps.setInt(2, tercero.getId_lv_tipoidentificacion());
@@ -93,7 +99,7 @@ public class TerceroDAO implements ITerceroDao {
 
             String SQL = "UPDATE TB_Tercero SET Estado=0 WHERE ID_Tercero =" + id + " ";
 
-            PreparedStatement ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            PreparedStatement ps = connection.prepareStatement(SQL);
             ps.execute();
             ps.close();
             return true;
@@ -125,7 +131,7 @@ public class TerceroDAO implements ITerceroDao {
                     + "PrimerNombre=?, SegundoNombre=?, PrimerApellido=?, SegundoApellido=?, "
                     + "FechaNacimiento=?, TelefonoFijo=?, TelefonoCelular=?, Correo =?, "
                     + "Estado=?, ModificadoPor=?, ModificadoEn=? where ID_Tercero = ?";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
 
             ps.setInt(1, tercero.getId_lv_tipoidentificacion());
             ps.setString(2, tercero.getNumidentificacion());
@@ -166,7 +172,7 @@ public class TerceroDAO implements ITerceroDao {
             PreparedStatement ps = null;
 
             final String SQL = "SELECT * from TB_Tercero where estado = 1";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Tercero tercero = new Tercero();
@@ -212,7 +218,7 @@ public class TerceroDAO implements ITerceroDao {
             PreparedStatement ps = null;
 
             final String SQL = "select TB_tercero.* from TB_tercero inner join TB_usuario on tb_tercero.id_tercero = TB_USUARIO.ID_TERCERO";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Tercero tercero = new Tercero();
@@ -254,16 +260,15 @@ public class TerceroDAO implements ITerceroDao {
     @Override
     public Tercero getTerceroById(int id) {
 
-        Tercero tercero= new Tercero();
+        Tercero tercero = new Tercero();
         try {
 
             PreparedStatement ps = null;
 
             String SQL = "select * from TB_Tercero where ID_Tercero =" + id + " and estado = 1";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                
 
                 tercero.setId_tercero(rs.getInt("ID_Tercero"));
                 tercero.setId_lv_tipoidentificacion(rs.getInt("ID_LV_TipoIdentificacion"));
@@ -309,11 +314,10 @@ public class TerceroDAO implements ITerceroDao {
             PreparedStatement ps = null;
 
             String SQL = "select * from TB_Tercero where ID_LV_TipoIdentificacion =" + tipoDoc + " and NumIdentificacion='" + doc + "' ";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-            
-                
+
                 tercero.setId_tercero(rs.getInt("ID_Tercero"));
                 tercero.setId_lv_tipoidentificacion(rs.getInt("ID_LV_TipoIdentificacion"));
                 tercero.setNumidentificacion(rs.getString("NumIdentificacion"));
@@ -342,5 +346,4 @@ public class TerceroDAO implements ITerceroDao {
         }
     }
 
-   
 }

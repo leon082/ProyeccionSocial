@@ -39,9 +39,9 @@ public class ProgramaBean {
 
     @PostConstruct
     public void init() {
-        servicios = new ProgramaServices();
+        servicios = new ProgramaServices(Utilidades.getConnection());
         programa = new Programa();
-        psServicios = new ProgramaServicioServices();
+        psServicios = new ProgramaServicioServices(Utilidades.getConnection());
 
         usuario = Utilidades.cargarUsuario();
         listaPrograma=new ArrayList<>();

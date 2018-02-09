@@ -5,7 +5,6 @@
  */
 package edu.uniajc.proyeccionSocial.persistence.DAO;
 
-import edu.uniajc.proyeccionSocial.persistence.utils.ConexionBD;
 import edu.uniajc.proyeccionSocial.persistence.Model.Usuario;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,12 +13,19 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IUsuarioDao;
+import java.sql.Connection;
 
 /**
  *
  * @author luis.leon
  */
-public class UsuarioDao implements IUsuarioDao{
+public class UsuarioDao implements IUsuarioDao {
+
+    Connection connection;
+
+    public UsuarioDao(Connection connection) {
+        this.connection = connection;
+    }
 
     /**
      *
@@ -33,7 +39,7 @@ public class UsuarioDao implements IUsuarioDao{
             PreparedStatement ps = null;
 
             String SQL = "select SQ_TB_Usuario.nextval ID from dual";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             int codigo = 0;
 
@@ -45,7 +51,7 @@ public class UsuarioDao implements IUsuarioDao{
             SQL = "INSERT INTO TB_Usuario"
                     + " (ID_Usuario, ID_Tercero, Usuario, Contrasena, Estado) "
                     + " values(?,?,?,?,?)";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
 
             ps.setInt(1, user.getId_usuario());
             ps.setInt(2, user.getId_tercero());
@@ -78,7 +84,7 @@ public class UsuarioDao implements IUsuarioDao{
 
             String SQL = "UPDATE TB_Usuario SET Estado=0 WHERE ID_Usuario =" + id + " ";
 
-            PreparedStatement ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            PreparedStatement ps = connection.prepareStatement(SQL);
             ps.execute();
             ps.close();
             return true;
@@ -104,7 +110,7 @@ public class UsuarioDao implements IUsuarioDao{
             String SQL = "UPDATE TB_Usuario SET "
                     + " ID_Tercero=?, Usuario=?, Estado=? , contrasena=? "
                     + " where ID_Usuario = ?";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
 
             ps.setInt(1, usuario.getId_tercero());
             ps.setString(2, usuario.getUsuario());
@@ -136,7 +142,7 @@ public class UsuarioDao implements IUsuarioDao{
             PreparedStatement ps = null;
 
             final String SQL = "SELECT * from TB_Usuario where estado = 1";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Usuario usuario = new Usuario();
@@ -173,7 +179,7 @@ public class UsuarioDao implements IUsuarioDao{
             PreparedStatement ps = null;
 
             String SQL = "select * from TB_Usuario where ID_Usuario =" + id + " and estado = 1";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
 
@@ -211,7 +217,7 @@ public class UsuarioDao implements IUsuarioDao{
             PreparedStatement ps = null;
 
             String SQL = "select * from TB_Usuario where Usuario = '" + user + "' and Contrasena ='" + contrasena + "' and estado = 1";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
 
@@ -248,7 +254,7 @@ public class UsuarioDao implements IUsuarioDao{
             PreparedStatement ps = null;
 
             String SQL = "select * from TB_Usuario where Usuario ='" + user + "' ";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
 
@@ -286,7 +292,7 @@ public class UsuarioDao implements IUsuarioDao{
 
             String SQL = "select tercero.correo from tb_usuario usuario inner join tb_tercero tercero on usuario.ID_TERCERO = tercero.ID_TERCERO "
                     + "where usuario.USUARIO = '" + user + "' ";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
 

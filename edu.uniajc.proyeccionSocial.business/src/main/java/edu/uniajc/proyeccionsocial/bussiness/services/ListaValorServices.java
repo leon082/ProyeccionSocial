@@ -9,6 +9,7 @@ import edu.uniajc.proyeccionsocial.bussiness.interfaces.IListaValor;
 import edu.uniajc.proyeccionSocial.persistence.DAO.ListaValorDao;
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IListaValorDao;
 import edu.uniajc.proyeccionSocial.persistence.Model.ListaValor;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 /**
@@ -19,9 +20,9 @@ public class ListaValorServices implements IListaValor {
 
     IListaValorDao dao;
 
-    public ListaValorServices() {
+    public ListaValorServices(Connection connection) {
 
-        this.dao = new ListaValorDao();
+        this.dao = new ListaValorDao(connection);
     }
 
     @Override

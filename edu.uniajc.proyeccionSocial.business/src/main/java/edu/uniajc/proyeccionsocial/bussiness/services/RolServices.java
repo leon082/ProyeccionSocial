@@ -9,6 +9,7 @@ import edu.uniajc.proyeccionsocial.bussiness.interfaces.IRol;
 import edu.uniajc.proyeccionSocial.persistence.DAO.RolDao;
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IRolDao;
 import edu.uniajc.proyeccionSocial.persistence.Model.Rol;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +21,9 @@ public class RolServices implements IRol {
 
     IRolDao dao;
 
-    public RolServices() {
+    public RolServices(Connection connection) {
 
-        this.dao = new RolDao();
+        this.dao = new RolDao(connection);
     }
 
     @Override

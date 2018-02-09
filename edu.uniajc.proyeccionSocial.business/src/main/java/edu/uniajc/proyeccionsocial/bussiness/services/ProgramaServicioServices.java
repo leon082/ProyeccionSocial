@@ -9,6 +9,7 @@ import edu.uniajc.proyeccionsocial.bussiness.interfaces.IProgramaServicio;
 import edu.uniajc.proyeccionSocial.persistence.DAO.ProgramaServicioDAO;
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IProgramaServicioDao;
 import edu.uniajc.proyeccionSocial.persistence.Model.ProgramaServicio;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 /**
@@ -19,9 +20,9 @@ public class ProgramaServicioServices implements IProgramaServicio {
 
     IProgramaServicioDao dao;
 
-    public ProgramaServicioServices() {
+    public ProgramaServicioServices(Connection connection) {
 
-        this.dao = new ProgramaServicioDAO();
+        this.dao = new ProgramaServicioDAO(connection);
     }
 
     @Override

@@ -9,6 +9,7 @@ import edu.uniajc.proyeccionsocial.bussiness.interfaces.IOferente;
 import edu.uniajc.proyeccionSocial.persistence.DAO.OferenteDao;
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IOferenteDao;
 import edu.uniajc.proyeccionSocial.persistence.Model.Oferente;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 /**
@@ -19,9 +20,9 @@ public class OferenteServices implements IOferente {
 
     IOferenteDao dao;
 
-    public OferenteServices() {
+    public OferenteServices(Connection connection) {
 
-        this.dao = new OferenteDao();
+        this.dao = new OferenteDao(connection);
     }
 
     @Override

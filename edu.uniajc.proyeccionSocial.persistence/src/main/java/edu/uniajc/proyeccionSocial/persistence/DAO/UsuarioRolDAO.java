@@ -5,7 +5,6 @@
  */
 package edu.uniajc.proyeccionSocial.persistence.DAO;
 
-import edu.uniajc.proyeccionSocial.persistence.utils.ConexionBD;
 import edu.uniajc.proyeccionSocial.persistence.Model.UsuarioRol;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,12 +13,19 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IUsuarioRolDao;
+import java.sql.Connection;
 
 /**
  *
  * @author rlara
  */
 public class UsuarioRolDAO implements IUsuarioRolDao {
+
+    Connection connection;
+
+    public UsuarioRolDAO(Connection connection) {
+        this.connection = connection;
+    }
 
     /**
      *
@@ -37,7 +43,7 @@ public class UsuarioRolDAO implements IUsuarioRolDao {
             PreparedStatement ps = null;
 
             String SQL = "select SQ_TB_UsuarioRol.nextval ID from dual";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             int codigo = 0;
 
@@ -49,7 +55,7 @@ public class UsuarioRolDAO implements IUsuarioRolDao {
             SQL = "INSERT INTO TB_UsuarioRol "
                     + "(ID_UsuarioRol, ID_Usuario, ID_Rol, Estado, "
                     + "CreadoPor, CreadoEn) values(?,?,?,?,?,?) ";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
 
             ps.setInt(1, usuarioRol.getId_usuariorol());
             ps.setInt(2, usuarioRol.getId_usuario());
@@ -83,7 +89,7 @@ public class UsuarioRolDAO implements IUsuarioRolDao {
 
             String SQL = "UPDATE TB_UsuarioRol SET Estado=0 WHERE ID_UsuarioRol =" + id + " ";
 
-            PreparedStatement ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            PreparedStatement ps = connection.prepareStatement(SQL);
             ps.execute();
             ps.close();
             return true;
@@ -95,20 +101,20 @@ public class UsuarioRolDAO implements IUsuarioRolDao {
         }
 
     }
-    
+
     /**
      *
      * @param idUser
      * @return
      */
     @Override
-      public boolean deleteRolesByUser(int idUser) {
+    public boolean deleteRolesByUser(int idUser) {
         try {
 
             String SQL = "DELETE FROM TB_UsuarioRol WHERE "
                     + "ID_Usuario =" + idUser + " ";
 
-            PreparedStatement ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            PreparedStatement ps = connection.prepareStatement(SQL);
             ps.execute();
             ps.close();
             return true;
@@ -138,7 +144,7 @@ public class UsuarioRolDAO implements IUsuarioRolDao {
             String SQL = "UPDATE TB_UsuarioRol SET "
                     + "ID_Usuario=?, ID_Rol=?, Estado=?, "
                     + "ModificadoPor=?, ModificadoEn=? where ID_UsuarioRol = ?";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
 
             ps.setInt(1, usuarioRol.getId_usuario());
             ps.setInt(2, usuarioRol.getId_rol());
@@ -171,7 +177,7 @@ public class UsuarioRolDAO implements IUsuarioRolDao {
             PreparedStatement ps = null;
 
             final String SQL = "SELECT * from TB_UsuarioRol where estado = 1";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 UsuarioRol usuarioRol = new UsuarioRol();
@@ -205,16 +211,15 @@ public class UsuarioRolDAO implements IUsuarioRolDao {
     @Override
     public UsuarioRol getUsuarioRolById(int id) {
 
-        UsuarioRol usuarioRol=new UsuarioRol();
+        UsuarioRol usuarioRol = new UsuarioRol();
         try {
 
             PreparedStatement ps = null;
 
             String SQL = "select * from TB_UsuarioRol where ID_UsuarioRol =" + id + " and estado = 1";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                
 
                 usuarioRol.setId_usuariorol(rs.getInt("ID_UsuarioRol"));
                 usuarioRol.setId_usuario(rs.getInt("ID_Usuario"));
@@ -237,5 +242,4 @@ public class UsuarioRolDAO implements IUsuarioRolDao {
 
     }
 
-    
 }

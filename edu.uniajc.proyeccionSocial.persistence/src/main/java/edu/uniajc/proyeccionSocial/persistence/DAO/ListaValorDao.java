@@ -5,7 +5,6 @@
  */
 package edu.uniajc.proyeccionSocial.persistence.DAO;
 
-import edu.uniajc.proyeccionSocial.persistence.utils.ConexionBD;
 import edu.uniajc.proyeccionSocial.persistence.Model.ListaValor;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,12 +13,19 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IListaValorDao;
+import java.sql.Connection;
 
 /**
  *
  * @author luis.leon
  */
 public class ListaValorDao implements IListaValorDao{
+    
+    Connection connection;
+
+    public ListaValorDao(Connection connection) {
+        this.connection = connection;
+    }
 
     /**
      *
@@ -37,7 +43,7 @@ public class ListaValorDao implements IListaValorDao{
             PreparedStatement ps = null;
 
             String SQL = "select SQ_TB_ListaValor.nextval ID from dual";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             int codigo = 0;
 
@@ -49,7 +55,7 @@ public class ListaValorDao implements IListaValorDao{
             SQL = "INSERT INTO TB_ListaValor"
                     + " (ID_ListaValor, Agrupacion, Descripcion, Estado, CreadoPor, CreadoEn) "
                     + " values(?,?,?,?,?,?)";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
 
             ps.setInt(1, listaValor.getId_listavalor());
             ps.setString(2, listaValor.getAgrupacion());
@@ -82,7 +88,7 @@ public class ListaValorDao implements IListaValorDao{
 
             String SQL = "UPDATE TB_ListaValor SET Estado=0 WHERE ID_ListaValor =" + id + " ";
 
-            PreparedStatement ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            PreparedStatement ps =connection.prepareStatement(SQL);
             ps.execute();
             ps.close();
             return true;
@@ -112,7 +118,7 @@ public class ListaValorDao implements IListaValorDao{
             String SQL = "UPDATE TB_ListaValor SET "
                     + " Agrupacion=?, Descripcion=?, Estado=?, ModificadoPor=?, "
                     + "ModificadoEn=? WHERE ID_ListaValor = ?";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
 
             ps.setString(1, listaValor.getAgrupacion());
             ps.setString(2, listaValor.getDescripcion());
@@ -145,7 +151,7 @@ public class ListaValorDao implements IListaValorDao{
             PreparedStatement ps = null;
 
             final String SQL = "SELECT * from TB_ListaValor where estado = 1";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 ListaValor listaValor = new ListaValor();
@@ -185,7 +191,7 @@ public class ListaValorDao implements IListaValorDao{
             PreparedStatement ps = null;
 
             String SQL = "select * from TB_ListaValor where ID_ListaValor =" + id + " and estado = 1";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 

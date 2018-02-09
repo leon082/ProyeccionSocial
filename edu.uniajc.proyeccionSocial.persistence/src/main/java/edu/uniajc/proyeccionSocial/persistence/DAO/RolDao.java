@@ -5,7 +5,6 @@
  */
 package edu.uniajc.proyeccionSocial.persistence.DAO;
 
-import edu.uniajc.proyeccionSocial.persistence.utils.ConexionBD;
 import edu.uniajc.proyeccionSocial.persistence.Model.Rol;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,12 +14,19 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IRolDao;
+import java.sql.Connection;
 
 /**
  *
  * @author luis.leon
  */
-public class RolDao implements  IRolDao{
+public class RolDao implements IRolDao {
+
+    Connection connection;
+
+    public RolDao(Connection connection) {
+        this.connection = connection;
+    }
 
     /**
      *
@@ -39,7 +45,7 @@ public class RolDao implements  IRolDao{
             PreparedStatement ps = null;
 
             String SQL = "select SQ_TB_Rol.nextval ID from dual";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             int codigo = 0;
 
@@ -51,7 +57,7 @@ public class RolDao implements  IRolDao{
             SQL = "INSERT INTO TB_Rol"
                     + " (ID_Rol,Valor,Descripcion, Estado) "
                     + " values(?,?,?,?)";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
 
             ps.setInt(1, rol.getId_rol());
             ps.setString(2, rol.getValor());
@@ -82,7 +88,7 @@ public class RolDao implements  IRolDao{
 
             String SQL = "UPDATE TB_Rol SET Estado=0 WHERE ID_Rol =" + id + " ";
 
-            PreparedStatement ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            PreparedStatement ps = connection.prepareStatement(SQL);
             ps.execute();
             ps.close();
             return true;
@@ -108,7 +114,7 @@ public class RolDao implements  IRolDao{
             String SQL = "UPDATE TB_Rol SET "
                     + " Valor=?, Descripcion=?, Estado=? "
                     + " where ID_Rol = ?";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
 
             ps.setString(1, rol.getValor());
             ps.setString(2, rol.getDescripcion());
@@ -139,7 +145,7 @@ public class RolDao implements  IRolDao{
             PreparedStatement ps = null;
 
             final String SQL = "SELECT * from TB_Rol where estado = 1";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Rol rol = new Rol();
@@ -169,16 +175,15 @@ public class RolDao implements  IRolDao{
     @Override
     public Rol getRolById(int id) {
 
-        Rol   rol = new Rol();
+        Rol rol = new Rol();
         try {
 
             PreparedStatement ps = null;
 
             String SQL = "select * from TB_Rol where ID_Rol =" + id + " and estado = 1";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-              
 
                 rol.setId_rol(rs.getInt("ID_Rol"));
                 rol.setValor(rs.getString("Valor"));
@@ -210,7 +215,7 @@ public class RolDao implements  IRolDao{
             PreparedStatement ps = null;
 
             String SQL = "select TB_Rol.* from TB_ROL inner join TB_USUARIOROL on TB_ROL.ID_ROL = TB_USUARIOROL.ID_ROL and TB_USUARIOROL.ID_USUARIO = " + idUsuario + " and TB_ROL.estado = 1";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Rol rol = new Rol();
@@ -229,6 +234,5 @@ public class RolDao implements  IRolDao{
             return null;
         }
     }
-
 
 }

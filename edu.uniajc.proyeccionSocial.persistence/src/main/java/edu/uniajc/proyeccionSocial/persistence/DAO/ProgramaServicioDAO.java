@@ -5,7 +5,6 @@
  */
 package edu.uniajc.proyeccionSocial.persistence.DAO;
 
-import edu.uniajc.proyeccionSocial.persistence.utils.ConexionBD;
 import edu.uniajc.proyeccionSocial.persistence.Model.ProgramaServicio;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,12 +13,19 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IProgramaServicioDao;
+import java.sql.Connection;
 
 /**
  *
  * @author luis.leon
  */
-public class ProgramaServicioDAO implements IProgramaServicioDao{
+public class ProgramaServicioDAO implements IProgramaServicioDao {
+
+    Connection connection;
+
+    public ProgramaServicioDAO(Connection connection) {
+        this.connection = connection;
+    }
 
     /**
      *
@@ -36,7 +42,7 @@ public class ProgramaServicioDAO implements IProgramaServicioDao{
             PreparedStatement ps = null;
 
             String SQL = "select SQ_TB_ProgramaServicio.nextval ID from dual";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             int codigo = 0;
 
@@ -48,7 +54,7 @@ public class ProgramaServicioDAO implements IProgramaServicioDao{
             SQL = "INSERT INTO TB_ProgramaServicio"
                     + " (ID_ProgramaServicio, ID_Programa, ID_Servicio, "
                     + "Estado,CreadoPor, CreadoEn) values(?,?,?,?,?,?)";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
 
             ps.setInt(1, progServi.getId_programaservicio());
             ps.setInt(2, progServi.getId_programa());
@@ -81,7 +87,7 @@ public class ProgramaServicioDAO implements IProgramaServicioDao{
             String SQL = "UPDATE TB_ProgramaServicio SET Estado=0 WHERE "
                     + "ID_ProgramaServicio =" + id + " ";
 
-            PreparedStatement ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            PreparedStatement ps = connection.prepareStatement(SQL);
             ps.execute();
             ps.close();
             return true;
@@ -106,7 +112,7 @@ public class ProgramaServicioDAO implements IProgramaServicioDao{
             String SQL = "DELETE FROM tb_programaservicio WHERE "
                     + "ID_Programa =" + id + " ";
 
-            PreparedStatement ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            PreparedStatement ps = connection.prepareStatement(SQL);
             ps.execute();
             ps.close();
             return true;
@@ -136,7 +142,7 @@ public class ProgramaServicioDAO implements IProgramaServicioDao{
             String SQL = "UPDATE TB_ProgramaServicio SET "
                     + "ID_Programa=?, ID_Servicio=?, Estado=?, ModificadoPor=?, ModificadoEn=? "
                     + "where ID_ProgramaServicio = ?";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
 
             ps.setInt(1, progServi.getId_programa());
             ps.setInt(2, progServi.getId_servicio());
@@ -170,7 +176,7 @@ public class ProgramaServicioDAO implements IProgramaServicioDao{
             PreparedStatement ps = null;
 
             final String SQL = "SELECT * from TB_ProgramaServicio where ID_Programa = " + idPrograma + " and estado = 1";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 ProgramaServicio progServi = new ProgramaServicio();
@@ -210,10 +216,10 @@ public class ProgramaServicioDAO implements IProgramaServicioDao{
             PreparedStatement ps = null;
 
             String SQL = "select * from TB_ProgramaServicio where ID_ProgramaServicio =" + id + " and estado = 1";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                
+
                 progServi.setId_programaservicio(rs.getInt("ID_ProgramaServicio"));
                 progServi.setId_programa(rs.getInt("ID_Programa"));
                 progServi.setId_servicio(rs.getInt("ID_Servicio"));
@@ -233,7 +239,5 @@ public class ProgramaServicioDAO implements IProgramaServicioDao{
         }
 
     }
-
-   
 
 }

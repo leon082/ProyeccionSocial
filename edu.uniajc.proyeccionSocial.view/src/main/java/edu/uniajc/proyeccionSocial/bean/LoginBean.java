@@ -7,6 +7,7 @@ package edu.uniajc.proyeccionSocial.bean;
 
 import edu.uniajc.proyeccionSocial.persistence.Model.Opciones_menu;
 import edu.uniajc.proyeccionSocial.persistence.Model.Usuario;
+import edu.uniajc.proyeccionSocial.persistence.utils.ConexionBD;
 import edu.uniajc.proyeccionSocial.view.util.SessionUtils;
 import edu.uniajc.proyeccionSocial.view.util.Utilidades;
 import edu.uniajc.proyeccionsocial.bussiness.services.MenuServices;
@@ -18,6 +19,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -40,6 +43,8 @@ public class LoginBean implements Serializable {
     private IOpciones_menu menuServices;
     private Usuario user;
     private List<Opciones_menu> listaModulos;
+    Connection connection;
+    HttpSession session;
     // private boolean logeado = false;
 
     /*  public boolean estaLogeado() {
@@ -48,9 +53,13 @@ public class LoginBean implements Serializable {
     @PostConstruct
     public void init() {
 
-        usuarioServices = new UsuarioServices();
-        menuServices = new MenuServices();
-        listaModulos=new ArrayList<>();
+        connection = new ConexionBD().getConnection();
+        session = SessionUtils.getSession();
+        session.setAttribute("connection", connection);
+        usuarioServices = new UsuarioServices(connection);
+        menuServices = new MenuServices(connection);
+
+        listaModulos = new ArrayList<>();
 
     }
 
@@ -72,16 +81,22 @@ public class LoginBean implements Serializable {
     }*/
     public String login() {
         try {
+
             user = usuarioServices.getUsuarioLogin(nombre, Utilidades.generateHash(clave));
-            
+
             if (user != null) {
                 listaModulos = menuServices.getMenuByUser(user);
-                HttpSession session = SessionUtils.getSession();
+
                 session.setAttribute("username", nombre);
 
-              
                 return "Home.xhtml";
             } else {
+                try {
+                    Utilidades.getConnection().close();
+                } catch (SQLException e) {
+
+                }
+
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Credenciales no validas");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 return "login.xhtml";
@@ -96,7 +111,13 @@ public class LoginBean implements Serializable {
 
     public String logout() {
 
-        HttpSession session = SessionUtils.getSession();
+        try {
+            Utilidades.getConnection().close();
+        } catch (SQLException e) {
+
+        }
+
+        
         session.invalidate();
         return "login.xhtml";
     }
@@ -153,7 +174,5 @@ public class LoginBean implements Serializable {
     public void setListaModulos(List<Opciones_menu> listaModulos) {
         this.listaModulos = listaModulos;
     }
-    
-    
 
 }

@@ -5,7 +5,6 @@
  */
 package edu.uniajc.proyeccionSocial.persistence.DAO;
 
-import edu.uniajc.proyeccionSocial.persistence.utils.ConexionBD;
 import edu.uniajc.proyeccionSocial.persistence.Model.ReporteProyecto;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -15,12 +14,19 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IReporteProyectoDao;
+import java.sql.Connection;
 
 /**
  *
  * @author LuisLeon
  */
-public class ReporteProyectoDAO implements IReporteProyectoDao{
+public class ReporteProyectoDAO implements IReporteProyectoDao {
+
+    Connection connection;
+
+    public ReporteProyectoDAO(Connection connection) {
+        this.connection = connection;
+    }
 
     /**
      *
@@ -40,7 +46,7 @@ public class ReporteProyectoDAO implements IReporteProyectoDao{
         try {
 
             PreparedStatement ps = null;
-            
+
             String SQL = "select tb_proyecto.tituloProyecto,"
                     + " oferente.id_tercero idTerceroOferente,"
                     + " trim(replace(oferente.primerNombre||' '||oferente.segundoNombre||' '||oferente.primerApellido||' '||oferente.segundoApellido, '  ',' ')) oferente,"
@@ -73,29 +79,27 @@ public class ReporteProyectoDAO implements IReporteProyectoDao{
                     + " and tb_proyecto.creadoen between nvl(?, to_date('01011990','ddmmyyyy'))"
                     + " and nvl(?, to_date('31122049','ddmmyyyy'))"
                     + " and tb_proyecto.estado = DECODE(?, -1,tb_proyecto.estado, ?) ";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
-            
-            ps.setInt(1, idPrograma); 
-            ps.setInt(2, idPrograma); 
-            
+            ps = connection.prepareStatement(SQL);
+
+            ps.setInt(1, idPrograma);
+            ps.setInt(2, idPrograma);
+
             ps.setInt(3, idServicio);
             ps.setInt(4, idServicio);
-            
+
             ps.setInt(5, idTerceroOferente);
             ps.setInt(6, idTerceroOferente);
-            
-            ps.setInt(7, idTerceroCreadoPor );
-            ps.setInt(8, idTerceroCreadoPor );
-            
+
+            ps.setInt(7, idTerceroCreadoPor);
+            ps.setInt(8, idTerceroCreadoPor);
+
             ps.setDate(9, fechaDesde);
             ps.setDate(10, fechaHasta);
-            
+
             ps.setInt(11, estado);
             ps.setInt(12, estado);
-            
+
             ResultSet rs = ps.executeQuery();
-            
-            
 
             while (rs.next()) {
                 System.out.println("entro al while");
@@ -112,7 +116,7 @@ public class ReporteProyectoDAO implements IReporteProyectoDao{
             }
 
             ps.close();
-            System.out.println("retorna la lista->"+listaProyectos.size());
+            System.out.println("retorna la lista->" + listaProyectos.size());
             return listaProyectos;
         } catch (SQLException e) {
             System.out.println("Error en Menu DAO getMenuByUser " + e.getMessage());
@@ -121,6 +125,5 @@ public class ReporteProyectoDAO implements IReporteProyectoDao{
         }
 
     }
-    
-   
+
 }

@@ -42,11 +42,11 @@ public class ServiciosBean {
 
         listServicio = new ArrayList<>();
         usuario = Utilidades.cargarUsuario();
-        servicioServices = new ServicioServices();
+        servicioServices = new ServicioServices(Utilidades.getConnection());
         servicio = new Servicio();
         listServicio=new ArrayList<>();
         listServicio = servicioServices.getAllServicio();
-        seservices = new ServicioEtapaServices();
+        seservices = new ServicioEtapaServices(Utilidades.getConnection());
 
     }
 

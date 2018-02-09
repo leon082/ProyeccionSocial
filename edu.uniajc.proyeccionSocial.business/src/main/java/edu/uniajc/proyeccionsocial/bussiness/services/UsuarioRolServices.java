@@ -10,6 +10,7 @@ import edu.uniajc.proyeccionSocial.persistence.DAO.UsuarioRolDAO;
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IUsuarioRolDao;
 
 import edu.uniajc.proyeccionSocial.persistence.Model.UsuarioRol;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 /**
@@ -20,9 +21,9 @@ public class UsuarioRolServices implements IUsuarioRol {
 
     IUsuarioRolDao dao;
 
-    public UsuarioRolServices() {
+    public UsuarioRolServices(Connection connection) {
 
-        this.dao = new UsuarioRolDAO();
+        this.dao = new UsuarioRolDAO(connection);
     }
 
     @Override

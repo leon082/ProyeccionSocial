@@ -10,8 +10,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PreDestroy;
-import javax.ejb.Startup;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
@@ -22,10 +20,10 @@ import javax.sql.DataSource;
  */
 public class ConexionBD {
 
-    private static ConexionBD instance;
+   // private static ConexionBD instance;
     private Connection connection;
 
-    private ConexionBD(){
+     public ConexionBD(){
         try {
             //conectar= ((DataSource) new InitialContext().lookup("jdbc/uniajc")).getConnection(); 
             System.out.println("---------------------------------------- CONECTAR ----------------------------------------");
@@ -38,12 +36,12 @@ public class ConexionBD {
         }
     }
 
-    public static synchronized ConexionBD getInstance() {
+   /* public static synchronized ConexionBD getInstance() {
         if(instance == null){
             instance =  new ConexionBD();
         }
         return instance ;
-    }
+    }*/
     
     public Connection getConnection(){
         return connection;

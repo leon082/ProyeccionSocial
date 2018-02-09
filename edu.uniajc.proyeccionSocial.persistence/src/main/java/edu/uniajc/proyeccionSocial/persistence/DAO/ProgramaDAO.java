@@ -5,7 +5,6 @@
  */
 package edu.uniajc.proyeccionSocial.persistence.DAO;
 
-import edu.uniajc.proyeccionSocial.persistence.utils.ConexionBD;
 import edu.uniajc.proyeccionSocial.persistence.Model.Programa;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,12 +13,19 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IProgramaDao;
+import java.sql.Connection;
 
 /**
  *
  * @author rlara
  */
-public class ProgramaDAO implements IProgramaDao{
+public class ProgramaDAO implements IProgramaDao {
+
+    Connection connection;
+
+    public ProgramaDAO(Connection connection) {
+        this.connection = connection;
+    }
 
     /**
      *
@@ -36,7 +42,7 @@ public class ProgramaDAO implements IProgramaDao{
             PreparedStatement ps = null;
 
             String SQL = "select SQ_TB_Programa.nextval ID from dual";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             int codigo = 0;
 
@@ -48,7 +54,7 @@ public class ProgramaDAO implements IProgramaDao{
             SQL = "INSERT INTO TB_Programa "
                     + "(ID_Programa, Descripcion, Estado, "
                     + "CreadoPor, CreadoEn) values(?,?,?,?,?) ";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
 
             ps.setInt(1, programa.getId_programa());
             ps.setString(2, programa.getDescripcion());
@@ -81,7 +87,7 @@ public class ProgramaDAO implements IProgramaDao{
 
             String SQL = "UPDATE TB_Programa SET Estado=0 WHERE ID_Programa =" + id + " ";
 
-            PreparedStatement ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            PreparedStatement ps = connection.prepareStatement(SQL);
             ps.execute();
             ps.close();
             return true;
@@ -111,7 +117,7 @@ public class ProgramaDAO implements IProgramaDao{
             String SQL = "UPDATE TB_Programa SET "
                     + "Descripcion=?, Estado=?, ModificadoPor=?, ModificadoEn=? "
                     + "where ID_Programa = ?";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
 
             ps.setString(1, programa.getDescripcion());
             ps.setInt(2, programa.getEstado());
@@ -143,7 +149,7 @@ public class ProgramaDAO implements IProgramaDao{
             PreparedStatement ps = null;
 
             final String SQL = "SELECT * from TB_Programa where estado = 1";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Programa programa = new Programa();
@@ -182,10 +188,9 @@ public class ProgramaDAO implements IProgramaDao{
             PreparedStatement ps = null;
 
             String SQL = "select * from TB_Programa where ID_Programa =" + id + " and estado = 1";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                
 
                 programa.setId_programa(rs.getInt("ID_Programa"));
                 programa.setDescripcion(rs.getString("Descripcion"));
@@ -207,5 +212,4 @@ public class ProgramaDAO implements IProgramaDao{
 
     }
 
-    
 }

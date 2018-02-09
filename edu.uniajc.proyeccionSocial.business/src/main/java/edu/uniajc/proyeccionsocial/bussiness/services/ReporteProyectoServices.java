@@ -9,6 +9,7 @@ import edu.uniajc.proyeccionSocial.persistence.DAO.ReporteProyectoDAO;
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IReporteProyectoDao;
 import edu.uniajc.proyeccionSocial.persistence.Model.ReporteProyecto;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IReporteProyecto;
+import java.sql.Connection;
 import java.sql.Date;
 import java.util.ArrayList;
 
@@ -21,9 +22,9 @@ public class ReporteProyectoServices implements IReporteProyecto{
     
     IReporteProyectoDao dao;
 
-    public ReporteProyectoServices() {
+    public ReporteProyectoServices(Connection connection) {
 
-        this.dao = new ReporteProyectoDAO();
+        this.dao = new ReporteProyectoDAO(connection);
     }
 
     @Override

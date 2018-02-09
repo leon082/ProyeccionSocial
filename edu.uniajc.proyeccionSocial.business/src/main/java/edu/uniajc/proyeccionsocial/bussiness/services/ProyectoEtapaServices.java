@@ -10,6 +10,7 @@ import edu.uniajc.proyeccionSocial.persistence.DAO.ProyectoEtapaDAO;
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IProyectoEtapaDao;
 
 import edu.uniajc.proyeccionSocial.persistence.Model.ProyectoEtapa;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 /**
@@ -20,9 +21,9 @@ public class ProyectoEtapaServices implements IProyectoEtapa {
 
     IProyectoEtapaDao dao;
 
-    public ProyectoEtapaServices() {
+    public ProyectoEtapaServices(Connection connection) {
 
-        this.dao = new ProyectoEtapaDAO();
+        this.dao = new ProyectoEtapaDAO(connection);
     }
 
     @Override

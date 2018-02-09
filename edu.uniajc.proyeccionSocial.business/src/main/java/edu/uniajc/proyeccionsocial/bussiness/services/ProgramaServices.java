@@ -10,6 +10,7 @@ import edu.uniajc.proyeccionSocial.persistence.DAO.ProgramaDAO;
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IProgramaDao;
 
 import edu.uniajc.proyeccionSocial.persistence.Model.Programa;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 /**
@@ -20,9 +21,9 @@ public class ProgramaServices implements IPrograma {
 
     IProgramaDao dao;
 
-    public ProgramaServices() {
+    public ProgramaServices(Connection connection) {
 
-        this.dao = new ProgramaDAO();
+        this.dao = new ProgramaDAO(connection);
     }
 
     @Override

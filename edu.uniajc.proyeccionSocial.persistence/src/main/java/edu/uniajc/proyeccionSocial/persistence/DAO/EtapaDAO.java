@@ -5,7 +5,6 @@
  */
 package edu.uniajc.proyeccionSocial.persistence.DAO;
 
-import edu.uniajc.proyeccionSocial.persistence.utils.ConexionBD;
 import edu.uniajc.proyeccionSocial.persistence.Model.Etapa;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,12 +13,21 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IEtapaDao;
+import java.sql.Connection;
 
 /**
  *
  * @author luis.leon
  */
 public class EtapaDAO implements IEtapaDao{
+    
+    Connection connection;
+
+    public EtapaDAO(Connection connection) {
+        this.connection = connection;
+    }
+
+
 
     /**
      *
@@ -36,7 +44,7 @@ public class EtapaDAO implements IEtapaDao{
             PreparedStatement ps = null;
 
             String SQL = "select SQ_TB_Etapa.nextval ID from dual";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             int codigo = 0;
 
@@ -48,7 +56,7 @@ public class EtapaDAO implements IEtapaDao{
             SQL = "INSERT INTO TB_Etapa"
                     + " (ID_Etapa,Descripcion, Estado , creadopor , creadoen) "
                     + " values(?,?,?,?,?)";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
 
             ps.setInt(1, etapa.getId_etapa());
             ps.setString(2, etapa.getDescripcion());
@@ -80,7 +88,7 @@ public class EtapaDAO implements IEtapaDao{
 
             String SQL = "UPDATE TB_Etapa SET Estado=0 WHERE ID_Etapa =" + id + " ";
 
-            PreparedStatement ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            PreparedStatement ps = connection.prepareStatement(SQL);
             ps.execute();
             ps.close();
             return true;
@@ -108,7 +116,7 @@ public class EtapaDAO implements IEtapaDao{
             PreparedStatement ps = null;
             String SQL = "UPDATE TB_Etapa SET Descripcion=?, Estado=? ,modificadopor =? , modificadoen =? "
                     + " where ID_Etapa = ?";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
 
             ps.setString(1, etapa.getDescripcion());
             ps.setInt(2, etapa.getEstado());
@@ -140,7 +148,7 @@ public class EtapaDAO implements IEtapaDao{
             PreparedStatement ps = null;
 
             final String SQL = "SELECT * from TB_Etapa where estado = 1";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Etapa etapa = new Etapa();
@@ -179,7 +187,7 @@ public class EtapaDAO implements IEtapaDao{
             PreparedStatement ps = null;
 
             String SQL = "select * from TB_Etapa where ID_Etapa =" + id + " and estado = 1";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
 
@@ -215,7 +223,7 @@ public class EtapaDAO implements IEtapaDao{
             final String SQL = "select s.* from tb_etapa s \n"
                     + "inner join tb_servicioetapa ps on s.id_etapa = ps.id_etapa \n"
                     + "where ps.ESTADO = 1 and s.id_etapa = " + idEtapa + " ";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
 
             result = rs.next();
@@ -247,7 +255,7 @@ public class EtapaDAO implements IEtapaDao{
             final String SQL = "select s.* from tb_etapa s \n"
                     + "inner join TB_SERVICIOetapa ps on s.id_etapa = ps.id_etapa \n"
                     + "where ps.ESTADO=1 and  ps.id_servicio= " + idServicio + " ";
-            ps = ConexionBD.getInstance().getConnection().prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Etapa etapa = new Etapa();
