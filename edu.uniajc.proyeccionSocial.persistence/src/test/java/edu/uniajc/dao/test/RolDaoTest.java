@@ -5,8 +5,8 @@
  */
 package edu.uniajc.dao.test;
 
-import edu.uniajc.proyeccionSocial.DAO.RolDao;
-import edu.uniajc.proyeccionSocial.Model.Rol;
+import edu.uniajc.proyeccionSocial.persistence.DAO.RolDao;
+import edu.uniajc.proyeccionSocial.persistence.Model.Rol;
 import junit.framework.TestCase;
 import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertTrue;

@@ -5,10 +5,11 @@
  */
 package edu.uniajc.proyeccionsocial.bussiness.services;
 
-import edu.uniajc.proyeccionsocial.interfaces.ITercero;
-import edu.uniajc.proyeccionSocial.DAO.TerceroDAO;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.ITercero;
+import edu.uniajc.proyeccionSocial.persistence.DAO.TerceroDAO;
+import edu.uniajc.proyeccionSocial.persistence.interfaces.ITerceroDao;
 
-import edu.uniajc.proyeccionSocial.Model.Tercero;
+import edu.uniajc.proyeccionSocial.persistence.Model.Tercero;
 import java.util.ArrayList;
 
 /**
@@ -17,7 +18,7 @@ import java.util.ArrayList;
  */
 public class TerceroServices implements ITercero {
 
-    TerceroDAO dao;
+    ITerceroDao dao;
 
     public TerceroServices() {
 

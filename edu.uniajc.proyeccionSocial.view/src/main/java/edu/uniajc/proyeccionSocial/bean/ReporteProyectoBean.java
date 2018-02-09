@@ -5,16 +5,16 @@
  */
 package edu.uniajc.proyeccionSocial.bean;
 
-import edu.uniajc.proyeccionSocial.Model.ReporteProyecto;
+import edu.uniajc.proyeccionSocial.persistence.Model.ReporteProyecto;
 import edu.uniajc.proyeccionSocial.view.util.Utilidades;
 import edu.uniajc.proyeccionsocial.bussiness.services.ProgramaServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.ReporteProyectoServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.ServicioServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.TerceroServices;
-import edu.uniajc.proyeccionsocial.interfaces.IPrograma;
-import edu.uniajc.proyeccionsocial.interfaces.IReporteProyecto;
-import edu.uniajc.proyeccionsocial.interfaces.IServicio;
-import edu.uniajc.proyeccionsocial.interfaces.ITercero;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IPrograma;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IReporteProyecto;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IServicio;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.ITercero;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

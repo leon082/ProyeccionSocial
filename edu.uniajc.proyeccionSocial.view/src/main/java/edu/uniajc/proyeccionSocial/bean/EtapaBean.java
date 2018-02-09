@@ -5,14 +5,14 @@
  */
 package edu.uniajc.proyeccionSocial.bean;
 
-import edu.uniajc.proyeccionSocial.Model.Etapa;
-import edu.uniajc.proyeccionSocial.Model.Usuario;
+import edu.uniajc.proyeccionSocial.persistence.Model.Etapa;
+import edu.uniajc.proyeccionSocial.persistence.Model.Usuario;
 import edu.uniajc.proyeccionSocial.view.util.Utilidades;
 import edu.uniajc.proyeccionsocial.bussiness.services.EtapaServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.ServicioEtapaServices;
 
-import edu.uniajc.proyeccionsocial.interfaces.IEtapa;
-import edu.uniajc.proyeccionsocial.interfaces.IServicioEtapa;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IEtapa;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IServicioEtapa;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;

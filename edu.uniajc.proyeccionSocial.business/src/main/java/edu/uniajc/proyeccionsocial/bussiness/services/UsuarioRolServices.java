@@ -5,10 +5,11 @@
  */
 package edu.uniajc.proyeccionsocial.bussiness.services;
 
-import edu.uniajc.proyeccionsocial.interfaces.IUsuarioRol;
-import edu.uniajc.proyeccionSocial.DAO.UsuarioRolDAO;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IUsuarioRol;
+import edu.uniajc.proyeccionSocial.persistence.DAO.UsuarioRolDAO;
+import edu.uniajc.proyeccionSocial.persistence.interfaces.IUsuarioRolDao;
 
-import edu.uniajc.proyeccionSocial.Model.UsuarioRol;
+import edu.uniajc.proyeccionSocial.persistence.Model.UsuarioRol;
 import java.util.ArrayList;
 
 /**
@@ -17,7 +18,7 @@ import java.util.ArrayList;
  */
 public class UsuarioRolServices implements IUsuarioRol {
 
-    UsuarioRolDAO dao;
+    IUsuarioRolDao dao;
 
     public UsuarioRolServices() {
 

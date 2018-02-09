@@ -5,8 +5,8 @@
  */
 package edu.uniajc.dao.test;
 
-import edu.uniajc.proyeccionSocial.DAO.ProgramaServicioDAO;
-import edu.uniajc.proyeccionSocial.Model.ProgramaServicio;
+import edu.uniajc.proyeccionSocial.persistence.DAO.ProgramaServicioDAO;
+import edu.uniajc.proyeccionSocial.persistence.Model.ProgramaServicio;
 import junit.framework.TestCase;
 import org.junit.Test;
 import static junit.framework.TestCase.*;

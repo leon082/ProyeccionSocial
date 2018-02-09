@@ -5,19 +5,19 @@
  */
 package edu.uniajc.proyeccionSocial.view.util;
 
-import edu.uniajc.proyeccionSocial.Model.ListaValorDetalle;
-import edu.uniajc.proyeccionSocial.Model.Programa;
-import edu.uniajc.proyeccionSocial.Model.Proyecto;
-import edu.uniajc.proyeccionSocial.Model.Servicio;
-import edu.uniajc.proyeccionSocial.Model.Tercero;
-import edu.uniajc.proyeccionSocial.Model.Usuario;
-import edu.uniajc.proyeccionSocial.Model.UsuarioRol;
+import edu.uniajc.proyeccionSocial.persistence.Model.ListaValorDetalle;
+import edu.uniajc.proyeccionSocial.persistence.Model.Programa;
+import edu.uniajc.proyeccionSocial.persistence.Model.Proyecto;
+import edu.uniajc.proyeccionSocial.persistence.Model.Servicio;
+import edu.uniajc.proyeccionSocial.persistence.Model.Tercero;
+import edu.uniajc.proyeccionSocial.persistence.Model.Usuario;
+import edu.uniajc.proyeccionSocial.persistence.Model.UsuarioRol;
 import edu.uniajc.proyeccionsocial.bussiness.services.ListaValorDetalleServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.TerceroServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.UsuarioRolServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.UsuarioServices;
-import edu.uniajc.proyeccionsocial.interfaces.IUsuario;
-import edu.uniajc.proyeccionsocial.interfaces.IUsuarioRol;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IUsuario;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IUsuarioRol;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;

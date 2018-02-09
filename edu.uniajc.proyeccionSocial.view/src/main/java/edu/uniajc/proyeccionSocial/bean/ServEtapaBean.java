@@ -5,9 +5,9 @@
  */
 package edu.uniajc.proyeccionSocial.bean;
 
-import edu.uniajc.proyeccionSocial.Model.Etapa;
-import edu.uniajc.proyeccionSocial.Model.ServicioEtapa;
-import edu.uniajc.proyeccionSocial.Model.Usuario;
+import edu.uniajc.proyeccionSocial.persistence.Model.Etapa;
+import edu.uniajc.proyeccionSocial.persistence.Model.ServicioEtapa;
+import edu.uniajc.proyeccionSocial.persistence.Model.Usuario;
 import edu.uniajc.proyeccionSocial.view.util.Utilidades;
 import edu.uniajc.proyeccionsocial.bussiness.services.EtapaServices;
 import java.util.ArrayList;
@@ -17,10 +17,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.primefaces.model.DualListModel;
 import edu.uniajc.proyeccionsocial.bussiness.services.ServicioServices;
-import edu.uniajc.proyeccionsocial.interfaces.IServicio;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IServicio;
 import edu.uniajc.proyeccionsocial.bussiness.services.ServicioEtapaServices;
-import edu.uniajc.proyeccionsocial.interfaces.IEtapa;
-import edu.uniajc.proyeccionsocial.interfaces.IServicioEtapa;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IEtapa;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IServicioEtapa;
 import javax.faces.model.SelectItem;
 
 /**

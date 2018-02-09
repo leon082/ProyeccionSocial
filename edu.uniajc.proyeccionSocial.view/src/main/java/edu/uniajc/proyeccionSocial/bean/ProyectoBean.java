@@ -5,13 +5,13 @@
  */
 package edu.uniajc.proyeccionSocial.bean;
 
-import edu.uniajc.proyeccionSocial.Model.Beneficiario;
-import edu.uniajc.proyeccionSocial.Model.Etapa;
-import edu.uniajc.proyeccionSocial.Model.Oferente;
-import edu.uniajc.proyeccionSocial.Model.Proyecto;
-import edu.uniajc.proyeccionSocial.Model.ProyectoEtapa;
-import edu.uniajc.proyeccionSocial.Model.Tercero;
-import edu.uniajc.proyeccionSocial.Model.Usuario;
+import edu.uniajc.proyeccionSocial.persistence.Model.Beneficiario;
+import edu.uniajc.proyeccionSocial.persistence.Model.Etapa;
+import edu.uniajc.proyeccionSocial.persistence.Model.Oferente;
+import edu.uniajc.proyeccionSocial.persistence.Model.Proyecto;
+import edu.uniajc.proyeccionSocial.persistence.Model.ProyectoEtapa;
+import edu.uniajc.proyeccionSocial.persistence.Model.Tercero;
+import edu.uniajc.proyeccionSocial.persistence.Model.Usuario;
 
 import edu.uniajc.proyeccionSocial.view.util.Utilidades;
 import edu.uniajc.proyeccionsocial.bussiness.services.BeneficiarioServices;
@@ -22,14 +22,14 @@ import edu.uniajc.proyeccionsocial.bussiness.services.ProyectoEtapaServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.ProyectoServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.ServicioServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.TerceroServices;
-import edu.uniajc.proyeccionsocial.interfaces.IBeneficiario;
-import edu.uniajc.proyeccionsocial.interfaces.IEtapa;
-import edu.uniajc.proyeccionsocial.interfaces.IOferente;
-import edu.uniajc.proyeccionsocial.interfaces.IPrograma;
-import edu.uniajc.proyeccionsocial.interfaces.IProyecto;
-import edu.uniajc.proyeccionsocial.interfaces.IProyectoEtapa;
-import edu.uniajc.proyeccionsocial.interfaces.IServicio;
-import edu.uniajc.proyeccionsocial.interfaces.ITercero;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IBeneficiario;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IEtapa;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IOferente;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IPrograma;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IProyecto;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IProyectoEtapa;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IServicio;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.ITercero;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;

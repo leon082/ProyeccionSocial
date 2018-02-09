@@ -5,9 +5,9 @@
  */
 package edu.uniajc.services.test;
 
-import edu.uniajc.proyeccionsocial.interfaces.IProgramaServicio;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IProgramaServicio;
 import edu.uniajc.proyeccionsocial.bussiness.services.ProgramaServicioServices;
-import edu.uniajc.proyeccionSocial.Model.ProgramaServicio;
+import edu.uniajc.proyeccionSocial.persistence.Model.ProgramaServicio;
 import static junit.framework.TestCase.*;
 import junit.framework.TestCase;
 import org.junit.Test;

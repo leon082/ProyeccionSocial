@@ -5,9 +5,9 @@
  */
 package edu.uniajc.services.test;
 
-import edu.uniajc.proyeccionsocial.interfaces.IProyecto;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IProyecto;
 import edu.uniajc.proyeccionsocial.bussiness.services.ProyectoServices;
-import edu.uniajc.proyeccionSocial.Model.Proyecto;
+import edu.uniajc.proyeccionSocial.persistence.Model.Proyecto;
 import junit.framework.TestCase;
 import org.junit.Test;
 import static junit.framework.TestCase.fail;

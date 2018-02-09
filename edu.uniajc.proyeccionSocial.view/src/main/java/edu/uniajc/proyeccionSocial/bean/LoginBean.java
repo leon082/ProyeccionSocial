@@ -5,14 +5,14 @@
  */
 package edu.uniajc.proyeccionSocial.bean;
 
-import edu.uniajc.proyeccionSocial.Model.Opciones_menu;
-import edu.uniajc.proyeccionSocial.Model.Usuario;
+import edu.uniajc.proyeccionSocial.persistence.Model.Opciones_menu;
+import edu.uniajc.proyeccionSocial.persistence.Model.Usuario;
 import edu.uniajc.proyeccionSocial.view.util.SessionUtils;
 import edu.uniajc.proyeccionSocial.view.util.Utilidades;
 import edu.uniajc.proyeccionsocial.bussiness.services.MenuServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.UsuarioServices;
-import edu.uniajc.proyeccionsocial.interfaces.IOpciones_menu;
-import edu.uniajc.proyeccionsocial.interfaces.IUsuario;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IOpciones_menu;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IUsuario;
 import java.io.IOException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;

@@ -5,9 +5,10 @@
  */
 package edu.uniajc.proyeccionsocial.bussiness.services;
 
-import edu.uniajc.proyeccionsocial.interfaces.IEtapa;
-import edu.uniajc.proyeccionSocial.DAO.EtapaDAO;
-import edu.uniajc.proyeccionSocial.Model.Etapa;
+import edu.uniajc.proyeccionSocial.persistence.DAO.EtapaDAO;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IEtapa;
+import edu.uniajc.proyeccionSocial.persistence.interfaces.IEtapaDao;
+import edu.uniajc.proyeccionSocial.persistence.Model.Etapa;
 import java.util.ArrayList;
 
 /**
@@ -16,7 +17,7 @@ import java.util.ArrayList;
  */
 public class EtapaServices implements IEtapa {
 
-    EtapaDAO dao;
+    IEtapaDao dao;
 
     public EtapaServices() {
 

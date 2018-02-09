@@ -5,9 +5,10 @@
  */
 package edu.uniajc.proyeccionsocial.bussiness.services;
 
-import edu.uniajc.proyeccionsocial.interfaces.IRol;
-import edu.uniajc.proyeccionSocial.DAO.RolDao;
-import edu.uniajc.proyeccionSocial.Model.Rol;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IRol;
+import edu.uniajc.proyeccionSocial.persistence.DAO.RolDao;
+import edu.uniajc.proyeccionSocial.persistence.interfaces.IRolDao;
+import edu.uniajc.proyeccionSocial.persistence.Model.Rol;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ import java.util.List;
  */
 public class RolServices implements IRol {
 
-    RolDao dao;
+    IRolDao dao;
 
     public RolServices() {
 

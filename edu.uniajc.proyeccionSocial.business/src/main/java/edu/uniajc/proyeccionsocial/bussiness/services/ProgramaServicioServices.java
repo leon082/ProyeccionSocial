@@ -5,9 +5,10 @@
  */
 package edu.uniajc.proyeccionsocial.bussiness.services;
 
-import edu.uniajc.proyeccionsocial.interfaces.IProgramaServicio;
-import edu.uniajc.proyeccionSocial.DAO.ProgramaServicioDAO;
-import edu.uniajc.proyeccionSocial.Model.ProgramaServicio;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IProgramaServicio;
+import edu.uniajc.proyeccionSocial.persistence.DAO.ProgramaServicioDAO;
+import edu.uniajc.proyeccionSocial.persistence.interfaces.IProgramaServicioDao;
+import edu.uniajc.proyeccionSocial.persistence.Model.ProgramaServicio;
 import java.util.ArrayList;
 
 /**
@@ -16,7 +17,7 @@ import java.util.ArrayList;
  */
 public class ProgramaServicioServices implements IProgramaServicio {
 
-    ProgramaServicioDAO dao;
+    IProgramaServicioDao dao;
 
     public ProgramaServicioServices() {
 

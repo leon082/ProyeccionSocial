@@ -5,10 +5,11 @@
  */
 package edu.uniajc.proyeccionsocial.bussiness.services;
 
-import edu.uniajc.proyeccionsocial.interfaces.ISoporteProyectoEtapa;
-import edu.uniajc.proyeccionSocial.DAO.SoporteProyectoEtapaDAO;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.ISoporteProyectoEtapa;
+import edu.uniajc.proyeccionSocial.persistence.DAO.SoporteProyectoEtapaDAO;
+import edu.uniajc.proyeccionSocial.persistence.interfaces.ISoporteProyectoEtapaDao;
 
-import edu.uniajc.proyeccionSocial.Model.SoporteProyectoEtapa;
+import edu.uniajc.proyeccionSocial.persistence.Model.SoporteProyectoEtapa;
 import java.util.ArrayList;
 
 /**
@@ -17,7 +18,7 @@ import java.util.ArrayList;
  */
 public class SoporteProyectoEtapaServices implements ISoporteProyectoEtapa {
 
-    SoporteProyectoEtapaDAO dao;
+    ISoporteProyectoEtapaDao dao;
 
     public SoporteProyectoEtapaServices() {
 

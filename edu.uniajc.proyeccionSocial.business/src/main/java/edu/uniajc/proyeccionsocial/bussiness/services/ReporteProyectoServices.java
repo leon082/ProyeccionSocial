@@ -5,9 +5,10 @@
  */
 package edu.uniajc.proyeccionsocial.bussiness.services;
 
-import edu.uniajc.proyeccionSocial.DAO.ReporteProyectoDAO;
-import edu.uniajc.proyeccionSocial.Model.ReporteProyecto;
-import edu.uniajc.proyeccionsocial.interfaces.IReporteProyecto;
+import edu.uniajc.proyeccionSocial.persistence.DAO.ReporteProyectoDAO;
+import edu.uniajc.proyeccionSocial.persistence.interfaces.IReporteProyectoDao;
+import edu.uniajc.proyeccionSocial.persistence.Model.ReporteProyecto;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IReporteProyecto;
 import java.sql.Date;
 import java.util.ArrayList;
 
@@ -18,7 +19,7 @@ import java.util.ArrayList;
  */
 public class ReporteProyectoServices implements IReporteProyecto{
     
-    ReporteProyectoDAO dao;
+    IReporteProyectoDao dao;
 
     public ReporteProyectoServices() {
 

@@ -5,11 +5,11 @@
  */
 package edu.uniajc.proyeccionsocial.bussiness.services;
 
-import edu.uniajc.proyeccionSocial.DAO.Opciones_menuDAO;
-import edu.uniajc.proyeccionSocial.Model.Opciones_menu;
-import edu.uniajc.proyeccionSocial.Model.Usuario;
-import edu.uniajc.proyeccionsocial.interfaces.IOpciones_menu;
-import java.util.ArrayList;
+import edu.uniajc.proyeccionSocial.persistence.DAO.Opciones_menuDAO;
+import edu.uniajc.proyeccionSocial.persistence.interfaces.IOpciones_menuDao;
+import edu.uniajc.proyeccionSocial.persistence.Model.Opciones_menu;
+import edu.uniajc.proyeccionSocial.persistence.Model.Usuario;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IOpciones_menu;
 import java.util.List;
 
 /**
@@ -17,7 +17,7 @@ import java.util.List;
  * @author luis.leon
  */
 public class MenuServices implements IOpciones_menu{
-    Opciones_menuDAO dao;
+    IOpciones_menuDao dao;
 
     public MenuServices() {
 

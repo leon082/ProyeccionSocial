@@ -5,9 +5,10 @@
  */
 package edu.uniajc.proyeccionsocial.bussiness.services;
 
-import edu.uniajc.proyeccionsocial.interfaces.IOferente;
-import edu.uniajc.proyeccionSocial.DAO.OferenteDao;
-import edu.uniajc.proyeccionSocial.Model.Oferente;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IOferente;
+import edu.uniajc.proyeccionSocial.persistence.DAO.OferenteDao;
+import edu.uniajc.proyeccionSocial.persistence.interfaces.IOferenteDao;
+import edu.uniajc.proyeccionSocial.persistence.Model.Oferente;
 import java.util.ArrayList;
 
 /**
@@ -16,7 +17,7 @@ import java.util.ArrayList;
  */
 public class OferenteServices implements IOferente {
 
-    OferenteDao dao;
+    IOferenteDao dao;
 
     public OferenteServices() {
 

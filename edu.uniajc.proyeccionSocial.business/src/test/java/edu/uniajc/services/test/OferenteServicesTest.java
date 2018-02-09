@@ -5,9 +5,9 @@
  */
 package edu.uniajc.services.test;
 
-import edu.uniajc.proyeccionsocial.interfaces.IOferente;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IOferente;
 import edu.uniajc.proyeccionsocial.bussiness.services.OferenteServices;
-import edu.uniajc.proyeccionSocial.Model.Oferente;
+import edu.uniajc.proyeccionSocial.persistence.Model.Oferente;
 import junit.framework.TestCase;
 import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertTrue;

@@ -5,13 +5,13 @@
  */
 package edu.uniajc.proyeccionSocial.bean;
 
-import edu.uniajc.proyeccionSocial.Model.Programa;
-import edu.uniajc.proyeccionSocial.Model.Usuario;
+import edu.uniajc.proyeccionSocial.persistence.Model.Programa;
+import edu.uniajc.proyeccionSocial.persistence.Model.Usuario;
 import edu.uniajc.proyeccionSocial.view.util.Utilidades;
 import edu.uniajc.proyeccionsocial.bussiness.services.ProgramaServices;
-import edu.uniajc.proyeccionsocial.interfaces.IPrograma;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IPrograma;
 import edu.uniajc.proyeccionsocial.bussiness.services.ProgramaServicioServices;
-import edu.uniajc.proyeccionsocial.interfaces.IProgramaServicio;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IProgramaServicio;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;

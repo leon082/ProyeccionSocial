@@ -5,11 +5,11 @@
  */
 package edu.uniajc.proyeccionSocial.bean;
 
-import edu.uniajc.proyeccionSocial.Model.Servicio;
-import edu.uniajc.proyeccionSocial.Model.Usuario;
+import edu.uniajc.proyeccionSocial.persistence.Model.Servicio;
+import edu.uniajc.proyeccionSocial.persistence.Model.Usuario;
 import edu.uniajc.proyeccionSocial.view.util.Utilidades;
 import edu.uniajc.proyeccionsocial.bussiness.services.ServicioServices;
-import edu.uniajc.proyeccionsocial.interfaces.IServicio;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IServicio;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -20,7 +20,7 @@ import javax.faces.context.FacesContext;
 import org.primefaces.event.RowEditEvent;
 
 import edu.uniajc.proyeccionsocial.bussiness.services.ServicioEtapaServices;
-import edu.uniajc.proyeccionsocial.interfaces.IServicioEtapa;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IServicioEtapa;
 
 /**
  *

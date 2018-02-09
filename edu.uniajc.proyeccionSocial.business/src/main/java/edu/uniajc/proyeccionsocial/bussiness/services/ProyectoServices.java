@@ -5,10 +5,11 @@
  */
 package edu.uniajc.proyeccionsocial.bussiness.services;
 
-import edu.uniajc.proyeccionsocial.interfaces.IProyecto;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IProyecto;
 
-import edu.uniajc.proyeccionSocial.DAO.ProyectoDao;
-import edu.uniajc.proyeccionSocial.Model.Proyecto;
+import edu.uniajc.proyeccionSocial.persistence.DAO.ProyectoDao;
+import edu.uniajc.proyeccionSocial.persistence.interfaces.IProyectoDao;
+import edu.uniajc.proyeccionSocial.persistence.Model.Proyecto;
 import java.util.ArrayList;
 
 /**
@@ -17,7 +18,7 @@ import java.util.ArrayList;
  */
 public class ProyectoServices implements IProyecto {
 
-    ProyectoDao dao;
+    IProyectoDao dao;
 
     public ProyectoServices() {
 

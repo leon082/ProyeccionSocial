@@ -5,8 +5,8 @@
  */
 package edu.uniajc.dao.test;
 
-import edu.uniajc.proyeccionSocial.DAO.ListaValorDao;
-import edu.uniajc.proyeccionSocial.Model.ListaValor;
+import edu.uniajc.proyeccionSocial.persistence.DAO.ListaValorDao;
+import edu.uniajc.proyeccionSocial.persistence.Model.ListaValor;
 import junit.framework.TestCase;
 import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertTrue;

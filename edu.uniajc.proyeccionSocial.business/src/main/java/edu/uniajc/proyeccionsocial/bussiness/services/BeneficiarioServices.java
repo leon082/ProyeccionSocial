@@ -5,10 +5,11 @@
  */
 package edu.uniajc.proyeccionsocial.bussiness.services;
 
-import edu.uniajc.proyeccionsocial.interfaces.IBeneficiario;
-import edu.uniajc.proyeccionSocial.DAO.BeneficiarioDAO;
+import edu.uniajc.proyeccionSocial.persistence.DAO.BeneficiarioDAO;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IBeneficiario;
+import edu.uniajc.proyeccionSocial.persistence.interfaces.IBeneficiarioDao;
 
-import edu.uniajc.proyeccionSocial.Model.Beneficiario;
+import edu.uniajc.proyeccionSocial.persistence.Model.Beneficiario;
 import java.util.ArrayList;
 
 /**
@@ -17,7 +18,7 @@ import java.util.ArrayList;
  */
 public class BeneficiarioServices implements IBeneficiario {
 
-    BeneficiarioDAO dao;
+    IBeneficiarioDao dao;
 
     public BeneficiarioServices() {
 

@@ -5,9 +5,9 @@
  */
 package edu.uniajc.services.test;
 
-import edu.uniajc.proyeccionsocial.interfaces.IRol;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IRol;
 import edu.uniajc.proyeccionsocial.bussiness.services.RolServices;
-import edu.uniajc.proyeccionSocial.Model.Rol;
+import edu.uniajc.proyeccionSocial.persistence.Model.Rol;
 import junit.framework.TestCase;
 import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertTrue;

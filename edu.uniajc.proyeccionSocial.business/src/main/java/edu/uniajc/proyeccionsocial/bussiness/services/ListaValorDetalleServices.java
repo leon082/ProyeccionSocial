@@ -5,10 +5,11 @@
  */
 package edu.uniajc.proyeccionsocial.bussiness.services;
 
-import edu.uniajc.proyeccionsocial.interfaces.IListaValorDetalle;
-import edu.uniajc.proyeccionSocial.DAO.ListaValorDetalleDAO;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IListaValorDetalle;
+import edu.uniajc.proyeccionSocial.persistence.DAO.ListaValorDetalleDAO;
+import edu.uniajc.proyeccionSocial.persistence.interfaces.IListaValorDetalleDao;
 
-import edu.uniajc.proyeccionSocial.Model.ListaValorDetalle;
+import edu.uniajc.proyeccionSocial.persistence.Model.ListaValorDetalle;
 import java.util.ArrayList;
 
 /**
@@ -17,7 +18,7 @@ import java.util.ArrayList;
  */
 public class ListaValorDetalleServices implements IListaValorDetalle {
 
-    ListaValorDetalleDAO dao;
+    IListaValorDetalleDao dao;
 
     public ListaValorDetalleServices() {
 

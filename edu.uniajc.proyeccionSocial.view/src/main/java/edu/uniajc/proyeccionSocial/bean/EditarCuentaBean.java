@@ -5,14 +5,14 @@
  */
 package edu.uniajc.proyeccionSocial.bean;
 
-import edu.uniajc.proyeccionSocial.Model.Tercero;
-import edu.uniajc.proyeccionSocial.Model.Usuario;
+import edu.uniajc.proyeccionSocial.persistence.Model.Tercero;
+import edu.uniajc.proyeccionSocial.persistence.Model.Usuario;
 
 import edu.uniajc.proyeccionSocial.view.util.Utilidades;
 import edu.uniajc.proyeccionsocial.bussiness.services.TerceroServices;
-import edu.uniajc.proyeccionsocial.interfaces.IUsuario;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IUsuario;
 import edu.uniajc.proyeccionsocial.bussiness.services.UsuarioServices;
-import edu.uniajc.proyeccionsocial.interfaces.ITercero;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.ITercero;
 
 import java.security.NoSuchAlgorithmException;
 

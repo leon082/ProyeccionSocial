@@ -5,10 +5,11 @@
  */
 package edu.uniajc.proyeccionsocial.bussiness.services;
 
-import edu.uniajc.proyeccionSocial.DAO.UsuarioDao;
-import edu.uniajc.proyeccionsocial.interfaces.IUsuario;
+import edu.uniajc.proyeccionSocial.persistence.DAO.UsuarioDao;
+import edu.uniajc.proyeccionSocial.persistence.interfaces.IUsuarioDao;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IUsuario;
 
-import edu.uniajc.proyeccionSocial.Model.Usuario;
+import edu.uniajc.proyeccionSocial.persistence.Model.Usuario;
 import java.util.ArrayList;
 
 /**
@@ -17,7 +18,7 @@ import java.util.ArrayList;
  */
 public class UsuarioServices implements IUsuario {
 
-    UsuarioDao dao;
+    IUsuarioDao dao;
 
     public UsuarioServices() {
         this.dao = new UsuarioDao();
