@@ -75,7 +75,7 @@ public class Utilidades {
     }
     public static Connection getConnection() {
         HttpSession session = SessionUtils.getSession();
-        Connection connection = (Connection) session.getAttribute("username");
+        Connection connection = (Connection) session.getAttribute("connection");
        
        
         return connection;
