@@ -102,6 +102,8 @@ public class ProyectoGestionBean {
 
     private IProyectoEtapa servicioProyectoEtapa;
 
+    private List<Proyecto> proyectos;
+
     @PostConstruct
     public void init() {
         correos = new ArrayList<>();
@@ -138,9 +140,22 @@ public class ProyectoGestionBean {
         itemsFacultad = Utilidades.Consultar_Facultades_combo();
         facultad = 0;
         proyecto = new Proyecto();
-        cargarProyectoByUsuario();
+        proyectos = servicioProyecto.getProyectoByUser(usuario.getUsuario());
         rutaArchivo = "";
-        
+
+    }
+
+    public void buscar(Proyecto p) {
+        System.out.println("proyecto seleccionado -->" + p);
+        proyecto = p;
+
+        facultad = proyecto.getFacultad();
+        setProgramaByProyecto();
+        servByProg();
+        setOferenteByProyecto();
+        llenarEtapasByProyecto();
+        llenarBeneficiarios();
+
     }
 
     public void llenarBeneficiarios() {
@@ -175,7 +190,7 @@ public class ProyectoGestionBean {
     }
 
     public void llenarEtapasByProyecto() {
-        etapas = new ArrayList<EtapasEntregas>();
+        etapas = new ArrayList<>();
         //Llenar tabla de etapas
         //Lista de etapas segun Proyecto
         List<ProyectoEtapa> proyectoEtapas = servicioProyectoEtapa.getAllProyectoEtapaByProyecto(proyecto.getId_proyecto());
@@ -248,23 +263,6 @@ public class ProyectoGestionBean {
 
     }
 
-    public void cargarProyectoByUsuario() {
-
-        proyecto = servicioProyecto.getProyectoByUser(usuario.getUsuario());
-        if (proyecto != null) {
-            facultad = proyecto.getFacultad();
-            setProgramaByProyecto();
-            servByProg();
-            setOferenteByProyecto();
-            llenarEtapasByProyecto();
-            llenarBeneficiarios();
-        } else {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "No tiene Proyecto aprobado.");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
-
-    }
-
     public void handleFileUpload(FileUploadEvent event) throws IOException, Exception {
 
         System.out.println("si entra 4444:" + event.getFile().getFileName());
@@ -307,6 +305,14 @@ public class ProyectoGestionBean {
 
     }
 
+    public List<Proyecto> getProyectos() {
+        return proyectos;
+    }
+
+    public void setProyectos(List<Proyecto> proyectos) {
+        this.proyectos = proyectos;
+    }
+
     public void actionBoton(EtapasEntregas etapaEntrega) {
         if (!"".equals(rutaArchivo)) {
             int result = guardarSoporte(etapaEntrega.getIdProyectoEtapa());
@@ -315,7 +321,6 @@ public class ProyectoGestionBean {
             ProyectoEtapa proyectoE = servicioProyectoEtapa.getProyectoEtapaById(etapaEntrega.getIdProyectoEtapa());
             proyectoE.setEstado(2);
             servicioProyectoEtapa.updateProyectoEtapa(proyectoE);
-
             llenarEtapasByProyecto();
             rutaArchivo = "";
         } else {
@@ -323,6 +328,16 @@ public class ProyectoGestionBean {
             FacesContext.getCurrentInstance().addMessage(null, msg);
 
         }
+    }
+
+    public void clear() {
+        rutaArchivo = "";
+        idPrograma = 0;
+        idServicio = 0;
+
+        facultad = 0;
+        idOferente = 0;
+        init();
     }
 
     public int guardarSoporte(int idProyectoEtapa) {
@@ -365,8 +380,6 @@ public class ProyectoGestionBean {
     public void setFacultad(int facultad) {
         this.facultad = facultad;
     }
-    
-    
 
     public void setServicioProyecto(IProyecto servicioProyecto) {
         this.servicioProyecto = servicioProyecto;

@@ -7,6 +7,7 @@ package edu.uniajc.proyeccionsocial.bussiness.interfaces;
 
 import edu.uniajc.proyeccionSocial.persistence.Model.Proyecto;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Emmanuel Barrera - IRIS 12/05/2017 Nombre Clase:Iproyecto
@@ -29,7 +30,7 @@ public interface IProyecto {
 
     public boolean tieneProyectoPendiente(String usuario);
 
-    public Proyecto getProyectoByUser(String user);
+    public List<Proyecto> getProyectoByUser(String user);
 
     public Proyecto getProyectoById(int id);
 

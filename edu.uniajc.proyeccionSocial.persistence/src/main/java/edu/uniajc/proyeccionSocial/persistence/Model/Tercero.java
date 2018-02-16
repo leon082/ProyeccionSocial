@@ -29,6 +29,9 @@ public class Tercero {
     private String modificadopor;
     private Date modificadoen;
     private String nombreCompleto;
+    //private String id;
+
+    
 
     public int getId_tercero() {
         return id_tercero;

@@ -85,8 +85,8 @@ public class ProyectoBean {
     private IOferente oferenteServices;
 
     private IProyectoEtapa servicioProyectoEtapa;
-    
-     //Combos
+
+    //Combos
     private ArrayList<SelectItem> itemsFacultad;
     private int facultad;
 
@@ -121,17 +121,17 @@ public class ProyectoBean {
         //oferentes
         itemsOferente = Utilidades.llenar_Combo_Terceros(terceroServices.getAllTercero());
         oferenteServices = new OferenteServices(Utilidades.getConnection());
-        
+
         itemsFacultad = Utilidades.Consultar_Facultades_combo();
-        facultad=0;
+        facultad = 0;
     }
 
     public void initBeneficiarios() {
 
-        beneSource = new ArrayList<Tercero>();
+        beneSource = new ArrayList<>();
         beneSource = terceroServices.getAllTercero();
-        beneTarget = new ArrayList<Tercero>();
-        terceros = new DualListModel<Tercero>(beneSource, beneTarget);
+        beneTarget = new ArrayList<>();
+        terceros = new DualListModel<>(beneSource, beneTarget);
 
     }
 
@@ -207,31 +207,27 @@ public class ProyectoBean {
     public void crear() {
         if (etapas != null) {
             if (etapas.size() > 0) {
-                if (!servicioProyecto.tieneProyectoPendiente(usuario.getUsuario())) {
 
-                    proyecto.setCreadopor(usuario.getUsuario());
-                    proyecto.setId_programa(idPrograma);
-                    proyecto.setId_servicio(idServicio);
-                    proyecto.setFacultad(facultad);
-                    int result = servicioProyecto.createProyecto(proyecto);
+                proyecto.setCreadopor(usuario.getUsuario());
+                proyecto.setId_programa(idPrograma);
+                proyecto.setId_servicio(idServicio);
+                proyecto.setFacultad(facultad);
+                int result = servicioProyecto.createProyecto(proyecto);
 
-                    if (result != 0) {
-                        guardarBeneficiarios(result);
-                        guardarOferente(result);
-                        guardarProyectoEtapa(result);
-                        envioCorreo();
-                        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Operacion realizado con exito");
-                        FacesContext.getCurrentInstance().addMessage(null, msg);
-                        limpiarForma();
-                    } else {
-                        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "No se pudo realizar la operaciónn");
-                        FacesContext.getCurrentInstance().addMessage(null, msg);
-
-                    }
-                } else {
-                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Tiene un proyecto pendiente");
+                if (result != 0) {
+                    guardarBeneficiarios(result);
+                    guardarOferente(result);
+                    guardarProyectoEtapa(result);
+                    envioCorreo();
+                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Operacion realizado con exito");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
+                    limpiarForma();
+                } else {
+                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "No se pudo realizar la operaciónn");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+
                 }
+
             } else {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "el proyecto debe tener etapas");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -256,7 +252,7 @@ public class ProyectoBean {
         idPrograma = 0;
         idServicio = 0;
         idOferente = 0;
-        facultad=0;
+        facultad = 0;
         initBeneficiarios();
 
     }
@@ -452,7 +448,5 @@ public class ProyectoBean {
     public void setFacultad(int facultad) {
         this.facultad = facultad;
     }
-    
-    
 
 }

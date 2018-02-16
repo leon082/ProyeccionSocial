@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IProyectoDao;
 import java.sql.Connection;
+import java.util.List;
 
 /**
  *
@@ -344,9 +345,9 @@ public class ProyectoDao implements IProyectoDao {
      * @return
      */
     @Override
-    public Proyecto getProyectoByUser(String user) {
+    public List<Proyecto> getProyectoByUser(String user) {
 
-        Proyecto proyecto = null;
+       List<Proyecto> list = new ArrayList<>(0);
         try {
 
             PreparedStatement ps = null;
@@ -354,9 +355,8 @@ public class ProyectoDao implements IProyectoDao {
             String SQL = "select * from TB_Proyecto where creadopor = '" + user + "' and estado = 1";
             ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                proyecto = new Proyecto();
-
+            while (rs.next()) {
+                Proyecto proyecto = new Proyecto();
                 proyecto.setId_proyecto(rs.getInt("ID_Proyecto"));
                 proyecto.setTituloproyecto(rs.getString("TituloProyecto"));
                 proyecto.setResumenproyecto(rs.getString("ResumenProyecto"));
@@ -369,10 +369,11 @@ public class ProyectoDao implements IProyectoDao {
                 proyecto.setCreadoen(rs.getDate("CREADOEN"));
                 proyecto.setModificadoen(rs.getDate("MODIFICADOEN"));
 
+                list.add(proyecto);
             }
             ps.close();
 
-            return proyecto;
+            return list;
         } catch (SQLException e) {
             System.out.println("Error proyectoDao getProyectoByUser " + e.getMessage());
             Logger.getLogger(ProgramaDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());

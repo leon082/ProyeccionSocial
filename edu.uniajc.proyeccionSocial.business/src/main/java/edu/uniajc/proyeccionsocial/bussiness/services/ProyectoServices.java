@@ -12,6 +12,7 @@ import edu.uniajc.proyeccionSocial.persistence.interfaces.IProyectoDao;
 import edu.uniajc.proyeccionSocial.persistence.Model.Proyecto;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Fabian Castro - IRIS 15/05/2017 Nombre Clase:ProyectoServices
@@ -97,11 +98,11 @@ public class ProyectoServices implements IProyecto {
     }
 
     @Override
-    public Proyecto getProyectoByUser(String user) {
+    public List<Proyecto> getProyectoByUser(String user) {
         try {
-            Proyecto proyecto = dao.getProyectoByUser(user);
+            List<Proyecto> proyectos = dao.getProyectoByUser(user);
 
-            return proyecto;
+            return proyectos;
         } catch (Exception e) {
             System.out.println("Error en grProyectoByUser Services" + e.getMessage());
             return null;
