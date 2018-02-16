@@ -40,13 +40,16 @@
                                     <p:password value="#{loginBean.clave}" id="password" required="true"
                                                 label="password"  requiredMessage="Contraseña requerido"/>
                                     <p:spacer width="20" ></p:spacer>
-                                    <h:panelGrid columns="2">
+                                    <h:panelGrid columns="3">
 
                                         <p:commandButton id="loginButton" value="Login"
                                                          action="#{loginBean.login}" update=":mensajes"
                                                          />
                                         <p:commandButton id="regisButton" value="Registrate" process="@this"
                                                          action="#{loginBean.registrar}" update=":mensajes"
+                                                         />
+                                        <p:commandButton id="regisButton" value="Olvide mi Clave" process="@this"
+                                                         action="#{loginBean.recuperar}" update=":mensajes"
                                                          />
                                     </h:panelGrid>
 

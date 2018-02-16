@@ -348,7 +348,23 @@ public class Utilidades {
 
         return text;
     }
-    //tipo correo, 0 creacion, 1 aprobacion, 2 rechazado , 3 entrega , 4 aprobarEntrega , 5 Rechazar entrega , 6 cancelar proyecto
+    public static String getTextOfEmailRecuperarContraAdmin() {
+        String text = "El sistema de Proyeccion Social le notifica que el usuario :usuario requiere recuperar la contraseña.";
+
+        return text;
+    }
+    public static String getTextOfEmailRecuperarContraUser() {
+        String text = "El sistema de Proyeccion Social le notifica que su solicitud de recuperar clave ah sido enviada al administrador, quien en breve se pondra en contacto.";
+
+        return text;
+    }
+    
+    public static String getTextOfEmailContrasenaCambiada() {
+        String text = "El sistema de Proyeccion Social le notifica que el adminsitrador a realizado el cambio de contraseña, su nueva contraseña es :contra";
+
+        return text;
+    }
+    //tipo correo, 0 creacion, 1 aprobacion, 2 rechazado , 3 entrega , 4 aprobarEntrega , 5 Rechazar entrega , 6 cancelar proyecto , 7 recuperar contraseña admin, 8 recuperar contraseña user , 9 contraseña cambiada
 
     public static boolean envioCorreo(List<String> correosDestino,
             List<String> emisor, Usuario usuario, Proyecto proyecto, int tipoCorreo, String asunto, int idEtapa) {
@@ -398,6 +414,27 @@ public class Utilidades {
             text = text.replace(":usuario", usuario.getUsuario());
             text = text.replace(":titulo", proyecto.getTituloproyecto());
         }
+         if (tipoCorreo == 7) {
+
+            text = getTextOfEmailRecuperarContraAdmin();
+            text = text.replace(":usuario", usuario.getUsuario());
+            
+        }
+          if (tipoCorreo == 8) {
+
+            text = getTextOfEmailRecuperarContraUser();
+            
+        }
+           if (tipoCorreo == 9) {
+
+            text = getTextOfEmailContrasenaCambiada();
+           String[] lista = asunto.split(",");
+           asunto=lista[0];
+           String clave=lista[1];
+            text = text.replace(":contra", clave);
+            
+        }
+          
         for (String receptor : correosDestino) {
             Properties properties = new Properties();
             Session session;

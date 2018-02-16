@@ -18,6 +18,7 @@ import java.security.NoSuchAlgorithmException;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -31,14 +32,15 @@ import javax.faces.model.SelectItem;
  */
 @ManagedBean
 @ViewScoped
-public class EditarCuentaBean {
+public class CambiarClaveBean {
 
     private ITercero terceroServices;
     private Tercero tercero;
     private IUsuario usuarioServices;
     private Usuario usuario;
-    private String contra;
-    private Date fecha;
+    private String login;
+    private String clave;
+    boolean estadoBoton;
 
     //Combos
     private ArrayList<SelectItem> itemsDocumentos;
@@ -48,76 +50,70 @@ public class EditarCuentaBean {
     public void init() {
         terceroServices = new TerceroServices(Utilidades.getConnection());
         usuarioServices = new UsuarioServices(Utilidades.getConnection());
-        usuario = Utilidades.cargarUsuario();
+        usuario = new Usuario();
         tercero = new Tercero();
         itemsDocumentos = Utilidades.Consultar_Documentos_combo();
-        tercero = cargarTercero();
-        if (tercero != null) {
-            docuSelected = tercero.getId_lv_tipoidentificacion();
-            fecha = tercero.getFechanacimiento();
-        }
+        docuSelected=0;
+        estadoBoton=true;
+        clave="";
+        login="";
 
     }
 
-    public Tercero cargarTercero() {
-        Tercero ter = terceroServices.getTerceroById(this.usuario.getId_tercero());
-        return ter;
+    public void buscar() {
+        usuario = usuarioServices.getUserByUsername(login);
+        if (usuario == null) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Usuario no encontrado");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        } else {
+            tercero = terceroServices.getTerceroById(usuario.getId_tercero());
+            docuSelected=tercero.getId_lv_tipoidentificacion();
+            estadoBoton=false;
+        }
+
     }
 
     public boolean guardar() {
         boolean result = false;
 
-      
-            tercero.setFechanacimiento(Utilidades.dateToSql(fecha));
-            tercero.setCreadopor("system");
-            tercero.setModificadopor("system");
-            //usuario.setContrasena(Utilidades.generateHash(contra));
-       
+        try {
+            usuario.setContrasena(Utilidades.generateHash(clave));
             
-        
-        if (Utilidades.validarCorreo(tercero.getCorreo())
-                && terceroServices.updateTercero(tercero)){
-               // && usuarioServices.updateUsuario(usuario)) {
-
-            result = true;
-
-        } else {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Info", "Correo No Valido");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            result = false;
-        }
-
-        return result;
-    }
-
-    public String actionButon() {
-        if (valdiaciones()) {
-
-            if (guardar()) {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Cuenta actualizada");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-                return "Home.xhtml";
-            } else {
-
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Info", "Error, intentelo de nuevo");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-                return "editar_cuenta.xhtml";
-            }
-
-        }
-        return "editar_cuenta.xhtml";
-    }
-
-    public boolean valdiaciones() {
-        boolean result = true;
-
-        if (!Utilidades.validarFechaNacimiento(fecha)) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Info", "Error, Fecha de Nacimiento debe ser anterior a la fecha actual");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+        } catch (NoSuchAlgorithmException e) {
             return false;
         }
 
+        if (usuarioServices.updateUsuario(usuario)) {
+
+            result = true;
+
+        }
+
         return result;
+    }
+    
+    public void enviarCorreo(){
+        
+            
+            List<String> destino = new ArrayList<>();
+            destino.add(tercero.getCorreo());
+            Utilidades.envioCorreo(destino, Utilidades.findEmailEmisor(), usuario, null, 9, "Cambio de Contraseña,"+clave, 0);
+    }
+
+    public void actionButon() {
+
+        if (guardar()) {
+            enviarCorreo();
+            init();
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Clave Cambiada");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+
+        } else {
+
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Info", "Error, intentelo de nuevo");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+
+        }
 
     }
 
@@ -141,6 +137,16 @@ public class EditarCuentaBean {
         return usuario;
     }
 
+    public boolean isEstadoBoton() {
+        return estadoBoton;
+    }
+
+    public void setEstadoBoton(boolean estadoBoton) {
+        this.estadoBoton = estadoBoton;
+    }
+    
+    
+
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
@@ -161,21 +167,7 @@ public class EditarCuentaBean {
         this.docuSelected = docuSelected;
     }
 
-    public String getContra() {
-        return contra;
-    }
-
-    public void setContra(String contra) {
-        this.contra = contra;
-    }
-
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
+  
 
     public ITercero getTerceroServices() {
         return terceroServices;
@@ -192,5 +184,23 @@ public class EditarCuentaBean {
     public void setUsuarioServices(IUsuario usuarioServices) {
         this.usuarioServices = usuarioServices;
     }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getClave() {
+        return clave;
+    }
+
+    public void setClave(String clave) {
+        this.clave = clave;
+    }
+    
+    
 
 }

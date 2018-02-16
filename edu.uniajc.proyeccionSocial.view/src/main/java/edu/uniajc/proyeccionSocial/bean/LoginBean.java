@@ -6,6 +6,7 @@
 package edu.uniajc.proyeccionSocial.bean;
 
 import edu.uniajc.proyeccionSocial.persistence.Model.Opciones_menu;
+import edu.uniajc.proyeccionSocial.persistence.Model.Tercero;
 import edu.uniajc.proyeccionSocial.persistence.Model.Usuario;
 import edu.uniajc.proyeccionSocial.persistence.utils.ConexionBD;
 import edu.uniajc.proyeccionSocial.view.util.SessionUtils;
@@ -13,7 +14,9 @@ import edu.uniajc.proyeccionSocial.view.util.Utilidades;
 import edu.uniajc.proyeccionsocial.bussiness.services.MenuServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.UsuarioServices;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IOpciones_menu;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.ITercero;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IUsuario;
+import edu.uniajc.proyeccionsocial.bussiness.services.TerceroServices;
 import java.io.IOException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -43,6 +46,7 @@ public class LoginBean implements Serializable {
     private IOpciones_menu menuServices;
     private Usuario user;
     private List<Opciones_menu> listaModulos;
+    private ITercero terceroService;
     Connection connection;
     HttpSession session;
     // private boolean logeado = false;
@@ -58,6 +62,7 @@ public class LoginBean implements Serializable {
         session.setAttribute("connection", connection);
         usuarioServices = new UsuarioServices(connection);
         menuServices = new MenuServices(connection);
+        terceroService = new TerceroServices(connection);
 
         listaModulos = new ArrayList<>();
 
@@ -117,7 +122,6 @@ public class LoginBean implements Serializable {
 
         }
 
-        
         session.invalidate();
         return "login.xhtml";
     }
@@ -133,6 +137,35 @@ public class LoginBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, msg);
 
         return "registrar.xhtml";
+    }
+
+    public void recuperar() {
+
+        if (nombre != null && !nombre.equalsIgnoreCase("")) {
+            envioCorreo(1);
+            envioCorreo(0);
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Revise su bandeja de correó");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        } else {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error", "Debe digitar un usuario");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+
+    }
+
+    public void envioCorreo(int tipoCorreo) {
+        if (tipoCorreo != 0) {
+            Usuario usuario = usuarioServices.getUserByUsername(nombre);
+            Utilidades.envioCorreo(Utilidades.findSendEmail(), Utilidades.findEmailEmisor(), usuario, null, 7, "Recuperar Contraseña", 0);
+
+        } else {
+            Usuario usuario = usuarioServices.getUserByUsername(nombre);
+            Tercero tercero = terceroService.getTerceroById(usuario.getId_tercero());
+            List<String> destino = new ArrayList<>();
+            destino.add(tercero.getCorreo());
+            Utilidades.envioCorreo(destino, Utilidades.findEmailEmisor(), usuario, null, 8, "Recuperar Contraseña", 0);
+        }
+
     }
 
     public String getNombre() {
