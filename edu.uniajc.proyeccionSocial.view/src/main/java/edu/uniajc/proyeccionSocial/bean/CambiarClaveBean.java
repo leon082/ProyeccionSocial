@@ -17,12 +17,12 @@ import edu.uniajc.proyeccionsocial.bussiness.interfaces.ITercero;
 import java.security.NoSuchAlgorithmException;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
@@ -38,7 +38,7 @@ public class CambiarClaveBean {
     private Tercero tercero;
     private IUsuario usuarioServices;
     private Usuario usuario;
-    private String login;
+    private String name;
     private String clave;
     boolean estadoBoton;
 
@@ -53,51 +53,55 @@ public class CambiarClaveBean {
         usuario = new Usuario();
         tercero = new Tercero();
         itemsDocumentos = Utilidades.Consultar_Documentos_combo();
-        docuSelected=0;
-        estadoBoton=true;
-        clave="";
-        login="";
+        docuSelected = 0;
+        estadoBoton = true;
 
     }
 
     public void buscar() {
-        usuario = usuarioServices.getUserByUsername(login);
+        //
+       
+        usuario = usuarioServices.getUserByUsername(name);
+
         if (usuario == null) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Usuario no encontrado");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } else {
             tercero = terceroServices.getTerceroById(usuario.getId_tercero());
-            docuSelected=tercero.getId_lv_tipoidentificacion();
-            estadoBoton=false;
+            System.out.println("Correo--->"+tercero.getCorreo());
+            docuSelected = tercero.getId_lv_tipoidentificacion();
+            estadoBoton = false;
         }
 
     }
 
     public boolean guardar() {
         boolean result = false;
+        System.out.println("Clave--->"+clave);
+        if (!clave.equals("") && usuario != null) {
+            try {
+                usuario.setContrasena(Utilidades.generateHash(clave));
 
-        try {
-            usuario.setContrasena(Utilidades.generateHash(clave));
-            
-        } catch (NoSuchAlgorithmException e) {
-            return false;
-        }
+            } catch (NoSuchAlgorithmException e) {
+                System.out.println("Error setiando la clave--->"+e.getMessage());
+                return false;
+            }
 
-        if (usuarioServices.updateUsuario(usuario)) {
+            if (usuarioServices.updateUsuario(usuario)) {
 
-            result = true;
+                result = true;
 
+            }
         }
 
         return result;
     }
-    
-    public void enviarCorreo(){
-        
-            
-            List<String> destino = new ArrayList<>();
-            destino.add(tercero.getCorreo());
-            Utilidades.envioCorreo(destino, Utilidades.findEmailEmisor(), usuario, null, 9, "Cambio de Contraseña,"+clave, 0);
+
+    public void enviarCorreo() {
+
+        List<String> destino = new ArrayList<>();
+        destino.add(tercero.getCorreo());
+        Utilidades.envioCorreo(destino, Utilidades.findEmailEmisor(), usuario, null, 9, "Cambio de Contraseña," + clave, 0);
     }
 
     public void actionButon() {
@@ -144,8 +148,6 @@ public class CambiarClaveBean {
     public void setEstadoBoton(boolean estadoBoton) {
         this.estadoBoton = estadoBoton;
     }
-    
-    
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
@@ -167,8 +169,6 @@ public class CambiarClaveBean {
         this.docuSelected = docuSelected;
     }
 
-  
-
     public ITercero getTerceroServices() {
         return terceroServices;
     }
@@ -185,12 +185,12 @@ public class CambiarClaveBean {
         this.usuarioServices = usuarioServices;
     }
 
-    public String getLogin() {
-        return login;
+    public String getName() {
+        return name;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getClave() {
@@ -200,7 +200,5 @@ public class CambiarClaveBean {
     public void setClave(String clave) {
         this.clave = clave;
     }
-    
-    
 
 }

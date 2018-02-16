@@ -60,8 +60,8 @@ public class UsuarioServices implements IUsuario {
     @Override
     public boolean updateUsuario(Usuario usuario) {
         try {
-            dao.updateUsuario(usuario);
-            return true;
+            return dao.updateUsuario(usuario);
+            
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;

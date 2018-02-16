@@ -26,33 +26,35 @@
 
 
                         <p:tab title="Cambiar Claves"> <!-- Nombre  -->
-                            <p:outputLabel for="add" value="Usuario :" />
-                            <p:inputText   id="add" value="#{cambiarClaveBean.login}" />                       
+                            <p:outputLabel for="add" value="Usuario : " />
+                            <p:inputText   id="add" value="#{cambiarClaveBean.name}" />                       
                             <p:commandButton 
-                                update=":forma:grow,:forma:tab:add,:forma:tab:add_1,:forma:tab:doc,:forma:tab:pNombre,:forma:tab:sNombre,:forma:tab:pApellido,:forma:tab:sApellido,:forma:tab:phoneFijo,:forma:tab:phoneCel,:forma:tab:user,:forma:tab:clave"
+                                update=":forma:grow,:forma:tab:guardar,:forma:tab:add_1,:forma:tab:doc,:forma:tab:pNombre,:forma:tab:sNombre,:forma:tab:pApellido,:forma:tab:sApellido,:forma:tab:phoneFijo,:forma:tab:phoneCel,:forma:tab:user,:forma:tab:clave"
                                 ajax="true" icon="ui-icon-search" 
-                                action="#{cambiarClaveBean.buscar()}">
+                                action="#{cambiarClaveBean.buscar()}"
+                                
+                                >
 
                             </p:commandButton>
                             <h:panelGrid columns="2" cellpadding="5">
 
                                 <p:outputLabel for="add_1" value="Tipo de Documento :" />
-                                <p:selectOneMenu  id="add_1" value="#{cambiarClaveBean.docuSelected}" required="true" requiredMessage="Tipo documento requerido" disabled="true" >  
+                                <p:selectOneMenu  id="add_1" value="#{cambiarClaveBean.docuSelected}"  disabled="true" >  
                                     <f:selectItem itemLabel="Seleccione" itemValue="0" />  
                                     <f:selectItems value="#{cambiarClaveBean.itemsDocumentos}"/>  
                                 </p:selectOneMenu> 
 
                                 <p:outputLabel for="doc" value="Documento:" />
-                                <p:inputMask id="doc" value="#{cambiarClaveBean.tercero.numidentificacion}" mask="9999999999" required="true" requiredMessage="documento requerido"  disabled="true"/>
+                                <p:inputMask id="doc" value="#{cambiarClaveBean.tercero.numidentificacion}" mask="9999999999"  disabled="true"/>
 
                                 <p:outputLabel for="pNombre" value="Primer Nombre:" />
-                                <p:inputText id="pNombre" value="#{cambiarClaveBean.tercero.primernombre}" required="true" requiredMessage="Nombre requerido" disabled="true" />
+                                <p:inputText id="pNombre" value="#{cambiarClaveBean.tercero.primernombre}"  disabled="true" />
 
                                 <p:outputLabel for="sNombre" value="Segundo Nombre:" />
                                 <p:inputText id="sNombre" value="#{cambiarClaveBean.tercero.segundonombre}" disabled="true"  />
 
                                 <p:outputLabel for="pApellido" value="Primer Apellido:" />
-                                <p:inputText id="pApellido" value="#{cambiarClaveBean.tercero.primerapellido}" required="true" requiredMessage="Apellido requerido" disabled="true" />
+                                <p:inputText id="pApellido" value="#{cambiarClaveBean.tercero.primerapellido}" disabled="true" />
 
                                 <p:outputLabel for="sApellido" value="Segundo Apellido:" />
                                 <p:inputText id="sApellido" value="#{cambiarClaveBean.tercero.segundoapellido}" disabled="true" />
@@ -68,17 +70,17 @@
 
 
                                 <p:outputLabel for="correo" value="Correo Electronico:" />
-                                <p:inputText id="correo" value="#{cambiarClaveBean.tercero.correo}" required="true" requiredMessage="Correo requerido" disabled="true"/>
+                                <p:inputText id="correo" value="#{cambiarClaveBean.tercero.correo}" />
 
 
 
                                 <p:outputLabel  value="Usuario:" />
-                                <p:inputText id="user" value="#{cambiarClaveBean.usuario.usuario}" required="true" requiredMessage="Usuario requerido" disabled="true"/>
+                                <p:inputText id="user" value="#{cambiarClaveBean.usuario.usuario}" disabled="true"/>
 
 
 
                                 <p:outputLabel  value="Clave:" />
-                                <p:inputText id="clave" value="#{cambiarClaveBean.clave}" required="true" requiredMessage="Clave requerida" />
+                                <p:inputText id="clave" value="#{cambiarClaveBean.clave}"  />
 
 
                             </h:panelGrid>
@@ -86,7 +88,7 @@
                             <p:separator></p:separator>
 
                             <p:commandButton 
-                                value="Guardar" action="#{cambiarClaveBean.actionButon()}" update=":mensajes" disabled="#{cambiarClaveBean.estadoBoton}"  update=":forma:grow,:forma:tab:add,:forma:tab:add_1,:forma:tab:doc,:forma:tab:pNombre,:forma:tab:sNombre,:forma:tab:pApellido,:forma:tab:sApellido,:forma:tab:phoneFijo,:forma:tab:phoneCel,:forma:tab:user,:forma:tab:clave"/>
+                                id="guardar" value="Guardar" action="#{cambiarClaveBean.actionButon()}"  disabled="#{cambiarClaveBean.estadoBoton}"  update=":forma:grow,:forma:grow,:forma:tab:add,:forma:tab:add_1,:forma:tab:doc,:forma:tab:pNombre,:forma:tab:sNombre,:forma:tab:pApellido,:forma:tab:sApellido,:forma:tab:phoneFijo,:forma:tab:phoneCel,:forma:tab:user,:forma:tab:clave" />
 
 
                         </p:tab>

@@ -35,12 +35,12 @@
 
                                     <h:outputLabel for="username" value="Usuario:" />
                                     <p:inputText value="#{loginBean.nombre}" id="username"
-                                                 required="true" label="username" requiredMessage="Usuario requerido"/>
+                                                  label="username" />
                                     <h:outputLabel for="password" value="Clave:" />
-                                    <p:password value="#{loginBean.clave}" id="password" required="true"
-                                                label="password"  requiredMessage="Contraseña requerido"/>
+                                    <p:password value="#{loginBean.clave}" id="password" 
+                                                label="password"  />
                                     <p:spacer width="20" ></p:spacer>
-                                    <h:panelGrid columns="3">
+                                    <h:panelGrid columns="2">
 
                                         <p:commandButton id="loginButton" value="Login"
                                                          action="#{loginBean.login}" update=":mensajes"
@@ -48,14 +48,16 @@
                                         <p:commandButton id="regisButton" value="Registrate" process="@this"
                                                          action="#{loginBean.registrar}" update=":mensajes"
                                                          />
-                                        <p:commandButton id="regisButton" value="Olvide mi Clave" process="@this"
-                                                         action="#{loginBean.recuperar}" update=":mensajes"
-                                                         />
+                                       
                                     </h:panelGrid>
 
 
 
                                 </h:panelGrid>
+                                <p:separator></p:separator>
+                                 <p:commandButton id="cambioClave" value="Olvide mi Clave" 
+                                                         action="#{loginBean.recuperar}" update=":mensajes"
+                                                         />
                             </p:panel>
                         </h:panelGrid>
                     </h:form>

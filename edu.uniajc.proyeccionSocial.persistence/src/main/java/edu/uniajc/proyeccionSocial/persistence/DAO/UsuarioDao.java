@@ -113,9 +113,9 @@ public class UsuarioDao implements IUsuarioDao {
             ps = connection.prepareStatement(SQL);
 
             ps.setInt(1, usuario.getId_tercero());
-            ps.setString(2, usuario.getUsuario());
-            ps.setString(3, usuario.getContrasena());
-            ps.setInt(4, usuario.getEstado());
+            ps.setString(2, usuario.getUsuario());            
+            ps.setInt(3, usuario.getEstado());
+            ps.setString(4, usuario.getContrasena());
             ps.setInt(5, usuario.getId_usuario());
 
             ps.execute();

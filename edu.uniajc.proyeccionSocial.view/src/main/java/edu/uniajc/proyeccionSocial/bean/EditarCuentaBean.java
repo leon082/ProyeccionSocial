@@ -94,12 +94,12 @@ public class EditarCuentaBean {
         if (valdiaciones()) {
 
             if (guardar()) {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Cuenta actualizada");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cuenta actualizada", "Cuenta actualizada");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 return "Home.xhtml";
             } else {
 
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Info", "Error, intentelo de nuevo");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "error", "Error, intentelo de nuevo");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 return "editar_cuenta.xhtml";
             }

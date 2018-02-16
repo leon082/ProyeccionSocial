@@ -85,7 +85,8 @@ public class LoginBean implements Serializable {
         }
     }*/
     public String login() {
-        try {
+        if (nombre != null && !nombre.equalsIgnoreCase("") && clave != null && !clave.equalsIgnoreCase("")  ) {
+             try {
 
             user = usuarioServices.getUsuarioLogin(nombre, Utilidades.generateHash(clave));
 
@@ -112,6 +113,12 @@ public class LoginBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, msg);
             return "login.xhtml";
         }
+        }else{
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Diligencie los campos");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+                return "login.xhtml";
+        }
+       
     }
 
     public String logout() {
