@@ -17,13 +17,15 @@ import java.util.List;
  *
  * @author luis.leon
  */
-public class MenuServices implements IOpciones_menu{
+public class MenuServices implements IOpciones_menu {
+
     IOpciones_menuDao dao;
 
     public MenuServices(Connection connection) {
 
         this.dao = new Opciones_menuDAO(connection);
     }
+
     @Override
     public List<Opciones_menu> getMenuByUser(Usuario user) {
         try {
@@ -37,5 +39,5 @@ public class MenuServices implements IOpciones_menu{
             return null;
         }
     }
-    
+
 }

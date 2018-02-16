@@ -51,9 +51,7 @@ public class UsuarioRolServices implements IUsuarioRol {
     public boolean deleteUsuarioRol(int id) {
         try {
 
-            dao.deleteUsuarioRol(id);
-
-            return true;
+            return dao.deleteUsuarioRol(id);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -64,8 +62,8 @@ public class UsuarioRolServices implements IUsuarioRol {
     @Override
     public boolean updateUsuarioRol(UsuarioRol usuarioRol) {
         try {
-            dao.updateUsuarioRol(usuarioRol);
-            return true;
+
+            return dao.updateUsuarioRol(usuarioRol);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;
@@ -104,9 +102,7 @@ public class UsuarioRolServices implements IUsuarioRol {
     public boolean deleteRolesByUser(int idUser) {
         try {
 
-            dao.deleteRolesByUser(idUser);
-
-            return true;
+            return dao.deleteRolesByUser(idUser);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

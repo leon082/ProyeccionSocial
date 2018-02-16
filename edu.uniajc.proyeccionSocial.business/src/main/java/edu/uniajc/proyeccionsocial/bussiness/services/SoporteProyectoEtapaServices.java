@@ -50,8 +50,8 @@ public class SoporteProyectoEtapaServices implements ISoporteProyectoEtapa {
     @Override
     public boolean updateSoporteProyectoEtapa(SoporteProyectoEtapa soporteProyectoEtapa) {
         try {
-            dao.updateSoporteProyectoEtapa(soporteProyectoEtapa);
-            return true;
+
+            return dao.updateSoporteProyectoEtapa(soporteProyectoEtapa);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;

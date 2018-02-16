@@ -13,13 +13,12 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.util.ArrayList;
 
-
 /**
  *
  * @author LuisLeon
  */
-public class ReporteProyectoServices implements IReporteProyecto{
-    
+public class ReporteProyectoServices implements IReporteProyecto {
+
     IReporteProyectoDao dao;
 
     public ReporteProyectoServices(Connection connection) {
@@ -29,10 +28,9 @@ public class ReporteProyectoServices implements IReporteProyecto{
 
     @Override
     public ArrayList<ReporteProyecto> getAllProyect(int idPrograma, int idServicio, int idTerceroOferente, int idTerceroCreadoPor, Date fechaDesde, Date fechaHasta, int estado) {
-         try {
+        try {
 
             ArrayList<ReporteProyecto> list = dao.getAllProyect(idPrograma, idServicio, idTerceroOferente, idTerceroCreadoPor, fechaDesde, fechaHasta, estado);
-            
 
             return list;
 
@@ -42,6 +40,4 @@ public class ReporteProyectoServices implements IReporteProyecto{
         }
     }
 
-   
-    
 }

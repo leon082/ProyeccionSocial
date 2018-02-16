@@ -51,9 +51,7 @@ public class ServicioEtapaServices implements IServicioEtapa {
     public boolean deleteServicioEtapa(int id) {
         try {
 
-            dao.deleteServicioEtapa(id);
-
-            return true;
+            return dao.deleteServicioEtapa(id);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -64,8 +62,8 @@ public class ServicioEtapaServices implements IServicioEtapa {
     @Override
     public boolean updateServicioEtapa(ServicioEtapa servicioEtapa) {
         try {
-            dao.updateServicioEtapa(servicioEtapa);
-            return true;
+
+            return dao.updateServicioEtapa(servicioEtapa);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;
@@ -104,9 +102,7 @@ public class ServicioEtapaServices implements IServicioEtapa {
     public boolean deleteEtapaServicioByServicio(int id) {
         try {
 
-            dao.deleteEtapaServicioByServicio(id);
-
-            return true;
+            return dao.deleteEtapaServicioByServicio(id);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

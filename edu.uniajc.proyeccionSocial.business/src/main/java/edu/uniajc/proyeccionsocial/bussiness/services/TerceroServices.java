@@ -51,9 +51,7 @@ public class TerceroServices implements ITercero {
     public boolean deleteTercero(int id) {
         try {
 
-            dao.deleteTercero(id);
-
-            return true;
+            return dao.deleteTercero(id);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -65,8 +63,8 @@ public class TerceroServices implements ITercero {
     public boolean updateTercero(Tercero tercero) {
         try {
             tercero.setCorreo(tercero.getCorreo().toLowerCase());
-            dao.updateTercero(tercero);
-            return true;
+
+            return dao.updateTercero(tercero);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;
@@ -117,7 +115,7 @@ public class TerceroServices implements ITercero {
 
     @Override
     public ArrayList<Tercero> getAllTerceroUsuario() {
-         try {
+        try {
 
             ArrayList<Tercero> list = dao.getAllTerceroUsuario();
 

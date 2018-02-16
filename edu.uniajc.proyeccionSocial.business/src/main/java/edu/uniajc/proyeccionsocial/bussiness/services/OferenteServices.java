@@ -50,9 +50,7 @@ public class OferenteServices implements IOferente {
     public boolean deleteOferente(int id) {
         try {
 
-            dao.deleteOferente(id);
-
-            return true;
+            return dao.deleteOferente(id);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -64,9 +62,7 @@ public class OferenteServices implements IOferente {
     public boolean updateOferente(Oferente oferente) {
         try {
 
-            dao.updateOferente(oferente);
-
-            return true;
+            return dao.updateOferente(oferente);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

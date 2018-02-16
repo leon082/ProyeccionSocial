@@ -51,9 +51,7 @@ public class ListaValorDetalleServices implements IListaValorDetalle {
     public boolean deleteListaValorDetalle(int id) {
         try {
 
-            dao.deleteListaValorDetalle(id);
-
-            return true;
+            return dao.deleteListaValorDetalle(id);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -64,8 +62,8 @@ public class ListaValorDetalleServices implements IListaValorDetalle {
     @Override
     public boolean updateListaValorDetalle(ListaValorDetalle listaValorDetalle) {
         try {
-            dao.updateListaValorDetalle(listaValorDetalle);
-            return true;
+
+            return dao.updateListaValorDetalle(listaValorDetalle);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;

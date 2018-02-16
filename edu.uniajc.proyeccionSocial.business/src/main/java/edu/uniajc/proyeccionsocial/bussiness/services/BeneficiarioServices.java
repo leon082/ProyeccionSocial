@@ -21,7 +21,7 @@ public class BeneficiarioServices implements IBeneficiario {
 
     IBeneficiarioDao dao;
 
-    public BeneficiarioServices( Connection connection) {
+    public BeneficiarioServices(Connection connection) {
 
         this.dao = new BeneficiarioDAO(connection);
     }
@@ -51,9 +51,7 @@ public class BeneficiarioServices implements IBeneficiario {
     public boolean deleteBeneficiario(int id) {
         try {
 
-            dao.deleteBeneficiario(id);
-
-            return true;
+            return dao.deleteBeneficiario(id);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -64,8 +62,8 @@ public class BeneficiarioServices implements IBeneficiario {
     @Override
     public boolean updateBeneficiario(Beneficiario beneficiario) {
         try {
-            dao.updateBeneficiario(beneficiario);
-            return true;
+
+            return dao.updateBeneficiario(beneficiario);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;

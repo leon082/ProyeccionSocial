@@ -50,9 +50,7 @@ public class ListaValorServices implements IListaValor {
     public boolean deleteListaValor(int id) {
         try {
 
-            dao.deleteListaValor(id);
-
-            return true;
+            return dao.deleteListaValor(id);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -64,9 +62,7 @@ public class ListaValorServices implements IListaValor {
     public boolean updateListaValor(ListaValor listaValor) {
         try {
 
-            dao.updateListaValor(listaValor);
-
-            return true;
+            return dao.updateListaValor(listaValor);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

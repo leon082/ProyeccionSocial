@@ -50,9 +50,7 @@ public class EtapaServices implements IEtapa {
     public boolean deleteEtapa(int id) {
         try {
 
-            dao.deleteEtapa(id);
-
-            return true;
+            return dao.deleteEtapa(id);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -64,9 +62,7 @@ public class EtapaServices implements IEtapa {
     public boolean updateEtapa(Etapa etapa) {
         try {
 
-            dao.updateEtapa(etapa);
-
-            return true;
+            return dao.updateEtapa(etapa);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

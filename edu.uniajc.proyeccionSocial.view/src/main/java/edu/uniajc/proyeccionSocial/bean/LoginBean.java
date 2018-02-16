@@ -85,40 +85,40 @@ public class LoginBean implements Serializable {
         }
     }*/
     public String login() {
-        if (nombre != null && !nombre.equalsIgnoreCase("") && clave != null && !clave.equalsIgnoreCase("")  ) {
-             try {
+        if (nombre != null && !nombre.equalsIgnoreCase("") && clave != null && !clave.equalsIgnoreCase("")) {
+            try {
 
-            user = usuarioServices.getUsuarioLogin(nombre, Utilidades.generateHash(clave));
+                user = usuarioServices.getUsuarioLogin(nombre, Utilidades.generateHash(clave));
 
-            if (user != null) {
-                listaModulos = menuServices.getMenuByUser(user);
+                if (user != null) {
+                    listaModulos = menuServices.getMenuByUser(user);
 
-                session.setAttribute("username", nombre);
+                    session.setAttribute("username", nombre);
 
-                return "Home.xhtml";
-            } else {
-                try {
-                    Utilidades.getConnection().close();
-                } catch (SQLException e) {
+                    return "Home.xhtml";
+                } else {
+                    try {
+                        Utilidades.getConnection().close();
+                    } catch (SQLException e) {
 
+                    }
+
+                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Credenciales no validas");
+                    FacesContext.getCurrentInstance().addMessage(null, msg);
+                    return "login.xhtml";
                 }
-
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Credenciales no validas");
+            } catch (NoSuchAlgorithmException | RuntimeException e) {
+                e.printStackTrace();
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Comuniquese con el Administrador");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 return "login.xhtml";
             }
-        } catch (NoSuchAlgorithmException | RuntimeException e) {
-            e.printStackTrace();
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Comuniquese con el Administrador");
+        } else {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Diligencie los campos");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             return "login.xhtml";
         }
-        }else{
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Diligencie los campos");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-                return "login.xhtml";
-        }
-       
+
     }
 
     public String logout() {

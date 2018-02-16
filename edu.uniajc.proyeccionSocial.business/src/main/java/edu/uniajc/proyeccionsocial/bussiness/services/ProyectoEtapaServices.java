@@ -51,9 +51,7 @@ public class ProyectoEtapaServices implements IProyectoEtapa {
     public boolean deleteProyectoEtapa(int id) {
         try {
 
-            dao.deleteProyectoEtapa(id);
-
-            return true;
+            return dao.deleteProyectoEtapa(id);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -64,8 +62,8 @@ public class ProyectoEtapaServices implements IProyectoEtapa {
     @Override
     public boolean updateProyectoEtapa(ProyectoEtapa proyectoEtapa) {
         try {
-            dao.updateProyectoEtapa(proyectoEtapa);
-            return true;
+
+            return dao.updateProyectoEtapa(proyectoEtapa);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;

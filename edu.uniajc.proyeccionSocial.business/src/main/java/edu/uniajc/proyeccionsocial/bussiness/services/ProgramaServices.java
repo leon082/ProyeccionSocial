@@ -51,9 +51,7 @@ public class ProgramaServices implements IPrograma {
     public boolean deletePrograma(int id) {
         try {
 
-            dao.deletePrograma(id);
-
-            return true;
+            return dao.deletePrograma(id);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -64,8 +62,8 @@ public class ProgramaServices implements IPrograma {
     @Override
     public boolean updatePrograma(Programa programa) {
         try {
-            dao.updatePrograma(programa);
-            return true;
+
+            return dao.updatePrograma(programa);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;

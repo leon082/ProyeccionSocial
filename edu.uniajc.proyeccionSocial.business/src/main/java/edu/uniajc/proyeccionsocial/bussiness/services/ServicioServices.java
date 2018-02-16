@@ -51,9 +51,7 @@ public class ServicioServices implements IServicio {
     public boolean deleteServicio(int id) {
         try {
 
-            dao.deleteServicio(id);
-
-            return true;
+            return dao.deleteServicio(id);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -64,8 +62,8 @@ public class ServicioServices implements IServicio {
     @Override
     public boolean updateServicio(Servicio servicio) {
         try {
-            dao.updateServicio(servicio);
-            return true;
+
+            return dao.updateServicio(servicio);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;

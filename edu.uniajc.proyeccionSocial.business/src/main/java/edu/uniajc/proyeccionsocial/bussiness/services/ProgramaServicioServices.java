@@ -50,9 +50,7 @@ public class ProgramaServicioServices implements IProgramaServicio {
     public boolean deleteProgramaServicio(int id) {
         try {
 
-            dao.deleteProgramaServicio(id);
-
-            return true;
+            return dao.deleteProgramaServicio(id);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -64,9 +62,7 @@ public class ProgramaServicioServices implements IProgramaServicio {
     public boolean updateProgramaServicio(ProgramaServicio progServi) {
         try {
 
-            dao.updateProgramaServicio(progServi);
-
-            return true;
+            return dao.updateProgramaServicio(progServi);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -106,9 +102,7 @@ public class ProgramaServicioServices implements IProgramaServicio {
     public boolean deleteProgramaServicioByProg(int id) {
         try {
 
-            dao.deleteProgramaServicioByProg(id);
-
-            return true;
+            return dao.deleteProgramaServicioByProg(id);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

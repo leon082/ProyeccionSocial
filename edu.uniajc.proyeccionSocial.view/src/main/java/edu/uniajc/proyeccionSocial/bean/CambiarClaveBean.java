@@ -60,7 +60,7 @@ public class CambiarClaveBean {
 
     public void buscar() {
         //
-       
+
         usuario = usuarioServices.getUserByUsername(name);
 
         if (usuario == null) {
@@ -68,7 +68,7 @@ public class CambiarClaveBean {
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } else {
             tercero = terceroServices.getTerceroById(usuario.getId_tercero());
-            System.out.println("Correo--->"+tercero.getCorreo());
+            System.out.println("Correo--->" + tercero.getCorreo());
             docuSelected = tercero.getId_lv_tipoidentificacion();
             estadoBoton = false;
         }
@@ -77,13 +77,13 @@ public class CambiarClaveBean {
 
     public boolean guardar() {
         boolean result = false;
-        System.out.println("Clave--->"+clave);
+        System.out.println("Clave--->" + clave);
         if (!clave.equals("") && usuario != null) {
             try {
                 usuario.setContrasena(Utilidades.generateHash(clave));
 
             } catch (NoSuchAlgorithmException e) {
-                System.out.println("Error setiando la clave--->"+e.getMessage());
+                System.out.println("Error setiando la clave--->" + e.getMessage());
                 return false;
             }
 

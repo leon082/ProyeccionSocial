@@ -51,9 +51,7 @@ public class RolServices implements IRol {
     public boolean deleteRol(int id) {
         try {
 
-            dao.deleteRol(id);
-
-            return true;
+            return dao.deleteRol(id);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -65,9 +63,7 @@ public class RolServices implements IRol {
     public boolean updateRol(Rol rol) {
         try {
 
-            dao.updateRol(rol);
-
-            return true;
+            return dao.updateRol(rol);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -105,7 +101,7 @@ public class RolServices implements IRol {
 
     @Override
     public List<Rol> getRolesByUser(int idUsuario) {
-         try {
+        try {
 
             List<Rol> list = dao.getRolesByUser(idUsuario);
 

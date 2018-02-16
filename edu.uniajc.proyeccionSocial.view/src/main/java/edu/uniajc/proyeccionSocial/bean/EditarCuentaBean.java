@@ -14,7 +14,6 @@ import edu.uniajc.proyeccionsocial.bussiness.interfaces.IUsuario;
 import edu.uniajc.proyeccionsocial.bussiness.services.UsuarioServices;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.ITercero;
 
-import java.security.NoSuchAlgorithmException;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -67,17 +66,14 @@ public class EditarCuentaBean {
     public boolean guardar() {
         boolean result = false;
 
-      
-            tercero.setFechanacimiento(Utilidades.dateToSql(fecha));
-            tercero.setCreadopor("system");
-            tercero.setModificadopor("system");
-            //usuario.setContrasena(Utilidades.generateHash(contra));
-       
-            
-        
+        tercero.setFechanacimiento(Utilidades.dateToSql(fecha));
+        tercero.setCreadopor("system");
+        tercero.setModificadopor("system");
+        //usuario.setContrasena(Utilidades.generateHash(contra));
+
         if (Utilidades.validarCorreo(tercero.getCorreo())
-                && terceroServices.updateTercero(tercero)){
-               // && usuarioServices.updateUsuario(usuario)) {
+                && terceroServices.updateTercero(tercero)) {
+            // && usuarioServices.updateUsuario(usuario)) {
 
             result = true;
 

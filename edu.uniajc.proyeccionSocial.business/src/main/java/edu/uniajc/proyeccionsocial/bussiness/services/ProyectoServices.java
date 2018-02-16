@@ -51,9 +51,7 @@ public class ProyectoServices implements IProyecto {
     public boolean deleteProyecto(int ID) {
         try {
 
-            dao.deleteProyecto(ID);
-
-            return true;
+            return dao.deleteProyecto(ID);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -65,9 +63,7 @@ public class ProyectoServices implements IProyecto {
     public boolean updateProyecto(Proyecto proyecto) {
         try {
 
-            dao.updateProyecto(proyecto);
-
-            return true;
+            return dao.updateProyecto(proyecto);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -107,7 +103,7 @@ public class ProyectoServices implements IProyecto {
 
             return proyecto;
         } catch (Exception e) {
-            System.out.println("Error en grProyectoByUser Services"+e.getMessage());
+            System.out.println("Error en grProyectoByUser Services" + e.getMessage());
             return null;
         }
     }
@@ -126,7 +122,7 @@ public class ProyectoServices implements IProyecto {
 
     @Override
     public ArrayList<Proyecto> getAllProyectoAprobado() {
-         try {
+        try {
 
             ArrayList<Proyecto> list = dao.getAllProyectoAprobado();
 
@@ -154,7 +150,7 @@ public class ProyectoServices implements IProyecto {
 
     @Override
     public ArrayList<Proyecto> getAllProyectoCancelado() {
-       try {
+        try {
 
             ArrayList<Proyecto> list = dao.getAllProyectoCancelado();
 

@@ -47,9 +47,7 @@ public class UsuarioServices implements IUsuario {
     public boolean deleteUsuario(int id) {
         try {
 
-            dao.deleteUsuario(id);
-
-            return true;
+            return dao.deleteUsuario(id);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -61,7 +59,7 @@ public class UsuarioServices implements IUsuario {
     public boolean updateUsuario(Usuario usuario) {
         try {
             return dao.updateUsuario(usuario);
-            
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;
