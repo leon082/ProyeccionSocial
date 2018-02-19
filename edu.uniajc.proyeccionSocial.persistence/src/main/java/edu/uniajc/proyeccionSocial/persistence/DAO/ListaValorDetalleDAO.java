@@ -19,9 +19,9 @@ import java.sql.Connection;
  *
  * @author rlara
  */
-public class ListaValorDetalleDAO implements IListaValorDetalleDao{
-    
-     Connection connection;
+public class ListaValorDetalleDAO implements IListaValorDetalleDao {
+
+    Connection connection;
 
     public ListaValorDetalleDAO(Connection connection) {
         this.connection = connection;
@@ -141,17 +141,18 @@ public class ListaValorDetalleDAO implements IListaValorDetalleDao{
 
     /**
      *
-     * @param idValor
+     * @param agrupa     
      * @return
      */
     @Override
-    public ArrayList<ListaValorDetalle> getAllListaValorDetalle(int idValor) {
+    public ArrayList<ListaValorDetalle> getAllListaValorDetalle(String agrupa) {
         ArrayList<ListaValorDetalle> list = new ArrayList<>(0);
         try {
 
             PreparedStatement ps = null;
 
-            final String SQL = "SELECT * from TB_ListaValorDetalle where ID_ListaValor =" + idValor + " and estado = 1";
+            final String SQL = "SELECT lvd.ID_LISTAVALORDETALLE , lvd.ID_LISTAVALOR , lvd.VALOR , lvd.ESTADO , lvd.CREADOPOR, lvd.MODIFICADOPOR, lvd.CREADOEN, lvd.MODIFICADOEN from TB_ListaValorDetalle lvd inner join TB_LISTAVALOR lv on lvd.ID_LISTAVALOR = lv.ID_LISTAVALOR\n"
+                    + " where upper (lv.AGRUPACION) = upper('"+agrupa+"') and lv.estado = 1";
             ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -186,7 +187,7 @@ public class ListaValorDetalleDAO implements IListaValorDetalleDao{
     @Override
     public ListaValorDetalle getListaValorDetalleById(int id) {
 
-        ListaValorDetalle  listaValorDetalle= new ListaValorDetalle();
+        ListaValorDetalle listaValorDetalle = new ListaValorDetalle();
         try {
 
             PreparedStatement ps = null;
@@ -195,7 +196,6 @@ public class ListaValorDetalleDAO implements IListaValorDetalleDao{
             ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-               
 
                 listaValorDetalle.setId_listavalordetalle(rs.getInt("ID_ListaValorDetalle"));
                 listaValorDetalle.setId_listavalor(rs.getInt("ID_ListaValor"));
@@ -218,5 +218,4 @@ public class ListaValorDetalleDAO implements IListaValorDetalleDao{
 
     }
 
-  
 }

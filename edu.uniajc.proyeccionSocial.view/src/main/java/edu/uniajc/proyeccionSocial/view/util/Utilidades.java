@@ -55,6 +55,7 @@ public class Utilidades {
     public static String leerEmail = "email.correos";
     public static String leerEmailemisor = "cuenta.emisora";
     public static String leerRolCreador = "rol.creador";
+    public static String leerRuta = "ruta";
 
     public static String generateHash(String password) throws RuntimeException, NoSuchAlgorithmException {
 
@@ -73,11 +74,11 @@ public class Utilidades {
 
         return sb.toString();
     }
+
     public static Connection getConnection() {
         HttpSession session = SessionUtils.getSession();
         Connection connection = (Connection) session.getAttribute("connection");
-       
-       
+
         return connection;
     }
 
@@ -121,10 +122,22 @@ public class Utilidades {
 
     }
 
+    public static String getRuta() {
+        IListaValorDetalle servicio = new ListaValorDetalleServices(getConnection());
+        String agrupa = String.valueOf(leerArchivo(leerRuta));
+        List<ListaValorDetalle> lista = servicio.getAllListaValorDetalle(agrupa);
+         if(lista != null && lista.size()>0){
+             return lista.get(0).getValor();
+         }else{
+             return "";
+         }
+         
+    }
+
     public static ArrayList<SelectItem> Consultar_Documentos_combo() {
         IListaValorDetalle servicio = new ListaValorDetalleServices(getConnection());
-        int idValor = Integer.valueOf(leerArchivo(leerTipoIdentificacion));
-        List<ListaValorDetalle> lista = servicio.getAllListaValorDetalle(idValor);
+        String agrupa = String.valueOf(leerArchivo(leerTipoIdentificacion));
+        List<ListaValorDetalle> lista = servicio.getAllListaValorDetalle(agrupa);
         ArrayList<SelectItem> items = new ArrayList<SelectItem>();
         for (ListaValorDetalle obj : (ArrayList<ListaValorDetalle>) lista) {
             items.add(new SelectItem(obj.getId_listavalordetalle(), obj.getValor()));
@@ -133,11 +146,11 @@ public class Utilidades {
         return items;
 
     }
-    
+
     public static ArrayList<SelectItem> Consultar_Facultades_combo() {
         IListaValorDetalle servicio = new ListaValorDetalleServices(getConnection());
-        int idValor = Integer.valueOf(leerArchivo(leerFacultades));
-        List<ListaValorDetalle> lista = servicio.getAllListaValorDetalle(idValor);
+        String agrupa = String.valueOf(leerArchivo(leerFacultades));
+        List<ListaValorDetalle> lista = servicio.getAllListaValorDetalle(agrupa);
         ArrayList<SelectItem> items = new ArrayList<SelectItem>();
         for (ListaValorDetalle obj : (ArrayList<ListaValorDetalle>) lista) {
             items.add(new SelectItem(obj.getId_listavalordetalle(), obj.getValor()));
@@ -149,8 +162,8 @@ public class Utilidades {
 
     public static ArrayList<String> findSendEmail() {
         IListaValorDetalle servicio = new ListaValorDetalleServices(getConnection());
-        int idValor = Integer.valueOf(leerArchivo(leerEmail));
-        List<ListaValorDetalle> lista = servicio.getAllListaValorDetalle(idValor);
+        String agrupa = String.valueOf(leerArchivo(leerEmail));
+        List<ListaValorDetalle> lista = servicio.getAllListaValorDetalle(agrupa);
         ArrayList<String> emails = new ArrayList<String>();
         for (ListaValorDetalle obj : (ArrayList<ListaValorDetalle>) lista) {
             emails.add(obj.getValor());
@@ -162,8 +175,8 @@ public class Utilidades {
 
     public static ArrayList<String> findEmailEmisor() {
         IListaValorDetalle servicio = new ListaValorDetalleServices(getConnection());
-        int idValor = Integer.valueOf(leerArchivo(leerEmailemisor));
-        List<ListaValorDetalle> lista = servicio.getAllListaValorDetalle(idValor);
+        String agrupa = String.valueOf(leerArchivo(leerEmailemisor));
+        List<ListaValorDetalle> lista = servicio.getAllListaValorDetalle(agrupa);
         ArrayList<String> emails = new ArrayList<String>();
         for (ListaValorDetalle obj : (ArrayList<ListaValorDetalle>) lista) {
             emails.add(obj.getValor());
@@ -343,22 +356,25 @@ public class Utilidades {
 
         return text;
     }
+
     public static String getTextOfEmailCancelarProyecto() {
         String text = "El sistema de Proyeccion Social le notifica que el usuario :usuario ha cancelado su proyecto :titulo .";
 
         return text;
     }
+
     public static String getTextOfEmailRecuperarContraAdmin() {
         String text = "El sistema de Proyeccion Social le notifica que el usuario :usuario requiere recuperar la contraseña.";
 
         return text;
     }
+
     public static String getTextOfEmailRecuperarContraUser() {
         String text = "El sistema de Proyeccion Social le notifica que su solicitud de recuperar clave ah sido enviada al administrador, quien en breve se pondra en contacto.";
 
         return text;
     }
-    
+
     public static String getTextOfEmailContrasenaCambiada() {
         String text = "El sistema de Proyeccion Social le notifica que el adminsitrador a realizado el cambio de contraseña, su nueva contraseña es :contra";
 
@@ -414,35 +430,35 @@ public class Utilidades {
             text = text.replace(":usuario", usuario.getUsuario());
             text = text.replace(":titulo", proyecto.getTituloproyecto());
         }
-         if (tipoCorreo == 7) {
+        if (tipoCorreo == 7) {
 
             text = getTextOfEmailRecuperarContraAdmin();
             text = text.replace(":usuario", usuario.getUsuario());
-            
+
         }
-          if (tipoCorreo == 8) {
+        if (tipoCorreo == 8) {
 
             text = getTextOfEmailRecuperarContraUser();
-            
+
         }
-           if (tipoCorreo == 9) {
+        if (tipoCorreo == 9) {
 
             text = getTextOfEmailContrasenaCambiada();
-           String[] lista = asunto.split(",");
-           asunto=lista[0];
-           String clave=lista[1];
+            String[] lista = asunto.split(",");
+            asunto = lista[0];
+            String clave = lista[1];
             text = text.replace(":contra", clave);
-            
+
         }
-          
+
         for (String receptor : correosDestino) {
             Properties properties = new Properties();
             Session session;
-            String cuenta="";
-            String password="";
+            String cuenta = "";
+            String password = "";
             if (emisor != null && emisor.size() > 0) {
-                 cuenta = emisor.get(0);
-                 password = emisor.get(1);
+                cuenta = emisor.get(0);
+                password = emisor.get(1);
             }
 
             properties.put("mail.smtp.host", "smtp.gmail.com");

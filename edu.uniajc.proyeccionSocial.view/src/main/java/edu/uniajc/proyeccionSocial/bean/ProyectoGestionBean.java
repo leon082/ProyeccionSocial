@@ -268,8 +268,9 @@ public class ProyectoGestionBean {
         System.out.println("si entra 4444:" + event.getFile().getFileName());
 
         String name = "_" + 4 + event.getFile().getFileName();
-        String ruta = Utilidades.leerArchivo("ruta");
-
+       // String ruta = Utilidades.leerArchivo("ruta");
+       String ruta = Utilidades.getRuta();
+       System.out.println("Ruta--->+"+ruta);
         String retorno = ruta + name;
         System.out.println("si entra 222:" + retorno);
         File filePrueba = new File(ruta);

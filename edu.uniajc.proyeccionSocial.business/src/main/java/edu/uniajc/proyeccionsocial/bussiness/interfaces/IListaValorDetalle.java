@@ -20,7 +20,7 @@ public interface IListaValorDetalle {
 
     public boolean updateListaValorDetalle(ListaValorDetalle listaValorDetalle);
 
-    public ArrayList<ListaValorDetalle> getAllListaValorDetalle(int idValor);
+    public ArrayList<ListaValorDetalle> getAllListaValorDetalle(String agrupa);
 
     public ListaValorDetalle getListaValorDetalleById(int id);
 
