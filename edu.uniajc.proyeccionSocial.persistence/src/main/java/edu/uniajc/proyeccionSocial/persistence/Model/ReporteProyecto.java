@@ -20,6 +20,7 @@ public class ReporteProyecto {
     String programa;
     String servicio;
     String estado;
+    String facultad;
 
     public String getTituloProyecto() {
         return tituloProyecto;
@@ -84,6 +85,16 @@ public class ReporteProyecto {
     public void setFechaCreate(String fechaCreate) {
         this.fechaCreate = fechaCreate;
     }
+
+    public String getFacultad() {
+        return facultad;
+    }
+
+    public void setFacultad(String facultad) {
+        this.facultad = facultad;
+    }
+    
+    
     
     
     

@@ -27,10 +27,10 @@ public class ReporteProyectoServices implements IReporteProyecto {
     }
 
     @Override
-    public ArrayList<ReporteProyecto> getAllProyect(int idPrograma, int idServicio, int idTerceroOferente, int idTerceroCreadoPor, Date fechaDesde, Date fechaHasta, int estado) {
+    public ArrayList<ReporteProyecto> getAllProyect(int idPrograma, int idServicio, int idTerceroOferente, int idTerceroCreadoPor, Date fechaDesde, Date fechaHasta, int estado, int facultad) {
         try {
 
-            ArrayList<ReporteProyecto> list = dao.getAllProyect(idPrograma, idServicio, idTerceroOferente, idTerceroCreadoPor, fechaDesde, fechaHasta, estado);
+            ArrayList<ReporteProyecto> list = dao.getAllProyect(idPrograma, idServicio, idTerceroOferente, idTerceroCreadoPor, fechaDesde, fechaHasta, estado,facultad);
 
             return list;
 

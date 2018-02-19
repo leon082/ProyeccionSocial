@@ -15,6 +15,6 @@ import java.util.List;
  * @author LuisLeon
  */
 public interface IReporteProyectoDao {
-    public ArrayList<ReporteProyecto> getAllProyect(int idPrograma, int idServicio, int idTerceroOferente, int idTerceroCreadoPor, Date fechaDesde, Date fechaHasta, int estado) ;
+    public ArrayList<ReporteProyecto> getAllProyect(int idPrograma, int idServicio, int idTerceroOferente, int idTerceroCreadoPor, Date fechaDesde, Date fechaHasta, int estado, int facultad) ;
     
 }

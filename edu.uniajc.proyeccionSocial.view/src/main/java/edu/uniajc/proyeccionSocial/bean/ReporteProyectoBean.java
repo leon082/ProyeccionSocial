@@ -39,6 +39,7 @@ public class ReporteProyectoBean {
     Date fechaDesde;
     Date fechaHasta;
     int estado;
+    int facultad;
 
     //tabla
     ArrayList<ReporteProyecto> listaReporte;
@@ -48,6 +49,7 @@ public class ReporteProyectoBean {
     private ArrayList<SelectItem> servicios;
     private ArrayList<SelectItem> tercerosOferentes;
     private ArrayList<SelectItem> tercerosUsuarios;
+    private ArrayList<SelectItem> itemsFacultad;
 
     //Services
     IPrograma progServices;
@@ -67,6 +69,7 @@ public class ReporteProyectoBean {
         tercerosOferentes = Utilidades.llenar_Combo_Terceros(terceroServices.getAllTercero());
         programas = Utilidades.llenar_Combo_Programas(progServices.getAllPrograma());
         tercerosUsuarios = Utilidades.llenar_Combo_TerceroUsuarios(terceroServices.getAllTerceroUsuario());
+        itemsFacultad = Utilidades.Consultar_Facultades_combo();
         fechaDesde = null;
         fechaHasta = null;
         estado = -1;
@@ -86,6 +89,7 @@ public class ReporteProyectoBean {
     }
 
     public void clear() {
+        facultad = 0;
         idPrograma = 0;
         idServicio = 0;
         idTerceroOferente = 0;
@@ -99,7 +103,7 @@ public class ReporteProyectoBean {
 
     public void findReport() {
         listaReporte = new ArrayList<>();
-        listaReporte = reporteServices.getAllProyect(idPrograma, idServicio, idTerceroOferente, idTerceroCreadoPor, Utilidades.dateToSql(fechaDesde), Utilidades.dateToSql(fechaHasta), estado);
+        listaReporte = reporteServices.getAllProyect(idPrograma, idServicio, idTerceroOferente, idTerceroCreadoPor, Utilidades.dateToSql(fechaDesde), Utilidades.dateToSql(fechaHasta), estado,facultad);
         //System.out.println("Cantidad de Datos en lista -> " + listaReporte.size());
     }
 
@@ -229,6 +233,22 @@ public class ReporteProyectoBean {
 
     public void setReporteServices(IReporteProyecto reporteServices) {
         this.reporteServices = reporteServices;
+    }
+
+    public int getFacultad() {
+        return facultad;
+    }
+
+    public void setFacultad(int facultad) {
+        this.facultad = facultad;
+    }
+
+    public ArrayList<SelectItem> getItemsFacultad() {
+        return itemsFacultad;
+    }
+
+    public void setItemsFacultad(ArrayList<SelectItem> itemsFacultad) {
+        this.itemsFacultad = itemsFacultad;
     }
 
 }

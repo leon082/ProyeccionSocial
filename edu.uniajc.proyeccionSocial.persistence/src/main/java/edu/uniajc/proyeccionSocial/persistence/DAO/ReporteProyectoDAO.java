@@ -37,10 +37,11 @@ public class ReporteProyectoDAO implements IReporteProyectoDao {
      * @param fechaDesde
      * @param fechaHasta
      * @param estado
+     * @param facultad
      * @return
      */
     @Override
-    public ArrayList<ReporteProyecto> getAllProyect(int idPrograma, int idServicio, int idTerceroOferente, int idTerceroCreadoPor, Date fechaDesde, Date fechaHasta, int estado) {
+    public ArrayList<ReporteProyecto> getAllProyect(int idPrograma, int idServicio, int idTerceroOferente, int idTerceroCreadoPor, Date fechaDesde, Date fechaHasta, int estado, int facultad) {
         ArrayList<ReporteProyecto> listaProyectos = new ArrayList<>();
 
         try {
@@ -57,11 +58,14 @@ public class ReporteProyectoDAO implements IReporteProyectoDao {
                     + " tb_programa.descripcion programa,"
                     + " tb_servicio.id_servicio,"
                     + " tb_servicio.descripcion servicio,"
+                    + " lv.VALOR facultad,"
                     + " tb_proyecto.estado id_estado,"
                     + " case tb_proyecto.estado"
                     + " when 0 then 'Creado / Pdte Aprobacion'"
                     + " when 1 then 'Aprobado'"
                     + " when 2 then 'Rechazado'"
+                    + " when 3 then 'Finalizado'"
+                    + " when 4 then 'Cancelado'"
                     + " else null end as estadoProyecto"
                     + " from tb_proyecto"
                     + " left join tb_programa on tb_proyecto.id_programa = tb_programa.id_programa"
@@ -72,13 +76,15 @@ public class ReporteProyectoDAO implements IReporteProyectoDao {
                     + " left join tb_tercero oferente on tb_oferente.id_tercero = oferente.id_tercero"
                     + " left join tb_usuario on tb_proyecto.creadopor = tb_usuario.usuario"
                     + " left join tb_tercero usuario on tb_usuario.id_tercero = usuario.id_tercero"
+                    + " left join TB_LISTAVALORDETALLE lv on tb_proyecto.FACULTAD = lv.ID_LISTAVALORDETALLE"
                     + " where tb_programa.id_programa = DECODE(?, 0,tb_programa.id_programa, ?)"
                     + " and tb_servicio.id_servicio = DECODE(?, 0,tb_servicio.id_servicio, ?) "
                     + " and oferente.id_tercero = DECODE(?, 0,oferente.id_tercero, ?)"
                     + " and usuario.id_tercero = DECODE(?, 0,usuario.id_tercero, ?)"
                     + " and tb_proyecto.creadoen between nvl(?, to_date('01011990','ddmmyyyy'))"
                     + " and nvl(?, to_date('31122049','ddmmyyyy'))"
-                    + " and tb_proyecto.estado = DECODE(?, -1,tb_proyecto.estado, ?) ";
+                    + " and tb_proyecto.estado = DECODE(?, -1,tb_proyecto.estado, ?)"
+                    + "and lv.ID_LISTAVALORDETALLE = decode (?,0,lv.ID_LISTAVALORDETALLE,?) ";
             ps = connection.prepareStatement(SQL);
 
             ps.setInt(1, idPrograma);
@@ -98,6 +104,9 @@ public class ReporteProyectoDAO implements IReporteProyectoDao {
 
             ps.setInt(11, estado);
             ps.setInt(12, estado);
+            
+            ps.setInt(13, facultad);
+            ps.setInt(14, facultad);
 
             ResultSet rs = ps.executeQuery();
 
@@ -111,6 +120,7 @@ public class ReporteProyectoDAO implements IReporteProyectoDao {
                 reporte.setPrograma(rs.getString("PROGRAMA"));
                 reporte.setServicio(rs.getString("SERVICIO"));
                 reporte.setEstado(rs.getString("ESTADOPROYECTO"));
+                reporte.setFacultad(rs.getString("FACULTAD"));
                 listaProyectos.add(reporte);
 
             }

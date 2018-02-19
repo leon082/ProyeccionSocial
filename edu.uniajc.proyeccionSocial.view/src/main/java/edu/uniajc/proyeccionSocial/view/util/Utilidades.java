@@ -370,13 +370,13 @@ public class Utilidades {
     }
 
     public static String getTextOfEmailRecuperarContraUser() {
-        String text = "El sistema de Proyeccion Social le notifica que su solicitud de recuperar clave ah sido enviada al administrador, quien en breve se pondra en contacto.";
+        String text = "El sistema de Proyeccion Social le notifica que su solicitud de recuperar clave ha sido enviada al administrador, quien en breve se pondra en contacto.";
 
         return text;
     }
 
     public static String getTextOfEmailContrasenaCambiada() {
-        String text = "El sistema de Proyeccion Social le notifica que el adminsitrador a realizado el cambio de contraseña, su nueva contraseña es :contra";
+        String text = "El sistema de Proyeccion Social le notifica que el adminsitrador ha realizado el cambio de contraseña, su nueva contraseña es :contra";
 
         return text;
     }

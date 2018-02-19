@@ -102,7 +102,7 @@ public class LoginBean implements Serializable {
                     } catch (SQLException e) {
 
                     }
-
+                    session.invalidate();
                     FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Credenciales no validas");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                     return "login.xhtml";
