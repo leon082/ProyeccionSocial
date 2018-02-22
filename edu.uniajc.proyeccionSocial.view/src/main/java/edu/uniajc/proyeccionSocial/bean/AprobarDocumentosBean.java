@@ -319,9 +319,9 @@ public class AprobarDocumentosBean {
     public void prepDownload() throws FileNotFoundException {
         //String ruta = Utilidades.leerArchivo("ruta");
         String ruta = Utilidades.getRuta();
-      
+
         String retorno = ruta + soporte.getArchivo();
-        
+
         File file = new File(retorno);
         InputStream input = new FileInputStream(file);
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
