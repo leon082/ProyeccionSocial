@@ -9,10 +9,12 @@ import edu.uniajc.proyeccionSocial.persistence.Model.Tercero;
 import edu.uniajc.proyeccionSocial.persistence.Model.Usuario;
 
 import edu.uniajc.proyeccionSocial.view.util.Utilidades;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IEnvioCorreo;
 import edu.uniajc.proyeccionsocial.bussiness.services.TerceroServices;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IUsuario;
 import edu.uniajc.proyeccionsocial.bussiness.services.UsuarioServices;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.ITercero;
+import edu.uniajc.proyeccionsocial.bussiness.services.EnvioCorreoServices;
 
 import java.security.NoSuchAlgorithmException;
 
@@ -41,6 +43,7 @@ public class CambiarClaveBean {
     private String name;
     private String clave;
     boolean estadoBoton;
+    private IEnvioCorreo envioCorreoServices;
 
     //Combos
     private ArrayList<SelectItem> itemsDocumentos;
@@ -55,6 +58,7 @@ public class CambiarClaveBean {
         itemsDocumentos = Utilidades.Consultar_Documentos_combo();
         docuSelected = 0;
         estadoBoton = true;
+        envioCorreoServices= new EnvioCorreoServices();
 
     }
 
@@ -79,13 +83,10 @@ public class CambiarClaveBean {
         boolean result = false;
         System.out.println("Clave--->" + clave);
         if (!clave.equals("") && usuario != null) {
-            try {
-                usuario.setContrasena(Utilidades.generateHash(clave));
+            
+                usuario.setContrasena(clave);
 
-            } catch (NoSuchAlgorithmException e) {
-                System.out.println("Error setiando la clave--->" + e.getMessage());
-                return false;
-            }
+            
 
             if (usuarioServices.updateUsuario(usuario)) {
 
@@ -101,7 +102,7 @@ public class CambiarClaveBean {
 
         List<String> destino = new ArrayList<>();
         destino.add(tercero.getCorreo());
-        Utilidades.envioCorreo(destino, Utilidades.findEmailEmisor(), usuario, null, 9, "Cambio de Contraseña," + clave, 0);
+        envioCorreoServices.envioCorreo(destino, Utilidades.findEmailEmisor(), usuario, null, 9, "Cambio de Contraseña," + clave, 0);
     }
 
     public void actionButon() {

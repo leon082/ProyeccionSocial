@@ -10,6 +10,8 @@ import edu.uniajc.proyeccionSocial.persistence.interfaces.IUsuarioDao;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IUsuario;
 
 import edu.uniajc.proyeccionSocial.persistence.Model.Usuario;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.util.ArrayList;
 
@@ -30,6 +32,7 @@ public class UsuarioServices implements IUsuario {
         try {
             // validacion de Data
             if (user != null) {
+                user.setContrasena(generateHash(user.getContrasena()));
                 user.setUsuario(user.getUsuario().toLowerCase().trim());
                 int flag = dao.createUsuario(user);
                 return flag;
@@ -58,6 +61,7 @@ public class UsuarioServices implements IUsuario {
     @Override
     public boolean updateUsuario(Usuario usuario) {
         try {
+            usuario.setContrasena(generateHash(usuario.getContrasena()));
             return dao.updateUsuario(usuario);
 
         } catch (Exception e) {
@@ -91,7 +95,7 @@ public class UsuarioServices implements IUsuario {
     @Override
     public Usuario getUsuarioLogin(String user, String password) {
         try {
-            Usuario usuario = dao.getUsuarioLogin(user.toLowerCase(), password);
+            Usuario usuario = dao.getUsuarioLogin(user.toLowerCase(), generateHash(password));
             return usuario;
         } catch (Exception e) {
             System.out.println("---------------------------------------- USUARIO SERVICE ----------------------------------------");
@@ -120,5 +124,23 @@ public class UsuarioServices implements IUsuario {
             System.out.println(e.getMessage());
             return null;
         }
+    }
+    
+     public String generateHash(String password) throws RuntimeException, NoSuchAlgorithmException {
+
+        if (password == null && password.length() < 0) {
+            System.err.println("String to MD5 digest should be first and only parameter");
+            throw new RuntimeException();
+        }
+        String original = password;
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(original.getBytes());
+        byte[] digest = md.digest();
+        StringBuffer sb = new StringBuffer();
+        for (byte b : digest) {
+            sb.append(String.format("%02x", b & 0xff));
+        }
+
+        return sb.toString();
     }
 }

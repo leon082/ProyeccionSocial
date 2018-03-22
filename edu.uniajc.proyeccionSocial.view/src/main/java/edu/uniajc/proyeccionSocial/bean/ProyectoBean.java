@@ -23,6 +23,7 @@ import edu.uniajc.proyeccionsocial.bussiness.services.ProyectoServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.ServicioServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.TerceroServices;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IBeneficiario;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IEnvioCorreo;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IEtapa;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IOferente;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IPrograma;
@@ -30,6 +31,7 @@ import edu.uniajc.proyeccionsocial.bussiness.interfaces.IProyecto;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IProyectoEtapa;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IServicio;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.ITercero;
+import edu.uniajc.proyeccionsocial.bussiness.services.EnvioCorreoServices;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -89,9 +91,12 @@ public class ProyectoBean {
     //Combos
     private ArrayList<SelectItem> itemsFacultad;
     private int facultad;
+    private IEnvioCorreo envioCorreoServices;
 
     @PostConstruct
     public void init() {
+        
+        envioCorreoServices= new EnvioCorreoServices();
 
         correos = new ArrayList<>();
         emisor = new ArrayList<>();
@@ -242,7 +247,7 @@ public class ProyectoBean {
         correos = Utilidades.findSendEmail();
         //Cuenta emisora
         emisor = Utilidades.findEmailEmisor();
-        Utilidades.envioCorreo(correos, emisor, usuario, proyecto, 0, "Creacion de Proyecto", 0);
+        envioCorreoServices.envioCorreo(correos, emisor, usuario, proyecto, 0, "Creacion de Proyecto", 0);
 
     }
 

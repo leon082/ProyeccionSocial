@@ -76,15 +76,13 @@ public class RegistrarBean {
                 idTercero = terceroServices.createTercero(tercero);
                 if (idTercero != 0) {
 
-                    try {
+                    
                         usuario.setId_tercero(idTercero);
 
                         usuario.setUsuario(username);
-                        usuario.setContrasena(Utilidades.generateHash(contra));
+                        usuario.setContrasena(contra);
 
-                    } catch (NoSuchAlgorithmException | RuntimeException e) {
-                        result = false;
-                    }
+                    
 
                     idUsuario = usuarioServices.createUsuario(usuario);
                     if (idUsuario != 0) {

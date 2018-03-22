@@ -57,23 +57,7 @@ public class Utilidades {
     public static String leerRolCreador = "rol.creador";
     public static String leerRuta = "ruta";
 
-    public static String generateHash(String password) throws RuntimeException, NoSuchAlgorithmException {
-
-        if (password == null && password.length() < 0) {
-            System.err.println("String to MD5 digest should be first and only parameter");
-            throw new RuntimeException();
-        }
-        String original = password;
-        MessageDigest md = MessageDigest.getInstance("MD5");
-        md.update(original.getBytes());
-        byte[] digest = md.digest();
-        StringBuffer sb = new StringBuffer();
-        for (byte b : digest) {
-            sb.append(String.format("%02x", b & 0xff));
-        }
-
-        return sb.toString();
-    }
+   
 
     public static Connection getConnection() {
         HttpSession session = SessionUtils.getSession();
@@ -160,31 +144,7 @@ public class Utilidades {
 
     }
 
-    public static ArrayList<String> findSendEmail() {
-        IListaValorDetalle servicio = new ListaValorDetalleServices(getConnection());
-        String agrupa = String.valueOf(leerArchivo(leerEmail));
-        List<ListaValorDetalle> lista = servicio.getAllListaValorDetalle(agrupa);
-        ArrayList<String> emails = new ArrayList<String>();
-        for (ListaValorDetalle obj : (ArrayList<ListaValorDetalle>) lista) {
-            emails.add(obj.getValor());
-        }
-
-        return emails;
-
-    }
-
-    public static ArrayList<String> findEmailEmisor() {
-        IListaValorDetalle servicio = new ListaValorDetalleServices(getConnection());
-        String agrupa = String.valueOf(leerArchivo(leerEmailemisor));
-        List<ListaValorDetalle> lista = servicio.getAllListaValorDetalle(agrupa);
-        ArrayList<String> emails = new ArrayList<String>();
-        for (ListaValorDetalle obj : (ArrayList<ListaValorDetalle>) lista) {
-            emails.add(obj.getValor());
-        }
-
-        return emails;
-
-    }
+ 
 
     public static boolean validarCorreo(String email) {
         // Patrón para validar el email
@@ -318,175 +278,31 @@ public class Utilidades {
         Usuario us = usuarioServices.getUserByUsername(user);
         return us;
     }
-
-    public static String getTextOfEmailCreacion() {
-        String text = "El sistema de Proyeccion Social le notifica que el usuario :usuario "
-                + "ha realizado la creacion de un proyecto para su aprobacion. ";
-        text += "Titulo del proyecto: :titulo";
-
-        return text;
-    }
-
-    public static String getTextOfEmailAprobacion() {
-        String text = "El sistema de Proyeccion Social le notifica que el usuario :usuario ha aprobado su proyecto con titulo :titulo ";
-
-        return text;
-    }
-
-    public static String getTextOfEmailRechazado() {
-        String text = "El sistema de Proyeccion Social le notifica que el usuario :usuario ha rechazado su proyecto con titulo :titulo , favor comunicarse con el administrador.";
-
-        return text;
-    }
-
-    public static String getTextOfEmailAdjunto() {
-        String text = "El sistema de Proyeccion Social le notifica que el usuario :usuario ha subido un adjunto para su aprobacion, como entrega del proyecto :titulo , Id Etapa: :idProyecto";
-
-        return text;
-    }
-
-    public static String getTextOfEmailAprobarEntrega() {
-        String text = "El sistema de Proyeccion Social le notifica que el usuario :usuario ha realizado la aprobacion de la etapa del proyecto :titulo .";
-
-        return text;
-    }
-
-    public static String getTextOfEmailRechazarEntrega() {
-        String text = "El sistema de Proyeccion Social le notifica que el usuario :usuario ha rechazado la aprobacion de la etapa del proyecto :titulo . Favor realizar de nuevo la entrega";
-
-        return text;
-    }
-
-    public static String getTextOfEmailCancelarProyecto() {
-        String text = "El sistema de Proyeccion Social le notifica que el usuario :usuario ha cancelado su proyecto :titulo .";
-
-        return text;
-    }
-
-    public static String getTextOfEmailRecuperarContraAdmin() {
-        String text = "El sistema de Proyeccion Social le notifica que el usuario :usuario requiere recuperar la contraseña.";
-
-        return text;
-    }
-
-    public static String getTextOfEmailRecuperarContraUser() {
-        String text = "El sistema de Proyeccion Social le notifica que su solicitud de recuperar clave ha sido enviada al administrador, quien en breve se pondra en contacto.";
-
-        return text;
-    }
-
-    public static String getTextOfEmailContrasenaCambiada() {
-        String text = "El sistema de Proyeccion Social le notifica que el adminsitrador ha realizado el cambio de contraseña, su nueva contraseña es :contra";
-
-        return text;
-    }
-    //tipo correo, 0 creacion, 1 aprobacion, 2 rechazado , 3 entrega , 4 aprobarEntrega , 5 Rechazar entrega , 6 cancelar proyecto , 7 recuperar contraseña admin, 8 recuperar contraseña user , 9 contraseña cambiada
-
-    public static boolean envioCorreo(List<String> correosDestino,
-            List<String> emisor, Usuario usuario, Proyecto proyecto, int tipoCorreo, String asunto, int idEtapa) {
-
-        String text = "";
-        boolean result = false;
-        //Texto
-        if (tipoCorreo == 0) {
-            text = getTextOfEmailCreacion();
-            text = text.replace(":usuario", usuario.getUsuario());
-            text = text.replace(":titulo", proyecto.getTituloproyecto());
-        }
-        if (tipoCorreo == 1) {
-
-            text = getTextOfEmailAprobacion();
-            text = text.replace(":usuario", usuario.getUsuario());
-            text = text.replace(":titulo", proyecto.getTituloproyecto());
-        }
-        if (tipoCorreo == 2) {
-
-            text = getTextOfEmailRechazado();
-            text = text.replace(":usuario", usuario.getUsuario());
-            text = text.replace(":titulo", proyecto.getTituloproyecto());
-        }
-        if (tipoCorreo == 3) {
-            text = getTextOfEmailAdjunto();
-            text = text.replace(":usuario", usuario.getUsuario());
-            text = text.replace(":titulo", proyecto.getTituloproyecto());
-            text = text.replace(":idProyecto", String.valueOf(idEtapa));
-
-        }
-        if (tipoCorreo == 4) {
-
-            text = getTextOfEmailAprobarEntrega();
-            text = text.replace(":usuario", usuario.getUsuario());
-            text = text.replace(":titulo", proyecto.getTituloproyecto());
-        }
-        if (tipoCorreo == 5) {
-
-            text = getTextOfEmailRechazarEntrega();
-            text = text.replace(":usuario", usuario.getUsuario());
-            text = text.replace(":titulo", proyecto.getTituloproyecto());
-        }
-        if (tipoCorreo == 6) {
-
-            text = getTextOfEmailCancelarProyecto();
-            text = text.replace(":usuario", usuario.getUsuario());
-            text = text.replace(":titulo", proyecto.getTituloproyecto());
-        }
-        if (tipoCorreo == 7) {
-
-            text = getTextOfEmailRecuperarContraAdmin();
-            text = text.replace(":usuario", usuario.getUsuario());
-
-        }
-        if (tipoCorreo == 8) {
-
-            text = getTextOfEmailRecuperarContraUser();
-
-        }
-        if (tipoCorreo == 9) {
-
-            text = getTextOfEmailContrasenaCambiada();
-            String[] lista = asunto.split(",");
-            asunto = lista[0];
-            String clave = lista[1];
-            text = text.replace(":contra", clave);
-
+    
+       public static ArrayList<String> findSendEmail() {
+        IListaValorDetalle servicio = new ListaValorDetalleServices(getConnection());
+        String agrupa = String.valueOf(leerArchivo(leerEmail));
+        List<ListaValorDetalle> lista = servicio.getAllListaValorDetalle(agrupa);
+        ArrayList<String> emails = new ArrayList<String>();
+        for (ListaValorDetalle obj : (ArrayList<ListaValorDetalle>) lista) {
+            emails.add(obj.getValor());
         }
 
-        for (String receptor : correosDestino) {
-            Properties properties = new Properties();
-            Session session;
-            String cuenta = "";
-            String password = "";
-            if (emisor != null && emisor.size() > 0) {
-                cuenta = emisor.get(0);
-                password = emisor.get(1);
-            }
+        return emails;
 
-            properties.put("mail.smtp.host", "smtp.gmail.com");
-            properties.put("mail.smtp.starttls.enable", "true");
-            properties.put("mail.smtp.port", 25);
-            properties.put("mail.smtp.mail.sender", cuenta);
-            properties.put("mail.smtp.user", cuenta);
-            properties.put("mail.smtp.auth", "true");
-
-            session = Session.getDefaultInstance(properties);
-            try {
-                MimeMessage message = new MimeMessage(session);
-                message.setFrom(new InternetAddress((String) properties.get("mail.smtp.mail.sender")));
-                message.addRecipient(Message.RecipientType.TO, new InternetAddress(receptor));
-                message.setSubject(asunto);
-                message.setText(text);
-                Transport t = session.getTransport("smtp");
-                t.connect((String) properties.get("mail.smtp.user"), password);
-                t.sendMessage(message, message.getAllRecipients());
-                t.close();
-                result = true;
-            } catch (MessagingException me) {
-                System.out.println("Error, no se pudo enviar el correo --> " + me.getMessage());
-                result = false;
-            }
-        }
-
-        return result;
     }
 
+    public static ArrayList<String> findEmailEmisor() {
+        IListaValorDetalle servicio = new ListaValorDetalleServices(getConnection());
+        String agrupa = String.valueOf(leerArchivo(leerEmailemisor));
+        List<ListaValorDetalle> lista = servicio.getAllListaValorDetalle(agrupa);
+        ArrayList<String> emails = new ArrayList<String>();
+        for (ListaValorDetalle obj : (ArrayList<ListaValorDetalle>) lista) {
+            emails.add(obj.getValor());
+        }
+
+        return emails;
+
+    }
+    
 }

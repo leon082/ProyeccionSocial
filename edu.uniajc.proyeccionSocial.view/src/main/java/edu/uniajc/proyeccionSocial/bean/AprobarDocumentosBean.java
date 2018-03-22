@@ -7,13 +7,13 @@ package edu.uniajc.proyeccionSocial.bean;
 
 import edu.uniajc.proyeccionSocial.persistence.Model.Beneficiario;
 import edu.uniajc.proyeccionSocial.persistence.Model.Etapa;
+import edu.uniajc.proyeccionSocial.persistence.Model.EtapasEntregas;
 import edu.uniajc.proyeccionSocial.persistence.Model.Oferente;
 import edu.uniajc.proyeccionSocial.persistence.Model.Proyecto;
 import edu.uniajc.proyeccionSocial.persistence.Model.ProyectoEtapa;
 import edu.uniajc.proyeccionSocial.persistence.Model.SoporteProyectoEtapa;
 import edu.uniajc.proyeccionSocial.persistence.Model.Tercero;
 import edu.uniajc.proyeccionSocial.persistence.Model.Usuario;
-
 import edu.uniajc.proyeccionSocial.view.util.Utilidades;
 import edu.uniajc.proyeccionsocial.bussiness.services.BeneficiarioServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.EtapaServices;
@@ -26,6 +26,7 @@ import edu.uniajc.proyeccionsocial.bussiness.services.SoporteProyectoEtapaServic
 import edu.uniajc.proyeccionsocial.bussiness.services.TerceroServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.UsuarioServices;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IBeneficiario;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IEnvioCorreo;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IEtapa;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IOferente;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IPrograma;
@@ -35,6 +36,7 @@ import edu.uniajc.proyeccionsocial.bussiness.interfaces.IServicio;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.ISoporteProyectoEtapa;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.ITercero;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IUsuario;
+import edu.uniajc.proyeccionsocial.bussiness.services.EnvioCorreoServices;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -102,6 +104,8 @@ public class AprobarDocumentosBean {
     private String idSoporte;
     SoporteProyectoEtapa soporte;
     ProyectoEtapa proyectoEtapa;
+    
+    private IEnvioCorreo envioCorreoServices;
 
     @PostConstruct
     public void init() {
@@ -137,7 +141,7 @@ public class AprobarDocumentosBean {
         beneficiarioServices = new BeneficiarioServices(Utilidades.getConnection());
 
         proyecto = new Proyecto();
-
+          envioCorreoServices = new EnvioCorreoServices();
         rutaArchivo = "";
     }
 
@@ -196,7 +200,7 @@ public class AprobarDocumentosBean {
         correos.add(usuarioServices.getEmailByUsername(proyecto.getCreadopor()));
         emisor = new ArrayList<>();
         emisor = Utilidades.findEmailEmisor();
-        if (Utilidades.envioCorreo(correos, emisor, usuario, proyecto, 4, "Entrega Aprobada", 0)) {
+        if (envioCorreoServices.envioCorreo(correos, emisor, usuario, proyecto, 4, "Entrega Aprobada", 0)) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Operacion realizado con exito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
@@ -231,7 +235,7 @@ public class AprobarDocumentosBean {
         correos = new ArrayList<>();
         correos.add(usuarioServices.getEmailByUsername(proyecto.getCreadopor()));
         emisor = Utilidades.findEmailEmisor();
-        if (Utilidades.envioCorreo(correos, emisor, usuario, proyecto, 5, "Entrega Rechazada", 0)) {
+        if (envioCorreoServices.envioCorreo(correos, emisor, usuario, proyecto, 5, "Entrega Rechazada", 0)) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Operacion realizado con exito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
@@ -267,46 +271,7 @@ public class AprobarDocumentosBean {
         etapas.add(e);
     }
 
-    public class EtapasEntregas {
-
-        public String nombreEtapa;
-        public String estado;
-        public int idProyectoEtapa;
-        public boolean flag;
-
-        public String getNombreEtapa() {
-            return nombreEtapa;
-        }
-
-        public void setNombreEtapa(String nombreEtapa) {
-            this.nombreEtapa = nombreEtapa;
-        }
-
-        public String getEstado() {
-            return estado;
-        }
-
-        public void setEstado(String estado) {
-            this.estado = estado;
-        }
-
-        public int getIdProyectoEtapa() {
-            return idProyectoEtapa;
-        }
-
-        public void setIdProyectoEtapa(int idProyectoEtapa) {
-            this.idProyectoEtapa = idProyectoEtapa;
-        }
-
-        public boolean isFlag() {
-            return flag;
-        }
-
-        public void setFlag(boolean flag) {
-            this.flag = flag;
-        }
-
-    }
+   
 
     public void setDownload(DefaultStreamedContent download) {
         this.download = download;
@@ -333,7 +298,7 @@ public class AprobarDocumentosBean {
         correos = Utilidades.findSendEmail();
         //Cuenta emisora
         emisor = Utilidades.findEmailEmisor();
-        Utilidades.envioCorreo(correos, emisor, usuario, proyecto, 3, "Entrega de Etapa Proyecto", 0);
+        envioCorreoServices.envioCorreo(correos, emisor, usuario, proyecto, 3, "Entrega de Etapa Proyecto", 0);
 
     }
 

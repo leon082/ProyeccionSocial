@@ -22,6 +22,7 @@ import edu.uniajc.proyeccionsocial.bussiness.services.ServicioServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.TerceroServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.UsuarioServices;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IBeneficiario;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IEnvioCorreo;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IEtapa;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IOferente;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IPrograma;
@@ -29,6 +30,7 @@ import edu.uniajc.proyeccionsocial.bussiness.interfaces.IProyecto;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IServicio;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.ITercero;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IUsuario;
+import edu.uniajc.proyeccionsocial.bussiness.services.EnvioCorreoServices;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -84,9 +86,11 @@ public class FinalizarProyectoBean {
     private List<Proyecto> proyectosAprobar;
     private boolean showAprobar;
     private boolean showRechazar;
+    private IEnvioCorreo envioCorreoServices;
 
     @PostConstruct
     public void init() {
+        envioCorreoServices=new EnvioCorreoServices();
         showAprobar=true;
         showRechazar=true;
          correos = new ArrayList<>();
@@ -169,7 +173,7 @@ public class FinalizarProyectoBean {
         correos = new ArrayList<>();
         correos.add(usuarioServices.getEmailByUsername(proyecto.getCreadopor()));
         emisor = Utilidades.findEmailEmisor();
-        if (Utilidades.envioCorreo(correos, emisor, usuario, proyecto, 6, "Proyecto Cancelado", 0)) {
+        if (envioCorreoServices.envioCorreo(correos, emisor, usuario, proyecto, 6, "Proyecto Cancelado", 0)) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Operacion realizado con exito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }

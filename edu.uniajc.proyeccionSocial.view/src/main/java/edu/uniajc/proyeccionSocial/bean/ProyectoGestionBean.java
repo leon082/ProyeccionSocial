@@ -7,6 +7,7 @@ package edu.uniajc.proyeccionSocial.bean;
 
 import edu.uniajc.proyeccionSocial.persistence.Model.Beneficiario;
 import edu.uniajc.proyeccionSocial.persistence.Model.Etapa;
+import edu.uniajc.proyeccionSocial.persistence.Model.EtapasEntregas;
 import edu.uniajc.proyeccionSocial.persistence.Model.Oferente;
 import edu.uniajc.proyeccionSocial.persistence.Model.Proyecto;
 import edu.uniajc.proyeccionSocial.persistence.Model.ProyectoEtapa;
@@ -26,6 +27,7 @@ import edu.uniajc.proyeccionsocial.bussiness.services.SoporteProyectoEtapaServic
 import edu.uniajc.proyeccionsocial.bussiness.services.TerceroServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.UsuarioServices;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IBeneficiario;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IEnvioCorreo;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IEtapa;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IOferente;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IPrograma;
@@ -35,6 +37,7 @@ import edu.uniajc.proyeccionsocial.bussiness.interfaces.IServicio;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.ISoporteProyectoEtapa;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.ITercero;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IUsuario;
+import edu.uniajc.proyeccionsocial.bussiness.services.EnvioCorreoServices;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -57,6 +60,8 @@ import org.primefaces.event.FileUploadEvent;
 @ManagedBean
 @SessionScoped
 public class ProyectoGestionBean {
+    
+    private IEnvioCorreo envioCorreoServices;
 
     //Proyecto Create
     private Proyecto proyecto;
@@ -142,6 +147,7 @@ public class ProyectoGestionBean {
         proyecto = new Proyecto();
         proyectos = servicioProyecto.getProyectoByUser(usuario.getUsuario());
         rutaArchivo = "";
+        envioCorreoServices = new EnvioCorreoServices();
 
     }
 
@@ -222,46 +228,7 @@ public class ProyectoGestionBean {
 
     }
 
-    public class EtapasEntregas {
-
-        public String nombreEtapa;
-        public String estado;
-        public int idProyectoEtapa;
-        public boolean flag;
-
-        public String getNombreEtapa() {
-            return nombreEtapa;
-        }
-
-        public void setNombreEtapa(String nombreEtapa) {
-            this.nombreEtapa = nombreEtapa;
-        }
-
-        public String getEstado() {
-            return estado;
-        }
-
-        public void setEstado(String estado) {
-            this.estado = estado;
-        }
-
-        public int getIdProyectoEtapa() {
-            return idProyectoEtapa;
-        }
-
-        public void setIdProyectoEtapa(int idProyectoEtapa) {
-            this.idProyectoEtapa = idProyectoEtapa;
-        }
-
-        public boolean isFlag() {
-            return flag;
-        }
-
-        public void setFlag(boolean flag) {
-            this.flag = flag;
-        }
-
-    }
+  
 
     public void handleFileUpload(FileUploadEvent event) throws IOException, Exception {
 
@@ -302,7 +269,7 @@ public class ProyectoGestionBean {
         correos = Utilidades.findSendEmail();
         //Cuenta emisora
         emisor = Utilidades.findEmailEmisor();
-        Utilidades.envioCorreo(correos, emisor, usuario, proyecto, 3, "Entrega de Etapa Proyecto", idEtapa);
+        envioCorreoServices.envioCorreo(correos, emisor, usuario, proyecto, 3, "Entrega de Etapa Proyecto", idEtapa);
 
     }
 

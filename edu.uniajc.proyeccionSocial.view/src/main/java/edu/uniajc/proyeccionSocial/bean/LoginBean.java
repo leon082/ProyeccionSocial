@@ -11,11 +11,13 @@ import edu.uniajc.proyeccionSocial.persistence.Model.Usuario;
 import edu.uniajc.proyeccionSocial.persistence.utils.ConexionBD;
 import edu.uniajc.proyeccionSocial.view.util.SessionUtils;
 import edu.uniajc.proyeccionSocial.view.util.Utilidades;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IEnvioCorreo;
 import edu.uniajc.proyeccionsocial.bussiness.services.MenuServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.UsuarioServices;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IOpciones_menu;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.ITercero;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IUsuario;
+import edu.uniajc.proyeccionsocial.bussiness.services.EnvioCorreoServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.TerceroServices;
 import java.io.IOException;
 import javax.faces.bean.ManagedBean;
@@ -49,6 +51,7 @@ public class LoginBean implements Serializable {
     private ITercero terceroService;
     Connection connection;
     HttpSession session;
+    private IEnvioCorreo envioCorreoServices;
     // private boolean logeado = false;
 
     /*  public boolean estaLogeado() {
@@ -63,7 +66,7 @@ public class LoginBean implements Serializable {
         usuarioServices = new UsuarioServices(connection);
         menuServices = new MenuServices(connection);
         terceroService = new TerceroServices(connection);
-
+        envioCorreoServices= new EnvioCorreoServices();
         listaModulos = new ArrayList<>();
 
     }
@@ -88,7 +91,7 @@ public class LoginBean implements Serializable {
         if (nombre != null && !nombre.equalsIgnoreCase("") && clave != null && !clave.equalsIgnoreCase("")) {
             try {
 
-                user = usuarioServices.getUsuarioLogin(nombre, Utilidades.generateHash(clave));
+                user = usuarioServices.getUsuarioLogin(nombre, clave);
 
                 if (user != null) {
                     listaModulos = menuServices.getMenuByUser(user);
@@ -107,7 +110,7 @@ public class LoginBean implements Serializable {
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                     return "login.xhtml";
                 }
-            } catch (NoSuchAlgorithmException | RuntimeException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Comuniquese con el Administrador");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -163,14 +166,14 @@ public class LoginBean implements Serializable {
     public void envioCorreo(int tipoCorreo) {
         if (tipoCorreo != 0) {
             Usuario usuario = usuarioServices.getUserByUsername(nombre);
-            Utilidades.envioCorreo(Utilidades.findSendEmail(), Utilidades.findEmailEmisor(), usuario, null, 7, "Recuperar Contraseña", 0);
+            envioCorreoServices.envioCorreo(Utilidades.findSendEmail(), Utilidades.findEmailEmisor(), usuario, null, 7, "Recuperar Contraseña", 0);
 
         } else {
             Usuario usuario = usuarioServices.getUserByUsername(nombre);
             Tercero tercero = terceroService.getTerceroById(usuario.getId_tercero());
             List<String> destino = new ArrayList<>();
             destino.add(tercero.getCorreo());
-            Utilidades.envioCorreo(destino, Utilidades.findEmailEmisor(), usuario, null, 8, "Recuperar Contraseña", 0);
+            envioCorreoServices.envioCorreo(destino, Utilidades.findEmailEmisor(), usuario, null, 8, "Recuperar Contraseña", 0);
         }
 
     }
