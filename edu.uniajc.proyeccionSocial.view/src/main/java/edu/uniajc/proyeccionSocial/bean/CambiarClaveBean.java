@@ -7,7 +7,6 @@ package edu.uniajc.proyeccionSocial.bean;
 
 import edu.uniajc.proyeccionSocial.persistence.Model.Tercero;
 import edu.uniajc.proyeccionSocial.persistence.Model.Usuario;
-
 import edu.uniajc.proyeccionSocial.view.util.Utilidades;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IEnvioCorreo;
 import edu.uniajc.proyeccionsocial.bussiness.services.TerceroServices;
@@ -15,16 +14,12 @@ import edu.uniajc.proyeccionsocial.bussiness.interfaces.IUsuario;
 import edu.uniajc.proyeccionsocial.bussiness.services.UsuarioServices;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.ITercero;
 import edu.uniajc.proyeccionsocial.bussiness.services.EnvioCorreoServices;
-
-import java.security.NoSuchAlgorithmException;
-
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
@@ -58,7 +53,7 @@ public class CambiarClaveBean {
         itemsDocumentos = Utilidades.Consultar_Documentos_combo();
         docuSelected = 0;
         estadoBoton = true;
-        envioCorreoServices= new EnvioCorreoServices();
+        envioCorreoServices = new EnvioCorreoServices();
 
     }
 
@@ -83,10 +78,8 @@ public class CambiarClaveBean {
         boolean result = false;
         System.out.println("Clave--->" + clave);
         if (!clave.equals("") && usuario != null) {
-            
-                usuario.setContrasena(clave);
 
-            
+            usuario.setContrasena(clave);
 
             if (usuarioServices.updateUsuario(usuario)) {
 

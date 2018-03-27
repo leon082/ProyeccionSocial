@@ -94,8 +94,8 @@ public class ProyectoBean {
 
     @PostConstruct
     public void init() {
-        
-        envioCorreoServices= new EnvioCorreoServices();
+
+        envioCorreoServices = new EnvioCorreoServices();
 
         correos = new ArrayList<>();
         emisor = new ArrayList<>();
@@ -227,7 +227,7 @@ public class ProyectoBean {
                     FacesContext.getCurrentInstance().addMessage(null, msg);
                     limpiarForma();
                 } else {
-                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "No se pudo realizar la operaciónn");
+                    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "informacion", "No se pudo realizar la operaciónn");
                     FacesContext.getCurrentInstance().addMessage(null, msg);
 
                 }

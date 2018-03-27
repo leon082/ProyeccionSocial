@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import org.primefaces.model.DualListModel;
 import edu.uniajc.proyeccionsocial.bussiness.services.ServicioServices;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IServicio;
@@ -51,7 +50,7 @@ public class ServEtapaBean {
         etapaServices = new EtapaServices(Utilidades.getConnection());
         seServices = new ServicioEtapaServices(Utilidades.getConnection());
         servicioservices = new ServicioServices(Utilidades.getConnection());
-         etapaSource = new ArrayList<Etapa>();
+        etapaSource = new ArrayList<Etapa>();
         etapaSource = etapaServices.getAllEtapa();
         usuario = Utilidades.cargarUsuario();
         etapaTarget = new ArrayList<Etapa>();
@@ -81,7 +80,7 @@ public class ServEtapaBean {
 
                 seServices.createServicioEtapa(crear);
             }
-             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Informacion", "Etapas Asignadas");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Informacion", "Etapas Asignadas");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             actionCombo();
         }

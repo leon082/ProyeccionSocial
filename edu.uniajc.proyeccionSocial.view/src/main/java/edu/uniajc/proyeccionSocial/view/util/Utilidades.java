@@ -23,7 +23,6 @@ import edu.uniajc.proyeccionsocial.bussiness.interfaces.IUsuarioRol;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-
 import java.sql.Connection;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -31,7 +30,6 @@ import java.util.List;
 import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
 
@@ -47,8 +45,6 @@ public class Utilidades {
     public static String leerEmailemisor = "cuenta.emisora";
     public static String leerRolCreador = "rol.creador";
     public static String leerRuta = "ruta";
-
-   
 
     public static Connection getConnection() {
         HttpSession session = SessionUtils.getSession();
@@ -101,12 +97,12 @@ public class Utilidades {
         IListaValorDetalle servicio = new ListaValorDetalleServices(getConnection());
         String agrupa = String.valueOf(leerArchivo(leerRuta));
         List<ListaValorDetalle> lista = servicio.getAllListaValorDetalle(agrupa);
-         if(lista != null && lista.size()>0){
-             return lista.get(0).getValor();
-         }else{
-             return "";
-         }
-         
+        if (lista != null && lista.size() > 0) {
+            return lista.get(0).getValor();
+        } else {
+            return "";
+        }
+
     }
 
     public static ArrayList<SelectItem> Consultar_Documentos_combo() {
@@ -134,8 +130,6 @@ public class Utilidades {
         return items;
 
     }
-
- 
 
     public static boolean validarCorreo(String email) {
         // Patrón para validar el email
@@ -269,8 +263,8 @@ public class Utilidades {
         Usuario us = usuarioServices.getUserByUsername(user);
         return us;
     }
-    
-       public static ArrayList<String> findSendEmail() {
+
+    public static ArrayList<String> findSendEmail() {
         IListaValorDetalle servicio = new ListaValorDetalleServices(getConnection());
         String agrupa = String.valueOf(leerArchivo(leerEmail));
         List<ListaValorDetalle> lista = servicio.getAllListaValorDetalle(agrupa);
@@ -295,5 +289,5 @@ public class Utilidades {
         return emails;
 
     }
-    
+
 }

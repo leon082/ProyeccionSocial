@@ -65,7 +65,7 @@ public class LoginBean implements Serializable {
         usuarioServices = new UsuarioServices(connection);
         menuServices = new MenuServices(connection);
         terceroService = new TerceroServices(connection);
-        envioCorreoServices= new EnvioCorreoServices();
+        envioCorreoServices = new EnvioCorreoServices();
         listaModulos = new ArrayList<>();
 
     }
@@ -97,7 +97,7 @@ public class LoginBean implements Serializable {
 
                     session.setAttribute("username", nombre);
 
-                    return "Home.xhtml";
+                    return "inicio.xhtml";
                 } else {
                     try {
                         Utilidades.getConnection().close();
@@ -156,7 +156,7 @@ public class LoginBean implements Serializable {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Revise su bandeja de correó");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } else {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error", "Debe digitar un usuario");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Debe digitar un usuario");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
 

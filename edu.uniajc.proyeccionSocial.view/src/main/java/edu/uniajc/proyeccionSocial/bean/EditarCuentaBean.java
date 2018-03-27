@@ -13,8 +13,6 @@ import edu.uniajc.proyeccionsocial.bussiness.services.TerceroServices;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IUsuario;
 import edu.uniajc.proyeccionsocial.bussiness.services.UsuarioServices;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.ITercero;
-
-
 import java.util.ArrayList;
 import java.util.Date;
 import javax.annotation.PostConstruct;
@@ -92,7 +90,7 @@ public class EditarCuentaBean {
             if (guardar()) {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cuenta actualizada", "Cuenta actualizada");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
-                return "Home.xhtml";
+                return "inicio.xhtml";
             } else {
 
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "error", "Error, intentelo de nuevo");

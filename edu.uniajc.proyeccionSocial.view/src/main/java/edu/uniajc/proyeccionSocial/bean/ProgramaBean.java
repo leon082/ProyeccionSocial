@@ -17,7 +17,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.RowEditEvent;
@@ -65,7 +64,7 @@ public class ProgramaBean {
             FacesContext.getCurrentInstance().addMessage(null, msg);
             limpiarForma();
         } else {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "No se pudo realizar la operaciónn");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "informacion", "No se pudo realizar la operaciónn");
             FacesContext.getCurrentInstance().addMessage(null, msg);
 
         }
@@ -87,7 +86,7 @@ public class ProgramaBean {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Operacion realizado con exito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } else {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "No se pudo realziar la operación");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "informacion", "No se pudo realziar la operación");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
@@ -110,7 +109,7 @@ public class ProgramaBean {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "El Programa Fue eliminado con exito.");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             } else {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "No se pudo realziar la operación");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "informacion", "No se pudo realziar la operación");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
         } else {

@@ -104,7 +104,7 @@ public class AprobarDocumentosBean {
     private String idSoporte;
     SoporteProyectoEtapa soporte;
     ProyectoEtapa proyectoEtapa;
-    
+
     private IEnvioCorreo envioCorreoServices;
 
     @PostConstruct
@@ -112,10 +112,8 @@ public class AprobarDocumentosBean {
         proyectoEtapa = new ProyectoEtapa();
         servicioProyectoEtapa = new ProyectoEtapaServices(Utilidades.getConnection());
         //Soporte
-
         servicioSoporte = new SoporteProyectoEtapaServices(Utilidades.getConnection());
         //Proyecto create
-
         servicioProyecto = new ProyectoServices(Utilidades.getConnection());
         //ComboProgramas
         programaservices = new ProgramaServices(Utilidades.getConnection());
@@ -128,20 +126,17 @@ public class AprobarDocumentosBean {
         //Usuario
         usuarioServices = new UsuarioServices(Utilidades.getConnection());
         usuario = Utilidades.cargarUsuario();
-
         //Beneficiarios
         beneficiarios = new ArrayList<>();
         //Combo Servicios
         itemsServicios = new ArrayList<>();
         terceroServices = new TerceroServices(Utilidades.getConnection());
-
         //oferentes
         itemsOferente = Utilidades.llenar_Combo_Terceros(terceroServices.getAllTercero());
         oferenteServices = new OferenteServices(Utilidades.getConnection());
         beneficiarioServices = new BeneficiarioServices(Utilidades.getConnection());
-
         proyecto = new Proyecto();
-          envioCorreoServices = new EnvioCorreoServices();
+        envioCorreoServices = new EnvioCorreoServices();
         rutaArchivo = "";
     }
 
@@ -270,8 +265,6 @@ public class AprobarDocumentosBean {
 
         etapas.add(e);
     }
-
-   
 
     public void setDownload(DefaultStreamedContent download) {
         this.download = download;

@@ -11,7 +11,6 @@ import edu.uniajc.proyeccionSocial.persistence.Model.Oferente;
 import edu.uniajc.proyeccionSocial.persistence.Model.Proyecto;
 import edu.uniajc.proyeccionSocial.persistence.Model.Tercero;
 import edu.uniajc.proyeccionSocial.persistence.Model.Usuario;
-
 import edu.uniajc.proyeccionSocial.view.util.Utilidades;
 import edu.uniajc.proyeccionsocial.bussiness.services.BeneficiarioServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.EtapaServices;
@@ -33,7 +32,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
 
@@ -86,9 +84,9 @@ public class ProyectosTerminadosBean {
 
     @PostConstruct
     public void init() {
-        showAprobar=true;
-        showRechazar=true;
-         correos = new ArrayList<>();
+        showAprobar = true;
+        showRechazar = true;
+        correos = new ArrayList<>();
         emisor = new ArrayList<>();
         //Proyecto create
         proyecto = new Proyecto();
@@ -161,9 +159,6 @@ public class ProyectosTerminadosBean {
 
     }
 
-    
-
-
     public void limpiarForma() {
         proyecto = new Proyecto();
         etapas = new ArrayList<>();
@@ -192,14 +187,15 @@ public class ProyectosTerminadosBean {
         mostrarBotones();
 
     }
-    
-    public void mostrarBotones(){
-        showAprobar=false;
-        showRechazar=false;
+
+    public void mostrarBotones() {
+        showAprobar = false;
+        showRechazar = false;
     }
-     public void ocultarBotones(){
-        showAprobar=true;
-        showRechazar=true;
+
+    public void ocultarBotones() {
+        showAprobar = true;
+        showRechazar = true;
     }
 
     public Proyecto getProyecto() {
@@ -385,6 +381,5 @@ public class ProyectosTerminadosBean {
     public void setShowRechazar(boolean showRechazar) {
         this.showRechazar = showRechazar;
     }
-    
-    
+
 }

@@ -23,7 +23,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.model.DualListModel;
@@ -52,7 +51,7 @@ public class AsignarRolBean {
 
     @PostConstruct
     public void init() {
-        userName="";
+        userName = "";
         servicioUserRol = new UsuarioRolServices(Utilidades.getConnection());
         usuario = new Usuario();
         tercero = new Tercero();
@@ -61,7 +60,7 @@ public class AsignarRolBean {
         servicioTercero = new TerceroServices(Utilidades.getConnection());
         servicioRoles = new RolServices(Utilidades.getConnection());
         rolesTarget = new ArrayList<Rol>();
-         rolesSource= new ArrayList<Rol>();
+        rolesSource = new ArrayList<Rol>();
         iniciarRoles();
         bloquearRoles = true;
         bloquearGuardar = true;
@@ -70,28 +69,28 @@ public class AsignarRolBean {
     public void iniciarRoles() {
         rolesSource = servicioRoles.getAllRol();
         rolesTarget = new ArrayList<Rol>();
-        
+
         roles = new DualListModel<Rol>(rolesSource, rolesTarget);
     }
 
     public void cargarRoles() {
         rolesSource = servicioRoles.getAllRol();
         rolesTarget = servicioRoles.getRolesByUser(usuario.getId_usuario());
-         for (int i = 0; i < rolesSource.size(); i++) {
+        for (int i = 0; i < rolesSource.size(); i++) {
 
-                Rol source = rolesSource.get(i);
+            Rol source = rolesSource.get(i);
 
-                for (int j = 0; j < rolesTarget.size(); j++) {
+            for (int j = 0; j < rolesTarget.size(); j++) {
 
-                    Rol targed = rolesTarget.get(j);
+                Rol targed = rolesTarget.get(j);
 
-                    if (source.getId_rol()== targed.getId_rol()) {
+                if (source.getId_rol() == targed.getId_rol()) {
 
-                        rolesSource.remove(source);
-                    }
+                    rolesSource.remove(source);
                 }
-
             }
+
+        }
         roles = new DualListModel<Rol>(rolesSource, rolesTarget);
     }
 
@@ -120,7 +119,6 @@ public class AsignarRolBean {
             String rol = (String) obj;
             System.out.println("Rol" + rol);
 
-           
             UsuarioRol usuarioRol = new UsuarioRol();
             usuarioRol.setId_usuario(usuario.getId_usuario());
             usuarioRol.setId_rol(Integer.valueOf(rol));
@@ -131,7 +129,7 @@ public class AsignarRolBean {
 
         }
         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Informacion", "Roles Asignados");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+        FacesContext.getCurrentInstance().addMessage(null, msg);
         init();
     }
 

@@ -17,10 +17,8 @@ import edu.uniajc.proyeccionsocial.bussiness.interfaces.IServicio;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.ITercero;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
 
@@ -104,7 +102,7 @@ public class ReporteProyectoBean {
 
     public void findReport() {
         listaReporte = new ArrayList<>();
-        listaReporte = reporteServices.getAllProyect(idPrograma, idServicio, idTerceroOferente, idTerceroCreadoPor, Utilidades.dateToSql(fechaDesde), Utilidades.dateToSql(fechaHasta), estado,facultad);
+        listaReporte = reporteServices.getAllProyect(idPrograma, idServicio, idTerceroOferente, idTerceroCreadoPor, Utilidades.dateToSql(fechaDesde), Utilidades.dateToSql(fechaHasta), estado, facultad);
         //System.out.println("Cantidad de Datos en lista -> " + listaReporte.size());
     }
 

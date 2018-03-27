@@ -14,7 +14,6 @@ import edu.uniajc.proyeccionSocial.persistence.Model.ProyectoEtapa;
 import edu.uniajc.proyeccionSocial.persistence.Model.SoporteProyectoEtapa;
 import edu.uniajc.proyeccionSocial.persistence.Model.Tercero;
 import edu.uniajc.proyeccionSocial.persistence.Model.Usuario;
-
 import edu.uniajc.proyeccionSocial.view.util.Utilidades;
 import edu.uniajc.proyeccionsocial.bussiness.services.BeneficiarioServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.EtapaServices;
@@ -60,7 +59,7 @@ import org.primefaces.event.FileUploadEvent;
 @ManagedBean
 @SessionScoped
 public class ProyectoGestionBean {
-    
+
     private IEnvioCorreo envioCorreoServices;
 
     //Proyecto Create
@@ -227,8 +226,6 @@ public class ProyectoGestionBean {
         }
 
     }
-
-  
 
     public void handleFileUpload(FileUploadEvent event) throws IOException, Exception {
 

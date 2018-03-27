@@ -15,10 +15,8 @@ import edu.uniajc.proyeccionsocial.bussiness.services.UsuarioServices;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.ITercero;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IUsuario;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IUsuarioRol;
-import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.SQLException;
-
 import java.util.ArrayList;
 import java.util.Date;
 import javax.annotation.PostConstruct;
@@ -54,9 +52,9 @@ public class RegistrarBean {
 
     @PostConstruct
     public void init() {
-        
+
         tercero = new Tercero();
-       
+
         usuario = new Usuario();
         itemsDocumentos = Utilidades.Consultar_Documentos_combo();
     }
@@ -64,7 +62,7 @@ public class RegistrarBean {
     public boolean registrar() {
         connection = new ConexionBD().getConnection();
         terceroServices = new TerceroServices(connection);
-         usuarioServices = new UsuarioServices(connection);
+        usuarioServices = new UsuarioServices(connection);
         boolean result = false;
         if (!Utilidades.validarTercero(docuSelected, tercero.getNumidentificacion())
                 && !Utilidades.validarUsuario(username)) {
@@ -76,13 +74,10 @@ public class RegistrarBean {
                 idTercero = terceroServices.createTercero(tercero);
                 if (idTercero != 0) {
 
-                    
-                        usuario.setId_tercero(idTercero);
+                    usuario.setId_tercero(idTercero);
 
-                        usuario.setUsuario(username);
-                        usuario.setContrasena(contra);
-
-                    
+                    usuario.setUsuario(username);
+                    usuario.setContrasena(contra);
 
                     idUsuario = usuarioServices.createUsuario(usuario);
                     if (idUsuario != 0) {
@@ -110,8 +105,8 @@ public class RegistrarBean {
 
         return result;
     }
-    
-    public void cerrarConeccion(){
+
+    public void cerrarConeccion() {
         try {
             connection.close();
         } catch (SQLException e) {
@@ -123,8 +118,8 @@ public class RegistrarBean {
         if (valdiaciones()) {
 
             if (registrar()) {
-                
-               cerrarConeccion();
+
+                cerrarConeccion();
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Usuario Creado");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 return "login.xhtml";

@@ -26,10 +26,15 @@
                     <h1> <center>Proyeccion Social</center></h1>
                 </div>
                 <div>
-                    <h:form>
+                   
+                </div>
+                <div style="clear:both;"></div>
+            </div>
+            <div  class="center_content">
+               <h:form>
 
-                        <h:panelGrid columns="1">
-                            <p:spacer height="50"></p:spacer>
+                   <h:panelGrid columns="1" styleClass="panelDatosPersonales">
+                           
                             <p:panel  style="width:300px" class = "panelGridCenter">
                                 <h:panelGrid columns="2" cellpadding="5">
 
@@ -40,14 +45,16 @@
                                     <p:password value="#{loginBean.clave}" id="password" 
                                                 label="password"  />
                                     <p:spacer width="20" ></p:spacer>
-                                    <h:panelGrid columns="2">
-
-                                        <p:commandButton id="loginButton" value="Login"
+                                    <h:panelGrid columns="6">
+                                         <h:outputLabel />
+                                           <h:outputLabel />
+                                           <h:outputLabel />
+                                           <h:outputLabel />
+                                           <h:outputLabel />
+                                        <p:commandButton id="loginButton" value="Ingresar"
                                                          action="#{loginBean.login}" update=":mensajes"
-                                                         />
-                                        <p:commandButton id="regisButton" value="Registrate" process="@this"
-                                                         action="#{loginBean.registrar}" update=":mensajes"
-                                                         />
+                                                        />
+                                        
                                        
                                     </h:panelGrid>
 
@@ -55,17 +62,17 @@
 
                                 </h:panelGrid>
                                 <p:separator></p:separator>
-                                 <p:commandButton id="cambioClave" value="Olvide mi Clave" 
+                                <h:panelGrid columns="2" cellpadding="5" styleClass="panelDatosPersonales">
+                                    <p:commandLink  id="cambioClave" value="Olvide mi Clave" 
                                                          action="#{loginBean.recuperar}" update=":mensajes"
                                                          />
+                                 <p:commandLink id="regisButton" value="Registrate" process="@this"
+                                                         action="#{loginBean.registrar}" update=":mensajes"
+                                                         />
+                                 </h:panelGrid>
                             </p:panel>
                         </h:panelGrid>
                     </h:form>
-                </div>
-                <div style="clear:both;"></div>
-            </div>
-            <div id="content" class="center_content">
-                <ui:insert name="content"></ui:insert>
             </div>
             <div id="bottom">
                 <h2>&copy; 2018 - PROYECCION SOCIAL (UNIAJC)</h2>

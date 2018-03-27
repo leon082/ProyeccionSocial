@@ -11,7 +11,6 @@ import edu.uniajc.proyeccionSocial.persistence.Model.Proyecto;
 import edu.uniajc.proyeccionSocial.persistence.Model.Servicio;
 import edu.uniajc.proyeccionSocial.persistence.Model.Tercero;
 import edu.uniajc.proyeccionSocial.persistence.Model.Usuario;
-
 import edu.uniajc.proyeccionSocial.view.util.Utilidades;
 import edu.uniajc.proyeccionsocial.bussiness.services.BeneficiarioServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.EtapaServices;
@@ -159,7 +158,7 @@ public class ProyectoBeanCopy {
             FacesContext.getCurrentInstance().addMessage(null, msg);
             limpiarForma();
         } else {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "No se pudo realizar la operaciónn");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "informacion", "No se pudo realizar la operaciónn");
             FacesContext.getCurrentInstance().addMessage(null, msg);
 
         }

@@ -35,7 +35,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
@@ -90,10 +89,10 @@ public class FinalizarProyectoBean {
 
     @PostConstruct
     public void init() {
-        envioCorreoServices=new EnvioCorreoServices();
-        showAprobar=true;
-        showRechazar=true;
-         correos = new ArrayList<>();
+        envioCorreoServices = new EnvioCorreoServices();
+        showAprobar = true;
+        showRechazar = true;
+        correos = new ArrayList<>();
         emisor = new ArrayList<>();
         //Proyecto create
         proyecto = new Proyecto();
@@ -181,7 +180,8 @@ public class FinalizarProyectoBean {
         ocultarBotones();
 
     }
-/*
+
+    /*
     public void rechazar() {
         proyecto.setEstado(2);
         servicioProyecto.updateProyecto(proyecto);
@@ -225,14 +225,15 @@ public class FinalizarProyectoBean {
         mostrarBotones();
 
     }
-    
-    public void mostrarBotones(){
-        showAprobar=false;
-        showRechazar=false;
+
+    public void mostrarBotones() {
+        showAprobar = false;
+        showRechazar = false;
     }
-     public void ocultarBotones(){
-        showAprobar=true;
-        showRechazar=true;
+
+    public void ocultarBotones() {
+        showAprobar = true;
+        showRechazar = true;
     }
 
     public Proyecto getProyecto() {
@@ -418,6 +419,5 @@ public class FinalizarProyectoBean {
     public void setShowRechazar(boolean showRechazar) {
         this.showRechazar = showRechazar;
     }
-    
-    
+
 }

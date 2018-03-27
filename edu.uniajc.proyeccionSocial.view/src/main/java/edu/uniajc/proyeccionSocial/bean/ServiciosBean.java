@@ -15,10 +15,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.RowEditEvent;
-
 import edu.uniajc.proyeccionsocial.bussiness.services.ServicioEtapaServices;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IServicioEtapa;
 import javax.faces.bean.ViewScoped;
@@ -45,7 +43,7 @@ public class ServiciosBean {
         usuario = Utilidades.cargarUsuario();
         servicioServices = new ServicioServices(Utilidades.getConnection());
         servicio = new Servicio();
-        listServicio=new ArrayList<>();
+        listServicio = new ArrayList<>();
         listServicio = servicioServices.getAllServicio();
         seservices = new ServicioEtapaServices(Utilidades.getConnection());
 
@@ -69,7 +67,7 @@ public class ServiciosBean {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "El Servicio Fue eliminado con exito.");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             } else {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "No se pudo realizar la operación");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "informacion", "No se pudo realizar la operación");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
         } else {
@@ -90,7 +88,7 @@ public class ServiciosBean {
             FacesContext.getCurrentInstance().addMessage(null, msg);
             limpiarForm();
         } else {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "No se pudo realizar la operaciónn");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "informacion", "No se pudo realizar la operaciónn");
             FacesContext.getCurrentInstance().addMessage(null, msg);
 
         }
@@ -108,7 +106,7 @@ public class ServiciosBean {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Operacion realizado con exito");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } else {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "No se pudo realziar la operación");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "informacion", "No se pudo realziar la operación");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
