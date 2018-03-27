@@ -20,54 +20,58 @@
 
 
                 <h:form id="forma">     
+                    <h:panelGrid columns="2" styleClass="panelDatosPersonales">
 
-                    <p:growl id="grow" showDetail="true" life="5555"/> 
-                    <h3 style="margin-top: 0">Usuario</h3>
-                     <p:outputLabel for="add" value="User: " />
-                     <p:inputText   id="add" value="#{asignarRolBean.userName}" />                       
+                        <p:panel>
+                            <p:growl id="grow" showDetail="true" life="5555"/> 
+                            <h3 style="margin-top: 0">Usuario</h3>
+                            <p:outputLabel for="add" value="User: " />
+                            <p:inputText   id="add" value="#{asignarRolBean.userName}" />                       
                             <p:commandButton 
                                 update=":forma:grow,:forma:add,:forma:pNombre,:forma:sNombre,:forma:pApellido,:forma:sApellido,:forma:pickList,:forma:serviciosSubmit"
                                 ajax="true" icon="ui-icon-search" 
                                 action="#{asignarRolBean.buscar()}">
 
                             </p:commandButton>
-                     <p:separator></p:separator>
-                     
-                                           
-
-                                        <h:panelGrid columns="1">
-                                            <p:outputLabel for="pNombre" value="Primer Nombre:" />
-                                            <p:inputText id="pNombre" value="#{asignarRolBean.tercero.primernombre}" disabled="true"/>
-                                        </h:panelGrid>
-
-                                        <h:panelGrid columns="1">
-                                            <p:outputLabel for="sNombre" value="Segundo Nombre:" />
-                                            <p:inputText id="sNombre" value="#{asignarRolBean.tercero.segundonombre}"  disabled="true"/>
-                                        </h:panelGrid>
-
-                                        <h:panelGrid columns="1">
-                                            <p:outputLabel for="pApellido" value="Primer Apellido:" />
-                                            <p:inputText id="pApellido" value="#{asignarRolBean.tercero.primerapellido}" disabled="true"/>
-                                        </h:panelGrid>
-
-                                        <h:panelGrid columns="1">
-                                            <p:outputLabel for="sApellido" value="Segundo Apellido:" />
-                                            <p:inputText id="sApellido" value="#{asignarRolBean.tercero.segundoapellido}" disabled="true"/>
-                                        </h:panelGrid>
+                            <p:separator></p:separator>
 
 
 
-                    
-                    <h3 style="margin-top: 0">Añadir Servicios</h3>
-
-                    <p:pickList id="pickList" value="#{asignarRolBean.roles}" var="rol" itemLabel="#{rol.valor}" itemValue="#{rol.id_rol}" disabled="#{asignarRolBean.bloquearRoles}">
-                        <f:facet name="sourceCaption">Roles Disponibles</f:facet>
-                        <f:facet name="targetCaption">Roles Asignados</f:facet>
-                    </p:pickList>
-
-                    <p:commandButton id="serviciosSubmit" value="Guardar" style="margin-top:5px" action="#{asignarRolBean.guardar()}" update=":forma:grow,:forma:add,:forma:pNombre,:forma:sNombre,:forma:pApellido,:forma:sApellido,:forma:pickList,:forma:serviciosSubmit" disabled="#{asignarRolBean.bloquearGuardar}"/>
+                            <h:panelGrid columns="4">
+                                <p:outputLabel for="pNombre" value="Primer Nombre:" />
+                                <p:inputText id="pNombre" value="#{asignarRolBean.tercero.primernombre}" disabled="true"/>
 
 
+
+                                <p:outputLabel for="sNombre" value="Segundo Nombre:" />
+                                <p:inputText id="sNombre" value="#{asignarRolBean.tercero.segundonombre}"  disabled="true"/>
+
+
+
+                                <p:outputLabel for="pApellido" value="Primer Apellido:" />
+                                <p:inputText id="pApellido" value="#{asignarRolBean.tercero.primerapellido}" disabled="true"/>
+
+
+
+                                <p:outputLabel for="sApellido" value="Segundo Apellido:" />
+                                <p:inputText id="sApellido" value="#{asignarRolBean.tercero.segundoapellido}" disabled="true"/>
+                            </h:panelGrid>
+
+
+
+
+                            <h3 style="margin-top: 0">Añadir Servicios</h3>
+
+                            <p:pickList id="pickList" value="#{asignarRolBean.roles}" var="rol" itemLabel="#{rol.valor}" itemValue="#{rol.id_rol}" disabled="#{asignarRolBean.bloquearRoles}">
+                                <f:facet name="sourceCaption">Roles Disponibles</f:facet>
+                                <f:facet name="targetCaption">Roles Asignados</f:facet>
+                            </p:pickList>
+                            <p:separator></p:separator>
+                            <p:commandButton id="serviciosSubmit" value="Guardar" style="margin-top:5px" action="#{asignarRolBean.guardar()}" update=":forma:grow,:forma:add,:forma:pNombre,:forma:sNombre,:forma:pApellido,:forma:sApellido,:forma:pickList,:forma:serviciosSubmit" disabled="#{asignarRolBean.bloquearGuardar}"/>
+
+
+                        </p:panel>
+                    </h:panelGrid>
                 </h:form>
 
 

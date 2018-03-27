@@ -19,82 +19,87 @@
             <ui:define name="content">
 
 
-                <h:form id="forma">           
-                    <p:growl id="grow" showDetail="true" life="5555"/> 
-                    <p:tabView id="tab">
+                <h:form id="forma">  
+                    <h:panelGrid columns="2" styleClass="panelDatosPersonales">
+
+                        <p:panel>
+                            <p:growl id="grow" showDetail="true" life="5555"/> 
+                            <p:tabView id="tab">
 
 
 
-                        <p:tab title="Cambiar Claves"> <!-- Nombre  -->
-                            <p:outputLabel for="add" value="Usuario : " />
-                            <p:inputText   id="add" value="#{cambiarClaveBean.name}" />                       
-                            <p:commandButton 
-                                update=":forma:grow,:forma:tab:guardar,:forma:tab:add_1,:forma:tab:doc,:forma:tab:pNombre,:forma:tab:sNombre,:forma:tab:pApellido,:forma:tab:sApellido,:forma:tab:phoneFijo,:forma:tab:phoneCel,:forma:tab:user,:forma:tab:clave"
-                                ajax="true" icon="ui-icon-search" 
-                                action="#{cambiarClaveBean.buscar()}"
-                                
-                                >
+                                <p:tab title="Cambiar Claves"> <!-- Nombre  -->
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <h:panelGrid columns="3" cellpadding="5">
+                                            <p:outputLabel for="add" value="Usuario : " />
+                                            <p:inputText   id="add" value="#{cambiarClaveBean.name}" />                       
+                                            <p:commandButton 
+                                                update=":forma:grow,:forma:tab:guardar,:forma:tab:add_1,:forma:tab:doc,:forma:tab:pNombre,:forma:tab:sNombre,:forma:tab:pApellido,:forma:tab:sApellido,:forma:tab:phoneFijo,:forma:tab:phoneCel,:forma:tab:clave"
+                                                ajax="true" icon="ui-icon-search" 
+                                                action="#{cambiarClaveBean.buscar()}"
 
-                            </p:commandButton>
-                            <h:panelGrid columns="2" cellpadding="5">
+                                                > </p:commandButton>
+                                        </h:panelGrid>
+                                        <h:panelGrid columns="2" cellpadding="5">
+                                            <p:outputLabel  value="Clave:" />
+                                            <p:inputText id="clave" value="#{cambiarClaveBean.clave}"  />
 
-                                <p:outputLabel for="add_1" value="Tipo de Documento :" />
-                                <p:selectOneMenu  id="add_1" value="#{cambiarClaveBean.docuSelected}"  disabled="true" >  
-                                    <f:selectItem itemLabel="Seleccione" itemValue="0" />  
-                                    <f:selectItems value="#{cambiarClaveBean.itemsDocumentos}"/>  
-                                </p:selectOneMenu> 
+                                        </h:panelGrid>
+                                    </h:panelGrid>
 
-                                <p:outputLabel for="doc" value="Documento:" />
-                                <p:inputMask id="doc" value="#{cambiarClaveBean.tercero.numidentificacion}" mask="9999999999"  disabled="true"/>
+                                    <p:separator></p:separator>
+                                    <h:panelGrid columns="4" cellpadding="5">
 
-                                <p:outputLabel for="pNombre" value="Primer Nombre:" />
-                                <p:inputText id="pNombre" value="#{cambiarClaveBean.tercero.primernombre}"  disabled="true" />
+                                        <p:outputLabel for="add_1" value="Tipo de Documento :" />
+                                        <p:selectOneMenu  id="add_1" value="#{cambiarClaveBean.docuSelected}"  disabled="true" >  
+                                            <f:selectItem itemLabel="Seleccione" itemValue="0" />  
+                                            <f:selectItems value="#{cambiarClaveBean.itemsDocumentos}"/>  
+                                        </p:selectOneMenu> 
 
-                                <p:outputLabel for="sNombre" value="Segundo Nombre:" />
-                                <p:inputText id="sNombre" value="#{cambiarClaveBean.tercero.segundonombre}" disabled="true"  />
+                                        <p:outputLabel for="doc" value="Documento:" />
+                                        <p:inputMask id="doc" value="#{cambiarClaveBean.tercero.numidentificacion}" mask="9999999999"  disabled="true"/>
 
-                                <p:outputLabel for="pApellido" value="Primer Apellido:" />
-                                <p:inputText id="pApellido" value="#{cambiarClaveBean.tercero.primerapellido}" disabled="true" />
+                                        <p:outputLabel for="pNombre" value="Primer Nombre:" />
+                                        <p:inputText id="pNombre" value="#{cambiarClaveBean.tercero.primernombre}"  disabled="true" />
 
-                                <p:outputLabel for="sApellido" value="Segundo Apellido:" />
-                                <p:inputText id="sApellido" value="#{cambiarClaveBean.tercero.segundoapellido}" disabled="true" />
+                                        <p:outputLabel for="sNombre" value="Segundo Nombre:" />
+                                        <p:inputText id="sNombre" value="#{cambiarClaveBean.tercero.segundonombre}" disabled="true"  />
 
-                                
+                                        <p:outputLabel for="pApellido" value="Primer Apellido:" />
+                                        <p:inputText id="pApellido" value="#{cambiarClaveBean.tercero.primerapellido}" disabled="true" />
 
-                                <p:outputLabel for="phoneFijo" value="Telefono:" />
-                                <p:inputMask id="phoneFijo" value="#{cambiarClaveBean.tercero.telefonofijo}" mask="9999999" disabled="true"/>
-
-                                <p:outputLabel for="phoneCel" value="Telefono Celular" />
-                                <p:inputMask id="phoneCel" value="#{cambiarClaveBean.tercero.telefonocelular}" mask="(999) 999-9999" disabled="true"/>
-
-
-
-                                <p:outputLabel for="correo" value="Correo Electronico:" />
-                                <p:inputText id="correo" value="#{cambiarClaveBean.tercero.correo}" />
+                                        <p:outputLabel for="sApellido" value="Segundo Apellido:" />
+                                        <p:inputText id="sApellido" value="#{cambiarClaveBean.tercero.segundoapellido}" disabled="true" />
 
 
 
-                                <p:outputLabel  value="Usuario:" />
-                                <p:inputText id="user" value="#{cambiarClaveBean.usuario.usuario}" disabled="true"/>
+                                        <p:outputLabel for="phoneFijo" value="Telefono:" />
+                                        <p:inputMask id="phoneFijo" value="#{cambiarClaveBean.tercero.telefonofijo}" mask="9999999" disabled="true"/>
+
+                                        <p:outputLabel for="phoneCel" value="Telefono Celular" />
+                                        <p:inputMask id="phoneCel" value="#{cambiarClaveBean.tercero.telefonocelular}" mask="(999) 999-9999" disabled="true"/>
 
 
 
-                                <p:outputLabel  value="Clave:" />
-                                <p:inputText id="clave" value="#{cambiarClaveBean.clave}"  />
 
 
-                            </h:panelGrid>
-
-                            <p:separator></p:separator>
-
-                            <p:commandButton 
-                                id="guardar" value="Guardar" action="#{cambiarClaveBean.actionButon()}"  disabled="#{cambiarClaveBean.estadoBoton}"  update=":forma:grow,:forma:grow,:forma:tab:add,:forma:tab:add_1,:forma:tab:doc,:forma:tab:pNombre,:forma:tab:sNombre,:forma:tab:pApellido,:forma:tab:sApellido,:forma:tab:phoneFijo,:forma:tab:phoneCel,:forma:tab:user,:forma:tab:clave" />
 
 
-                        </p:tab>
 
-                    </p:tabView>
 
+                                    </h:panelGrid>
+
+                                    <p:separator></p:separator>
+
+                                    <p:commandButton 
+                                        id="guardar" value="Guardar" action="#{cambiarClaveBean.actionButon()}"  disabled="#{cambiarClaveBean.estadoBoton}"  update=":forma:grow,:forma:grow,:forma:tab:add,:forma:tab:add_1,:forma:tab:doc,:forma:tab:pNombre,:forma:tab:sNombre,:forma:tab:pApellido,:forma:tab:sApellido,:forma:tab:phoneFijo,:forma:tab:phoneCel,:forma:tab:clave" />
+
+
+                                </p:tab>
+
+                            </p:tabView>
+                        </p:panel>
+                    </h:panelGrid>
                 </h:form>
 
 

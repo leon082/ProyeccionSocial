@@ -26,7 +26,9 @@
 
 
                         <p:tab title="Aprobar Entrega"> <!-- Nombre  -->
-                            <p:outputLabel for="add" value="Id Entrega :" />
+                            
+                          
+                            <p:outputLabel for="add" value="Id Entrega : " />
                             <p:inputText   id="add" value="#{aprobarDocumentosBean.idSoporte}" />                       
                             <p:commandButton 
                                 update=":forma:grow,:forma:tab:add_1,:forma:tab:add_2,:forma:tab:add_3,:forma:tab:add_4,:forma:tab:add_7,:forma:tab:listaEtapas,:forma:tab:listaBeneficiarios"
@@ -34,7 +36,10 @@
                                 action="#{aprobarDocumentosBean.buscar()}">
 
                             </p:commandButton>
-                            <h:panelGrid columns="2" cellpadding="5">
+                         
+                            <p:separator></p:separator>
+                            
+                            <h:panelGrid columns="4" cellpadding="5">
 
                                 <p:outputLabel for="add_7" value="Oferente del Proyecto : " />
                                 <p:selectOneMenu  id="add_7" value="#{aprobarDocumentosBean.idOferente}" disabled="true" >  
@@ -45,8 +50,7 @@
                                 <p:outputLabel for="add_1" value="Titulo :" />
                                 <p:inputText   id="add_1" value="#{aprobarDocumentosBean.proyecto.tituloproyecto}" readonly="true"/>                       
 
-                                <p:outputLabel for="add_2" value="Resumen :" />
-                                <p:inputTextarea   id="add_2" rows="6" cols="33" value="#{aprobarDocumentosBean.proyecto.resumenproyecto}" readonly="true"/>                       
+                               
 
                                 <p:outputLabel for="add_3" value="Programa :" />
                                 <p:selectOneMenu  id="add_3" value="#{aprobarDocumentosBean.idPrograma}" disabled="true">  
@@ -61,7 +65,12 @@
                                     <f:selectItem itemLabel="Seleccione" itemValue="0" />  
                                     <f:selectItems value="#{aprobarDocumentosBean.itemsServicios}"/>  
                                 </p:selectOneMenu>
-                            </h:panelGrid>
+                                
+                                </h:panelGrid>
+                            <h:panelGrid columns="1" cellpadding="5">
+                                 <p:outputLabel for="add_2" value="Resumen :" />
+                                <p:inputTextarea   id="add_2" rows="6" cols="100" value="#{aprobarDocumentosBean.proyecto.resumenproyecto}" readonly="true"/>                       
+                           </h:panelGrid>
 
                             <h3 style="margin-top: 0">Etapas</h3>
 

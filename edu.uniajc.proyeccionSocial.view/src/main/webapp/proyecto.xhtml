@@ -25,46 +25,65 @@
 
 
                         <p:tab title="Creacion Proyectos"> <!-- Nombre  -->
-                            <h:panelGrid columns="2" cellpadding="5">
+                            <h:panelGrid columns="1" cellpadding="5">
 
-                                <p:outputLabel for="add_1" value="Titulo :" />
-                                <p:inputText   id="add_1" value="#{proyectoBean.proyecto.tituloproyecto}" required="true" requiredMessage="Titulo requerido"/>                       
 
-                                <p:outputLabel for="add_2" value="Resumen :" />
-                                <p:inputTextarea   id="add_2" rows="6" cols="33" value="#{proyectoBean.proyecto.resumenproyecto}" required="true" requiredMessage="Resumen requerido"/>                       
-                                
-                                 <p:outputLabel for="add_8" value="Facultad :" />
-                                 <p:selectOneMenu  id="add_8" value="#{proyectoBean.facultad}" required="true" requiredMessage="Oferente requerido">  
-                                    <f:selectItem itemLabel="Seleccione" itemValue="0" />  
-                                    <f:selectItems value="#{proyectoBean.itemsFacultad}"/>  
-                                </p:selectOneMenu>
-                                 
-                                <p:outputLabel for="add_7" value="Oferente :" />
-                                <p:selectOneMenu  id="add_7" value="#{proyectoBean.idOferente}" required="true" requiredMessage="Oferente requerido">  
-                                    <f:selectItem itemLabel="Seleccione" itemValue="0" />  
-                                    <f:selectItems value="#{proyectoBean.itemsOferente}"/>  
-                                </p:selectOneMenu>
 
-                                <p:outputLabel for="add_3" value="Beneficiarios :" />
+                                <h:panelGrid columns="4" cellpadding="4">
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel for="add_1" value="Titulo " />
+                                        <p:inputText   id="add_1" value="#{proyectoBean.proyecto.tituloproyecto}" required="true" requiredMessage="Titulo requerido"/>                       
+                                    </h:panelGrid>
+                                    <h:panelGrid columns="1">
+                                    <p:outputLabel for="add_8" value="Facultad " />
+                                    <p:selectOneMenu  id="add_8" value="#{proyectoBean.facultad}" required="true" requiredMessage="Oferente requerido">  
+                                        <f:selectItem itemLabel="Seleccione" itemValue="0" />  
+                                        <f:selectItems value="#{proyectoBean.itemsFacultad}"/>  
+                                    </p:selectOneMenu>
+                                     </h:panelGrid>
+                                    <h:panelGrid columns="1">
+                                    <p:outputLabel for="add_7" value="Oferente " />
+                                    <p:selectOneMenu  id="add_7" value="#{proyectoBean.idOferente}" required="true" requiredMessage="Oferente requerido">  
+                                        <f:selectItem itemLabel="Seleccione" itemValue="0" />  
+                                        <f:selectItems value="#{proyectoBean.itemsOferente}"/>  
+                                    </p:selectOneMenu>
+                                    </h:panelGrid>
+                                    <h:panelGrid columns="1">
+                                    <p:outputLabel for="add_3" value="Programa " />
+                                    <p:selectOneMenu  id="add_3" value="#{proyectoBean.idPrograma}" required="true" requiredMessage="Programa requerido">  
+                                        <p:ajax listener="#{proyectoBean.actionCombo()}" update=":forma:tab:add_4" />
+                                        <f:selectItem itemLabel="Seleccione" itemValue="0" />  
+                                        <f:selectItems value="#{proyectoBean.itemsProgramas}"/>  
+                                    </p:selectOneMenu>
+                                    </h:panelGrid>
+                                    <h:panelGrid columns="1">
+                                    <p:outputLabel for="add_4" value="Servicio "  />
+                                    <p:selectOneMenu  id="add_4" value="#{proyectoBean.idServicio}" required="true" requiredMessage="Servicio requerido">  
+                                        <p:ajax listener="#{proyectoBean.actionComboServicio()}" update=":forma:tab:listaEtapas" />
+                                        <f:selectItem itemLabel="Seleccione" itemValue="0" />  
+                                        <f:selectItems value="#{proyectoBean.itemsServicios}"/>  
+                                    </p:selectOneMenu>
+                                    </h:panelGrid>
+
+                                </h:panelGrid>
+                                <h:panelGrid columns="1">
+                                    <p:outputLabel for="add_2" value="Resumen :" />
+                                    <p:inputTextarea   id="add_2" rows="6" cols="100" value="#{proyectoBean.proyecto.resumenproyecto}" required="true" requiredMessage="Resumen requerido"/>                       
+                                </h:panelGrid>
+
+
+
+                                <p:outputLabel for="add_3" value="Beneficiarios " />
                                 <p:pickList id="pickList" value="#{proyectoBean.terceros}" var="tercero" itemLabel="#{tercero.nombreCompleto}" itemValue="#{tercero.id_tercero}" required="true" requiredMessage="Beneficiario requerido">
                                     <f:facet name="sourceCaption">Beneficiarios Disponibles</f:facet>
                                     <f:facet name="targetCaption">Beneficiarios Vinculados</f:facet>
                                 </p:pickList>
-
-                                <p:outputLabel for="add_3" value="Programa :" />
-                                <p:selectOneMenu  id="add_3" value="#{proyectoBean.idPrograma}" required="true" requiredMessage="Programa requerido">  
-                                    <p:ajax listener="#{proyectoBean.actionCombo()}" update=":forma:tab:add_4" />
-                                    <f:selectItem itemLabel="Seleccione" itemValue="0" />  
-                                    <f:selectItems value="#{proyectoBean.itemsProgramas}"/>  
-                                </p:selectOneMenu>
-
-                                <p:outputLabel for="add_4" value="Servicio :"  />
-                                <p:selectOneMenu  id="add_4" value="#{proyectoBean.idServicio}" required="true" requiredMessage="Servicio requerido">  
-                                    <p:ajax listener="#{proyectoBean.actionComboServicio()}" update=":forma:tab:listaEtapas" />
-                                    <f:selectItem itemLabel="Seleccione" itemValue="0" />  
-                                    <f:selectItems value="#{proyectoBean.itemsServicios}"/>  
-                                </p:selectOneMenu>
                             </h:panelGrid>
+
+
+
+
+
 
                             <h3 style="margin-top: 0">Etapas</h3>
 

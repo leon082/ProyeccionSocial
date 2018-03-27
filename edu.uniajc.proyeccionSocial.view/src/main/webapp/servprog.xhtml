@@ -16,33 +16,44 @@
     <body>
 
         <ui:composition template="Home.xhtml">
-            <ui:define name="content">
+            <ui:define name="content" >
 
 
-                <h:form id="forma">     
+                <h:form id="forma">  
+                    <h:panelGrid columns="2" styleClass="panelDatosPersonales">
 
-                    <p:growl id="grow" showDetail="true" life="5555"/> 
-                    <h3 style="margin-top: 0">Programas</h3>
+                        <p:panel>
+                            
+                            <p:growl id="grow" showDetail="true" life="5555"/>
 
+                            
+                            <h3 style="margin-top: 0">Programa</h3>
 
-
-                    <p:selectOneMenu  id="add_1" value="#{progServBean.idPrograma}" >  
-                        <p:ajax listener="#{progServBean.actionCombo()}" update=":forma:pickList" />
-                        <f:selectItem itemLabel="Seleccione" itemValue="0" />  
-                        <f:selectItems value="#{progServBean.itemsProgramas}"/>  
-                    </p:selectOneMenu> 
-                    <p:separator></p:separator>
-                    <h3 style="margin-top: 0">Añadir Servicios</h3>
-
-                    <p:pickList id="pickList" value="#{progServBean.servicios}" var="servicio" itemLabel="#{servicio.descripcion}" itemValue="#{servicio.id_servicio}" >
-                        <f:facet name="sourceCaption">Servicios Disponibles</f:facet>
-                        <f:facet name="targetCaption">Servicios Vinculados</f:facet>
-                    </p:pickList>
-
-                    <p:commandButton id="serviciosSubmit" value="Guardar" style="margin-top:5px" action="#{progServBean.guardar()}" update=":forma:grow"/>
+                            <p:selectOneMenu  id="add_1" value="#{progServBean.idPrograma}" >  
+                                <p:ajax listener="#{progServBean.actionCombo()}" update=":forma:pickList" />
+                                <f:selectItem itemLabel="Seleccione" itemValue="0" />  
+                                <f:selectItems value="#{progServBean.itemsProgramas}"/>  
+                            </p:selectOneMenu> 
 
 
+                            <p:separator></p:separator>
+
+                            <h3 style="margin-top: 0">Añadir Servicios</h3>
+
+                            <p:pickList id="pickList" value="#{progServBean.servicios}" var="servicio" itemLabel="#{servicio.descripcion}" itemValue="#{servicio.id_servicio}" >
+                                <f:facet name="sourceCaption">Servicios Disponibles</f:facet>
+                                <f:facet name="targetCaption">Servicios Vinculados</f:facet>
+                            </p:pickList>
+
+                            <p:separator/>
+
+                            <p:commandButton id="serviciosSubmit" value="Guardar" style="margin-top:5px" action="#{progServBean.guardar()}" update=":forma:grow"/>
+                   </p:panel>
+                    </h:panelGrid>
+                    
                 </h:form>
+
+
 
 
             </ui:define>

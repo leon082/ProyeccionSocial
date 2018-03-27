@@ -25,74 +25,73 @@
                         <p:tab title="Gestion Usuario">
 
 
-                            <h:panelGrid columns="2">
+                            <h:panelGrid columns="2" styleClass="panelDatosPersonales">
 
 
 
                                 <p:tab title ="Datos Usuario">
-                                    <h:panelGrid columns="2" >
+                                    <h:panelGrid columns="4" >
 
-                                        <h:panelGrid columns="1">
+                                        
                                             <p:outputLabel for="add_1" value="Tipo de Documento :" />
                                             <p:selectOneMenu  id="add_1" value="#{editarCuentaBean.docuSelected}" required="true" requiredMessage="Tipo documento requerido" disabled="true" >  
                                                 <f:selectItem itemLabel="Seleccione" itemValue="" />  
                                                 <f:selectItems value="#{editarCuentaBean.itemsDocumentos}"/>  
                                             </p:selectOneMenu> 
-                                        </h:panelGrid>
+                                     
 
 
 
-                                        <h:panelGrid columns="1">
+                                       
                                             <p:outputLabel for="doc" value="Documento:" />
                                             <p:inputMask id="doc" value="#{editarCuentaBean.tercero.numidentificacion}" mask="9999999999" required="true" requiredMessage="documento requerido"  disabled="true"/>
-                                        </h:panelGrid>
+                                      
 
-                                        <h:panelGrid columns="1">
+                                      
                                             <p:outputLabel for="pNombre" value="Primer Nombre:" />
                                             <p:inputText id="pNombre" value="#{editarCuentaBean.tercero.primernombre}" required="true" requiredMessage="Nombre requerido"/>
-                                        </h:panelGrid>
+                                      
 
-                                        <h:panelGrid columns="1">
+                                      
                                             <p:outputLabel for="sNombre" value="Segundo Nombre:" />
                                             <p:inputText id="sNombre" value="#{editarCuentaBean.tercero.segundonombre}"  />
-                                        </h:panelGrid>
+                                      
 
-                                        <h:panelGrid columns="1">
+                                       
                                             <p:outputLabel for="pApellido" value="Primer Apellido:" />
                                             <p:inputText id="pApellido" value="#{editarCuentaBean.tercero.primerapellido}" required="true" requiredMessage="Apellido requerido"/>
-                                        </h:panelGrid>
+                                      
 
-                                        <h:panelGrid columns="1">
+                                       
                                             <p:outputLabel for="sApellido" value="Segundo Apellido:" />
                                             <p:inputText id="sApellido" value="#{editarCuentaBean.tercero.segundoapellido}" />
-                                        </h:panelGrid>
+                                       
 
-                                        <h:panelGrid columns="1">
+                                      
                                             <p:outputLabel for="fechaNacimiento" value="Fecha Nacimiento:" />
                                             <p:calendar id="fechaNacimiento" value="#{editarCuentaBean.fecha}" showOn="button" required="true" requiredMessage="Fecha requerido" />
-                                        </h:panelGrid>
+                                       
 
-                                        <h:panelGrid columns="1">
+                                        
                                             <p:outputLabel for="phoneFijo" value="Telefono:" />
                                             <p:inputMask id="phoneFijo" value="#{editarCuentaBean.tercero.telefonofijo}" mask="9999999" />
-                                        </h:panelGrid>
+                                      
 
 
-                                        <h:panelGrid columns="1">
+                                       
                                             <p:outputLabel for="phoneCel" value="Telefono Celular" />
                                             <p:inputMask id="phoneCel" value="#{editarCuentaBean.tercero.telefonocelular}" mask="(999) 999-9999"/>
-                                        </h:panelGrid>
+                                     
 
-                                        <h:panelGrid columns="1">
+                                       
                                             <p:outputLabel for="correo" value="Correo Electronico:" />
                                             <p:inputText id="correo" value="#{editarCuentaBean.tercero.correo}" required="true" requiredMessage="Correo requerido"/>
-                                        </h:panelGrid>
-
-                                        <h:panelGrid columns="1">
+                                       
+                                      
                                             <p:outputLabel  value="Usuario:" />
                                             <p:inputText value="#{editarCuentaBean.usuario.usuario}" required="true" requiredMessage="Usuario requerido" disabled="true"/>
 
-                                        </h:panelGrid>
+                                     
 
              
 
