@@ -10,15 +10,14 @@ import edu.uniajc.proyeccionSocial.persistence.Model.Usuario;
 import edu.uniajc.proyeccionSocial.view.util.Utilidades;
 import edu.uniajc.proyeccionsocial.bussiness.services.EtapaServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.ServicioEtapaServices;
-
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IEtapa;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IServicioEtapa;
-import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.RowEditEvent;
 
@@ -27,7 +26,7 @@ import org.primefaces.event.RowEditEvent;
  * @author luis.leon
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class EtapaBean {
     //etapaBean
 

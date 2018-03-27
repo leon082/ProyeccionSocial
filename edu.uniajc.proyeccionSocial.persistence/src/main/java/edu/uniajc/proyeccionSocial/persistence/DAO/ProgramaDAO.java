@@ -211,5 +211,35 @@ public class ProgramaDAO implements IProgramaDao {
         }
 
     }
+    
+     /**
+     *
+     * @param idPrograma
+     * @return
+     */
+    @Override
+    public boolean isInProy(int idPrograma) {
+
+        boolean result = false;
+        try {
+
+            PreparedStatement ps = null;
+
+            final String SQL = "select * from TB_PROYECTO where ID_PROGRAMA = " +idPrograma;
+            ps = connection.prepareStatement(SQL);
+            ResultSet rs = ps.executeQuery();
+
+            result = rs.next();
+
+            ps.close();
+
+            return result;
+        } catch (SQLException e) {
+            System.out.println("Error en ProgramaDAO isInProy " + e.getMessage());
+            Logger.getLogger(ServicioDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            return result;
+        }
+
+    }
 
 }

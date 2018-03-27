@@ -97,5 +97,16 @@ public class ProgramaServices implements IPrograma {
             return null;
         }
     }
+    
+     @Override
+    public boolean isInProy(int idPrograma) {
+        try {
+            return dao.isInProy(idPrograma);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
 
 }

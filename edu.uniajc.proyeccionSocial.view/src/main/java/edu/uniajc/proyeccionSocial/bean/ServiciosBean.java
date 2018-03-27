@@ -21,13 +21,14 @@ import org.primefaces.event.RowEditEvent;
 
 import edu.uniajc.proyeccionsocial.bussiness.services.ServicioEtapaServices;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IServicioEtapa;
+import javax.faces.bean.ViewScoped;
 
 /**
  *
  * @author luis.leon
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class ServiciosBean {
 
     private List<Servicio> listServicio;

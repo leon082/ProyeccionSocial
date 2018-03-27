@@ -11,7 +11,6 @@ import edu.uniajc.proyeccionSocial.persistence.Model.Oferente;
 import edu.uniajc.proyeccionSocial.persistence.Model.Proyecto;
 import edu.uniajc.proyeccionSocial.persistence.Model.Tercero;
 import edu.uniajc.proyeccionSocial.persistence.Model.Usuario;
-
 import edu.uniajc.proyeccionSocial.view.util.Utilidades;
 import edu.uniajc.proyeccionsocial.bussiness.services.BeneficiarioServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.EtapaServices;
@@ -37,6 +36,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
@@ -45,7 +45,7 @@ import javax.faces.model.SelectItem;
  * @author LuisLeon
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class FinalizarProyectoBean {
 
     //Proyecto Create

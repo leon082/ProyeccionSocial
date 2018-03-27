@@ -23,5 +23,7 @@ public interface IPrograma {
     public ArrayList<Programa> getAllPrograma();
 
     public Programa getProgramaById(int id);
+    
+    public boolean isInProy(int idPrograma);
 
 }

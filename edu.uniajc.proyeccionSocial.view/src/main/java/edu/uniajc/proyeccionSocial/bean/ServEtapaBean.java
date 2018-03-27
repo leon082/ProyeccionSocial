@@ -21,6 +21,9 @@ import edu.uniajc.proyeccionsocial.bussiness.interfaces.IServicio;
 import edu.uniajc.proyeccionsocial.bussiness.services.ServicioEtapaServices;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IEtapa;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IServicioEtapa;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 /**
@@ -28,7 +31,7 @@ import javax.faces.model.SelectItem;
  * @author luis.leon
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class ServEtapaBean {
 
     private DualListModel<Etapa> etapas;
@@ -78,6 +81,8 @@ public class ServEtapaBean {
 
                 seServices.createServicioEtapa(crear);
             }
+             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Informacion", "Etapas Asignadas");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
             actionCombo();
         }
     }

@@ -24,6 +24,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.model.DualListModel;
 
@@ -32,7 +33,7 @@ import org.primefaces.model.DualListModel;
  * @author luis.leon
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class AsignarRolBean {
 
     Usuario usuario;
@@ -129,6 +130,8 @@ public class AsignarRolBean {
             servicioUserRol.createUsuarioRol(usuarioRol);
 
         }
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Informacion", "Roles Asignados");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
         init();
     }
 

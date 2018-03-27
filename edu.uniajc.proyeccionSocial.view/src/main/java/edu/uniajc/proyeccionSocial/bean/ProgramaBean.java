@@ -18,6 +18,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.RowEditEvent;
 
@@ -26,7 +27,7 @@ import org.primefaces.event.RowEditEvent;
  * @author luis.leon
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class ProgramaBean {
 
     private IPrograma servicios;
@@ -44,7 +45,7 @@ public class ProgramaBean {
         psServicios = new ProgramaServicioServices(Utilidades.getConnection());
 
         usuario = Utilidades.cargarUsuario();
-        listaPrograma=new ArrayList<>();
+        listaPrograma = new ArrayList<>();
         listaPrograma = servicios.getAllPrograma();
     }
 
@@ -92,23 +93,28 @@ public class ProgramaBean {
     }
 
     public void eliminar(int idPrograma) {
-        boolean flag = false;
-        for (Programa programaEliminar : listaPrograma) {
-            if (programaEliminar.getId_programa() == idPrograma) {
-                psServicios.deleteProgramaServicioByProg(idPrograma);
-                if (servicios.deletePrograma(idPrograma)) {
-                    flag = true;
-                    break;
+        if (!servicios.isInProy(idPrograma)) {
+            boolean flag = false;
+            for (Programa programaEliminar : listaPrograma) {
+                if (programaEliminar.getId_programa() == idPrograma) {
+                    psServicios.deleteProgramaServicioByProg(idPrograma);
+                    if (servicios.deletePrograma(idPrograma)) {
+                        flag = true;
+                        break;
 
+                    }
                 }
             }
-        }
-        listaPrograma = servicios.getAllPrograma();
-        if (flag) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "El Programa Fue eliminado con exito.");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+            listaPrograma = servicios.getAllPrograma();
+            if (flag) {
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "El Programa Fue eliminado con exito.");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+            } else {
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "No se pudo realziar la operación");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+            }
         } else {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "No se pudo realziar la operación");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "El programa esta asociado a un proyecto");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }

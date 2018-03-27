@@ -21,6 +21,9 @@ import edu.uniajc.proyeccionsocial.bussiness.services.ProgramaServicioServices;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IProgramaServicio;
 import edu.uniajc.proyeccionsocial.bussiness.services.ProgramaServices;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IPrograma;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 /**
@@ -28,7 +31,7 @@ import javax.faces.model.SelectItem;
  * @author luis.leon
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class ProgServBean {
 
     private DualListModel<Servicio> servicios;
@@ -78,6 +81,8 @@ public class ProgServBean {
 
                 psServices.createProgramaServicio(crear);
             }
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Informacion", "Servicios Asignados");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
             actionCombo();
         }
     }

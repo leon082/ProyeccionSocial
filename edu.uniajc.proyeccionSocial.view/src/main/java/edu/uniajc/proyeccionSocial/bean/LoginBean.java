@@ -23,7 +23,6 @@ import java.io.IOException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
-import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -143,7 +142,7 @@ public class LoginBean implements Serializable {
     }
 
     public String registrar() {
-        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Saludo", "Formualrio de Registro");
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Informacion", "Formualrio de Registro");
         FacesContext.getCurrentInstance().addMessage(null, msg);
 
         return "registrar.xhtml";

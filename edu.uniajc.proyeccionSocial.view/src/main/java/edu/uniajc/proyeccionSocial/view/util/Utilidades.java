@@ -7,7 +7,6 @@ package edu.uniajc.proyeccionSocial.view.util;
 
 import edu.uniajc.proyeccionSocial.persistence.Model.ListaValorDetalle;
 import edu.uniajc.proyeccionSocial.persistence.Model.Programa;
-import edu.uniajc.proyeccionSocial.persistence.Model.Proyecto;
 import edu.uniajc.proyeccionSocial.persistence.Model.Servicio;
 import edu.uniajc.proyeccionSocial.persistence.Model.Tercero;
 import edu.uniajc.proyeccionSocial.persistence.Model.Usuario;
@@ -25,8 +24,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -36,12 +33,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.faces.model.SelectItem;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
 /**

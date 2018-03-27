@@ -37,6 +37,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
@@ -45,7 +46,7 @@ import javax.faces.model.SelectItem;
  * @author LuisLeon
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class ProyectosAprobarBean {
 
     //Proyecto Create
