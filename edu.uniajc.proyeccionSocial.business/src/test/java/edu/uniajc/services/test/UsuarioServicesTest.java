@@ -16,29 +16,32 @@ import static junit.framework.TestCase.assertTrue;
 import static junit.framework.TestCase.*;
 import static junit.framework.TestCase.fail;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  *
  * @author luis.leon
  */
-public class UsuarioServicesTest  {
-   /* @Test
+@RunWith(DescriptionSorterRunner.class)
+public class UsuarioServicesTest {
+
+    /* @Test
     public void prueba() {
        assertTrue(true);
        
     }
-*/
+     */
     IUsuario services;
     int creado;
     Connection conection;
 
     public UsuarioServicesTest() {
-         conection = new ConeccionTest().getConnection();
+        conection = new ConeccionTest().getConnection();
         this.services = new UsuarioServices(conection);
     }
 
     @Test
-    public void crearUsuario() {
+    public void AcrearUsuario() {
 
         creado = services.createUsuario(initUsuario());
         if (creado == 0) {
@@ -48,21 +51,29 @@ public class UsuarioServicesTest  {
     }
 
     @Test
-    public void updateUsuario() {
+    public void BupdateUsuario() {
         Usuario u = initUsuario();
         u.setId_usuario(creado);
         assertTrue(services.updateUsuario(u));
     }
 
     @Test
-    public void getAllUsuarios() {
+    public void CgetAllUsuarios() {
 
         assertNotNull(services.getAllUsuario());
 
     }
 
     @Test
-    public void deleteUsuario() {
+    public void DLogin() {
+        
+        Usuario usuario=initUsuario();
+        assertNotNull(services.getUsuarioLogin(usuario.getUsuario(), usuario.getContrasena()));
+
+    }
+
+    @Test
+    public void EdeleteUsuario() {
 
         assertTrue(services.deleteUsuario(creado));
 
@@ -78,12 +89,13 @@ public class UsuarioServicesTest  {
 
         return usuario;
     }
+
     @Test
-    public void cerrarConexion()   {
-        try{
-               conection.close();
-        }catch(SQLException e){
-         
+    public void FcerrarConexion() {
+        try {
+            conection.close();
+        } catch (SQLException e) {
+
         }
 
     }

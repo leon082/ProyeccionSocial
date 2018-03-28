@@ -14,11 +14,13 @@ import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertTrue;
 import static junit.framework.TestCase.fail;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  *
  * @author luis.leon
  */
+@RunWith(DescriptionSorterRunner.class)
 public class ListaValorServicesTest  {
    /* @Test
     public void prueba() {
@@ -38,7 +40,7 @@ public class ListaValorServicesTest  {
     }
 
     @Test
-    public void crearListaValor() {
+    public void AcrearListaValor() {
 
         creado = services.createListaValor(initListaValor());
         if (creado == 0) {
@@ -48,21 +50,21 @@ public class ListaValorServicesTest  {
     }
 
     @Test
-    public void updateListaValor() {
+    public void BupdateListaValor() {
         ListaValor p = initListaValor();
         p.setId_listavalor(creado);
         assertTrue(services.updateListaValor(p));
     }
 
     @Test
-    public void getAllListaValor() {
+    public void CgetAllListaValor() {
 
         assertNotNull(services.getAllListaValor());
 
     }
 
     @Test
-    public void deleteListaValor() {
+    public void DdeleteListaValor() {
 
         assertTrue(services.deleteListaValor(creado));
 
@@ -83,7 +85,7 @@ public class ListaValorServicesTest  {
     }
     
        @Test
-    public void cerrarConexion()   {
+    public void EcerrarConexion()   {
         try{
                conection.close();
         }catch(SQLException e){

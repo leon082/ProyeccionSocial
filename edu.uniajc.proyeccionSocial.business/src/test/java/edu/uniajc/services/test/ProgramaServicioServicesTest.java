@@ -13,11 +13,13 @@ import java.sql.SQLException;
 import static junit.framework.TestCase.*;
 import junit.framework.TestCase;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  *
  * @author luis.leon
  */
+@RunWith(DescriptionSorterRunner.class)
 public class ProgramaServicioServicesTest {
     /*@Test
     public void prueba() {
@@ -36,7 +38,7 @@ public class ProgramaServicioServicesTest {
     }
 
     @Test
-    public void crearProgramaServicio() {
+    public void AcrearProgramaServicio() {
         // ProgramaServicioDAO dao = new ProgramaServicioDAO(DBConnection);
         creado = services.createProgramaServicio(initProgramaServicio());
         if (creado == 0) {
@@ -46,7 +48,7 @@ public class ProgramaServicioServicesTest {
     }
 
     @Test
-    public void updateProgramaServicio() {
+    public void BupdateProgramaServicio() {
         // ProgramaServicioDAO dao = new ProgramaServicioDAO(DBConnection);
         ProgramaServicio p = initProgramaServicio();
         p.setId_programaservicio(creado);        
@@ -55,14 +57,14 @@ public class ProgramaServicioServicesTest {
     }
 
     @Test
-    public void getAllProgramaServicio() {
+    public void CgetAllProgramaServicio() {
 
         assertNotNull(services.getAllProgramaServicioByPrograma(1));
 
     }
 
     @Test
-    public void deleteProgramaServicio() {
+    public void DdeleteProgramaServicio() {
         // ProgramaServicioDAO dao = new ProgramaServicioDAO(DBConnection);
         assertTrue(services.deleteProgramaServicio(creado));
 
@@ -81,7 +83,7 @@ public class ProgramaServicioServicesTest {
     }
     
        @Test
-    public void cerrarConexion()   {
+    public void EcerrarConexion()   {
         try{
                conection.close();
         }catch(SQLException e){

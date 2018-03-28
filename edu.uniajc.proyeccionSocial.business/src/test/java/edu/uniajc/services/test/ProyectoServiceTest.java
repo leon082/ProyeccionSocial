@@ -13,11 +13,13 @@ import java.sql.SQLException;
 import static junit.framework.TestCase.assertTrue;
 import static junit.framework.TestCase.fail;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  *
  * @author luis.leon
  */
+@RunWith(DescriptionSorterRunner.class)
 public class ProyectoServiceTest {
     
     IProyecto services;
@@ -31,7 +33,7 @@ public class ProyectoServiceTest {
    
 
     @Test
-    public void crearProyecto() {
+    public void AcrearProyecto() {
 
         creado = services.createProyecto(initProyecto());
         if (creado == 0) {
@@ -41,39 +43,39 @@ public class ProyectoServiceTest {
     }
 
     @Test
-    public void updateProyecto() {
+    public void BupdateProyecto() {
         Proyecto p = initProyecto();
         p.setId_proyecto(creado);
         assertTrue(services.updateProyecto(p));
     }
 /*
     @Test
-    public void getAllProyectoAprobado() {
+    public void CgetAllProyectoAprobado() {
 
         assertNotNull(services.getAllProyectoAprobado());
 
     }
       @Test
-    public void getAllProyectoCancelado() {
+    public void DgetAllProyectoCancelado() {
 
         assertNotNull(services.getAllProyectoCancelado());
 
     }
       @Test
-    public void getAllProyectoFinalizado() {
+    public void EgetAllProyectoFinalizado() {
 
         assertNotNull(services.getAllProyectoFinalizado());
 
     }
       @Test
-    public void getAllProyectoPendiente() {
+    public void FgetAllProyectoPendiente() {
 
         assertNotNull(services.getAllProyectoPendiente());
 
     }
 */
     @Test
-    public void deleteProyecto() {
+    public void GdeleteProyecto() {
 
         assertTrue(services.deleteProyecto(creado));
 
@@ -92,7 +94,7 @@ public class ProyectoServiceTest {
         return proyecto;
     }
        @Test
-    public void cerrarConexion()   {
+    public void HcerrarConexion()   {
         try{
                conection.close();
         }catch(SQLException e){

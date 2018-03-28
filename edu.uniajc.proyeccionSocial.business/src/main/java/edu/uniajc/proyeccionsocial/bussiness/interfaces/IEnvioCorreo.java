@@ -38,5 +38,7 @@ public interface IEnvioCorreo {
 
     public  boolean envioCorreo(List<String> correosDestino,
             List<String> emisor, Usuario usuario, Proyecto proyecto, int tipoCorreo, String asunto, int idEtapa) ;
-    
+      public  boolean envioCorreoPrueba(List<String> correosDestino,
+            List<String> emisor);
+       public  String getTextOfEmailCorreoPrueba();
 }

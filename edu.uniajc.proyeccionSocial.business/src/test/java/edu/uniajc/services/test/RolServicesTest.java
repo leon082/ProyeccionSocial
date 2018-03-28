@@ -16,11 +16,13 @@ import static junit.framework.TestCase.assertTrue;
 import static junit.framework.TestCase.fail;
 import static junit.framework.TestCase.*;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  *
  * @author luis.leon
  */
+@RunWith(DescriptionSorterRunner.class)
 public class RolServicesTest  {
    /* @Test
     public void prueba() {
@@ -39,7 +41,7 @@ public class RolServicesTest  {
     }
 
     @Test
-    public void crearRol() {
+    public void AcrearRol() {
 
         creado = services.createRol(initRol());
         if (creado == 0) {
@@ -49,21 +51,21 @@ public class RolServicesTest  {
     }
 
     @Test
-    public void updateUsuario() {
+    public void BupdateUsuario() {
         Rol r = initRol();
         r.setId_rol(creado);
         assertTrue(services.updateRol(r));
     }
 
     @Test
-    public void getAllProyectos() {
+    public void CgetAllProyectos() {
 
         assertNotNull(services.getAllRol());
 
     }
 
     @Test
-    public void deleteRol() {
+    public void DdeleteRol() {
 
         assertTrue(services.deleteRol(creado));
 
@@ -80,7 +82,7 @@ public class RolServicesTest  {
         return rol;
     }
        @Test
-    public void cerrarConexion()   {
+    public void EcerrarConexion()   {
         try{
                conection.close();
         }catch(SQLException e){

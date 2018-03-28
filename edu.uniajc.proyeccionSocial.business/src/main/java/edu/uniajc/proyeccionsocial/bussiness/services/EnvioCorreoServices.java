@@ -95,6 +95,13 @@ import javax.mail.internet.MimeMessage;
 
         return text;
     }
+    
+     @Override
+    public  String getTextOfEmailCorreoPrueba() {
+        String text = "Esto es un correo de prueba.";
+
+        return text;
+    }
     //tipo correo, 0 creacion, 1 aprobacion, 2 rechazado , 3 entrega , 4 aprobarEntrega , 5 Rechazar entrega , 6 cancelar proyecto , 7 recuperar contraseña admin, 8 recuperar contraseña user , 9 contraseña cambiada
 
     @Override
@@ -203,6 +210,47 @@ import javax.mail.internet.MimeMessage;
         }
 
         return result;
+    }
+
+    @Override
+    public boolean envioCorreoPrueba(List<String> correosDestino,
+            List<String> emisor) {
+        boolean result=false;
+       for (String receptor : correosDestino) {
+            Properties properties = new Properties();
+            Session session;
+            String cuenta = "";
+            String password = "";
+            if (emisor != null && emisor.size() > 0) {
+                cuenta = emisor.get(0);
+                password = emisor.get(1);
+            }
+
+            properties.put("mail.smtp.host", "smtp.gmail.com");
+            properties.put("mail.smtp.starttls.enable", "true");
+            properties.put("mail.smtp.port", 25);
+            properties.put("mail.smtp.mail.sender", cuenta);
+            properties.put("mail.smtp.user", cuenta);
+            properties.put("mail.smtp.auth", "true");
+
+            session = Session.getDefaultInstance(properties);
+            try {
+                MimeMessage message = new MimeMessage(session);
+                message.setFrom(new InternetAddress((String) properties.get("mail.smtp.mail.sender")));
+                message.addRecipient(Message.RecipientType.TO, new InternetAddress(receptor));
+                message.setSubject("Correo Prueba");
+                message.setText(getTextOfEmailCorreoPrueba());
+                Transport t = session.getTransport("smtp");
+                t.connect((String) properties.get("mail.smtp.user"), password);
+                t.sendMessage(message, message.getAllRecipients());
+                t.close();
+                result = true;
+            } catch (MessagingException me) {
+                System.out.println("Error, no se pudo enviar el correo --> " + me.getMessage());
+                result = false;
+            }
+        }
+       return result;
     }
 
     

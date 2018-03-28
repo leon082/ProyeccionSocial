@@ -15,61 +15,66 @@ import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertTrue;
 import static junit.framework.TestCase.fail;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  *
  * @author luis.leon
  */
+@RunWith(DescriptionSorterRunner.class)
 public class BeneficiarioServiceTest {
-    
+
     IBeneficiario services;
     int creado;
     Connection conection;
 
     public BeneficiarioServiceTest() {
-          conection = new ConeccionTest().getConnection();
-          services = new  BeneficiarioServices(conection);
+        conection = new ConeccionTest().getConnection();
+        services = new BeneficiarioServices(conection);
     }
-    
-     @Test
-    public void crearBeneficiario() {
+
+    @Test
+    public void AoperacionCrearBeneficiario() {
 
         creado = services.createBeneficiario(initBeneficiario());
-        if (creado == 0) {
+
+        if (creado != 0) {
+
+        } else {
             fail("No creo el Beneficiario");
         }
-
     }
 
     @Test
-    public void updateBeneficiario() {
+    public void BoperacionUpdateBeneficiario() {
+       
         Beneficiario o = initBeneficiario();
         o.setId_beneficiario(creado);
-        assertTrue(services.updateBeneficiario(o));
+        o.setModificadopor("userDemo");
+        boolean result = services.updateBeneficiario(o);
+         System.out.println("actualizo el beneficiario" + creado);
+        
+        assertTrue(result);
     }
 
     @Test
-    public void getAllBeneficiarios() {
+    public void CoperacionGetAllBeneficiarios() {
 
         assertNotNull(services.getAllBeneficiario());
 
     }
 
     @Test
-    public void deleteBeneficiario() {
+    public void DoperacionDeleteBeneficiario() {
 
         assertTrue(services.deleteBeneficiario(creado));
 
     }
-    
-    
-    
-      public Beneficiario initBeneficiario() {
-        Beneficiario beneficiario = new Beneficiario();
 
+    public Beneficiario initBeneficiario() {
+        Beneficiario beneficiario = new Beneficiario();
         java.util.Date fecha = new java.util.Date();
         java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
-
         beneficiario.setId_proyecto(1);
         beneficiario.setId_tercero(1);
         beneficiario.setEstado(1);
@@ -78,17 +83,15 @@ public class BeneficiarioServiceTest {
 
         return beneficiario;
     }
-    
-       @Test
-    public void cerrarConexion()   {
-        try{
-               conection.close();
-        }catch(SQLException e){
-         
+
+    @Test
+    public void EoperacionCerrarConexion() {
+        try {
+            conection.close();
+        } catch (SQLException e) {
+
         }
 
     }
-    
-    
-    
+
 }

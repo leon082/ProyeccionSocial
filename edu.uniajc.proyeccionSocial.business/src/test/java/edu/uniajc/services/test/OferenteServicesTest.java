@@ -16,11 +16,13 @@ import static junit.framework.TestCase.assertTrue;
 import static junit.framework.TestCase.*;
 import static junit.framework.TestCase.fail;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  *
  * @author luis.leon
  */
+@RunWith(DescriptionSorterRunner.class)
 public class OferenteServicesTest  {
     /*@Test
     public void prueba() {
@@ -38,7 +40,7 @@ public class OferenteServicesTest  {
     }
 
     @Test
-    public void crearOferente() {
+    public void AcrearOferente() {
 
         creado = services.createOferente(initOferente());
         if (creado == 0) {
@@ -48,21 +50,21 @@ public class OferenteServicesTest  {
     }
 
     @Test
-    public void updateOferente() {
+    public void BupdateOferente() {
         Oferente o = initOferente();
         o.setId_oferente(creado);
         assertTrue(services.updateOferente(o));
     }
 
     @Test
-    public void getAllOferentes() {
+    public void CgetAllOferentes() {
 
         assertNotNull(services.getAllOferente());
 
     }
 
     @Test
-    public void deleteOferente() {
+    public void DdeleteOferente() {
 
         assertTrue(services.deleteOferente(creado));
 
@@ -84,7 +86,7 @@ public class OferenteServicesTest  {
     }
     
        @Test
-    public void cerrarConexion()   {
+    public void EcerrarConexion()   {
         try{
                conection.close();
         }catch(SQLException e){
