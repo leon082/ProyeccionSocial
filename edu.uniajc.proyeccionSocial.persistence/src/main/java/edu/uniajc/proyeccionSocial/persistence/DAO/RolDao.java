@@ -55,14 +55,16 @@ public class RolDao implements IRolDao {
             }
 
             SQL = "INSERT INTO TB_Rol"
-                    + " (ID_Rol,Valor,Descripcion, Estado) "
-                    + " values(?,?,?,?)";
+                    + " (ID_Rol,Valor,Descripcion, Estado,creadopor,creadoen) "
+                    + " values(?,?,?,?,?,?)";
             ps = connection.prepareStatement(SQL);
 
             ps.setInt(1, rol.getId_rol());
             ps.setString(2, rol.getValor());
             ps.setString(3, rol.getDescripcion());
             ps.setInt(4, rol.getEstado());
+            ps.setString(5, rol.getCreadopor());
+            ps.setDate(6, rol.getCreadoen());
 
             ps.execute();
 

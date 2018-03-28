@@ -8,6 +8,8 @@ package edu.uniajc.services.test;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IOferente;
 import edu.uniajc.proyeccionsocial.bussiness.services.OferenteServices;
 import edu.uniajc.proyeccionSocial.persistence.Model.Oferente;
+import java.sql.Connection;
+import java.sql.SQLException;
 import junit.framework.TestCase;
 import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertTrue;
@@ -20,18 +22,19 @@ import org.junit.Test;
  * @author luis.leon
  */
 public class OferenteServicesTest  {
-    @Test
+    /*@Test
     public void prueba() {
        assertTrue(true);
        
     }
-    /*
+    */
 
     IOferente services;
     int creado;
-
+    Connection conection;
     public OferenteServicesTest() {
-        this.services = new OferenteServices();
+         conection = new ConeccionTest().getConnection();
+        this.services = new OferenteServices(conection);
     }
 
     @Test
@@ -47,14 +50,14 @@ public class OferenteServicesTest  {
     @Test
     public void updateOferente() {
         Oferente o = initOferente();
-        o.setId_Oferente(creado);
+        o.setId_oferente(creado);
         assertTrue(services.updateOferente(o));
     }
 
     @Test
     public void getAllOferentes() {
 
-        assertNotNull(services.getAllOferentes());
+        assertNotNull(services.getAllOferente());
 
     }
 
@@ -71,13 +74,23 @@ public class OferenteServicesTest  {
         java.util.Date fecha = new java.util.Date();
         java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
 
-        oferente.setId_Proyecto(1);
-        oferente.setId_Tercero(1);
-        oferente.setEstadoOferente(1);
-        oferente.setObservacion("Observacion");
-        oferente.setCreadoPor("userDemo");
+        oferente.setId_proyecto(1);
+        oferente.setId_tercero(1);
+        oferente.setEstado(1);
+        oferente.setObservacion("ObservacionDEMO");
+        oferente.setCreadopor("UserDemo");
 
         return oferente;
     }
-*/
+    
+       @Test
+    public void cerrarConexion()   {
+        try{
+               conection.close();
+        }catch(SQLException e){
+         
+        }
+
+    }
+
 }

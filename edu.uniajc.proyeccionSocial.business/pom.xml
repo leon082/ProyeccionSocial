@@ -18,7 +18,14 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>edu.uniajc.proyeccionSocial.persistence</artifactId>
             <version>${project.version}</version>
-        </dependency>              
+        </dependency>    
+        
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc7</artifactId>
+            <version>12.1.0.2</version>
+            <scope>provided</scope>
+        </dependency>           
         
    
     </dependencies>

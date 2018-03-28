@@ -39,6 +39,7 @@ CREATE TABLE tb_listavalor (
     modificadopor   VARCHAR2(50),
     modificadoen    DATE
 );
+CREATE SEQUENCE  "SQ_TB_ListaValor"  MINVALUE 1 MAXVALUE 9999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE ;
 
 CREATE TABLE tb_listavalordetalle (
     id_listavalordetalle   NUMBER(10) NOT NULL,
@@ -50,6 +51,7 @@ CREATE TABLE tb_listavalordetalle (
     modificadopor          VARCHAR2(50),
     modificadoen           DATE
 );
+CREATE SEQUENCE  "SQ_TB_ListaValordetalle"  MINVALUE 1 MAXVALUE 9999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE ;
 CREATE TABLE tb_etapa (
     id_etapa        NUMBER(10) NOT NULL,
     descripcion     VARCHAR2(100) NOT NULL,

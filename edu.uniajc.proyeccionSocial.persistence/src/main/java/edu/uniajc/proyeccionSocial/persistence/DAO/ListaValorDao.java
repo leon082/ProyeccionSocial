@@ -125,7 +125,7 @@ public class ListaValorDao implements IListaValorDao{
             ps.setInt(3, listaValor.getEstado());
             ps.setString(4, listaValor.getModificadopor());
             ps.setDate(5, listaValor.getModificadoen());
-            ps.setInt(5, listaValor.getId_listavalor());
+            ps.setInt(6, listaValor.getId_listavalor());
 
             ps.execute();
             ps.close();

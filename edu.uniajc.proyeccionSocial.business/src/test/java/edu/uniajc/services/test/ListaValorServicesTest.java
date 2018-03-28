@@ -8,11 +8,11 @@ package edu.uniajc.services.test;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IListaValor;
 import edu.uniajc.proyeccionsocial.bussiness.services.ListaValorServices;
 import edu.uniajc.proyeccionSocial.persistence.Model.ListaValor;
-import junit.framework.TestCase;
+import java.sql.Connection;
+import java.sql.SQLException;
 import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertTrue;
 import static junit.framework.TestCase.fail;
-import static junit.framework.TestCase.*;
 import org.junit.Test;
 
 /**
@@ -20,18 +20,21 @@ import org.junit.Test;
  * @author luis.leon
  */
 public class ListaValorServicesTest  {
-    @Test
+   /* @Test
     public void prueba() {
        assertTrue(true);
        
-    }
-    /*
+    }*/
+    
 
     IListaValor services;
     int creado;
+    
+    Connection conection;
 
     public ListaValorServicesTest() {
-        this.services = new ListaValorServices();;
+        conection = new ConeccionTest().getConnection();
+        this.services = new ListaValorServices(conection);
     }
 
     @Test
@@ -47,7 +50,7 @@ public class ListaValorServicesTest  {
     @Test
     public void updateListaValor() {
         ListaValor p = initListaValor();
-        p.setId_ListaValor(creado);
+        p.setId_listavalor(creado);
         assertTrue(services.updateListaValor(p));
     }
 
@@ -71,12 +74,22 @@ public class ListaValorServicesTest  {
         java.util.Date fecha = new java.util.Date();
         java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
 
-        listaValor.setAgrupacion("Agrupacion");
-        listaValor.setDescripcion("Descripcion");
+        listaValor.setAgrupacion("AgrupacionDEMO");
+        listaValor.setDescripcion("DescripcionDEMO");
         listaValor.setEstado(1);
-        listaValor.setCreadoPor("UserDemo");
+        listaValor.setCreadopor("UserDemo");
 
         return listaValor;
     }
-*/
+    
+       @Test
+    public void cerrarConexion()   {
+        try{
+               conection.close();
+        }catch(SQLException e){
+           assertTrue("No cerro la conexion",false);
+        }
+
+    }
+
 }

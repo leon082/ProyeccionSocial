@@ -8,6 +8,8 @@ package edu.uniajc.services.test;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IProgramaServicio;
 import edu.uniajc.proyeccionsocial.bussiness.services.ProgramaServicioServices;
 import edu.uniajc.proyeccionSocial.persistence.Model.ProgramaServicio;
+import java.sql.Connection;
+import java.sql.SQLException;
 import static junit.framework.TestCase.*;
 import junit.framework.TestCase;
 import org.junit.Test;
@@ -17,18 +19,20 @@ import org.junit.Test;
  * @author luis.leon
  */
 public class ProgramaServicioServicesTest {
-    @Test
+    /*@Test
     public void prueba() {
        assertTrue(true);
        
     }
-    /*
+    */
 
     IProgramaServicio services;
     int creado;
+    Connection conection;
 
     public ProgramaServicioServicesTest() {
-        this.services = new ProgramaServicioServices();
+           conection = new ConeccionTest().getConnection();
+        this.services = new ProgramaServicioServices(conection);
     }
 
     @Test
@@ -45,7 +49,7 @@ public class ProgramaServicioServicesTest {
     public void updateProgramaServicio() {
         // ProgramaServicioDAO dao = new ProgramaServicioDAO(DBConnection);
         ProgramaServicio p = initProgramaServicio();
-        p.setId_ProgramaServicio(creado);
+        p.setId_programaservicio(creado);        
         assertTrue(services.updateProgramaServicio(p));
 
     }
@@ -67,12 +71,23 @@ public class ProgramaServicioServicesTest {
     public ProgramaServicio initProgramaServicio() {
         ProgramaServicio progServi = new ProgramaServicio();
 
-        progServi.setDescripcion("prueba TEST");
-        progServi.setId_Programa(1);
-        progServi.setEstadoProgramaServicio(1);
-        progServi.setCreadoPor("userDEMo");
+        progServi.setId_programa(1);
+        progServi.setEstado(1);
+        progServi.setCreadopor("userDEMo");
+        progServi.setId_servicio(1);
+        
 
         return progServi;
     }
-*/
+    
+       @Test
+    public void cerrarConexion()   {
+        try{
+               conection.close();
+        }catch(SQLException e){
+         
+        }
+
+    }
+
 }
