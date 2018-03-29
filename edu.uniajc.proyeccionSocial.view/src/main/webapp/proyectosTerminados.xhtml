@@ -47,38 +47,48 @@
 
 
                             <p:separator />
-                            <h:panelGrid columns="2" cellpadding="5">
-
-                                <p:outputLabel for="add_7" value="Oferente del Proyecto: " />
+                            <h:panelGrid columns="4" cellpadding="5">
+                                <h:panelGrid columns="1" cellpadding="5">
+                                    <p:outputLabel for="add_7" value="Oferente del Proyecto: " />
                                 <p:selectOneMenu  id="add_7" value="#{proyectosTerminadosBean.idOferente}" disabled="true" >  
                                     <f:selectItem itemLabel="Seleccione" itemValue="0" />  
                                     <f:selectItems value="#{proyectosTerminadosBean.itemsOferente}"/>  
                                 </p:selectOneMenu>
-
-                                <p:outputLabel for="add_1" value="Titulo :" />
+                                </h:panelGrid>
+                                
+                                <h:panelGrid columns="1" cellpadding="5">
+                                    <p:outputLabel for="add_1" value="Titulo :" />
                                 <p:inputText   id="add_1" value="#{proyectosTerminadosBean.proyecto.tituloproyecto}" readonly="true"/>                       
-
-                                <p:outputLabel for="add_2" value="Resumen :" />
-                                <p:inputTextarea   id="add_2" rows="6" cols="33" value="#{proyectosTerminadosBean.proyecto.resumenproyecto}" readonly="true"/>                       
-
-
-
-
-                                <p:outputLabel for="add_3" value="Programa :" />
+                                </h:panelGrid>
+                                
+                                
+                                <h:panelGrid columns="1" cellpadding="5">
+                                    <p:outputLabel for="add_3" value="Programa :" />
                                 <p:selectOneMenu  id="add_3" value="#{proyectosTerminadosBean.idPrograma}" disabled="true">  
 
                                     <f:selectItem itemLabel="Seleccione" itemValue="0" />  
                                     <f:selectItems value="#{proyectosTerminadosBean.itemsProgramas}"/>  
                                 </p:selectOneMenu>
+                                </h:panelGrid>
 
-                                <p:outputLabel for="add_4" value="Servicio :"  />
+                                <h:panelGrid columns="1" cellpadding="5">
+                                    <p:outputLabel for="add_4" value="Servicio :"  />
                                 <p:selectOneMenu  id="add_4" value="#{proyectosTerminadosBean.idServicio}" disabled="true">  
 
                                     <f:selectItem itemLabel="Seleccione" itemValue="0" />  
                                     <f:selectItems value="#{proyectosTerminadosBean.itemsServicios}"/>  
                                 </p:selectOneMenu>
-                            </h:panelGrid>
+                                </h:panelGrid>
+                                
 
+                                
+                            </h:panelGrid>
+                            <h:panelGrid columns="1" cellpadding="5">
+                                <p:outputLabel for="add_2" value="Resumen :" />
+                                <p:inputTextarea   id="add_2" rows="6" cols="50" value="#{proyectosTerminadosBean.proyecto.resumenproyecto}" readonly="true"/>                       
+
+                                
+                            </h:panelGrid>
                             <h3 style="margin-top: 0">Etapas</h3>
 
                             <p:dataTable id="listaEtapas" var="etapa" value="#{proyectosTerminadosBean.etapas}" >

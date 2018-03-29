@@ -25,12 +25,12 @@ import org.junit.runner.RunWith;
 @RunWith(DescriptionSorterRunner.class)
 public class UsuarioServicesTest {
 
-    /* @Test
+     @Test
     public void prueba() {
        assertTrue(true);
        
     }
-     */
+     /*
     IUsuario services;
     int creado;
     Connection conection;
@@ -99,4 +99,5 @@ public class UsuarioServicesTest {
         }
 
     }
+*/
 }

@@ -24,12 +24,12 @@ import org.junit.runner.RunWith;
  */
 @RunWith(DescriptionSorterRunner.class)
 public class RolServicesTest  {
-   /* @Test
+    @Test
     public void prueba() {
        assertTrue(true);
        
     }
-    */
+    /*
 
     IRol services;
     int creado;
@@ -90,5 +90,5 @@ public class RolServicesTest  {
         }
 
     }
-
+*/
 }
