@@ -29,61 +29,74 @@
                             <p:tab title ="Datos Persona">
                                 <h:panelGrid columns="4" >
 
-                                  
-                                        <p:outputLabel for="add_1" value="Tipo de Documento :" />
-                                        <p:selectOneMenu  id="add_1" value="#{terceroBean.docuSelected}" required="true" requiredMessage="Tipo documento requerido" >  
-                                            <f:selectItem itemLabel="Seleccione" itemValue="" />  
-                                            <f:selectItems value="#{terceroBean.itemsDocumentos}"/>  
-                                        </p:selectOneMenu> 
-                                   
+
+                                    <p:outputLabel for="add_1" value="Tipo de Documento :" />
+                                    <p:selectOneMenu  id="add_1" value="#{terceroBean.docuSelected}" required="true" requiredMessage="Tipo documento requerido" >  
+                                        <f:selectItem itemLabel="Seleccione" itemValue="" />  
+                                        <f:selectItems value="#{terceroBean.itemsDocumentos}"/>  
+                                    </p:selectOneMenu> 
 
 
 
-                                  
-                                        <p:outputLabel for="doc" value="Documento:" />
-                                        <p:inputMask id="doc" value="#{terceroBean.tercero.numidentificacion}" mask="9999999999" required="true" requiredMessage="Documento requerido"/>
-                                  
-
-                                   
-                                        <p:outputLabel for="pNombre" value="Primer Nombre:" />
-                                        <p:inputText id="pNombre" value="#{terceroBean.tercero.primernombre}" required="true" requiredMessage="Nombre requerido"/>
-                                   
-
-                                   
-                                        <p:outputLabel for="sNombre" value="Segundo Nombre:" />
-                                        <p:inputText id="sNombre" value="#{terceroBean.tercero.segundonombre}"  />
-                                   
-
-                                   
-                                        <p:outputLabel for="pApellido" value="Primer Apellido:" />
-                                        <p:inputText id="pApellido" value="#{terceroBean.tercero.primerapellido}" required="true" requiredMessage="Apellido requerido"/>
-                                  
-
-                                    
-                                        <p:outputLabel for="sApellido" value="Segundo Apellido:" />
-                                        <p:inputText id="sApellido" value="#{terceroBean.tercero.segundoapellido}" />
-                                   
-
-                                   
-                                        <p:outputLabel for="fechaNacimiento" value="Fecha Nacimiento:" />
-                                        <p:calendar id="fechaNacimiento" value="#{terceroBean.fecha}" showOn="button" required="true" requiredMessage="Fecha requerido" />
-                                  
-
-                                    
-                                        <p:outputLabel for="phoneFijo" value="Telefono:" />
-                                        <p:inputMask id="phoneFijo" value="#{terceroBean.tercero.telefonofijo}" mask="9999999" />
-                                   
 
 
-                                   
-                                        <p:outputLabel for="phoneCel" value="Telefono Celular" />
-                                        <p:inputMask id="phoneCel" value="#{terceroBean.tercero.telefonocelular}" mask="(999) 999-9999"/>
-                                   
+                                    <p:outputLabel for="doc" value="Documento:" />
+                                    <p:inputText id="doc" value="#{terceroBean.tercero.numidentificacion}"  required="true" requiredMessage="Documento requerido">
+                                        <p:keyFilter for="doc" mask="num" /> 
+                                        <f:validateLength minimum="2" maximum="20"/>
+                                    </p:inputText>
 
-                                   
-                                        <p:outputLabel for="correo" value="Correo Electronico:" />
-                                        <p:inputText id="correo" value="#{terceroBean.tercero.correo}" required="true" requiredMessage="Correo requerido"/>
-                                  
+
+
+                                    <p:outputLabel for="pNombre" value="Primer Nombre:" />
+                                    <p:inputText id="pNombre" value="#{terceroBean.tercero.primernombre}" required="true" requiredMessage="Nombre requerido">
+                                        <f:validateLength minimum="2" maximum="100"/>
+                                    </p:inputText>
+
+
+
+                                    <p:outputLabel for="sNombre" value="Segundo Nombre:" />
+                                    <p:inputText id="sNombre" value="#{terceroBean.tercero.segundonombre}">
+                                       <f:validateLength  maximum="50"/>
+                                    </p:inputText>
+
+
+
+                                    <p:outputLabel for="pApellido" value="Primer Apellido:" />
+                                    <p:inputText id="pApellido" value="#{terceroBean.tercero.primerapellido}" required="true" requiredMessage="Apellido requerido">
+                                       <f:validateLength minimum="2" maximum="100"/>
+                                    </p:inputText>
+
+
+
+                                    <p:outputLabel for="sApellido" value="Segundo Apellido:" />
+                                    <p:inputText id="sApellido" value="#{terceroBean.tercero.segundoapellido}" >
+                                    <f:validateLength  maximum="50"/>
+                                    </p:inputText>
+
+
+
+                                    <p:outputLabel for="fechaNacimiento" value="Fecha Nacimiento:" />
+                                    <p:calendar id="fechaNacimiento" value="#{terceroBean.fecha}" showOn="button" required="true" requiredMessage="Fecha requerido" />
+
+
+
+                                    <p:outputLabel for="phoneFijo" value="Telefono:" />
+                                    <p:inputMask id="phoneFijo" value="#{terceroBean.tercero.telefonofijo}" mask="9999999" />
+
+
+
+
+                                    <p:outputLabel for="phoneCel" value="Telefono Celular" />
+                                    <p:inputMask id="phoneCel" value="#{terceroBean.tercero.telefonocelular}" mask="(999) 999-9999"/>
+
+
+
+                                    <p:outputLabel for="correo" value="Correo Electronico:" />
+                                    <p:inputText id="correo" value="#{terceroBean.tercero.correo}" required="true" requiredMessage="Correo requerido">
+                                    <f:validateLength minimum="2" maximum="50"/>
+                                    </p:inputText>
+
 
 
 

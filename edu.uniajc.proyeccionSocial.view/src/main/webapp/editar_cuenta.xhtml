@@ -44,27 +44,35 @@
 
                                        
                                             <p:outputLabel for="doc" value="Documento:" />
-                                            <p:inputMask id="doc" value="#{editarCuentaBean.tercero.numidentificacion}" mask="9999999999" required="true" requiredMessage="documento requerido"  disabled="true"/>
+                                            <p:inputText id="doc" value="#{editarCuentaBean.tercero.numidentificacion}"  required="true" requiredMessage="documento requerido"  disabled="true"/>
                                       
 
                                       
                                             <p:outputLabel for="pNombre" value="Primer Nombre:" />
-                                            <p:inputText id="pNombre" value="#{editarCuentaBean.tercero.primernombre}" required="true" requiredMessage="Nombre requerido"/>
+                                            <p:inputText id="pNombre" value="#{editarCuentaBean.tercero.primernombre}" required="true" requiredMessage="Nombre requerido">
+                                            <f:validateLength minimum="2" maximum="100"/>
+                                            </p:inputText>
                                       
 
                                       
                                             <p:outputLabel for="sNombre" value="Segundo Nombre:" />
-                                            <p:inputText id="sNombre" value="#{editarCuentaBean.tercero.segundonombre}"  />
+                                            <p:inputText id="sNombre" value="#{editarCuentaBean.tercero.segundonombre}"  >
+                                            <f:validateLength  maximum="50"/>
+                                            </p:inputText>
                                       
 
                                        
                                             <p:outputLabel for="pApellido" value="Primer Apellido:" />
-                                            <p:inputText id="pApellido" value="#{editarCuentaBean.tercero.primerapellido}" required="true" requiredMessage="Apellido requerido"/>
+                                            <p:inputText id="pApellido" value="#{editarCuentaBean.tercero.primerapellido}" required="true" requiredMessage="Apellido requerido">
+                                            <f:validateLength minimum="2" maximum="100"/>
+                                            </p:inputText>
                                       
 
                                        
                                             <p:outputLabel for="sApellido" value="Segundo Apellido:" />
-                                            <p:inputText id="sApellido" value="#{editarCuentaBean.tercero.segundoapellido}" />
+                                            <p:inputText id="sApellido" value="#{editarCuentaBean.tercero.segundoapellido}" >
+                                            <f:validateLength  maximum="50"/>
+                                            </p:inputText>
                                        
 
                                       
@@ -85,7 +93,9 @@
 
                                        
                                             <p:outputLabel for="correo" value="Correo Electronico:" />
-                                            <p:inputText id="correo" value="#{editarCuentaBean.tercero.correo}" required="true" requiredMessage="Correo requerido"/>
+                                            <p:inputText id="correo" value="#{editarCuentaBean.tercero.correo}" required="true" requiredMessage="Correo requerido">
+                                            <f:validateLength minimum="2" maximum="50"/>
+                                            </p:inputText>
                                        
                                       
                                             <p:outputLabel  value="Usuario:" />

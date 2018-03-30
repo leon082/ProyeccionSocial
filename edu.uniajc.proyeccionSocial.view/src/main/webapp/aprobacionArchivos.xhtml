@@ -29,7 +29,12 @@
                             
                           
                             <p:outputLabel for="add" value="Id Entrega : " />
-                            <p:inputText   id="add" value="#{aprobarDocumentosBean.idSoporte}" />                       
+                            <p:inputText   id="add" value="#{aprobarDocumentosBean.idSoporte}" required="true" requiredMessage="ID requerido">
+                                <p:keyFilter for="add" mask="num" /> 
+                               
+                                
+                                </p:inputText>                       
+                                                  
                             <p:commandButton 
                                 update=":forma:grow,:forma:tab:add_1,:forma:tab:add_2,:forma:tab:add_3,:forma:tab:add_4,:forma:tab:add_7,:forma:tab:listaEtapas,:forma:tab:listaBeneficiarios"
                                 ajax="true" icon="ui-icon-search" 

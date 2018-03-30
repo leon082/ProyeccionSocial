@@ -46,7 +46,10 @@ public class LoginBean implements Serializable {
     private IUsuario usuarioServices;
     private IOpciones_menu menuServices;
     private Usuario user;
-    private List<Opciones_menu> listaModulos;
+    private List<Opciones_menu> listaModuloCuenta;
+    private List<Opciones_menu> listaModuloParametrizar;
+    private List<Opciones_menu> listaModuloUsuarios;
+    private List<Opciones_menu> listaModuloProyectos;
     private ITercero terceroService;
     Connection connection;
     HttpSession session;
@@ -66,7 +69,10 @@ public class LoginBean implements Serializable {
         menuServices = new MenuServices(connection);
         terceroService = new TerceroServices(connection);
         envioCorreoServices = new EnvioCorreoServices();
-        listaModulos = new ArrayList<>();
+        listaModuloCuenta = new ArrayList<>();
+        listaModuloParametrizar= new ArrayList<>();
+        listaModuloProyectos= new ArrayList<>();
+        listaModuloUsuarios= new ArrayList<>();
 
     }
 
@@ -93,8 +99,13 @@ public class LoginBean implements Serializable {
                 user = usuarioServices.getUsuarioLogin(nombre, clave);
 
                 if (user != null) {
-                    listaModulos = menuServices.getMenuByUser(user);
-
+                    listaModuloCuenta = menuServices.getMenuCuentaByUser(user);
+                    listaModuloParametrizar = menuServices.getMenuParametrizarByUser(user);
+                    listaModuloProyectos = menuServices.getMenuProyectosByUser(user);
+                    listaModuloUsuarios = menuServices.getMenuUsuariosByUser(user);
+                    
+                            
+                            
                     session.setAttribute("username", nombre);
 
                     return "inicio.xhtml";
@@ -209,12 +220,38 @@ public class LoginBean implements Serializable {
         this.user = user;
     }
 
-    public List<Opciones_menu> getListaModulos() {
-        return listaModulos;
+    public List<Opciones_menu> getListaModuloCuenta() {
+        return listaModuloCuenta;
     }
 
-    public void setListaModulos(List<Opciones_menu> listaModulos) {
-        this.listaModulos = listaModulos;
+    public void setListaModuloCuenta(List<Opciones_menu> listaModuloCuenta) {
+        this.listaModuloCuenta = listaModuloCuenta;
     }
+
+    public List<Opciones_menu> getListaModuloParametrizar() {
+        return listaModuloParametrizar;
+    }
+
+    public void setListaModuloParametrizar(List<Opciones_menu> listaModuloParametrizar) {
+        this.listaModuloParametrizar = listaModuloParametrizar;
+    }
+
+    public List<Opciones_menu> getListaModuloUsuarios() {
+        return listaModuloUsuarios;
+    }
+
+    public void setListaModuloUsuarios(List<Opciones_menu> listaModuloUsuarios) {
+        this.listaModuloUsuarios = listaModuloUsuarios;
+    }
+
+    public List<Opciones_menu> getListaModuloProyectos() {
+        return listaModuloProyectos;
+    }
+
+    public void setListaModuloProyectos(List<Opciones_menu> listaModuloProyectos) {
+        this.listaModuloProyectos = listaModuloProyectos;
+    }
+
+  
 
 }

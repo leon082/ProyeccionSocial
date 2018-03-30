@@ -27,7 +27,9 @@
                         <p:tab title="Gestion Etapas"> <!-- Nombre  -->
                             <h:panelGrid columns="4" cellpadding="5">
                                 <p:outputLabel for="add_1" value="Descripcion :" />
-                                <p:inputText   id="add_1" value="#{etapaBean.etapa.descripcion}" required="true" requiredMessage="Descripcion requerido"/>                       
+                                <p:inputText   id="add_1" value="#{etapaBean.etapa.descripcion}" required="true" requiredMessage="Descripcion requerido">
+                                <f:validateLength minimum="2" maximum="100"/>
+                                </p:inputText>                       
                             </h:panelGrid>
                             <p:separator />
 

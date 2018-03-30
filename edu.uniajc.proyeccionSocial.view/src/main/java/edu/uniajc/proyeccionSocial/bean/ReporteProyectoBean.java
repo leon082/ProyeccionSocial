@@ -18,8 +18,10 @@ import edu.uniajc.proyeccionsocial.bussiness.interfaces.ITercero;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 /**
@@ -102,7 +104,14 @@ public class ReporteProyectoBean {
 
     public void findReport() {
         listaReporte = new ArrayList<>();
+        System.out.println("Desde "+fechaDesde);
+        System.out.println("Hasta "+fechaHasta);
         listaReporte = reporteServices.getAllProyect(idPrograma, idServicio, idTerceroOferente, idTerceroCreadoPor, Utilidades.dateToSql(fechaDesde), Utilidades.dateToSql(fechaHasta), estado, facultad);
+        if(listaReporte.isEmpty()){
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "No se encontraron Proyectos para esta consulta.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            
+        }
         //System.out.println("Cantidad de Datos en lista -> " + listaReporte.size());
     }
 

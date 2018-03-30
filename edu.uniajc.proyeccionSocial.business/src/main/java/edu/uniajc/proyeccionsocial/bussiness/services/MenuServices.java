@@ -27,10 +27,52 @@ public class MenuServices implements IOpciones_menu {
     }
 
     @Override
-    public List<Opciones_menu> getMenuByUser(Usuario user) {
+    public List<Opciones_menu> getMenuCuentaByUser(Usuario user) {
         try {
 
-            List<Opciones_menu> list = dao.getMenuByUser(user);
+            List<Opciones_menu> list = dao.getMenuCuentaByUser(user);
+
+            return list;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public List<Opciones_menu> getMenuParametrizarByUser(Usuario user) {
+          try {
+
+            List<Opciones_menu> list = dao.getMenuParametrizarByUser(user);
+
+            return list;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public List<Opciones_menu> getMenuProyectosByUser(Usuario user) {
+          try {
+
+            List<Opciones_menu> list = dao.getMenuProyectosByUser(user);
+
+            return list;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public List<Opciones_menu> getMenuUsuariosByUser(Usuario user) {
+           try {
+
+            List<Opciones_menu> list = dao.getMenuUsuariosByUser(user);
 
             return list;
 

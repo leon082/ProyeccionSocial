@@ -43,15 +43,31 @@
                         </p:menubar>
                         -->
                          <p:menubar>
+                             <p:submenu label="Proyectos" icon="ui-icon-document" rendered="#{!loginBean.listaModuloProyectos.isEmpty()}" >
+                                <c:forEach items="#{loginBean.listaModuloProyectos}" var="menuProyectos">
+                                   <p:menuitem value="#{menuProyectos.descripcion}" outcome="#{menuProyectos.ruta}"/>
+                                </c:forEach>                                
+                            </p:submenu>
+                             <p:submenu label="Parametrizar" icon="ui-icon-document" rendered="#{!loginBean.listaModuloParametrizar.isEmpty()}">
+                                 <c:forEach items="#{loginBean.listaModuloParametrizar}" var="menuPara">
+                                   <p:menuitem value="#{menuPara.descripcion}" outcome="#{menuPara.ruta}"/>
+                                </c:forEach>                                
+                            </p:submenu>
+                             <p:submenu label="Usuarios" icon="ui-icon-document" rendered="#{!loginBean.listaModuloUsuarios.isEmpty()}">
+                                 <c:forEach items="#{loginBean.listaModuloUsuarios}" var="menuUser">
+                                   <p:menuitem value="#{menuUser.descripcion}" outcome="#{menuUser.ruta}"/>
+                                </c:forEach>                                
+                            </p:submenu>
+                             <p:submenu label="Cuenta" icon="ui-icon-document" >
+                                 <c:forEach items="#{loginBean.listaModuloCuenta}" var="menuCuenta">
+                                   <p:menuitem value="#{menuCuenta.descripcion}" outcome="#{menuCuenta.ruta}"/>
+                                </c:forEach> 
+                                 <p:menuitem value="Salir" icon="ui-icon-close" action="#{loginBean.logout}"/>
+                            </p:submenu>
                             <p:submenu label="Inicio" icon="ui-icon-document" >
                                 <p:menuitem value="Inicio" action="inicio.xhtml"  />
                             </p:submenu>
-                            <p:submenu label="Listados" icon="ui-icon-document" >
-                                <c:forEach items="#{loginBean.listaModulos}" var="menu">
-                                   <p:menuitem value="#{menu.descripcion}" outcome="#{menu.ruta}"/>
-                                </c:forEach>
-                                <p:menuitem value="Salir" icon="ui-icon-close" action="#{loginBean.logout}"/>
-                            </p:submenu>
+                            
                         </p:menubar>
 
                     </h:form>

@@ -395,7 +395,7 @@ public class ProyectoDao implements IProyectoDao {
 
             PreparedStatement ps = null;
 
-            String SQL = "select * from TB_Proyecto where id_proyecto = " + id + " and estado = 1";
+            String SQL = "select * from TB_Proyecto where id_proyecto = " + id + " ";
             ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {

@@ -86,7 +86,7 @@ public class ReporteProyectoDAO implements IReporteProyectoDao {
                     + " and tb_proyecto.estado = DECODE(?, -1,tb_proyecto.estado, ?)"
                     + "and lv.ID_LISTAVALORDETALLE = decode (?,0,lv.ID_LISTAVALORDETALLE,?) ";
             ps = connection.prepareStatement(SQL);
-
+            
             ps.setInt(1, idPrograma);
             ps.setInt(2, idPrograma);
 
@@ -107,11 +107,11 @@ public class ReporteProyectoDAO implements IReporteProyectoDao {
             
             ps.setInt(13, facultad);
             ps.setInt(14, facultad);
-
+            
             ResultSet rs = ps.executeQuery();
-
+            
             while (rs.next()) {
-                System.out.println("entro al while");
+                
                 ReporteProyecto reporte = new ReporteProyecto();
                 reporte.setTituloProyecto(rs.getString("TITULOPROYECTO"));
                 reporte.setOferente(rs.getString("OFERENTE"));
@@ -126,7 +126,7 @@ public class ReporteProyectoDAO implements IReporteProyectoDao {
             }
 
             ps.close();
-            System.out.println("retorna la lista->" + listaProyectos.size());
+            
             return listaProyectos;
         } catch (SQLException e) {
             System.out.println("Error en Menu DAO getMenuByUser " + e.getMessage());
