@@ -10,7 +10,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <h:outputStylesheet name="css/default.css"/>
         <h:outputStylesheet name="css/cssLayout.css"/>
-        <title>Proyeccion Social</title>
+        <title>Proyección Social</title>
     </h:head>
 
     <h:body>
@@ -20,7 +20,7 @@
                     <p:graphicImage value="resources/image/LOGO CAMACHO.png"/>                  
                 </div>
                 <div id="logotipo">
-                    <h1> <center>Proyeccion Social</center></h1>
+                    <h1> <center>Proyección Social</center></h1>
                 </div>               
                 <div id="menuHome">
                     <h:form>  
@@ -43,6 +43,9 @@
                         </p:menubar>
                         -->
                          <p:menubar>
+                             <p:submenu label="Inicio" icon="ui-icon-document" >
+                                <p:menuitem value="Inicio" action="inicio.xhtml"  />
+                            </p:submenu>
                              <p:submenu label="Proyectos" icon="ui-icon-document" rendered="#{!loginBean.listaModuloProyectos.isEmpty()}" >
                                 <c:forEach items="#{loginBean.listaModuloProyectos}" var="menuProyectos">
                                    <p:menuitem value="#{menuProyectos.descripcion}" outcome="#{menuProyectos.ruta}"/>
@@ -64,9 +67,7 @@
                                 </c:forEach> 
                                  <p:menuitem value="Salir" icon="ui-icon-close" action="#{loginBean.logout}"/>
                             </p:submenu>
-                            <p:submenu label="Inicio" icon="ui-icon-document" >
-                                <p:menuitem value="Inicio" action="inicio.xhtml"  />
-                            </p:submenu>
+                            
                             
                         </p:menubar>
 
@@ -79,7 +80,7 @@
 
             </div>
             <div id="bottom">
-                <h2>&copy; 2018 - PROYECCION SOCIAL (UNIAJC)</h2>
+                <h2>&copy; 2018 - PROYECCIÓN SOCIAL (UNIAJC)</h2>
             </div>
         </div>
     </h:body>

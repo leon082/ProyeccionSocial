@@ -274,10 +274,12 @@ Insert into SYSTEM.TB_MODULO (ID_MODULO,ID_ROL,DESCRIPCION,RUTA,ESTADO,MENU) val
 Insert into SYSTEM.TB_MODULO (ID_MODULO,ID_ROL,DESCRIPCION,RUTA,ESTADO,MENU) values ('12','2','Editar Cuenta','editar_cuenta.xhtml','1','cuenta');
 Insert into SYSTEM.TB_MODULO (ID_MODULO,ID_ROL,DESCRIPCION,RUTA,ESTADO,MENU) values ('13','2','Asignar Rol','asignarRol.xhtml','1','usuarios');
 Insert into SYSTEM.TB_MODULO (ID_MODULO,ID_ROL,DESCRIPCION,RUTA,ESTADO,MENU) values ('14','2','Reporte Proyectos','reporteProyectos.xhtml','1','proyectos');
-Insert into SYSTEM.TB_MODULO (ID_MODULO,ID_ROL,DESCRIPCION,RUTA,ESTADO,MENU) values ('15','2','Cambiar Clave','cambiarClaves.xhtml','1','usuarios');
+Insert into SYSTEM.TB_MODULO (ID_MODULO,ID_ROL,DESCRIPCION,RUTA,ESTADO,MENU) values ('15','2','Cambiar Claves','cambiarClaves.xhtml','1','usuarios');
 Insert into SYSTEM.TB_MODULO (ID_MODULO,ID_ROL,DESCRIPCION,RUTA,ESTADO,MENU) values ('16','2','Cancelar Proyecto','finalizarProyecto.xhtml','1','proyectos');
 Insert into SYSTEM.TB_MODULO (ID_MODULO,ID_ROL,DESCRIPCION,RUTA,ESTADO,MENU) values ('17','2','Proyectos Cancelados','proyectosCancelados.xhtml','1','proyectos');
 Insert into SYSTEM.TB_MODULO (ID_MODULO,ID_ROL,DESCRIPCION,RUTA,ESTADO,MENU) values ('18','2','Proyectos Terminados','proyectosTerminados.xhtml','1','proyectos');
+Insert into SYSTEM.TB_MODULO (ID_MODULO,ID_ROL,DESCRIPCION,RUTA,ESTADO,MENU) values ('19','1','Cambiar Clave','resetClave.xhtml','1','cuenta');
+Insert into SYSTEM.TB_MODULO (ID_MODULO,ID_ROL,DESCRIPCION,RUTA,ESTADO,MENU) values ('20','2','Cambiar Clave','resetClave.xhtml','1','cuenta');
 
 
 Insert into SYSTEM.TB_LISTAVALOR (ID_LISTAVALOR,AGRUPACION,DESCRIPCION,ESTADO,CREADOPOR,CREADOEN,MODIFICADOPOR,MODIFICADOEN) values ('1','tipoDocumento','Combo Tipos de Documento','1','system',to_date('27/11/17','DD/MM/RR'),null,null);
