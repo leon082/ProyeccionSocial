@@ -19,7 +19,7 @@ import org.junit.runner.RunWith;
  */
 @RunWith(DescriptionSorterRunner.class)
 public class EnvioCorreoTest {
-    /*
+    
     IEnvioCorreo services;
 
     public EnvioCorreoTest() {
@@ -35,7 +35,7 @@ public class EnvioCorreoTest {
         correoEmisor.add("proyeccionsocial123");
         assertTrue(services.envioCorreoPrueba(correosDestino, correoEmisor));
     }
-    */
+    
       @Test
     public void free(){
         assertTrue(true);

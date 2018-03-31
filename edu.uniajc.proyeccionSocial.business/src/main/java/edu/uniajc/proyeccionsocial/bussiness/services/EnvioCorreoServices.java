@@ -21,91 +21,98 @@ import javax.mail.internet.MimeMessage;
  *
  * @author luis.leon
  */
- public class EnvioCorreoServices implements IEnvioCorreo{
-    
-    
+public class EnvioCorreoServices implements IEnvioCorreo {
+
     @Override
-    public  String getTextOfEmailCreacion() {
-        String text = "El sistema de Proyeccion Social le notifica que el usuario :usuario "
-                + "ha realizado la creacion de un proyecto para su aprobacion. ";
-        text += "Titulo del proyecto: :titulo";
+    public String getTextOfEmailCreacion() {
+        String text = "<p> El sistema de Proyección Social le notifica que el usuario <b> :usuario </b>"
+                + "ha realizado la creación de un proyecto para su aprobación.</p> <br> ";
+        text += "Titulo del proyecto: <b> :titulo </b>";
 
         return text;
     }
 
     @Override
-    public  String getTextOfEmailAprobacion() {
-        String text = "El sistema de Proyeccion Social le notifica que el usuario :usuario ha aprobado su proyecto con titulo :titulo ";
+    public String getTextOfEmailAprobacion() {
+        String text = "<p> El sistema de Proyección Social le notifica que el usuario <b> :usuario </b> ha aprobado su proyecto. </p> <br>"
+                + "Titulo del Proyecto <b> :titulo </b>";
 
         return text;
     }
 
     @Override
-    public  String getTextOfEmailRechazado() {
-        String text = "El sistema de Proyeccion Social le notifica que el usuario :usuario ha rechazado su proyecto con titulo :titulo , favor comunicarse con el administrador.";
+    public String getTextOfEmailRechazado() {
+
+        String text = "<p> El sistema de Proyección Social le notifica que el usuario <b> :usuario </b> ha rechazado su proyecto. </p> <br>"
+                + "<p>Titulo del Proyecto <b> :titulo </b></p> <br>"
+                + "Favor comuniquese con el administrador.";
+
+        return text;
+
+    }
+
+    @Override
+    public String getTextOfEmailAdjunto() {
+        String text = "<p>El sistema de Proyección Social le notifica que el usuario <b> :usuario </b> ha subido un adjunto para su aprobación, como entrega del proyecto <b>:titulo </b> .</p> <br>"
+                + " <p> Codigo de la Etapa: <b> :idProyecto </b></p>";
 
         return text;
     }
 
     @Override
-    public  String getTextOfEmailAdjunto() {
-        String text = "El sistema de Proyeccion Social le notifica que el usuario :usuario ha subido un adjunto para su aprobacion, como entrega del proyecto :titulo , Id Etapa: :idProyecto";
+    public String getTextOfEmailAprobarEntrega() {
+        String text = "<p>El sistema de Proyección Social le notifica que el usuario <b> :usuario </b> ha realizado la aprobación de la etapa del proyecto <b> :titulo </b>.</p> ";
 
         return text;
     }
 
     @Override
-    public  String getTextOfEmailAprobarEntrega() {
-        String text = "El sistema de Proyeccion Social le notifica que el usuario :usuario ha realizado la aprobacion de la etapa del proyecto :titulo .";
+    public String getTextOfEmailRechazarEntrega() {
+        String text = "<p> El sistema de Proyección Social le notifica que el usuario <b> :usuario </b> ha rechazado la etapa del proyecto <b> :titulo </b>.</p> <br>"
+                + "<p> Favor realizar de nuevo la entrega o ponerse en contacto con el administrador.</p>";
 
         return text;
     }
 
     @Override
-    public  String getTextOfEmailRechazarEntrega() {
-        String text = "El sistema de Proyeccion Social le notifica que el usuario :usuario ha rechazado la aprobacion de la etapa del proyecto :titulo . Favor realizar de nuevo la entrega";
+    public String getTextOfEmailCancelarProyecto() {
+        String text = "<p> El sistema de Proyección Social le notifica que el usuario <b> :usuario </b> ha cancelado su proyecto con titulo <b> :titulo </b>.</p> <br>";
 
         return text;
     }
 
     @Override
-    public  String getTextOfEmailCancelarProyecto() {
-        String text = "El sistema de Proyeccion Social le notifica que el usuario :usuario ha cancelado su proyecto :titulo .";
+    public String getTextOfEmailRecuperarContraAdmin() {
+        String text = "<p>El sistema de Proyección Social le notifica que el usuario <b> :usuario </b> ha solicitado el cambio de contraseña.</p>";
 
         return text;
     }
 
     @Override
-    public  String getTextOfEmailRecuperarContraAdmin() {
-        String text = "El sistema de Proyeccion Social le notifica que el usuario :usuario requiere recuperar la contraseña.";
+    public String getTextOfEmailRecuperarContraUser() {
+        String text = "<p> El sistema de Proyección Social le notifica que su solicitud de cambio de clave ha sido enviada al administrador, quien en breve se pondra en contacto.</p>";
 
         return text;
     }
 
     @Override
-    public  String getTextOfEmailRecuperarContraUser() {
-        String text = "El sistema de Proyeccion Social le notifica que su solicitud de recuperar clave ha sido enviada al administrador, quien en breve se pondra en contacto.";
+    public String getTextOfEmailContrasenaCambiada() {
+        String text = "<p>El sistema de Proyección Social le notifica que el adminsitrador ha realizado el cambio de su contraseña.</p> <br>"
+                + "<p>Su nueva contraseña: <b> :contra </b> </p><br>"
+                + "<p>Recuerde realizar el cambio de contraseña una vez ingrese al sistema.</p>";
 
         return text;
     }
 
     @Override
-    public  String getTextOfEmailContrasenaCambiada() {
-        String text = "El sistema de Proyeccion Social le notifica que el adminsitrador ha realizado el cambio de contraseña, su nueva contraseña es :contra";
+    public String getTextOfEmailCorreoPrueba() {
 
-        return text;
-    }
-    
-     @Override
-    public  String getTextOfEmailCorreoPrueba() {
-        String text = "Esto es un correo de prueba.";
-
-        return text;
+        return getTextOfEmailContrasenaCambiada();
     }
     //tipo correo, 0 creacion, 1 aprobacion, 2 rechazado , 3 entrega , 4 aprobarEntrega , 5 Rechazar entrega , 6 cancelar proyecto , 7 recuperar contraseña admin, 8 recuperar contraseña user , 9 contraseña cambiada
 
     @Override
-    public  boolean envioCorreo(List<String> correosDestino,
+    public boolean envioCorreo(List<String> correosDestino,
             List<String> emisor, Usuario usuario, Proyecto proyecto, int tipoCorreo, String asunto, int idEtapa) {
 
         String text = "";
@@ -197,7 +204,7 @@ import javax.mail.internet.MimeMessage;
                 message.setFrom(new InternetAddress((String) properties.get("mail.smtp.mail.sender")));
                 message.addRecipient(Message.RecipientType.TO, new InternetAddress(receptor));
                 message.setSubject(asunto);
-                message.setText(text);
+                message.setText(text, "utf-8", "html");
                 Transport t = session.getTransport("smtp");
                 t.connect((String) properties.get("mail.smtp.user"), password);
                 t.sendMessage(message, message.getAllRecipients());
@@ -215,8 +222,8 @@ import javax.mail.internet.MimeMessage;
     @Override
     public boolean envioCorreoPrueba(List<String> correosDestino,
             List<String> emisor) {
-        boolean result=false;
-       for (String receptor : correosDestino) {
+        boolean result = false;
+        for (String receptor : correosDestino) {
             Properties properties = new Properties();
             Session session;
             String cuenta = "";
@@ -239,7 +246,7 @@ import javax.mail.internet.MimeMessage;
                 message.setFrom(new InternetAddress((String) properties.get("mail.smtp.mail.sender")));
                 message.addRecipient(Message.RecipientType.TO, new InternetAddress(receptor));
                 message.setSubject("Correo Prueba");
-                message.setText(getTextOfEmailCorreoPrueba());
+                message.setText(getTextOfEmailCorreoPrueba(), "utf-8", "html");
                 Transport t = session.getTransport("smtp");
                 t.connect((String) properties.get("mail.smtp.user"), password);
                 t.sendMessage(message, message.getAllRecipients());
@@ -250,8 +257,7 @@ import javax.mail.internet.MimeMessage;
                 result = false;
             }
         }
-       return result;
+        return result;
     }
 
-    
 }

@@ -267,7 +267,7 @@ public class ProyectoGestionBean {
         correos = Utilidades.findSendEmail();
         //Cuenta emisora
         emisor = Utilidades.findEmailEmisor();
-        envioCorreoServices.envioCorreo(correos, emisor, usuario, proyecto, 3, "Entrega de Etapa Proyecto", idEtapa);
+        envioCorreoServices.envioCorreo(correos, emisor, usuario, proyecto, 3, "Entrega de Etapa", idEtapa);
 
     }
 
