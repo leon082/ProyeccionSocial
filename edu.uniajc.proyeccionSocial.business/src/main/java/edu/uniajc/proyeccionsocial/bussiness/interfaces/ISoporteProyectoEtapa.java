@@ -7,12 +7,14 @@ package edu.uniajc.proyeccionsocial.bussiness.interfaces;
 
 import edu.uniajc.proyeccionSocial.persistence.Model.SoporteProyectoEtapa;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author rlara
  */
 public interface ISoporteProyectoEtapa {
+    public List<SoporteProyectoEtapa> getSoporteProyectoEtapaByIdProyectoEtapa(int id);
 
     public int createSoporteProyectoEtapa(SoporteProyectoEtapa soporteProyectoEtapa);
 

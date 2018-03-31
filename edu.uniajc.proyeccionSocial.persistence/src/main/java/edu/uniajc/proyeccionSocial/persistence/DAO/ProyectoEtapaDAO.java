@@ -146,6 +146,41 @@ public class ProyectoEtapaDAO implements IProyectoEtapaDao {
 
     }
 
+         @Override
+    public ArrayList<ProyectoEtapa> getAllProyectoEtapasAprobadasByProyecto(int idProyecto) {
+        ArrayList<ProyectoEtapa> list = new ArrayList<>(0);
+        try {
+
+            PreparedStatement ps = null;
+
+            final String SQL = "SELECT * from TB_PROYECTOETAPA where ID_Proyecto = " + idProyecto + " and estado = 1 ";
+            ps = connection.prepareStatement(SQL);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                ProyectoEtapa proyectoEtapa = new ProyectoEtapa();
+                proyectoEtapa.setId_proyectoetapa(rs.getInt("ID_ProyectoEtapa"));
+                proyectoEtapa.setId_proyecto(rs.getInt("ID_Proyecto"));
+                proyectoEtapa.setId_etapa(rs.getInt("ID_Etapa"));
+                proyectoEtapa.setEstado(rs.getInt("Estado"));
+                proyectoEtapa.setObservacion(rs.getString("Observacion"));
+                proyectoEtapa.setFechainicio(rs.getDate("FechaInicio"));
+                proyectoEtapa.setFechafin(rs.getDate("FechaFin"));
+                proyectoEtapa.setCreadopor(rs.getString("Creadopor"));
+                proyectoEtapa.setModificadopor(rs.getString("Modificadopor"));
+                proyectoEtapa.setCreadoen(rs.getDate("Creadoen"));
+                proyectoEtapa.setModificadoen(rs.getDate("Modificadoen"));
+
+                list.add(proyectoEtapa);
+            }
+            ps.close();
+
+            return list;
+        } catch (SQLException e) {
+            Logger.getLogger(ProyectoEtapaDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            return null;
+        }
+
+    }
     /**
      *
      * @param idProyecto

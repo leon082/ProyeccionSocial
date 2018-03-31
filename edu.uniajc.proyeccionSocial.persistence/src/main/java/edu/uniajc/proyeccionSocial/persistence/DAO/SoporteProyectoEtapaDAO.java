@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import edu.uniajc.proyeccionSocial.persistence.interfaces.ISoporteProyectoEtapaDao;
 import java.sql.Connection;
+import java.util.List;
 
 /**
  *
@@ -147,6 +148,51 @@ public class SoporteProyectoEtapaDAO implements ISoporteProyectoEtapaDao {
             return list;
         } catch (SQLException e) {
             System.out.println("Error en SoporteProyectoEtapaDAO getAllSoporteProyectoEtapa " + e.getMessage());
+            Logger.getLogger(SoporteProyectoEtapaDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            return null;
+        }
+
+    }
+    
+    
+            
+    /**
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public List<SoporteProyectoEtapa> getSoporteProyectoEtapaByIdProyectoEtapa(int id) {
+
+        List<SoporteProyectoEtapa> list = new ArrayList<>();
+        try {
+
+            PreparedStatement ps = null;
+
+            String SQL = "select * from TB_SoporteProyectoEtapa where ID_ProyectoEtapa =" + id + " ";
+            ps = connection.prepareStatement(SQL);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                SoporteProyectoEtapa soporteProyectoEtapa = new SoporteProyectoEtapa();
+                soporteProyectoEtapa.setId_soporteproyectoetapa(rs.getInt("ID_SoporteProyectoEtapa"));
+                soporteProyectoEtapa.setId_proyectoetapa(rs.getInt("ID_ProyectoEtapa"));
+                soporteProyectoEtapa.setArchivo(rs.getString("Archivo"));
+                soporteProyectoEtapa.setCreadopor(rs.getString("CreadoPor"));
+                soporteProyectoEtapa.setModificadopor(rs.getString("ModificadoPor"));
+                soporteProyectoEtapa.setCreadoen(rs.getDate("CreadoEn"));
+                soporteProyectoEtapa.setModificadoen(rs.getDate("ModificadoEn"));
+                list.add(soporteProyectoEtapa);
+                
+            }
+
+                
+
+            
+            ps.close();
+
+            return list;
+        } catch (SQLException e) {
+            System.out.println("Error en SoporteProyectoEtapaDAO getSoporteProyectoEtapasById " + e.getMessage());
             Logger.getLogger(SoporteProyectoEtapaDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
             return null;
         }

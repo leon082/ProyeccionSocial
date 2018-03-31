@@ -12,6 +12,7 @@ import edu.uniajc.proyeccionSocial.persistence.interfaces.ISoporteProyectoEtapaD
 import edu.uniajc.proyeccionSocial.persistence.Model.SoporteProyectoEtapa;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -71,6 +72,21 @@ public class SoporteProyectoEtapaServices implements ISoporteProyectoEtapa {
             return null;
         }
     }
+    
+            @Override
+    public List<SoporteProyectoEtapa> getSoporteProyectoEtapaByIdProyectoEtapa(int id) {
+        try {
+
+            List<SoporteProyectoEtapa> list = dao.getSoporteProyectoEtapaByIdProyectoEtapa(id);
+
+            return list;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
 
     @Override
     public SoporteProyectoEtapa getSoporteProyectoEtapaById(int id) {

@@ -97,6 +97,23 @@ public class ProyectoEtapaServices implements IProyectoEtapa {
             return null;
         }
     }
+
+    @Override
+    public ArrayList<ProyectoEtapa> getAllProyectoEtapasAprobadasByProyecto(int idProyecto) {
+        try {
+
+            ArrayList<ProyectoEtapa> list = dao.getAllProyectoEtapasAprobadasByProyecto(idProyecto);
+
+            return list;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+    
+    
+    }
     
 
-}
+

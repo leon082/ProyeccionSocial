@@ -269,7 +269,7 @@ Insert into SYSTEM.TB_MODULO (ID_MODULO,ID_ROL,DESCRIPCION,RUTA,ESTADO,MENU) val
 Insert into SYSTEM.TB_MODULO (ID_MODULO,ID_ROL,DESCRIPCION,RUTA,ESTADO,MENU) values ('7','2','Gestion Etapas','etapas.xhtml','1','parametrizar');
 Insert into SYSTEM.TB_MODULO (ID_MODULO,ID_ROL,DESCRIPCION,RUTA,ESTADO,MENU) values ('8','2','Programas y Servicios','servprog.xhtml','1','parametrizar');
 Insert into SYSTEM.TB_MODULO (ID_MODULO,ID_ROL,DESCRIPCION,RUTA,ESTADO,MENU) values ('9','2','Servicios y Etapas','servEtapa.xhtml','1','parametrizar');
-Insert into SYSTEM.TB_MODULO (ID_MODULO,ID_ROL,DESCRIPCION,RUTA,ESTADO,MENU) values ('10','2','Aprobacion de Proyectos','aprobarProyecto.xhtml','1','proyectos');
+Insert into SYSTEM.TB_MODULO (ID_MODULO,ID_ROL,DESCRIPCION,RUTA,ESTADO,MENU) values ('10','2','Aprobar Proyectos','aprobarProyecto.xhtml','1','proyectos');
 Insert into SYSTEM.TB_MODULO (ID_MODULO,ID_ROL,DESCRIPCION,RUTA,ESTADO,MENU) values ('11','2','Aprobar Entregas','aprobacionArchivos.xhtml','1','proyectos');
 Insert into SYSTEM.TB_MODULO (ID_MODULO,ID_ROL,DESCRIPCION,RUTA,ESTADO,MENU) values ('12','2','Editar Cuenta','editar_cuenta.xhtml','1','cuenta');
 Insert into SYSTEM.TB_MODULO (ID_MODULO,ID_ROL,DESCRIPCION,RUTA,ESTADO,MENU) values ('13','2','Asignar Rol','asignarRol.xhtml','1','usuarios');

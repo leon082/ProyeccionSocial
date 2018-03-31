@@ -7,8 +7,11 @@ package edu.uniajc.proyeccionSocial.bean;
 
 import edu.uniajc.proyeccionSocial.persistence.Model.Beneficiario;
 import edu.uniajc.proyeccionSocial.persistence.Model.Etapa;
+import edu.uniajc.proyeccionSocial.persistence.Model.EtapasEntregas;
 import edu.uniajc.proyeccionSocial.persistence.Model.Oferente;
 import edu.uniajc.proyeccionSocial.persistence.Model.Proyecto;
+import edu.uniajc.proyeccionSocial.persistence.Model.ProyectoEtapa;
+import edu.uniajc.proyeccionSocial.persistence.Model.SoporteProyectoEtapa;
 import edu.uniajc.proyeccionSocial.persistence.Model.Tercero;
 import edu.uniajc.proyeccionSocial.persistence.Model.Usuario;
 import edu.uniajc.proyeccionSocial.view.util.Utilidades;
@@ -25,15 +28,26 @@ import edu.uniajc.proyeccionsocial.bussiness.interfaces.IEtapa;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IOferente;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IPrograma;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IProyecto;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IProyectoEtapa;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IServicio;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.ISoporteProyectoEtapa;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.ITercero;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IUsuario;
+import edu.uniajc.proyeccionsocial.bussiness.services.ProyectoEtapaServices;
+import edu.uniajc.proyeccionsocial.bussiness.services.SoporteProyectoEtapaServices;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import org.primefaces.model.DefaultStreamedContent;
 
 /**
  *
@@ -58,7 +72,10 @@ public class ProyectosTerminadosBean {
     private IServicio serviciosServ;
     //etapas segun el servicio
     private IEtapa servicioEtapa;
-    List<Etapa> etapas;
+    List<EtapasEntregas> etapas;
+    private IProyectoEtapa servicioProyectoEtapa;
+    private ProyectoEtapa proyectoEtapa;
+    private DefaultStreamedContent download;
 
     //Usuario Session
     private Usuario usuario;
@@ -81,9 +98,13 @@ public class ProyectosTerminadosBean {
     private List<Proyecto> proyectosAprobar;
     private boolean showAprobar;
     private boolean showRechazar;
+    private ISoporteProyectoEtapa servicioSoporte;
 
     @PostConstruct
     public void init() {
+        proyectoEtapa = new ProyectoEtapa();
+        servicioSoporte = new SoporteProyectoEtapaServices(Utilidades.getConnection());
+        servicioProyectoEtapa = new ProyectoEtapaServices(Utilidades.getConnection());
         showAprobar = true;
         showRechazar = true;
         correos = new ArrayList<>();
@@ -98,7 +119,7 @@ public class ProyectosTerminadosBean {
         serviciosServ = new ServicioServices(Utilidades.getConnection());
         //Etapas segun el servicio
         servicioEtapa = new EtapaServices(Utilidades.getConnection());
-        etapas = new ArrayList<Etapa>();
+        etapas = new ArrayList<EtapasEntregas>();
         //Usuario
         usuarioServices = new UsuarioServices(Utilidades.getConnection());
         usuario = Utilidades.cargarUsuario();
@@ -147,16 +168,43 @@ public class ProyectosTerminadosBean {
         }
     }
 
-    public void llenarEtapasByServicio() {
+    public void llenarEntregas() {
 
         //Llenar tabla de etapas
-        if (idServicio != 0) {
-            etapas = servicioEtapa.getAllEtapaByServicio(idServicio);
-        } else {
-            etapas = new ArrayList<>();
-
+        etapas = new ArrayList<>();
+        List<ProyectoEtapa> list = servicioProyectoEtapa.getAllProyectoEtapaByProyecto(proyecto.getId_proyecto());
+        for (ProyectoEtapa obj : list) {
+            llenarEtapas(obj);
         }
 
+    }
+
+    public void llenarEtapas(ProyectoEtapa obj) {
+
+        //Llenar tabla de etapas con la etapa q se debe aprobar
+        EtapasEntregas e = new EtapasEntregas();
+        Etapa etapa = servicioEtapa.getEtapaById(obj.getId_etapa());
+        e.setNombreEtapa(etapa.getDescripcion());
+        e.setIdProyectoEtapa(obj.getId_proyectoetapa());
+        if (obj.getEstado() == 1) {
+            e.setEstado("Aprobado");
+            e.setFlag(true);
+
+        }
+        if (obj.getEstado() == 0) {
+            e.setEstado("Faltante");
+            e.setFlag(true);
+        }
+        if (obj.getEstado() == 3) {
+            e.setEstado("Rechazado");
+            e.setFlag(true);
+        }
+        if (obj.getEstado() == 2) {
+            e.setEstado("Pendiente Aprobacion");
+            e.setFlag(false);
+        }
+
+        etapas.add(e);
     }
 
     public void limpiarForma() {
@@ -168,6 +216,19 @@ public class ProyectosTerminadosBean {
         proyectosAprobar = servicioProyecto.getAllProyectoFinalizado();
         beneficiarios = new ArrayList<>();
 
+    }
+
+    public void prepDownload(int idProyectoEtapa) throws FileNotFoundException {
+        //String ruta = Utilidades.leerArchivo("ruta");
+        String ruta = Utilidades.getRuta();
+        List<SoporteProyectoEtapa> list = servicioSoporte.getSoporteProyectoEtapaByIdProyectoEtapa(idProyectoEtapa);
+        SoporteProyectoEtapa soporte = list.get(list.size()-1);
+        String retorno = ruta + soporte.getArchivo();
+
+        File file = new File(retorno);
+        InputStream input = new FileInputStream(file);
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        setDownload(new DefaultStreamedContent(input, externalContext.getMimeType(file.getName()), file.getName()));
     }
 
     public void actionBoton(Proyecto p) {
@@ -182,7 +243,7 @@ public class ProyectosTerminadosBean {
         setProgramaByProyecto();
         servByProg();
         setOferenteByProyecto();
-        llenarEtapasByServicio();
+        llenarEntregas();
         llenarBeneficiarios();
         mostrarBotones();
 
@@ -298,6 +359,14 @@ public class ProyectosTerminadosBean {
         return terceroServices;
     }
 
+    public DefaultStreamedContent getDownload() {
+        return download;
+    }
+
+    public void setDownload(DefaultStreamedContent download) {
+        this.download = download;
+    }
+
     public void setTerceroServices(ITercero terceroServices) {
         this.terceroServices = terceroServices;
     }
@@ -310,12 +379,28 @@ public class ProyectosTerminadosBean {
         this.beneficiarioServices = beneficiarioServices;
     }
 
-    public List<Etapa> getEtapas() {
+    public List<EtapasEntregas> getEtapas() {
         return etapas;
     }
 
-    public void setEtapas(List<Etapa> etapas) {
+    public void setEtapas(List<EtapasEntregas> etapas) {
         this.etapas = etapas;
+    }
+
+    public IProyectoEtapa getServicioProyectoEtapa() {
+        return servicioProyectoEtapa;
+    }
+
+    public void setServicioProyectoEtapa(IProyectoEtapa servicioProyectoEtapa) {
+        this.servicioProyectoEtapa = servicioProyectoEtapa;
+    }
+
+    public ProyectoEtapa getProyectoEtapa() {
+        return proyectoEtapa;
+    }
+
+    public void setProyectoEtapa(ProyectoEtapa proyectoEtapa) {
+        this.proyectoEtapa = proyectoEtapa;
     }
 
     public List<SelectItem> getItemsOferente() {

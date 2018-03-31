@@ -23,5 +23,7 @@ public interface IProyectoEtapaDao {
     public ArrayList<ProyectoEtapa> getAllProyectoEtapaByProyecto(int idProyecto);
 
     public ProyectoEtapa getProyectoEtapaById(int id);
+    public ArrayList<ProyectoEtapa> getAllProyectoEtapasAprobadasByProyecto(int idProyecto);
+    
 
 }

@@ -89,15 +89,24 @@
 
                                 
                             </h:panelGrid>
-                            <h3 style="margin-top: 0">Etapas</h3>
+                            <h3 style="margin-top: 0">Entregas del Proyecto</h3>
 
                             <p:dataTable id="listaEtapas" var="etapa" value="#{proyectosTerminadosBean.etapas}" >
                                 <p:column headerText="Etapa" >
-                                    <h:outputText value="#{etapa.descripcion}" />
+                                    <h:outputText value="#{etapa.nombreEtapa}" />
+                                </p:column>
+                                <p:column headerText="Entrega" >
+                                    <p:commandButton id="downloadLink" value="Descargar" ajax="false" actionListener="#{proyectosTerminadosBean.prepDownload(etapa.idProyectoEtapa)}">
+                                        <p:fileDownload value="#{proyectosTerminadosBean.download}" />
+                                    </p:commandButton>
                                 </p:column>
 
 
+                                <p:column headerText="Estado" >
+                                    <h:outputText value="#{etapa.estado}" />
+                                </p:column>
                             </p:dataTable>
+
 
 
 
