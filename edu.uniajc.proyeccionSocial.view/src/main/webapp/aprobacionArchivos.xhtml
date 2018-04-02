@@ -81,7 +81,9 @@
 
                             <h3 style="margin-top: 0">Etapas</h3>
 
-                            <p:dataTable id="listaEtapas" var="etapa" value="#{aprobarDocumentosBean.etapas}" >
+                            <p:dataTable id="listaEtapas" var="etapa" value="#{aprobarDocumentosBean.etapas}" paginator="true" 
+                                         paginatorPosition="bottom"
+                                         rows="3" >
                                 <p:column headerText="Etapa" >
                                     <h:outputText value="#{etapa.nombreEtapa}" />
                                 </p:column>
@@ -126,7 +128,9 @@
 
                             <h3 style="margin-top: 0">Beneficiarios</h3>
 
-                            <p:dataTable id="listaBeneficiarios" var="beneficiario" value="#{aprobarDocumentosBean.beneficiarios}" >
+                            <p:dataTable id="listaBeneficiarios" var="beneficiario" value="#{aprobarDocumentosBean.beneficiarios}" paginator="true" 
+                                         paginatorPosition="bottom"
+                                         rows="3"  >
                                 <p:column headerText="Beneficiario" groupRow="true">
                                     <h:outputText value="#{beneficiario.nombreCompleto}" />
                                 </p:column>
