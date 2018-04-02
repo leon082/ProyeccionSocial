@@ -46,5 +46,6 @@ a:link:hover, a:visited:hover  {
 
 .panelDatosPersonales{
     margin : 0 auto;
+    width: 100%;
     
 }

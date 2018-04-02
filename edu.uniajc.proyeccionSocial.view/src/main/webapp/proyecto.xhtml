@@ -29,7 +29,7 @@
 
 
 
-                                <h:panelGrid columns="4" cellpadding="4">
+                                <h:panelGrid columns="5" cellpadding="4">
                                     <h:panelGrid columns="1">
                                         <p:outputLabel for="add_1" value="Titulo " />
                                         <p:inputText   id="add_1" value="#{proyectoBean.proyecto.tituloproyecto}" required="true" requiredMessage="Titulo requerido">
@@ -70,7 +70,7 @@
                                 </h:panelGrid>
                                 <h:panelGrid columns="1">
                                     <p:outputLabel for="add_2" value="Resumen :" />
-                                    <p:inputTextarea   id="add_2" rows="6" cols="50"  value="#{proyectoBean.proyecto.resumenproyecto}" required="true" requiredMessage="Resumen requerido">
+                                    <p:inputTextarea   id="add_2" rows="6" cols="100" value="#{proyectoBean.proyecto.resumenproyecto}" required="true" requiredMessage="Resumen requerido">
                                     <f:validateLength minimum="20" maximum="700"/>
                                     </p:inputTextarea>                       
                                 </h:panelGrid>
