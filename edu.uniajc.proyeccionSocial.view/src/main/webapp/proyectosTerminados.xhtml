@@ -29,8 +29,8 @@
                             <h3 style="margin-top: 0">Proyectos Terminados</h3>
 
                             <p:dataTable id="listaProyectos" var="proyecto" value="#{proyectosTerminadosBean.proyectosAprobar}" paginator="true" 
-                                 paginatorPosition="bottom"
-                                 rows="3"  >
+                                         paginatorPosition="bottom"
+                                         rows="3"  >
                                 <p:column headerText="Titulo" groupRow="true">
                                     <h:outputText value="#{proyecto.tituloproyecto}" />
                                 </p:column>
@@ -52,44 +52,42 @@
                             <h:panelGrid columns="4" cellpadding="5">
                                 <h:panelGrid columns="1" cellpadding="5">
                                     <p:outputLabel for="add_7" value="Oferente del Proyecto: " />
-                                <p:selectOneMenu  id="add_7" value="#{proyectosTerminadosBean.idOferente}" disabled="true" >  
-                                    <f:selectItem itemLabel="Seleccione" itemValue="0" />  
-                                    <f:selectItems value="#{proyectosTerminadosBean.itemsOferente}"/>  
-                                </p:selectOneMenu>
+                                    <p:selectOneMenu  id="add_7" value="#{proyectosTerminadosBean.idOferente}" disabled="true" >  
+                                        <f:selectItem itemLabel="Seleccione" itemValue="0" />  
+                                        <f:selectItems value="#{proyectosTerminadosBean.itemsOferente}"/>  
+                                    </p:selectOneMenu>
                                 </h:panelGrid>
-                                
+
                                 <h:panelGrid columns="1" cellpadding="5">
                                     <p:outputLabel for="add_1" value="Titulo :" />
-                                <p:inputText   id="add_1" value="#{proyectosTerminadosBean.proyecto.tituloproyecto}" readonly="true"/>                       
+                                    <p:inputText   id="add_1" value="#{proyectosTerminadosBean.proyecto.tituloproyecto}" readonly="true"/>                       
                                 </h:panelGrid>
-                                
-                                
+
+
                                 <h:panelGrid columns="1" cellpadding="5">
                                     <p:outputLabel for="add_3" value="Programa :" />
-                                <p:selectOneMenu  id="add_3" value="#{proyectosTerminadosBean.idPrograma}" disabled="true">  
+                                    <p:selectOneMenu  id="add_3" value="#{proyectosTerminadosBean.idPrograma}" disabled="true">  
 
-                                    <f:selectItem itemLabel="Seleccione" itemValue="0" />  
-                                    <f:selectItems value="#{proyectosTerminadosBean.itemsProgramas}"/>  
-                                </p:selectOneMenu>
+                                        <f:selectItem itemLabel="Seleccione" itemValue="0" />  
+                                        <f:selectItems value="#{proyectosTerminadosBean.itemsProgramas}"/>  
+                                    </p:selectOneMenu>
                                 </h:panelGrid>
 
                                 <h:panelGrid columns="1" cellpadding="5">
                                     <p:outputLabel for="add_4" value="Servicio :"  />
-                                <p:selectOneMenu  id="add_4" value="#{proyectosTerminadosBean.idServicio}" disabled="true">  
+                                    <p:selectOneMenu  id="add_4" value="#{proyectosTerminadosBean.idServicio}" disabled="true">  
 
-                                    <f:selectItem itemLabel="Seleccione" itemValue="0" />  
-                                    <f:selectItems value="#{proyectosTerminadosBean.itemsServicios}"/>  
-                                </p:selectOneMenu>
+                                        <f:selectItem itemLabel="Seleccione" itemValue="0" />  
+                                        <f:selectItems value="#{proyectosTerminadosBean.itemsServicios}"/>  
+                                    </p:selectOneMenu>
                                 </h:panelGrid>
-                                
 
-                                
                             </h:panelGrid>
                             <h:panelGrid columns="1" cellpadding="5">
                                 <p:outputLabel for="add_2" value="Resumen :" />
                                 <p:inputTextarea   id="add_2" rows="6" cols="70" value="#{proyectosTerminadosBean.proyecto.resumenproyecto}" readonly="true"/>                       
 
-                                
+
                             </h:panelGrid>
                             <h3 style="margin-top: 0">Entregas del Proyecto</h3>
 
@@ -136,9 +134,9 @@
                                 id="finalizar"
                                 update=":forma:grow,:forma:tab:add_1,:forma:tab:add_2,:forma:tab:add_3,:forma:tab:add_4,:forma:tab:add_7,:forma:tab:listaEtapas,:forma:tab:listaBeneficiarios,:forma:tab:listaProyectos"
                                 ajax="true" value="Limpiar" action="#{proyectosTerminadosBean.limpiarForma()}"
-                                
+
                                 />
-                            
+
                         </p:tab>
 
                     </p:tabView>
