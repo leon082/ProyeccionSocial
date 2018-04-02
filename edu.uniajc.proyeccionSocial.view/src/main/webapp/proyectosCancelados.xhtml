@@ -28,7 +28,9 @@
                         <p:tab title="Proyectos Terminados"> <!-- Nombre  -->
                             <h3 style="margin-top: 0">Proyectos Terminados</h3>
 
-                            <p:dataTable id="listaProyectos" var="proyecto" value="#{proyectosCanceladosBean.proyectosAprobar}" >
+                            <p:dataTable id="listaProyectos" var="proyecto" value="#{proyectosCanceladosBean.proyectosAprobar}" paginator="true" 
+                                         paginatorPosition="bottom"
+                                         rows="3" >
                                 <p:column headerText="Titulo" groupRow="true">
                                     <h:outputText value="#{proyecto.tituloproyecto}" />
                                 </p:column>
@@ -48,47 +50,50 @@
 
                             <p:separator />
                             <h:panelGrid columns="4" cellpadding="5">
-                                <h:panelGrid columns="1" cellpadding="5">
-                                    <p:outputLabel for="add_7" value="Oferente del Proyecto: " />
-                                <p:selectOneMenu  id="add_7" value="#{proyectosCanceladosBean.idOferente}" disabled="true" >  
-                                    <f:selectItem itemLabel="Seleccione" itemValue="0" />  
-                                    <f:selectItems value="#{proyectosCanceladosBean.itemsOferente}"/>  
-                                </p:selectOneMenu>
-                                </h:panelGrid>
-                                
+
                                 <h:panelGrid columns="1" cellpadding="5">
                                     <p:outputLabel for="add_1" value="Titulo :" />
-                                <p:inputText   id="add_1" value="#{proyectosCanceladosBean.proyecto.tituloproyecto}" readonly="true"/>                       
+                                    <p:inputText   id="add_1" value="#{proyectosCanceladosBean.proyecto.tituloproyecto}" readonly="true"/>                       
 
                                 </h:panelGrid>
-                                
-                                
-                               
+
+                                <h:panelGrid columns="1" cellpadding="5">
+                                    <p:outputLabel for="add_7" value="Oferente del Proyecto: " />
+                                    <p:selectOneMenu  id="add_7" value="#{proyectosCanceladosBean.idOferente}" disabled="true" >  
+                                        <f:selectItem itemLabel="Seleccione" itemValue="0" />  
+                                        <f:selectItems value="#{proyectosCanceladosBean.itemsOferente}"/>  
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+
+
+
+
+
 
 
                                 <h:panelGrid columns="1" cellpadding="5">
-                                      <p:outputLabel for="add_3" value="Programa :" />
-                                <p:selectOneMenu  id="add_3" value="#{proyectosCanceladosBean.idPrograma}" disabled="true">  
+                                    <p:outputLabel for="add_3" value="Programa :" />
+                                    <p:selectOneMenu  id="add_3" value="#{proyectosCanceladosBean.idPrograma}" disabled="true">  
 
-                                    <f:selectItem itemLabel="Seleccione" itemValue="0" />  
-                                    <f:selectItems value="#{proyectosCanceladosBean.itemsProgramas}"/>  
-                                </p:selectOneMenu>
+                                        <f:selectItem itemLabel="Seleccione" itemValue="0" />  
+                                        <f:selectItems value="#{proyectosCanceladosBean.itemsProgramas}"/>  
+                                    </p:selectOneMenu>
                                 </h:panelGrid>
-                              
+
                                 <h:panelGrid columns="1" cellpadding="5">
-                                   <p:outputLabel for="add_4" value="Servicio :"  />
-                                <p:selectOneMenu  id="add_4" value="#{proyectosCanceladosBean.idServicio}" disabled="true">  
+                                    <p:outputLabel for="add_4" value="Servicio :"  />
+                                    <p:selectOneMenu  id="add_4" value="#{proyectosCanceladosBean.idServicio}" disabled="true">  
 
-                                    <f:selectItem itemLabel="Seleccione" itemValue="0" />  
-                                    <f:selectItems value="#{proyectosCanceladosBean.itemsServicios}"/>  
-                                </p:selectOneMenu> 
+                                        <f:selectItem itemLabel="Seleccione" itemValue="0" />  
+                                        <f:selectItems value="#{proyectosCanceladosBean.itemsServicios}"/>  
+                                    </p:selectOneMenu> 
                                 </h:panelGrid>
-                                
+
                             </h:panelGrid>
                             <h:panelGrid columns="1" cellpadding="5">
-                                
-                                 <p:outputLabel for="add_2" value="Resumen :" />
-                                <p:inputTextarea   id="add_2" rows="6" cols="50" value="#{proyectosCanceladosBean.proyecto.resumenproyecto}" readonly="true"/>                       
+
+                                <p:outputLabel for="add_2" value="Resumen :" />
+                                <p:inputTextarea   id="add_2" rows="6" cols="70" value="#{proyectosCanceladosBean.proyecto.resumenproyecto}" readonly="true"/>                       
 
                             </h:panelGrid>
 
@@ -124,10 +129,10 @@
                                 id="finalizar"
                                 update=":forma:grow,:forma:tab:add_1,:forma:tab:add_2,:forma:tab:add_3,:forma:tab:add_4,:forma:tab:add_7,:forma:tab:listaEtapas,:forma:tab:listaBeneficiarios,:forma:tab:listaProyectos"
                                 ajax="true" value="Limpiar" action="#{proyectosCanceladosBean.limpiarForma()}"
-                                
+
                                 />
-                            
-                            
+
+
                         </p:tab>
 
                     </p:tabView>

@@ -28,7 +28,9 @@
                         <p:tab title="Proyectos Terminados"> <!-- Nombre  -->
                             <h3 style="margin-top: 0">Proyectos Terminados</h3>
 
-                            <p:dataTable id="listaProyectos" var="proyecto" value="#{proyectosTerminadosBean.proyectosAprobar}" >
+                            <p:dataTable id="listaProyectos" var="proyecto" value="#{proyectosTerminadosBean.proyectosAprobar}" paginator="true" 
+                                 paginatorPosition="bottom"
+                                 rows="3"  >
                                 <p:column headerText="Titulo" groupRow="true">
                                     <h:outputText value="#{proyecto.tituloproyecto}" />
                                 </p:column>
@@ -85,7 +87,7 @@
                             </h:panelGrid>
                             <h:panelGrid columns="1" cellpadding="5">
                                 <p:outputLabel for="add_2" value="Resumen :" />
-                                <p:inputTextarea   id="add_2" rows="6" cols="50" value="#{proyectosTerminadosBean.proyecto.resumenproyecto}" readonly="true"/>                       
+                                <p:inputTextarea   id="add_2" rows="6" cols="70" value="#{proyectosTerminadosBean.proyecto.resumenproyecto}" readonly="true"/>                       
 
                                 
                             </h:panelGrid>

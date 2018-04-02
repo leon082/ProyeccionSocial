@@ -49,9 +49,10 @@
                     <p:dataTable id="listaPrograma" value="#{programaBean.listaPrograma}"
                                  var="programa" 
                                  paginator="true" 
+                                 paginatorPosition="bottom"
                                  rows="20" 
                                  editable="true"
-                                 paginatorPosition="bottom"
+                                 
                                  >
 
                         <p:ajax event="rowEdit" listener="#{programaBean.modificar}" update=":forma:grow" />
