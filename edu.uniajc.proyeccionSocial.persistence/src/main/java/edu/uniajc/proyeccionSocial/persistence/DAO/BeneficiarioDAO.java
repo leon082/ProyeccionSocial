@@ -26,7 +26,6 @@ public class BeneficiarioDAO implements IBeneficiarioDao{
     public BeneficiarioDAO(Connection connection) {
         this.connection = connection;
     }
-
     /**
      *
      * @param beneficiario
