@@ -161,18 +161,17 @@ public class LoginBean implements Serializable {
     }
 
     public void recuperar() {
-        
 
         if (nombre != null && !nombre.equalsIgnoreCase("")) {
             Usuario usuario = usuarioServices.getUserByUsername(nombre);
-            if(usuario != null){
-            envioCorreo(1, usuario);
-            envioCorreo(0, usuario);
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Revise su bandeja de correó");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            }else{
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Usuario no existe");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+            if (usuario != null) {
+                envioCorreo(1, usuario);
+                envioCorreo(0, usuario);
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Revise su bandeja de correó");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+            } else {
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Usuario no existe");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
             }
         } else {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Debe digitar un usuario");
