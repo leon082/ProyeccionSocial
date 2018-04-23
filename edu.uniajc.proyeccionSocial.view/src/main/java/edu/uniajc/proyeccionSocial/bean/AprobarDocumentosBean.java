@@ -51,6 +51,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import org.apache.log4j.Logger;
 import org.primefaces.model.DefaultStreamedContent;
 
 /**
@@ -107,6 +108,8 @@ public class AprobarDocumentosBean {
     ProyectoEtapa proyectoEtapa;
 
     private IEnvioCorreo envioCorreoServices;
+    
+    private static final Logger LOGGER =  Logger.getLogger(AprobarDocumentosBean.class.getName());
 
     @PostConstruct
     public void init() {
@@ -138,6 +141,7 @@ public class AprobarDocumentosBean {
         beneficiarioServices = new BeneficiarioServices(Utilidades.getConnection());
         proyecto = new Proyecto();
         envioCorreoServices = new EnvioCorreoServices();
+        envioCorreoServices.init();
         rutaArchivo = "";
     }
 

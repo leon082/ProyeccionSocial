@@ -54,6 +54,10 @@ public class CambiarClaveBean {
         docuSelected = 0;
         estadoBoton = true;
         envioCorreoServices = new EnvioCorreoServices();
+        envioCorreoServices.init();
+        name="";
+        clave="";
+        
 
     }
 

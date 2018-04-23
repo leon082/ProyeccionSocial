@@ -25,50 +25,55 @@
                 <div id="menuHome">
                     <h:form>  
                         <p:growl id="messages"/>
-                       <!-- <p:menubar>       
-                            <p:submenu label="Menu">
-                                <p:menuitem value="Crear Tercero" icon="ui-icon-close" action="tercero.xhtml"/>
-                                <p:menuitem value="Gestion Programas" icon="ui-icon-close" action="programas.xhtml"/>
-                                <p:menuitem value="Gestion Servicios" icon="ui-icon-close" action="servicios.xhtml"/>
-                                <p:menuitem value="Gestion Etapas" icon="ui-icon-close" action="etapas.xhtml"/>
-                                <p:menuitem value="Programas y Servicios" icon="ui-icon-close" action="servprog.xhtml"/>
-                                <p:menuitem value="Servicios y Etapas" icon="ui-icon-close" action="servEtapa.xhtml"/>
-                                <p:menuitem value="Creacion Proyectos" icon="ui-icon-close" action="proyecto.xhtml"/>   
-                                <p:menuitem value="Aprobacion de Proyectos" icon="ui-icon-close" action="aprobarProyecto.xhtml"/>                                 
-                                <p:menuitem value="Gestion de Proyecto" icon="ui-icon-close" action="gestionProyecto.xhtml"/>                                 
-                                <p:menuitem value="Aprobar Entregas" icon="ui-icon-close" action="aprobacionArchivos.xhtml"/>                                 
-                                <p:menuitem value="Editar Cuenta" icon="ui-icon-close" action="editar_cuenta.xhtml"/>   
-                                
-                            </p:submenu>
-                        </p:menubar>
+                        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+
+                        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                            <p:graphicImage value="resources/image/ajaxloadingbar.gif" />
+                        </p:dialog>
+                        <!-- <p:menubar>       
+                             <p:submenu label="Menu">
+                                 <p:menuitem value="Crear Tercero" icon="ui-icon-close" action="tercero.xhtml"/>
+                                 <p:menuitem value="Gestion Programas" icon="ui-icon-close" action="programas.xhtml"/>
+                                 <p:menuitem value="Gestion Servicios" icon="ui-icon-close" action="servicios.xhtml"/>
+                                 <p:menuitem value="Gestion Etapas" icon="ui-icon-close" action="etapas.xhtml"/>
+                                 <p:menuitem value="Programas y Servicios" icon="ui-icon-close" action="servprog.xhtml"/>
+                                 <p:menuitem value="Servicios y Etapas" icon="ui-icon-close" action="servEtapa.xhtml"/>
+                                 <p:menuitem value="Creacion Proyectos" icon="ui-icon-close" action="proyecto.xhtml"/>   
+                                 <p:menuitem value="Aprobacion de Proyectos" icon="ui-icon-close" action="aprobarProyecto.xhtml"/>                                 
+                                 <p:menuitem value="Gestion de Proyecto" icon="ui-icon-close" action="gestionProyecto.xhtml"/>                                 
+                                 <p:menuitem value="Aprobar Entregas" icon="ui-icon-close" action="aprobacionArchivos.xhtml"/>                                 
+                                 <p:menuitem value="Editar Cuenta" icon="ui-icon-close" action="editar_cuenta.xhtml"/>   
+                                 
+                             </p:submenu>
+                         </p:menubar>
                         -->
-                         <p:menubar>
-                             <p:submenu label="Inicio" icon="ui-icon-document" >
+                        <p:menubar>
+                            <p:submenu label="Inicio" icon="ui-icon-document" >
                                 <p:menuitem value="Inicio" action="inicio.xhtml"  />
                             </p:submenu>
-                             <p:submenu label="Proyectos" icon="ui-icon-document" rendered="#{!loginBean.listaModuloProyectos.isEmpty()}" >
+                            <p:submenu label="Proyectos" icon="ui-icon-document" rendered="#{!loginBean.listaModuloProyectos.isEmpty()}" >
                                 <c:forEach items="#{loginBean.listaModuloProyectos}" var="menuProyectos">
-                                   <p:menuitem value="#{menuProyectos.descripcion}" outcome="#{menuProyectos.ruta}"/>
+                                    <p:menuitem value="#{menuProyectos.descripcion}" outcome="#{menuProyectos.ruta}"/>
                                 </c:forEach>                                
                             </p:submenu>
-                             <p:submenu label="Parametrizar" icon="ui-icon-document" rendered="#{!loginBean.listaModuloParametrizar.isEmpty()}">
-                                 <c:forEach items="#{loginBean.listaModuloParametrizar}" var="menuPara">
-                                   <p:menuitem value="#{menuPara.descripcion}" outcome="#{menuPara.ruta}"/>
+                            <p:submenu label="Parametrizar" icon="ui-icon-document" rendered="#{!loginBean.listaModuloParametrizar.isEmpty()}">
+                                <c:forEach items="#{loginBean.listaModuloParametrizar}" var="menuPara">
+                                    <p:menuitem value="#{menuPara.descripcion}" outcome="#{menuPara.ruta}"/>
                                 </c:forEach>                                
                             </p:submenu>
-                             <p:submenu label="Usuarios" icon="ui-icon-document" rendered="#{!loginBean.listaModuloUsuarios.isEmpty()}">
-                                 <c:forEach items="#{loginBean.listaModuloUsuarios}" var="menuUser">
-                                   <p:menuitem value="#{menuUser.descripcion}" outcome="#{menuUser.ruta}"/>
+                            <p:submenu label="Usuarios" icon="ui-icon-document" rendered="#{!loginBean.listaModuloUsuarios.isEmpty()}">
+                                <c:forEach items="#{loginBean.listaModuloUsuarios}" var="menuUser">
+                                    <p:menuitem value="#{menuUser.descripcion}" outcome="#{menuUser.ruta}"/>
                                 </c:forEach>                                
                             </p:submenu>
-                             <p:submenu label="Cuenta" icon="ui-icon-document" >
-                                 <c:forEach items="#{loginBean.listaModuloCuenta}" var="menuCuenta">
-                                   <p:menuitem value="#{menuCuenta.descripcion}" outcome="#{menuCuenta.ruta}"/>
+                            <p:submenu label="Cuenta" icon="ui-icon-document" >
+                                <c:forEach items="#{loginBean.listaModuloCuenta}" var="menuCuenta">
+                                    <p:menuitem value="#{menuCuenta.descripcion}" outcome="#{menuCuenta.ruta}"/>
                                 </c:forEach> 
-                                 <p:menuitem value="Salir" icon="ui-icon-close" action="#{loginBean.logout}"/>
+                                <p:menuitem value="Salir" icon="ui-icon-close" action="#{loginBean.logout}"/>
                             </p:submenu>
-                            
-                            
+
+
                         </p:menubar>
 
                     </h:form>

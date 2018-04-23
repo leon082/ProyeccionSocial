@@ -9,10 +9,12 @@ import edu.uniajc.proyeccionSocial.persistence.DAO.EtapaDAO;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -22,9 +24,11 @@ public class ConexionBD {
 
    // private static ConexionBD instance;
     private Connection connection;
+    private static final Logger LOGGER = Logger.getLogger(ConexionBD.class.getName());
 
      public ConexionBD(){
         try {
+            BasicConfigurator.configure();
             //conectar= ((DataSource) new InitialContext().lookup("jdbc/uniajc")).getConnection(); 
             System.out.println("---------------------------------------- CONECTAR ----------------------------------------");
             connection = ((DataSource) new InitialContext().lookup("jdbc/sample")).getConnection();
@@ -32,7 +36,7 @@ public class ConexionBD {
         } catch (SQLException | NamingException e) {
             System.out.println("Error en ConexionBD init -> " + e.getMessage() + " Error -> "+e);
             System.out.println(e);
-             Logger.getLogger(EtapaDAO.class.getName()).log(Level.SEVERE, null, e.getMessage()+ " Error en ConexionBD init -> "+e);
+            LOGGER.error("Error en ConexionBD init -> " + e.getMessage() + " Error -> "+e);
         }
     }
 

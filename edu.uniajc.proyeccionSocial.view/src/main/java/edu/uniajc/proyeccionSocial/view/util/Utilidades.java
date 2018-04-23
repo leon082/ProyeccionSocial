@@ -32,6 +32,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -39,12 +40,13 @@ import javax.servlet.http.HttpSession;
  */
 public class Utilidades {
 
-    public static String leerTipoIdentificacion = "combo.tipoIdentificacion";
-    public static String leerFacultades = "combo.facultades";
-    public static String leerEmail = "email.correos";
-    public static String leerEmailemisor = "cuenta.emisora";
-    public static String leerRolCreador = "rol.creador";
-    public static String leerRuta = "ruta";
+    public static final String leerTipoIdentificacion = "combo.tipoIdentificacion";
+    public static final String leerFacultades = "combo.facultades";
+    public static final String leerEmail = "email.correos";
+    public static final String leerEmailemisor = "cuenta.emisora";
+    public static final String leerRolCreador = "rol.creador";
+    public static final String leerRuta = "ruta";
+    private static final Logger LOGGER =  Logger.getLogger(Utilidades.class.getName());
 
     public static Connection getConnection() {
         HttpSession session = SessionUtils.getSession();
@@ -84,10 +86,11 @@ public class Utilidades {
 
         } catch (FileNotFoundException e) {
             System.out.println("Error, El archivo no exite");
-            e.printStackTrace();
+            LOGGER.error("Error en utilidades leerArchivo" + e.getMessage());
             return "";
         } catch (IOException e) {
             System.out.println("Error, No se puede leer el archivo");
+            LOGGER.error("Error en utilidades leerArchivo" + e.getMessage());
             return "";
         }
 
@@ -147,6 +150,7 @@ public class Utilidades {
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
             return fechaSQL;
         } else {
+            LOGGER.error("Error,Utilidades dateToSql no se pudo transformar la fecha");
             return null;
         }
 
@@ -162,6 +166,7 @@ public class Utilidades {
                 return false;
             }
         } catch (Exception e) {
+            LOGGER.error("Error,Utilidades ValidarTercero " + e.getMessage());
             return false;
         }
     }
@@ -176,6 +181,7 @@ public class Utilidades {
                 return false;
             }
         } catch (Exception e) {
+            LOGGER.error("Utilidades valdiarUsuario "+e.getMessage());
             return false;
         }
     }
@@ -186,6 +192,7 @@ public class Utilidades {
         if (fecha.before(fechaActual)) {
             return true;
         } else {
+            
             return false;
         }
     }
@@ -246,6 +253,7 @@ public class Utilidades {
     }
 
     public static void asignarRolCreador(Usuario user) {
+        try{
         int creador = Integer.valueOf(leerArchivo(leerRolCreador));
         IUsuarioRol asignar = new UsuarioRolServices(getConnection());
         UsuarioRol usuarioRol = new UsuarioRol();
@@ -254,14 +262,19 @@ public class Utilidades {
         usuarioRol.setCreadopor("System");
         usuarioRol.setEstado(1);
         asignar.createUsuarioRol(usuarioRol);
+        }catch(Exception e){
+            LOGGER.error("Error, Utilidades asignarRolCreador "+e.getMessage());
+        }
     }
 
     public static Usuario cargarUsuario() {
+        
         HttpSession session = SessionUtils.getSession();
         String user = (String) session.getAttribute("username");
         IUsuario usuarioServices = new UsuarioServices(getConnection());
         Usuario us = usuarioServices.getUserByUsername(user);
         return us;
+        
     }
 
     public static ArrayList<String> findSendEmail() {

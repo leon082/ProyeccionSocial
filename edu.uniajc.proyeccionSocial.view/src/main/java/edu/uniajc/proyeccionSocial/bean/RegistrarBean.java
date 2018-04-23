@@ -25,6 +25,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -44,6 +45,7 @@ public class RegistrarBean {
     private String contra;
     private Date fecha;
     Connection connection;
+    private static final Logger LOGGER =  Logger.getLogger(AprobarDocumentosBean.class.getName());
 
     //Combos
     private ArrayList<SelectItem> itemsDocumentos;
@@ -110,7 +112,7 @@ public class RegistrarBean {
         try {
             connection.close();
         } catch (SQLException e) {
-
+            LOGGER.error("Error en RegistrarBean cerrarConeccion "+e.getMessage());
         }
     }
 

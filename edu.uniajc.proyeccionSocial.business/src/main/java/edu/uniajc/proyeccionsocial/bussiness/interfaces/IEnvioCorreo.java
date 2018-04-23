@@ -14,7 +14,10 @@ import java.util.List;
  * @author luis.leon
  */
 public interface IEnvioCorreo {
-    
+
+    public void init();
+
+    /*
     public  String getTextOfEmailCreacion();
 
     public  String getTextOfEmailAprobacion() ;
@@ -33,12 +36,13 @@ public interface IEnvioCorreo {
 
     public  String getTextOfEmailRecuperarContraUser(); 
 
-    public  String getTextOfEmailContrasenaCambiada();
+    public String getTextOfEmailContrasenaCambiada();*/
+    
     //tipo correo, 0 creacion, 1 aprobacion, 2 rechazado , 3 entrega , 4 aprobarEntrega , 5 Rechazar entrega , 6 cancelar proyecto , 7 recuperar contraseña admin, 8 recuperar contraseña user , 9 contraseña cambiada
+    public boolean envioCorreo(List<String> correosDestino,
+            List<String> emisor, Usuario usuario, Proyecto proyecto, int tipoCorreo, String asunto, int idEtapa);
 
-    public  boolean envioCorreo(List<String> correosDestino,
-            List<String> emisor, Usuario usuario, Proyecto proyecto, int tipoCorreo, String asunto, int idEtapa) ;
-      public  boolean envioCorreoPrueba(List<String> correosDestino,
+    public boolean envioCorreoPrueba(List<String> correosDestino,
             List<String> emisor);
-       public  String getTextOfEmailCorreoPrueba();
+
 }

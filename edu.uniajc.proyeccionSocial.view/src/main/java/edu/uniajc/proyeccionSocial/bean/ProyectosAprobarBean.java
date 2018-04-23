@@ -128,6 +128,7 @@ public class ProyectosAprobarBean {
 
         itemsFacultad = Utilidades.Consultar_Facultades_combo();
         facultad = 0;
+        envioCorreoServices.init();
     }
 
     public void llenarBeneficiarios() {

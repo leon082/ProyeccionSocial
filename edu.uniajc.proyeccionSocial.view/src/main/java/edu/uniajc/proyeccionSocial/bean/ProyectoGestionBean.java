@@ -148,6 +148,7 @@ public class ProyectoGestionBean {
         proyectos = servicioProyecto.getProyectoByUser(usuario.getUsuario());
         rutaArchivo = "";
         envioCorreoServices = new EnvioCorreoServices();
+        envioCorreoServices.init();
 
     }
 

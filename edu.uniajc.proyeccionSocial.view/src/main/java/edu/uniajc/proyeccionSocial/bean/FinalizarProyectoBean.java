@@ -120,6 +120,7 @@ public class FinalizarProyectoBean {
         beneficiarioServices = new BeneficiarioServices(Utilidades.getConnection());
         proyectosAprobar = new ArrayList<>();
         proyectosAprobar = servicioProyecto.getAllProyectoAprobado();
+        envioCorreoServices.init();
     }
 
     public void llenarBeneficiarios() {

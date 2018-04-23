@@ -32,6 +32,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -54,6 +55,7 @@ public class LoginBean implements Serializable {
     Connection connection;
     HttpSession session;
     private IEnvioCorreo envioCorreoServices;
+    private static final Logger LOGGER = Logger.getLogger(LoginBean.class.getName());
     // private boolean logeado = false;
 
     /*  public boolean estaLogeado() {
@@ -70,9 +72,10 @@ public class LoginBean implements Serializable {
         terceroService = new TerceroServices(connection);
         envioCorreoServices = new EnvioCorreoServices();
         listaModuloCuenta = new ArrayList<>();
-        listaModuloParametrizar= new ArrayList<>();
-        listaModuloProyectos= new ArrayList<>();
-        listaModuloUsuarios= new ArrayList<>();
+        listaModuloParametrizar = new ArrayList<>();
+        listaModuloProyectos = new ArrayList<>();
+        listaModuloUsuarios = new ArrayList<>();
+        envioCorreoServices.init();
 
     }
 
@@ -103,9 +106,7 @@ public class LoginBean implements Serializable {
                     listaModuloParametrizar = menuServices.getMenuParametrizarByUser(user);
                     listaModuloProyectos = menuServices.getMenuProyectosByUser(user);
                     listaModuloUsuarios = menuServices.getMenuUsuariosByUser(user);
-                    
-                            
-                            
+
                     session.setAttribute("username", nombre);
 
                     return "inicio.xhtml";
@@ -113,7 +114,7 @@ public class LoginBean implements Serializable {
                     try {
                         Utilidades.getConnection().close();
                     } catch (SQLException e) {
-
+                        LOGGER.error("Error LoginBean cerrando la conexion " + e.getMessage());
                     }
                     session.invalidate();
                     FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Credenciales no validas");
@@ -121,7 +122,7 @@ public class LoginBean implements Serializable {
                     return "login.xhtml";
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                LOGGER.error("Error LoginBean inicio de login " + e.getMessage());
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "Comuniquese con el Administrador");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 return "login.xhtml";
@@ -139,7 +140,7 @@ public class LoginBean implements Serializable {
         try {
             Utilidades.getConnection().close();
         } catch (SQLException e) {
-
+            LOGGER.error("Error en logout " + e.getMessage());
         }
 
         session.invalidate();
@@ -160,12 +161,19 @@ public class LoginBean implements Serializable {
     }
 
     public void recuperar() {
+        
 
         if (nombre != null && !nombre.equalsIgnoreCase("")) {
-            envioCorreo(1);
-            envioCorreo(0);
+            Usuario usuario = usuarioServices.getUserByUsername(nombre);
+            if(usuario != null){
+            envioCorreo(1, usuario);
+            envioCorreo(0, usuario);
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Revise su bandeja de correó");
             FacesContext.getCurrentInstance().addMessage(null, msg);
+            }else{
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Usuario no existe");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            }
         } else {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Debe digitar un usuario");
             FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -173,13 +181,13 @@ public class LoginBean implements Serializable {
 
     }
 
-    public void envioCorreo(int tipoCorreo) {
+    public void envioCorreo(int tipoCorreo, Usuario usuario) {
         if (tipoCorreo != 0) {
-            Usuario usuario = usuarioServices.getUserByUsername(nombre);
+            //Usuario usuario = usuarioServices.getUserByUsername(nombre);
             envioCorreoServices.envioCorreo(Utilidades.findSendEmail(), Utilidades.findEmailEmisor(), usuario, null, 7, "Recuperar Contraseña", 0);
 
         } else {
-            Usuario usuario = usuarioServices.getUserByUsername(nombre);
+
             Tercero tercero = terceroService.getTerceroById(usuario.getId_tercero());
             List<String> destino = new ArrayList<>();
             destino.add(tercero.getCorreo());
@@ -251,7 +259,5 @@ public class LoginBean implements Serializable {
     public void setListaModuloProyectos(List<Opciones_menu> listaModuloProyectos) {
         this.listaModuloProyectos = listaModuloProyectos;
     }
-
-  
 
 }

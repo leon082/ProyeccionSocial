@@ -36,7 +36,11 @@
                     <h:panelGrid columns="3" styleClass="panelDatosPersonales">
 
                         <p:panel  >
+                            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
 
+                            <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                                <p:graphicImage value="#{FacesContext.getCurrentInstance().getExternalContext()}/resources/image/ajaxloadingbar.gif" />
+                            </p:dialog>
                             <p:tab title ="Datos Usuario">
                                 <h:panelGrid columns="3" >
 
@@ -68,21 +72,21 @@
                                     <h:panelGrid columns="1">
                                         <p:outputLabel for="sNombre" value="Segundo Nombre:" />
                                         <p:inputText id="sNombre" value="#{registrarBean.tercero.segundonombre}">
-                                        <f:validateLength  maximum="50"/>
+                                            <f:validateLength  maximum="50"/>
                                         </p:inputText>
                                     </h:panelGrid>
 
                                     <h:panelGrid columns="1">
                                         <p:outputLabel for="pApellido" value="Primer Apellido:" />
                                         <p:inputText id="pApellido" value="#{registrarBean.tercero.primerapellido}" required="true" requiredMessage="Primer Apellido requerido">
-                                        <f:validateLength minimum="2" maximum="100"/>
+                                            <f:validateLength minimum="2" maximum="100"/>
                                         </p:inputText>
                                     </h:panelGrid>
 
                                     <h:panelGrid columns="1">
                                         <p:outputLabel for="sApellido" value="Segundo Apellido:" />
                                         <p:inputText id="sApellido" value="#{registrarBean.tercero.segundoapellido}" >
-                                        <f:validateLength  maximum="50"/>
+                                            <f:validateLength  maximum="50"/>
                                         </p:inputText>
                                     </h:panelGrid>
 
@@ -105,14 +109,14 @@
                                     <h:panelGrid columns="1">
                                         <p:outputLabel for="correo" value="Correo Electronico:" />
                                         <p:inputText id="correo" value="#{registrarBean.tercero.correo}" required="true" requiredMessage="Correo requerido">
-                                        <f:validateLength minimum="2" maximum="50"/>
+                                            <f:validateLength minimum="2" maximum="50"/>
                                         </p:inputText>
                                     </h:panelGrid>
 
                                     <h:panelGrid columns="1">
                                         <p:outputLabel  value="Usuario:" />
                                         <p:inputText value="#{registrarBean.username}" required="true" requiredMessage="Usuario requerido">
-                                        <f:validateLength minimum="2" maximum="20"/>
+                                            <f:validateLength minimum="2" maximum="20"/>
                                         </p:inputText>
 
                                     </h:panelGrid>
@@ -120,7 +124,7 @@
                                     <h:panelGrid columns="1">
                                         <p:outputLabel  value="Contraseña:" />
                                         <p:password value="#{registrarBean.contra}" required="true" requiredMessage="Contraseña requerido">
-                                        <f:validateLength minimum="4" maximum="50"/>
+                                            <f:validateLength minimum="4" maximum="50"/>
                                         </p:password>
 
                                     </h:panelGrid>

@@ -5,21 +5,16 @@
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
-        <!-- <link href="CSS/login.css" rel="stylesheet" type="text/css"/>-->
+       <!-- <link href="CSS/login.css" rel="stylesheet" type="text/css"/>-->
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <h:outputStylesheet name="css/default.css"/>
-        <!--<h:outputStylesheet name="CSS/login.css"/>-->
+        <h:outputStylesheet name="CSS/login.css"/>
         <h:outputStylesheet name="css/cssLayout.css"/>
         <title>Proyección Social</title>
     </h:head>
 
     <h:body>
         <p:growl id="mensajes" showDetail="true" life="2000" />
-        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
-
-        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
-            <p:graphicImage value="resources/image/ajaxloadingbar.gif" />
-        </p:dialog>
 
         <div id="divGeneral">
             <div id="top">
@@ -29,7 +24,9 @@
                 <div id="logotipo">
                     <h1> <center>Proyección Social</center></h1>
                 </div>
+                <div>
 
+                </div>
                 <div style="clear:both;"></div>
             </div>
             <div  class="center_content">
@@ -39,6 +36,12 @@
 
                         <p:panel  style="width:300px" class = "panelGridCenter">
                             <h:panelGrid columns="2" cellpadding="5">
+                                <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+
+                                <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                                    <p:graphicImage value="#{FacesContext.getCurrentInstance().getExternalContext()}/resources/image/ajaxloadingbar.gif" />
+                                </p:dialog>
+
                                 <h:outputLabel for="username" value="Usuario:" />
                                 <p:inputText value="#{loginBean.nombre}" id="username"
                                              label="username" />
