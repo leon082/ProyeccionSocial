@@ -21,21 +21,11 @@ import org.junit.runner.RunWith;
  */
 @RunWith(DescriptionSorterRunner.class)
 public class ProgramaServicioServicesTest {
+/*
     @Test
     public void prueba() {
-       assertTrue(true);
-       
-    }
-    
-    /*
+        assertTrue(true);
 
-    IProgramaServicio services;
-    int creado;
-    Connection conection;
-
-    public ProgramaServicioServicesTest() {
-           conection = new ConeccionTest().getConnection();
-        this.services = new ProgramaServicioServices(conection);
     }
 
     @Test
@@ -52,15 +42,8 @@ public class ProgramaServicioServicesTest {
     public void BupdateProgramaServicio() {
         // ProgramaServicioDAO dao = new ProgramaServicioDAO(DBConnection);
         ProgramaServicio p = initProgramaServicio();
-        p.setId_programaservicio(creado);        
+        p.setId_programaservicio(creado);
         assertTrue(services.updateProgramaServicio(p));
-
-    }
-
-    @Test
-    public void CgetAllProgramaServicio() {
-
-        assertNotNull(services.getAllProgramaServicioByPrograma(1));
 
     }
 
@@ -78,19 +61,34 @@ public class ProgramaServicioServicesTest {
         progServi.setEstado(1);
         progServi.setCreadopor("userDEMo");
         progServi.setId_servicio(1);
-        
 
         return progServi;
+    }*/
+
+    IProgramaServicio services;
+    int creado;
+    Connection conection;
+
+    public ProgramaServicioServicesTest() {
+        conection = new ConeccionTest().getConnection();
+        this.services = new ProgramaServicioServices(conection);
     }
-    
-       @Test
-    public void EcerrarConexion()   {
-        try{
-               conection.close();
-        }catch(SQLException e){
-         
+
+    @Test
+    public void CgetAllProgramaServicio() {
+
+        assertNotNull(services.getAllProgramaServicioByPrograma(1));
+
+    }
+
+    @Test
+    public void EcerrarConexion() {
+        try {
+            conection.close();
+        } catch (SQLException e) {
+
         }
 
     }
-*/
+
 }

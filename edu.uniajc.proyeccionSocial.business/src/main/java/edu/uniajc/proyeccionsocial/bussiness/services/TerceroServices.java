@@ -12,6 +12,7 @@ import edu.uniajc.proyeccionSocial.persistence.interfaces.ITerceroDao;
 import edu.uniajc.proyeccionSocial.persistence.Model.Tercero;
 import java.sql.Connection;
 import java.util.ArrayList;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -20,9 +21,10 @@ import java.util.ArrayList;
 public class TerceroServices implements ITercero {
 
     ITerceroDao dao;
+    private static final Logger LOGGER =  Logger.getLogger(TerceroServices.class.getName());
 
     public TerceroServices(Connection connection) {
-
+org.apache.log4j.BasicConfigurator.configure();
         this.dao = new TerceroDAO(connection);
     }
 
@@ -37,12 +39,12 @@ public class TerceroServices implements ITercero {
 
                 return flag;
             } else {
-                System.out.println("Faltan Datos en pantalla");
+                
                 return 0;
 
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error TerceroServices"+e.getMessage() );
             return 0;
         }
     }
@@ -54,7 +56,7 @@ public class TerceroServices implements ITercero {
             return dao.deleteTercero(id);
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error TerceroServices"+e.getMessage() );
             return false;
         }
     }
@@ -66,7 +68,7 @@ public class TerceroServices implements ITercero {
 
             return dao.updateTercero(tercero);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error TerceroServices "+e.getMessage() );
             return false;
         }
     }
@@ -80,7 +82,7 @@ public class TerceroServices implements ITercero {
             return list;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error TerceroServices  "+e.getMessage() );
             return null;
         }
     }
@@ -94,7 +96,7 @@ public class TerceroServices implements ITercero {
             return tercero;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error TerceroServices  "+e.getMessage() );
             return null;
         }
     }
@@ -108,7 +110,7 @@ public class TerceroServices implements ITercero {
             return tercero;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error TerceroServices  "+e.getMessage() );
             return null;
         }
     }
@@ -122,7 +124,7 @@ public class TerceroServices implements ITercero {
             return list;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error TerceroServices  "+e.getMessage() );
             return null;
         }
     }

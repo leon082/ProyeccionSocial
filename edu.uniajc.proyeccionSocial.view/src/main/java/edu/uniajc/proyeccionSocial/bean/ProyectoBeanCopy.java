@@ -208,7 +208,7 @@ public class ProyectoBeanCopy {
                 t.sendMessage(message, message.getAllRecipients());
                 t.close();
             } catch (MessagingException me) {
-                System.out.println("Error, no se pudo enviar el correo --> " + me.getMessage());
+                
                 return;
             }
         }

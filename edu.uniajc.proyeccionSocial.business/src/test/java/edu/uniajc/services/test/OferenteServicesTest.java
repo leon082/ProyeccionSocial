@@ -24,12 +24,13 @@ import org.junit.runner.RunWith;
  */
 @RunWith(DescriptionSorterRunner.class)
 public class OferenteServicesTest  {
-    @Test
+   
+    /*@Test
     public void prueba() {
        assertTrue(true);
        
-    }
-    /*
+    }*/
+    
 
     IOferente services;
     int creado;
@@ -39,7 +40,7 @@ public class OferenteServicesTest  {
         this.services = new OferenteServices(conection);
     }
 
-    @Test
+   /* @Test
     public void AcrearOferente() {
 
         creado = services.createOferente(initOferente());
@@ -55,22 +56,14 @@ public class OferenteServicesTest  {
         o.setId_oferente(creado);
         assertTrue(services.updateOferente(o));
     }
-
-    @Test
-    public void CgetAllOferentes() {
-
-        assertNotNull(services.getAllOferente());
-
-    }
-
-    @Test
+    
+     @Test
     public void DdeleteOferente() {
 
         assertTrue(services.deleteOferente(creado));
 
     }
-
-    public Oferente initOferente() {
+     public Oferente initOferente() {
         Oferente oferente = new Oferente();
 
         java.util.Date fecha = new java.util.Date();
@@ -84,6 +77,16 @@ public class OferenteServicesTest  {
 
         return oferente;
     }
+    */
+
+    @Test
+    public void CgetAllOferentes() {
+        assertNotNull(services.getAllOferente());
+    }
+
+   
+
+   
     
        @Test
     public void EcerrarConexion()   {
@@ -94,5 +97,5 @@ public class OferenteServicesTest  {
         }
 
     }
-*/
+
 }

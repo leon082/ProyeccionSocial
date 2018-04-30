@@ -12,6 +12,7 @@ import edu.uniajc.proyeccionSocial.persistence.interfaces.IServicioDao;
 import edu.uniajc.proyeccionSocial.persistence.Model.Servicio;
 import java.sql.Connection;
 import java.util.ArrayList;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -20,9 +21,10 @@ import java.util.ArrayList;
 public class ServicioServices implements IServicio {
 
     IServicioDao dao;
+    private static final Logger LOGGER =  Logger.getLogger(ServicioServices.class.getName());
 
     public ServicioServices(Connection connection) {
-
+org.apache.log4j.BasicConfigurator.configure();
         this.dao = new ServicioDAO(connection);
     }
 
@@ -37,12 +39,12 @@ public class ServicioServices implements IServicio {
 
                 return flag;
             } else {
-                System.out.println("Faltan Datos en pantalla");
+                
                 return 0;
 
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ServicioServices"+e.getMessage() );
             return 0;
         }
     }
@@ -54,7 +56,7 @@ public class ServicioServices implements IServicio {
             return dao.deleteServicio(id);
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ServicioServices"+e.getMessage() );
             return false;
         }
     }
@@ -65,7 +67,7 @@ public class ServicioServices implements IServicio {
 
             return dao.updateServicio(servicio);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ServicioServices"+e.getMessage() );
             return false;
         }
     }
@@ -79,7 +81,7 @@ public class ServicioServices implements IServicio {
             return list;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ServicioServices"+e.getMessage() );
             return null;
         }
     }
@@ -93,7 +95,7 @@ public class ServicioServices implements IServicio {
             return servicio;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ServicioServices"+e.getMessage() );
             return null;
         }
     }
@@ -107,7 +109,7 @@ public class ServicioServices implements IServicio {
             return list;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ServicioServices"+e.getMessage() );
             return null;
         }
     }
@@ -118,7 +120,7 @@ public class ServicioServices implements IServicio {
             return dao.isInProg(idServicio);
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ServicioServices"+e.getMessage() );
             return false;
         }
     }

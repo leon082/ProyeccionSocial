@@ -24,12 +24,8 @@ import org.junit.runner.RunWith;
  */
 @RunWith(DescriptionSorterRunner.class)
 public class RolServicesTest  {
-    @Test
-    public void prueba() {
-       assertTrue(true);
-       
-    }
-    /*
+   
+    
 
     IRol services;
     int creado;
@@ -38,6 +34,12 @@ public class RolServicesTest  {
     public RolServicesTest() {
          conection = new ConeccionTest().getConnection();
         this.services = new RolServices(conection);
+    }
+    /*
+     @Test
+    public void prueba() {
+       assertTrue(true);
+       
     }
 
     @Test
@@ -57,12 +59,7 @@ public class RolServicesTest  {
         assertTrue(services.updateRol(r));
     }
 
-    @Test
-    public void CgetAllProyectos() {
-
-        assertNotNull(services.getAllRol());
-
-    }
+   
 
     @Test
     public void DdeleteRol() {
@@ -80,6 +77,12 @@ public class RolServicesTest  {
         rol.setCreadopor("prueba");
 
         return rol;
+    }*/
+     @Test
+    public void CgetAllProyectos() {
+
+        assertNotNull(services.getAllRol());
+
     }
        @Test
     public void EcerrarConexion()   {
@@ -90,5 +93,5 @@ public class RolServicesTest  {
         }
 
     }
-*/
+
 }

@@ -153,7 +153,7 @@ public class ProyectoGestionBean {
     }
 
     public void buscar(Proyecto p) {
-        System.out.println("proyecto seleccionado -->" + p);
+        
         proyecto = p;
 
         facultad = proyecto.getFacultad();
@@ -231,7 +231,7 @@ public class ProyectoGestionBean {
 
     public void handleFileUpload(FileUploadEvent event) throws IOException, Exception {
 
-        System.out.println("si entra 4444:" + event.getFile().getFileName());
+        
 
         String name = "_" + 4 + event.getFile().getFileName();
         // String ruta = Utilidades.leerArchivo("ruta");
@@ -284,7 +284,7 @@ public class ProyectoGestionBean {
         if (!"".equals(rutaArchivo)) {
             int result = guardarSoporte(etapaEntrega.getIdProyectoEtapa());
             envioCorreo(result);
-            System.out.println("ProyectoEtapa " + etapaEntrega.getIdProyectoEtapa());
+           
             ProyectoEtapa proyectoE = servicioProyectoEtapa.getProyectoEtapaById(etapaEntrega.getIdProyectoEtapa());
             proyectoE.setEstado(2);
             servicioProyectoEtapa.updateProyectoEtapa(proyectoE);

@@ -70,8 +70,7 @@ public class CambiarClaveBean {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Usuario no encontrado");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } else {
-            tercero = terceroServices.getTerceroById(usuario.getId_tercero());
-            System.out.println("Correo--->" + tercero.getCorreo());
+            tercero = terceroServices.getTerceroById(usuario.getId_tercero());            
             docuSelected = tercero.getId_lv_tipoidentificacion();
             estadoBoton = false;
         }
@@ -80,7 +79,7 @@ public class CambiarClaveBean {
 
     public boolean guardar() {
         boolean result = false;
-        System.out.println("Clave--->" + clave);
+        
         if (!clave.equals("") && usuario != null) {
 
             usuario.setContrasena(clave);

@@ -12,6 +12,7 @@ import edu.uniajc.proyeccionSocial.persistence.interfaces.IListaValorDetalleDao;
 import edu.uniajc.proyeccionSocial.persistence.Model.ListaValorDetalle;
 import java.sql.Connection;
 import java.util.ArrayList;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -20,9 +21,10 @@ import java.util.ArrayList;
 public class ListaValorDetalleServices implements IListaValorDetalle {
 
     IListaValorDetalleDao dao;
+    private static final Logger LOGGER =  Logger.getLogger(ListaValorDetalleServices.class.getName());
 
     public ListaValorDetalleServices(Connection connection) {
-
+org.apache.log4j.BasicConfigurator.configure();
         this.dao = new ListaValorDetalleDAO(connection);
     }
 
@@ -37,12 +39,13 @@ public class ListaValorDetalleServices implements IListaValorDetalle {
 
                 return flag;
             } else {
-                System.out.println("Faltan Datos en pantalla");
+                LOGGER.error("Faltan datos en pantalla");
+                
                 return 0;
 
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ListaValorDetalleServices"+e.getMessage() );
             return 0;
         }
     }
@@ -54,7 +57,7 @@ public class ListaValorDetalleServices implements IListaValorDetalle {
             return dao.deleteListaValorDetalle(id);
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ListaValorDetalleServices"+e.getMessage() );
             return false;
         }
     }
@@ -65,7 +68,7 @@ public class ListaValorDetalleServices implements IListaValorDetalle {
 
             return dao.updateListaValorDetalle(listaValorDetalle);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ListaValorDetalleServices"+e.getMessage() );
             return false;
         }
     }
@@ -79,7 +82,7 @@ public class ListaValorDetalleServices implements IListaValorDetalle {
             return list;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ListaValorDetalleServices"+e.getMessage() );
             return null;
         }
     }
@@ -93,7 +96,7 @@ public class ListaValorDetalleServices implements IListaValorDetalle {
             return listaValorDetalle;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ListaValorDetalleServices"+e.getMessage() );
             return null;
         }
     }

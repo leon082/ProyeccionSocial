@@ -12,6 +12,7 @@ import edu.uniajc.proyeccionSocial.persistence.interfaces.IProgramaDao;
 import edu.uniajc.proyeccionSocial.persistence.Model.Programa;
 import java.sql.Connection;
 import java.util.ArrayList;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -20,9 +21,10 @@ import java.util.ArrayList;
 public class ProgramaServices implements IPrograma {
 
     IProgramaDao dao;
+    private static final Logger LOGGER =  Logger.getLogger(ProgramaServices.class.getName());
 
     public ProgramaServices(Connection connection) {
-
+org.apache.log4j.BasicConfigurator.configure();
         this.dao = new ProgramaDAO(connection);
     }
 
@@ -37,12 +39,12 @@ public class ProgramaServices implements IPrograma {
 
                 return flag;
             } else {
-                System.out.println("Faltan Datos en pantalla");
+                
                 return 0;
 
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+           LOGGER.error("Error ProgramaServices"+e.getMessage() );
             return 0;
         }
     }
@@ -54,7 +56,7 @@ public class ProgramaServices implements IPrograma {
             return dao.deletePrograma(id);
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ProgramaServices"+e.getMessage() );
             return false;
         }
     }
@@ -65,7 +67,7 @@ public class ProgramaServices implements IPrograma {
 
             return dao.updatePrograma(programa);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ProgramaServices"+e.getMessage() );
             return false;
         }
     }
@@ -79,7 +81,7 @@ public class ProgramaServices implements IPrograma {
             return list;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ProgramaServices"+e.getMessage() );
             return null;
         }
     }
@@ -93,7 +95,7 @@ public class ProgramaServices implements IPrograma {
             return programa;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ProgramaServices"+e.getMessage() );
             return null;
         }
     }
@@ -104,7 +106,7 @@ public class ProgramaServices implements IPrograma {
             return dao.isInProy(idPrograma);
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ProgramaServices"+e.getMessage() );
             return false;
         }
     }

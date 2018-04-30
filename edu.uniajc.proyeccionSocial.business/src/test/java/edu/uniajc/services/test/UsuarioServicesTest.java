@@ -25,12 +25,8 @@ import org.junit.runner.RunWith;
 @RunWith(DescriptionSorterRunner.class)
 public class UsuarioServicesTest {
 
-     @Test
-    public void prueba() {
-       assertTrue(true);
-       
-    }
-     /*
+   
+     
     IUsuario services;
     int creado;
     Connection conection;
@@ -38,6 +34,12 @@ public class UsuarioServicesTest {
     public UsuarioServicesTest() {
         conection = new ConeccionTest().getConnection();
         this.services = new UsuarioServices(conection);
+    }
+    /*
+      @Test
+    public void prueba() {
+       assertTrue(true);
+       
     }
 
     @Test
@@ -57,6 +59,28 @@ public class UsuarioServicesTest {
         assertTrue(services.updateUsuario(u));
     }
 
+    
+
+    @Test
+    public void EdeleteUsuario() {
+
+        assertTrue(services.deleteUsuario(creado));
+
+    }
+    
+     public Usuario initUsuario() {
+        Usuario usuario = new Usuario();
+
+        usuario.setId_tercero(1);
+        usuario.setUsuario("user");
+        usuario.setEstado(1);
+        usuario.setContrasena("123");
+
+        return usuario;
+    }
+    
+    */
+    
     @Test
     public void CgetAllUsuarios() {
 
@@ -67,28 +91,12 @@ public class UsuarioServicesTest {
     @Test
     public void DLogin() {
         
-        Usuario usuario=initUsuario();
-        assertNotNull(services.getUsuarioLogin(usuario.getUsuario(), usuario.getContrasena()));
+        
+        assertNotNull(services.getUsuarioLogin("lleon", "lleon123"));
 
     }
 
-    @Test
-    public void EdeleteUsuario() {
-
-        assertTrue(services.deleteUsuario(creado));
-
-    }
-
-    public Usuario initUsuario() {
-        Usuario usuario = new Usuario();
-
-        usuario.setId_tercero(1);
-        usuario.setUsuario("user");
-        usuario.setEstado(1);
-        usuario.setContrasena("123");
-
-        return usuario;
-    }
+   
 
     @Test
     public void FcerrarConexion() {
@@ -99,5 +107,5 @@ public class UsuarioServicesTest {
         }
 
     }
-*/
+
 }

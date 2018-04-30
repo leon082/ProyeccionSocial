@@ -12,10 +12,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IOpciones_menuDao;
 import java.sql.Connection;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -24,6 +24,7 @@ import java.sql.Connection;
 public class Opciones_menuDAO implements IOpciones_menuDao {
 
     Connection connection;
+    private static final Logger LOGGER =  Logger.getLogger(Opciones_menuDAO.class.getName());
 
     public Opciones_menuDAO(Connection connection) {
         this.connection = connection;

@@ -12,6 +12,7 @@ import edu.uniajc.proyeccionSocial.persistence.Model.Rol;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -20,9 +21,10 @@ import java.util.List;
 public class RolServices implements IRol {
 
     IRolDao dao;
+    private static final Logger LOGGER =  Logger.getLogger(RolServices.class.getName());
 
     public RolServices(Connection connection) {
-
+org.apache.log4j.BasicConfigurator.configure();
         this.dao = new RolDao(connection);
     }
 
@@ -37,12 +39,12 @@ public class RolServices implements IRol {
 
                 return flag;
             } else {
-                System.out.println("Faltan Datos en pantalla");
+                
                 return 0;
 
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error RolServices"+e.getMessage() );
             return 0;
         }
     }
@@ -54,7 +56,7 @@ public class RolServices implements IRol {
             return dao.deleteRol(id);
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error RolServices"+e.getMessage() );
             return false;
         }
     }
@@ -66,7 +68,7 @@ public class RolServices implements IRol {
             return dao.updateRol(rol);
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error RolServices"+e.getMessage() );
             return false;
         }
     }
@@ -80,7 +82,7 @@ public class RolServices implements IRol {
             return list;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error RolServices"+e.getMessage() );
             return null;
         }
     }
@@ -94,7 +96,7 @@ public class RolServices implements IRol {
             return rol;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error RolServices"+e.getMessage() );
             return null;
         }
     }
@@ -108,7 +110,7 @@ public class RolServices implements IRol {
             return list;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error RolServices"+e.getMessage() );
             return null;
         }
     }

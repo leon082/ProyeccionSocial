@@ -10,10 +10,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IListaValorDao;
 import java.sql.Connection;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -22,6 +22,7 @@ import java.sql.Connection;
 public class ListaValorDao implements IListaValorDao{
     
     Connection connection;
+    private static final Logger LOGGER =  Logger.getLogger(ListaValorDao.class.getName());
 
     public ListaValorDao(Connection connection) {
         this.connection = connection;

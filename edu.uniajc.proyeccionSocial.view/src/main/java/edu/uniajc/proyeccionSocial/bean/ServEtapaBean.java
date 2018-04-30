@@ -69,7 +69,7 @@ public class ServEtapaBean {
             for (Object obj : etapas.getTarget()) {
 
                 String etapa = (String) obj;
-                System.out.println("etapa" + etapa);
+                
 
                 ServicioEtapa crear = new ServicioEtapa();
 

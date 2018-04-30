@@ -12,6 +12,7 @@ import edu.uniajc.proyeccionSocial.persistence.interfaces.IServicioEtapaDao;
 import edu.uniajc.proyeccionSocial.persistence.Model.ServicioEtapa;
 import java.sql.Connection;
 import java.util.ArrayList;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -20,9 +21,10 @@ import java.util.ArrayList;
 public class ServicioEtapaServices implements IServicioEtapa {
 
     IServicioEtapaDao dao;
+    private static final Logger LOGGER =  Logger.getLogger(ServicioEtapaServices.class.getName());
 
     public ServicioEtapaServices(Connection connection) {
-
+org.apache.log4j.BasicConfigurator.configure();
         this.dao = new ServicioEtapaDAO(connection);
     }
 
@@ -37,12 +39,12 @@ public class ServicioEtapaServices implements IServicioEtapa {
 
                 return flag;
             } else {
-                System.out.println("Faltan Datos en pantalla");
+                
                 return 0;
 
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ServicioEtapaServices"+e.getMessage() );
             return 0;
         }
     }
@@ -54,7 +56,7 @@ public class ServicioEtapaServices implements IServicioEtapa {
             return dao.deleteServicioEtapa(id);
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ServicioEtapaServices"+e.getMessage() );
             return false;
         }
     }
@@ -65,7 +67,7 @@ public class ServicioEtapaServices implements IServicioEtapa {
 
             return dao.updateServicioEtapa(servicioEtapa);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ServicioEtapaServices"+e.getMessage() );
             return false;
         }
     }
@@ -79,7 +81,7 @@ public class ServicioEtapaServices implements IServicioEtapa {
             return list;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ServicioEtapaServices"+e.getMessage() );
             return null;
         }
     }
@@ -93,7 +95,7 @@ public class ServicioEtapaServices implements IServicioEtapa {
             return servicioEtapa;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ServicioEtapaServices"+e.getMessage() );
             return null;
         }
     }
@@ -105,7 +107,7 @@ public class ServicioEtapaServices implements IServicioEtapa {
             return dao.deleteEtapaServicioByServicio(id);
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ServicioEtapaServices"+e.getMessage() );
             return false;
         }
     }

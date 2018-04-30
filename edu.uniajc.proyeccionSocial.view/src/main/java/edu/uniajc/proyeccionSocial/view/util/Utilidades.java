@@ -85,11 +85,11 @@ public class Utilidades {
             return nombre;
 
         } catch (FileNotFoundException e) {
-            System.out.println("Error, El archivo no exite");
+            
             LOGGER.error("Error en utilidades leerArchivo" + e.getMessage());
             return "";
         } catch (IOException e) {
-            System.out.println("Error, No se puede leer el archivo");
+            
             LOGGER.error("Error en utilidades leerArchivo" + e.getMessage());
             return "";
         }

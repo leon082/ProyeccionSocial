@@ -13,6 +13,7 @@ import edu.uniajc.proyeccionSocial.persistence.Model.SoporteProyectoEtapa;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,9 +22,10 @@ import java.util.List;
 public class SoporteProyectoEtapaServices implements ISoporteProyectoEtapa {
 
     ISoporteProyectoEtapaDao dao;
+    private static final Logger LOGGER =  Logger.getLogger(SoporteProyectoEtapaServices.class.getName());
 
     public SoporteProyectoEtapaServices(Connection connection) {
-
+org.apache.log4j.BasicConfigurator.configure();
         this.dao = new SoporteProyectoEtapaDAO(connection);
     }
 
@@ -38,12 +40,12 @@ public class SoporteProyectoEtapaServices implements ISoporteProyectoEtapa {
 
                 return flag;
             } else {
-                System.out.println("Faltan Datos en pantalla");
+                
                 return 0;
 
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error SoporteProyectoServices"+e.getMessage() );
             return 0;
         }
     }
@@ -54,7 +56,7 @@ public class SoporteProyectoEtapaServices implements ISoporteProyectoEtapa {
 
             return dao.updateSoporteProyectoEtapa(soporteProyectoEtapa);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error SoporteProyectoServices"+e.getMessage() );
             return false;
         }
     }
@@ -68,7 +70,7 @@ public class SoporteProyectoEtapaServices implements ISoporteProyectoEtapa {
             return list;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error SoporteProyectoServices"+e.getMessage() );
             return null;
         }
     }
@@ -82,7 +84,7 @@ public class SoporteProyectoEtapaServices implements ISoporteProyectoEtapa {
             return list;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error SoporteProyectoServices"+e.getMessage() );
             return null;
         }
     }
@@ -97,7 +99,7 @@ public class SoporteProyectoEtapaServices implements ISoporteProyectoEtapa {
             return soporteProyectoEtapa;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error SoporteProyectoServices"+e.getMessage() );
             return null;
         }
     }

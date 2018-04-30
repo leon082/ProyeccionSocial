@@ -11,6 +11,7 @@ import edu.uniajc.proyeccionSocial.persistence.interfaces.IOferenteDao;
 import edu.uniajc.proyeccionSocial.persistence.Model.Oferente;
 import java.sql.Connection;
 import java.util.ArrayList;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -19,9 +20,10 @@ import java.util.ArrayList;
 public class OferenteServices implements IOferente {
 
     IOferenteDao dao;
+    private static final Logger LOGGER =  Logger.getLogger(OferenteServices.class.getName());
 
     public OferenteServices(Connection connection) {
-
+org.apache.log4j.BasicConfigurator.configure();
         this.dao = new OferenteDao(connection);
     }
 
@@ -36,12 +38,12 @@ public class OferenteServices implements IOferente {
 
                 return flag;
             } else {
-                System.out.println("Faltan Datos en pantalla");
+                
                 return 0;
 
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error OferenteServices"+e.getMessage() );
             return 0;
         }
     }
@@ -53,7 +55,7 @@ public class OferenteServices implements IOferente {
             return dao.deleteOferente(id);
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error OferenteServices"+e.getMessage() );
             return false;
         }
     }
@@ -65,7 +67,7 @@ public class OferenteServices implements IOferente {
             return dao.updateOferente(oferente);
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error OferenteServices"+e.getMessage() );
             return false;
         }
     }
@@ -79,7 +81,7 @@ public class OferenteServices implements IOferente {
             return list;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error OferenteServices"+e.getMessage() );
             return null;
         }
     }
@@ -93,7 +95,7 @@ public class OferenteServices implements IOferente {
             return oferente;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error OferenteServices"+e.getMessage() );
             return null;
         }
     }
@@ -107,7 +109,7 @@ public class OferenteServices implements IOferente {
             return oferente;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error OferenteServices"+e.getMessage() );
             return null;
         }
     }

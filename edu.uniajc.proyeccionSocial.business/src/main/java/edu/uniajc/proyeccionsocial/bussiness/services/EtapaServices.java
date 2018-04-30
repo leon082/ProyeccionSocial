@@ -11,6 +11,7 @@ import edu.uniajc.proyeccionSocial.persistence.interfaces.IEtapaDao;
 import edu.uniajc.proyeccionSocial.persistence.Model.Etapa;
 import java.sql.Connection;
 import java.util.ArrayList;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -19,9 +20,10 @@ import java.util.ArrayList;
 public class EtapaServices implements IEtapa {
 
     IEtapaDao dao;
+    private static final Logger LOGGER =  Logger.getLogger(EtapaServices.class.getName());
 
     public EtapaServices(Connection connection) {
-
+        org.apache.log4j.BasicConfigurator.configure();
         this.dao = new EtapaDAO(connection);
     }
 
@@ -36,12 +38,13 @@ public class EtapaServices implements IEtapa {
 
                 return flag;
             } else {
-                System.out.println("Faltan Datos en pantalla");
+                LOGGER.error("EtapaServices Faltan datos en pantallas ");
+                
                 return 0;
 
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+           LOGGER.error("Error EtapaServices"+e.getMessage() );
             return 0;
         }
     }
@@ -53,7 +56,7 @@ public class EtapaServices implements IEtapa {
             return dao.deleteEtapa(id);
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error EtapaServices"+e.getMessage() );
             return false;
         }
     }
@@ -65,7 +68,7 @@ public class EtapaServices implements IEtapa {
             return dao.updateEtapa(etapa);
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error EtapaServices"+e.getMessage() );
             return false;
         }
     }
@@ -79,7 +82,7 @@ public class EtapaServices implements IEtapa {
             return list;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error EtapaServices"+e.getMessage() );
             return null;
         }
     }
@@ -93,7 +96,7 @@ public class EtapaServices implements IEtapa {
             return etapa;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error EtapaServices"+e.getMessage() );
             return null;
         }
     }
@@ -104,7 +107,7 @@ public class EtapaServices implements IEtapa {
             return dao.isInServ(idEtapa);
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error EtapaServices"+e.getMessage() );
             return false;
         }
     }
@@ -118,7 +121,7 @@ public class EtapaServices implements IEtapa {
             return list;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error EtapaServices"+e.getMessage() );
             return null;
         }
     }

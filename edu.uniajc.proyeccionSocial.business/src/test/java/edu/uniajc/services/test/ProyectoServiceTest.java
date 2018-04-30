@@ -10,6 +10,7 @@ import edu.uniajc.proyeccionsocial.bussiness.interfaces.IProyecto;
 import edu.uniajc.proyeccionsocial.bussiness.services.ProyectoServices;
 import java.sql.Connection;
 import java.sql.SQLException;
+import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertTrue;
 import static junit.framework.TestCase.fail;
 import org.junit.Test;
@@ -22,7 +23,7 @@ import org.junit.runner.RunWith;
 @RunWith(DescriptionSorterRunner.class)
 public class ProyectoServiceTest {
     
-    /*
+    
     IProyecto services;
     int creado;
     Connection conection;
@@ -32,7 +33,7 @@ public class ProyectoServiceTest {
         services = new ProyectoServices(conection);
     }
    
-
+/*
     @Test
     public void AcrearProyecto() {
 
@@ -50,11 +51,32 @@ public class ProyectoServiceTest {
         assertTrue(services.updateProyecto(p));
     }
     
+    @Test
+    public void GdeleteProyecto() {
+
+        assertTrue(services.deleteProyecto(creado));
+
+    }
+
+    public Proyecto initProyecto() {
+        Proyecto proyecto = new Proyecto();
+
+        proyecto.setTituloproyecto("ProyectoPrueba");
+        proyecto.setResumenproyecto("Proyecto de prueba para Casos TEST");
+        proyecto.setId_programa(1);
+        proyecto.setId_servicio(1);
+        proyecto.setEstado(1);
+        proyecto.setCreadopor("usuarioDemo");
+
+        return proyecto;
+    }*/
 
     @Test
     public void CgetAllProyectoAprobado() {
 
         assertNotNull(services.getAllProyectoAprobado());
+       
+        
 
     }
       @Test
@@ -76,25 +98,6 @@ public class ProyectoServiceTest {
 
     }
 
-    @Test
-    public void GdeleteProyecto() {
-
-        assertTrue(services.deleteProyecto(creado));
-
-    }
-
-    public Proyecto initProyecto() {
-        Proyecto proyecto = new Proyecto();
-
-        proyecto.setTituloproyecto("ProyectoPrueba");
-        proyecto.setResumenproyecto("Proyecto de prueba para Casos TEST");
-        proyecto.setId_programa(1);
-        proyecto.setId_servicio(1);
-        proyecto.setEstado(1);
-        proyecto.setCreadopor("usuarioDemo");
-
-        return proyecto;
-    }
        @Test
     public void HcerrarConexion()   {
         try{
@@ -104,7 +107,7 @@ public class ProyectoServiceTest {
         }
 
     }
-    */
+    
       @Test
     public void free(){
         assertTrue(true);

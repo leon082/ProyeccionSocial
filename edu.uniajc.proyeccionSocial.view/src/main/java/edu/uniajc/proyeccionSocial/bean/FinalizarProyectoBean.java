@@ -210,7 +210,7 @@ public class FinalizarProyectoBean {
     }
 
     public void actionBoton(Proyecto p) {
-        System.out.println("proyecto seleccionado -->" + p);
+       
         proyecto = p;
         /*for(Proyecto p : proyectosAprobar){
         if(p.getId_proyecto()== id){

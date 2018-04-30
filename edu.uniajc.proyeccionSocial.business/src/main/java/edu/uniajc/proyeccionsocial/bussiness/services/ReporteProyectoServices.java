@@ -12,6 +12,7 @@ import edu.uniajc.proyeccionsocial.bussiness.interfaces.IReporteProyecto;
 import java.sql.Connection;
 import java.sql.Date;
 import java.util.ArrayList;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -20,9 +21,10 @@ import java.util.ArrayList;
 public class ReporteProyectoServices implements IReporteProyecto {
 
     IReporteProyectoDao dao;
+    private static final Logger LOGGER =  Logger.getLogger(ReporteProyectoServices.class.getName());
 
     public ReporteProyectoServices(Connection connection) {
-
+org.apache.log4j.BasicConfigurator.configure();
         this.dao = new ReporteProyectoDAO(connection);
     }
 
@@ -35,7 +37,7 @@ public class ReporteProyectoServices implements IReporteProyecto {
             return list;
 
         } catch (Exception e) {
-            System.out.println(e);
+            LOGGER.error("Error ReporteProyectoServices"+e.getMessage() );
             return null;
         }
     }

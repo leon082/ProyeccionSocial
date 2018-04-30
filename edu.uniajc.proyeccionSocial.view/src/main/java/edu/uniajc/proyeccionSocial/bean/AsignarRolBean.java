@@ -117,7 +117,7 @@ public class AsignarRolBean {
         for (Object obj : roles.getTarget()) {
 
             String rol = (String) obj;
-            System.out.println("Rol" + rol);
+           
 
             UsuarioRol usuarioRol = new UsuarioRol();
             usuarioRol.setId_usuario(usuario.getId_usuario());

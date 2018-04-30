@@ -22,13 +22,14 @@ import org.junit.runner.RunWith;
  */
 @RunWith(DescriptionSorterRunner.class)
 public class ListaValorServicesTest  {
+    /*
     @Test
     public void prueba() {
        assertTrue(true);
        
-    }
+    }*/
     
-/*
+
     IListaValor services;
     int creado;
     
@@ -38,7 +39,7 @@ public class ListaValorServicesTest  {
         conection = new ConeccionTest().getConnection();
         this.services = new ListaValorServices(conection);
     }
-
+/*
     @Test
     public void AcrearListaValor() {
 
@@ -55,14 +56,14 @@ public class ListaValorServicesTest  {
         p.setId_listavalor(creado);
         assertTrue(services.updateListaValor(p));
     }
-
+*/
     @Test
     public void CgetAllListaValor() {
 
         assertNotNull(services.getAllListaValor());
 
     }
-
+/*
     @Test
     public void DdeleteListaValor() {
 
@@ -82,7 +83,7 @@ public class ListaValorServicesTest  {
         listaValor.setCreadopor("UserDemo");
 
         return listaValor;
-    }
+    }*/
     
        @Test
     public void EcerrarConexion()   {
@@ -93,5 +94,5 @@ public class ListaValorServicesTest  {
         }
 
     }
-*/
+
 }

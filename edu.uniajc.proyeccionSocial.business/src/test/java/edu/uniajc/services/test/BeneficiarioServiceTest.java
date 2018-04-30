@@ -23,7 +23,7 @@ import org.junit.runner.RunWith;
  */
 @RunWith(DescriptionSorterRunner.class)
 public class BeneficiarioServiceTest {
-/*
+
     IBeneficiario services;
     int creado;
     Connection conection;
@@ -32,7 +32,7 @@ public class BeneficiarioServiceTest {
         conection = new ConeccionTest().getConnection();
         services = new BeneficiarioServices(conection);
     }
-
+/*
     @Test
     public void AoperacionCrearBeneficiario() {
 
@@ -55,7 +55,7 @@ public class BeneficiarioServiceTest {
          System.out.println("actualizo el beneficiario" + creado);
         
         assertTrue(result);
-    }
+    }*/
 
     @Test
     public void CoperacionGetAllBeneficiarios() {
@@ -63,14 +63,14 @@ public class BeneficiarioServiceTest {
         assertNotNull(services.getAllBeneficiario());
 
     }
-
+/*
     @Test
     public void DoperacionDeleteBeneficiario() {
 
         assertTrue(services.deleteBeneficiario(creado));
 
     }
-
+*/
     public Beneficiario initBeneficiario() {
         Beneficiario beneficiario = new Beneficiario();
         java.util.Date fecha = new java.util.Date();
@@ -93,9 +93,9 @@ public class BeneficiarioServiceTest {
         }
 
     }
-*/
+/*
     @Test
     public void free(){
         assertTrue(true);
-    }
+    }*/
 }

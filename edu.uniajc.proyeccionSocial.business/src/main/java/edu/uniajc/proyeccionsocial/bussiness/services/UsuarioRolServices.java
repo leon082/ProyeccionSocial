@@ -12,6 +12,7 @@ import edu.uniajc.proyeccionSocial.persistence.interfaces.IUsuarioRolDao;
 import edu.uniajc.proyeccionSocial.persistence.Model.UsuarioRol;
 import java.sql.Connection;
 import java.util.ArrayList;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -20,9 +21,10 @@ import java.util.ArrayList;
 public class UsuarioRolServices implements IUsuarioRol {
 
     IUsuarioRolDao dao;
+    private static final Logger LOGGER =  Logger.getLogger(UsuarioRolServices.class.getName());
 
     public UsuarioRolServices(Connection connection) {
-
+org.apache.log4j.BasicConfigurator.configure();
         this.dao = new UsuarioRolDAO(connection);
     }
 
@@ -37,12 +39,12 @@ public class UsuarioRolServices implements IUsuarioRol {
 
                 return flag;
             } else {
-                System.out.println("Faltan Datos en pantalla");
+                
                 return 0;
 
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error UsuarioRolServices  "+e.getMessage() );
             return 0;
         }
     }
@@ -54,7 +56,7 @@ public class UsuarioRolServices implements IUsuarioRol {
             return dao.deleteUsuarioRol(id);
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error UsuarioRolServices  "+e.getMessage() );
             return false;
         }
     }
@@ -65,7 +67,7 @@ public class UsuarioRolServices implements IUsuarioRol {
 
             return dao.updateUsuarioRol(usuarioRol);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error UsuarioRolServices  "+e.getMessage() );
             return false;
         }
     }
@@ -79,7 +81,7 @@ public class UsuarioRolServices implements IUsuarioRol {
             return list;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error UsuarioRolServices  "+e.getMessage() );
             return null;
         }
     }
@@ -93,7 +95,7 @@ public class UsuarioRolServices implements IUsuarioRol {
             return usuarioRol;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error UsuarioRolServices  "+e.getMessage() );
             return null;
         }
     }
@@ -105,7 +107,7 @@ public class UsuarioRolServices implements IUsuarioRol {
             return dao.deleteRolesByUser(idUser);
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error UsuarioRolServices  "+e.getMessage() );
             return false;
         }
     }

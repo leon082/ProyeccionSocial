@@ -14,6 +14,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.util.ArrayList;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -22,9 +23,11 @@ import java.util.ArrayList;
 public class UsuarioServices implements IUsuario {
 
     IUsuarioDao dao;
+    private static final Logger LOGGER =  Logger.getLogger(UsuarioServices.class.getName());
 
     public UsuarioServices(Connection connection) {
         this.dao = new UsuarioDao(connection);
+        org.apache.log4j.BasicConfigurator.configure();
     }
 
     @Override
@@ -37,11 +40,11 @@ public class UsuarioServices implements IUsuario {
                 int flag = dao.createUsuario(user);
                 return flag;
             } else {
-                System.out.println("Faltan Datos en pantalla");
+                
                 return 0;
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error UsuarioServices  "+e.getMessage() );
             return 0;
         }
     }
@@ -53,7 +56,7 @@ public class UsuarioServices implements IUsuario {
             return dao.deleteUsuario(id);
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error UsuarioServices  "+e.getMessage() );
             return false;
         }
     }
@@ -65,7 +68,7 @@ public class UsuarioServices implements IUsuario {
             return dao.updateUsuario(usuario);
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error UsuarioServices  "+e.getMessage() );
             return false;
         }
     }
@@ -76,7 +79,7 @@ public class UsuarioServices implements IUsuario {
             ArrayList<Usuario> list = dao.getAllUsuario();
             return list;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error UsuarioServices  "+e.getMessage() );
             return null;
         }
     }
@@ -87,7 +90,7 @@ public class UsuarioServices implements IUsuario {
             Usuario usuario = dao.getUserById(id);
             return usuario;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error UsuarioServices  "+e.getMessage() );
             return null;
         }
     }
@@ -98,8 +101,9 @@ public class UsuarioServices implements IUsuario {
             Usuario usuario = dao.getUsuarioLogin(user.toLowerCase(), generateHash(password));
             return usuario;
         } catch (Exception e) {
+            LOGGER.error("Error UsuarioServices  "+e.getMessage() );
             System.out.println("---------------------------------------- USUARIO SERVICE ----------------------------------------");
-            System.out.print(e);
+           
             return null;
         }
     }
@@ -110,7 +114,7 @@ public class UsuarioServices implements IUsuario {
             Usuario usuario = dao.getUserByUsername(user.toLowerCase());
             return usuario;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error UsuarioServices  "+e.getMessage() );
             return null;
         }
     }
@@ -121,7 +125,7 @@ public class UsuarioServices implements IUsuario {
             String correo = dao.getEmailByUsername(user.toLowerCase());
             return correo;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error UsuarioServices  "+e.getMessage() );
             return null;
         }
     }

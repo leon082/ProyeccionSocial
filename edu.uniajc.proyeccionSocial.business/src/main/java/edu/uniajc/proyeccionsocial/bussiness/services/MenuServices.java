@@ -12,6 +12,7 @@ import edu.uniajc.proyeccionSocial.persistence.Model.Usuario;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IOpciones_menu;
 import java.sql.Connection;
 import java.util.List;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -20,9 +21,10 @@ import java.util.List;
 public class MenuServices implements IOpciones_menu {
 
     IOpciones_menuDao dao;
+    private static final Logger LOGGER =  Logger.getLogger(MenuServices.class.getName());
 
     public MenuServices(Connection connection) {
-
+org.apache.log4j.BasicConfigurator.configure();
         this.dao = new Opciones_menuDAO(connection);
     }
 
@@ -35,7 +37,7 @@ public class MenuServices implements IOpciones_menu {
             return list;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error MenuServices"+e.getMessage() );
             return null;
         }
     }
@@ -49,7 +51,7 @@ public class MenuServices implements IOpciones_menu {
             return list;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error MenuServices"+e.getMessage() );
             return null;
         }
     }
@@ -63,7 +65,7 @@ public class MenuServices implements IOpciones_menu {
             return list;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error MenuServices"+e.getMessage() );
             return null;
         }
     }
@@ -77,7 +79,7 @@ public class MenuServices implements IOpciones_menu {
             return list;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error MenuServices"+e.getMessage() );
             return null;
         }
     }

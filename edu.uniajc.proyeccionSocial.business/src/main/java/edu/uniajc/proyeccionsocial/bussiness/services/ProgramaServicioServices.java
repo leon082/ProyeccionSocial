@@ -11,6 +11,7 @@ import edu.uniajc.proyeccionSocial.persistence.interfaces.IProgramaServicioDao;
 import edu.uniajc.proyeccionSocial.persistence.Model.ProgramaServicio;
 import java.sql.Connection;
 import java.util.ArrayList;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -19,9 +20,10 @@ import java.util.ArrayList;
 public class ProgramaServicioServices implements IProgramaServicio {
 
     IProgramaServicioDao dao;
+    private static final Logger LOGGER =  Logger.getLogger(ProgramaServicioServices.class.getName());
 
     public ProgramaServicioServices(Connection connection) {
-
+org.apache.log4j.BasicConfigurator.configure();
         this.dao = new ProgramaServicioDAO(connection);
     }
 
@@ -36,12 +38,12 @@ public class ProgramaServicioServices implements IProgramaServicio {
 
                 return flag;
             } else {
-                System.out.println("Faltan Datos en pantalla");
+                
                 return 0;
 
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ProgramaServicioServices"+e.getMessage() );
             return 0;
         }
     }
@@ -53,7 +55,7 @@ public class ProgramaServicioServices implements IProgramaServicio {
             return dao.deleteProgramaServicio(id);
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ProgramaServicioServices"+e.getMessage() );
             return false;
         }
     }
@@ -65,7 +67,7 @@ public class ProgramaServicioServices implements IProgramaServicio {
             return dao.updateProgramaServicio(progServi);
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ProgramaServicioServices"+e.getMessage() );
             return false;
         }
     }
@@ -79,7 +81,7 @@ public class ProgramaServicioServices implements IProgramaServicio {
             return list;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ProgramaServicioServices"+e.getMessage() );
             return null;
         }
     }
@@ -93,7 +95,7 @@ public class ProgramaServicioServices implements IProgramaServicio {
             return programaServicio;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ProgramaServicioServices"+e.getMessage() );
             return null;
         }
     }
@@ -105,7 +107,7 @@ public class ProgramaServicioServices implements IProgramaServicio {
             return dao.deleteProgramaServicioByProg(id);
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ProgramaServicioServices"+e.getMessage() );
             return false;
         }
     }

@@ -13,6 +13,7 @@ import edu.uniajc.proyeccionSocial.persistence.Model.Proyecto;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.log4j.Logger;
 
 /**
  * @author Fabian Castro - IRIS 15/05/2017 Nombre Clase:ProyectoServices
@@ -21,9 +22,10 @@ import java.util.List;
 public class ProyectoServices implements IProyecto {
 
     IProyectoDao dao;
+    private static final Logger LOGGER =  Logger.getLogger(ProyectoServices.class.getName());
 
     public ProyectoServices(Connection connection) {
-
+org.apache.log4j.BasicConfigurator.configure();
         this.dao = new ProyectoDao(connection);
     }
 
@@ -38,12 +40,12 @@ public class ProyectoServices implements IProyecto {
 
                 return flag;
             } else {
-                System.out.println("Faltan Datos en pantalla");
+                
                 return 0;
 
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ProyectoServices"+e.getMessage() );
             return 0;
         }
     }
@@ -55,7 +57,7 @@ public class ProyectoServices implements IProyecto {
             return dao.deleteProyecto(ID);
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ProyectoServices"+e.getMessage() );
             return false;
         }
     }
@@ -67,7 +69,7 @@ public class ProyectoServices implements IProyecto {
             return dao.updateProyecto(proyecto);
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ProyectoServices"+e.getMessage() );
             return false;
         }
     }
@@ -81,7 +83,7 @@ public class ProyectoServices implements IProyecto {
             return list;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ProyectoServices"+e.getMessage() );
             return null;
         }
     }
@@ -92,7 +94,7 @@ public class ProyectoServices implements IProyecto {
             return dao.tieneProyectoPendiente(usuario);
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ProyectoServices"+e.getMessage() );
             return false;
         }
     }
@@ -104,7 +106,8 @@ public class ProyectoServices implements IProyecto {
 
             return proyectos;
         } catch (Exception e) {
-            System.out.println("Error en grProyectoByUser Services" + e.getMessage());
+            
+            LOGGER.error("Error en grProyectoByUser Services"+e.getMessage() );
             return null;
         }
     }
@@ -116,7 +119,7 @@ public class ProyectoServices implements IProyecto {
 
             return proyecto;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ProyectoServices"+e.getMessage() );
             return null;
         }
     }
@@ -130,7 +133,7 @@ public class ProyectoServices implements IProyecto {
             return list;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ProyectoServices"+e.getMessage() );
             return null;
         }
     }
@@ -144,7 +147,7 @@ public class ProyectoServices implements IProyecto {
             return list;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ProyectoServices"+e.getMessage() );
             return null;
         }
     }
@@ -158,7 +161,7 @@ public class ProyectoServices implements IProyecto {
             return list;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ProyectoServices"+e.getMessage() );
             return null;
         }
     }

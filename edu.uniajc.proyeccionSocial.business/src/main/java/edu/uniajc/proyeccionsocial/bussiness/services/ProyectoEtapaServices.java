@@ -12,6 +12,7 @@ import edu.uniajc.proyeccionSocial.persistence.interfaces.IProyectoEtapaDao;
 import edu.uniajc.proyeccionSocial.persistence.Model.ProyectoEtapa;
 import java.sql.Connection;
 import java.util.ArrayList;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -20,9 +21,10 @@ import java.util.ArrayList;
 public class ProyectoEtapaServices implements IProyectoEtapa {
 
     IProyectoEtapaDao dao;
+    private static final Logger LOGGER =  Logger.getLogger(ProyectoEtapaServices.class.getName());
 
     public ProyectoEtapaServices(Connection connection) {
-
+org.apache.log4j.BasicConfigurator.configure();
         this.dao = new ProyectoEtapaDAO(connection);
     }
 
@@ -37,12 +39,12 @@ public class ProyectoEtapaServices implements IProyectoEtapa {
 
                 return flag;
             } else {
-                System.out.println("Faltan Datos en pantalla");
+                
                 return 0;
 
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ProyectoEtapaServices"+e.getMessage() );
             return 0;
         }
     }
@@ -54,7 +56,7 @@ public class ProyectoEtapaServices implements IProyectoEtapa {
             return dao.deleteProyectoEtapa(id);
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ProyectoEtapaServices"+e.getMessage() );
             return false;
         }
     }
@@ -65,7 +67,7 @@ public class ProyectoEtapaServices implements IProyectoEtapa {
 
             return dao.updateProyectoEtapa(proyectoEtapa);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ProyectoEtapaServices"+e.getMessage() );
             return false;
         }
     }
@@ -79,7 +81,7 @@ public class ProyectoEtapaServices implements IProyectoEtapa {
             return list;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ProyectoEtapaServices"+e.getMessage() );
             return null;
         }
     }
@@ -93,7 +95,7 @@ public class ProyectoEtapaServices implements IProyectoEtapa {
             return proyectoEtapa;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ProyectoEtapaServices"+e.getMessage() );
             return null;
         }
     }
@@ -107,7 +109,7 @@ public class ProyectoEtapaServices implements IProyectoEtapa {
             return list;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error ProyectoEtapaServices"+e.getMessage() );
             return null;
         }
     }

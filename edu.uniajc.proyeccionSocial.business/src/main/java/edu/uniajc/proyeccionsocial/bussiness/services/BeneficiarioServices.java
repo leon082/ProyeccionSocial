@@ -12,6 +12,7 @@ import edu.uniajc.proyeccionSocial.persistence.interfaces.IBeneficiarioDao;
 import edu.uniajc.proyeccionSocial.persistence.Model.Beneficiario;
 import java.sql.Connection;
 import java.util.ArrayList;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -20,9 +21,11 @@ import java.util.ArrayList;
 public class BeneficiarioServices implements IBeneficiario {
 
     IBeneficiarioDao dao;
+    
+private static final Logger LOGGER =  Logger.getLogger(BeneficiarioServices.class.getName());
 
     public BeneficiarioServices(Connection connection) {
-
+        org.apache.log4j.BasicConfigurator.configure();
         this.dao = new BeneficiarioDAO(connection);
     }
 
@@ -37,12 +40,13 @@ public class BeneficiarioServices implements IBeneficiario {
 
                 return flag;
             } else {
-                System.out.println("Faltan Datos en pantalla");
+                LOGGER.error("Faltan Datos en pantalla" );
+                
                 return 0;
 
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error Beneficiario Services "+e.getMessage() );
             return 0;
         }
     }
@@ -54,7 +58,8 @@ public class BeneficiarioServices implements IBeneficiario {
             return dao.deleteBeneficiario(id);
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error BeneficiarioServices "+e.getMessage() );
+            
             return false;
         }
     }
@@ -65,7 +70,8 @@ public class BeneficiarioServices implements IBeneficiario {
 
             return dao.updateBeneficiario(beneficiario);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error BeneficiarioServices "+e.getMessage() );
+            
             return false;
         }
     }
@@ -79,7 +85,7 @@ public class BeneficiarioServices implements IBeneficiario {
             return list;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error BeneficiarioServices "+e.getMessage() );
             return null;
         }
     }
@@ -93,7 +99,7 @@ public class BeneficiarioServices implements IBeneficiario {
             return beneficiario;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error BeneficiarioServices "+e.getMessage() );
             return null;
         }
     }
@@ -107,7 +113,7 @@ public class BeneficiarioServices implements IBeneficiario {
             return list;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.error("Error BeneficiarioServices "+e.getMessage() );
             return null;
         }
     }

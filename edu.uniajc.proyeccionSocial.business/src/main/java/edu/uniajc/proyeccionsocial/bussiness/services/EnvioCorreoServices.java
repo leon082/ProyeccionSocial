@@ -117,7 +117,7 @@ public class EnvioCorreoServices implements IEnvioCorreo {
                 t.close();
                 result = true;
             } catch (MessagingException me) {
-                System.out.println("Error, no se pudo enviar el correo --> " + me.getMessage());
+              
                 LOGGER.error("Error, no se pudo enviar el correo --> " + me.getMessage());
 
                 result = false;
@@ -162,7 +162,7 @@ public class EnvioCorreoServices implements IEnvioCorreo {
                 t.close();
                 result = true;
             } catch (MessagingException me) {
-                System.out.println("Error, no se pudo enviar el correo --> " + me.getMessage());
+              
                 LOGGER.error("Error, no se pudo enviar el correo --> " + me.getMessage());
                 result = false;
             }
