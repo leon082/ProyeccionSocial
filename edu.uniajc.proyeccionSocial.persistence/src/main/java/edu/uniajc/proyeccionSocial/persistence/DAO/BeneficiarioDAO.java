@@ -26,6 +26,7 @@ public class BeneficiarioDAO implements IBeneficiarioDao{
 
     public BeneficiarioDAO(Connection connection) {
         this.connection = connection;
+        org.apache.log4j.BasicConfigurator.configure();
     }
     /**
      *
@@ -70,8 +71,8 @@ public class BeneficiarioDAO implements IBeneficiarioDao{
 
             return codigo;
         } catch (SQLException e) {
-            System.out.println("Error en BeneficiarioDAO Insert -->" + e.getMessage());
-            Logger.getLogger(BeneficiarioDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            
+           LOGGER.error("Error en BeneficiarioDAO Insert -->" + e.getMessage() );
             return 0;
         }
 
@@ -94,8 +95,9 @@ public class BeneficiarioDAO implements IBeneficiarioDao{
             return true;
 
         } catch (SQLException e) {
-            System.out.println("Error en BeneficiarioDAO Delete " + e.getMessage());
-            Logger.getLogger(BeneficiarioDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            
+            LOGGER.error("Error en BeneficiarioDAO Delete -->" + e.getMessage() );
+           
             return false;
         }
 
@@ -134,8 +136,9 @@ public class BeneficiarioDAO implements IBeneficiarioDao{
             return true;
 
         } catch (SQLException e) {
-            System.out.println("Error en BeneficiarioDAO UPDATE " + e.getMessage());
-            Logger.getLogger(BeneficiarioDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            
+            LOGGER.error("Error en BeneficiarioDAO Update -->" + e.getMessage() );
+            
             return false;
         }
 
@@ -173,8 +176,7 @@ public class BeneficiarioDAO implements IBeneficiarioDao{
 
             return list;
         } catch (SQLException e) {
-            System.out.println("Error en BeneficiariosDAO getAllBeneficiario " + e.getMessage());
-            Logger.getLogger(BeneficiarioDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en BeneficiarioDAO getAllBeneficiario -->" + e.getMessage() );
             return null;
         }
 
@@ -213,9 +215,8 @@ public class BeneficiarioDAO implements IBeneficiarioDao{
 
             return list;
         } catch (SQLException e) {
-            System.out.println("Error en BeneficiariosDAO getAllBeneficiario " + e.getMessage());
-            Logger.getLogger(BeneficiarioDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
-            return null;
+            LOGGER.error("Error en BeneficiarioDAO getAllBeneficiario -->" + e.getMessage() );
+             return null;
         }
 
     }
@@ -253,7 +254,8 @@ public class BeneficiarioDAO implements IBeneficiarioDao{
 
             return beneficiario;
         } catch (SQLException e) {
-            Logger.getLogger(BeneficiarioDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en BeneficiarioDAO getBeneficiarioById -->" + e.getMessage() );
+           
             return null;
         }
 

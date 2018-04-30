@@ -10,10 +10,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IServicioEtapaDao;
 import java.sql.Connection;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -22,9 +22,11 @@ import java.sql.Connection;
 public class ServicioEtapaDAO implements IServicioEtapaDao {
 
     Connection connection;
+    private static final Logger LOGGER =  Logger.getLogger(BeneficiarioDAO.class.getName());
 
     public ServicioEtapaDAO(Connection connection) {
         this.connection = connection;
+        org.apache.log4j.BasicConfigurator.configure();
     }
 
     /**
@@ -69,8 +71,8 @@ public class ServicioEtapaDAO implements IServicioEtapaDao {
 
             return codigo;
         } catch (SQLException e) {
-            System.out.println("Error en ServicioEtapaDAO Insert -->" + e.getMessage());
-            Logger.getLogger(ServicioEtapaDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en ServicioEtapaDAO Insert -->" + e.getMessage());
+            
             return 0;
         }
 
@@ -94,8 +96,8 @@ public class ServicioEtapaDAO implements IServicioEtapaDao {
             return true;
 
         } catch (SQLException e) {
-            System.out.println("Error en ServicioEtapa DAO Delete " + e.getMessage());
-            Logger.getLogger(ServicioEtapaDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en ServicioEtapa DAO Delete " + e.getMessage());
+            
             return false;
         }
 
@@ -119,8 +121,8 @@ public class ServicioEtapaDAO implements IServicioEtapaDao {
             return true;
 
         } catch (SQLException e) {
-            System.out.println("Error en deleteEtapaServicioByEtapa DAO Delete " + e.getMessage());
-            Logger.getLogger(ProgramaServicioDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en deleteEtapaServicioByEtapa DAO Delete " + e.getMessage());
+            
             return false;
         }
 
@@ -157,8 +159,8 @@ public class ServicioEtapaDAO implements IServicioEtapaDao {
             return true;
 
         } catch (SQLException e) {
-            System.out.println("Error en ServicioEtapa DAO UPDATE " + e.getMessage());
-            Logger.getLogger(ServicioEtapaDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en ServicioEtapa DAO UPDATE " + e.getMessage());
+            
             return false;
         }
 
@@ -195,8 +197,8 @@ public class ServicioEtapaDAO implements IServicioEtapaDao {
 
             return list;
         } catch (SQLException e) {
-            System.out.println("Error en ServicioEtapa DAO getAllServicioEtapaByPrograma " + e.getMessage());
-            Logger.getLogger(ServicioEtapaDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en ServicioEtapa DAO getAllServicioEtapaByPrograma " + e.getMessage());
+            
             return null;
         }
 
@@ -234,7 +236,7 @@ public class ServicioEtapaDAO implements IServicioEtapaDao {
 
             return servicioEtapa;
         } catch (SQLException e) {
-            Logger.getLogger(ServicioEtapaDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en ServicioEtapa DAO getServicioEtapaById " + e.getMessage());
             return null;
         }
 

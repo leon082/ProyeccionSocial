@@ -28,6 +28,7 @@ public class Opciones_menuDAO implements IOpciones_menuDao {
 
     public Opciones_menuDAO(Connection connection) {
         this.connection = connection;
+        org.apache.log4j.BasicConfigurator.configure();
     }
 
     public List<Integer> cargarRoles(int idUsuario) {
@@ -47,8 +48,8 @@ public class Opciones_menuDAO implements IOpciones_menuDao {
 
             return listaRoles;
         } catch (SQLException e) {
-            System.out.println("Error en Opcionoes Menu DAO cargarRoles " + e.getMessage());
-            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+             LOGGER.error("Error en Opcionoes Menu DAO cargarRoles " + e.getMessage());
+            
             return null;
         }
     }
@@ -90,8 +91,8 @@ public class Opciones_menuDAO implements IOpciones_menuDao {
 
             return listaModulos;
         } catch (SQLException e) {
-            System.out.println("Error en Menu DAO getMenuByUser " + e.getMessage());
-            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+             LOGGER.error("Error en Menu DAO getMenuByUser " + e.getMessage());
+            
             return null;
         }
 
@@ -141,8 +142,8 @@ public class Opciones_menuDAO implements IOpciones_menuDao {
 
             return listaModulos;
         } catch (SQLException e) {
-            System.out.println("Error en Menu DAO getMenuByUser " + e.getMessage());
-            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+             LOGGER.error("Error en Menu DAO getMenuByUser " + e.getMessage());
+            
             return null;
         }
 
@@ -178,8 +179,8 @@ public class Opciones_menuDAO implements IOpciones_menuDao {
 
             return listaModulos;
         } catch (SQLException e) {
-            System.out.println("Error en Menu DAO getMenuByUser " + e.getMessage());
-            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+             LOGGER.error("Error en Menu DAO getMenuByUser " + e.getMessage());
+            
             return null;
         }
 
@@ -215,8 +216,8 @@ public class Opciones_menuDAO implements IOpciones_menuDao {
 
             return listaModulos;
         } catch (SQLException e) {
-            System.out.println("Error en Menu DAO getMenuByUser " + e.getMessage());
-            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+             LOGGER.error("Error en Menu DAO getMenuByUser " + e.getMessage());
+            
             return null;
         }
 

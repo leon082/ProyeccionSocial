@@ -10,10 +10,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IUsuarioRolDao;
 import java.sql.Connection;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -22,9 +22,11 @@ import java.sql.Connection;
 public class UsuarioRolDAO implements IUsuarioRolDao {
 
     Connection connection;
+    private static final Logger LOGGER =  Logger.getLogger(UsuarioRolDAO.class.getName());
 
     public UsuarioRolDAO(Connection connection) {
         this.connection = connection;
+        org.apache.log4j.BasicConfigurator.configure();
     }
 
     /**
@@ -71,8 +73,8 @@ public class UsuarioRolDAO implements IUsuarioRolDao {
 
             return codigo;
         } catch (SQLException e) {
-            System.out.println("Error en UsuarioRolDAO insert -->" + e.getMessage());
-            Logger.getLogger(UsuarioRolDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en UsuarioRolDAO insert -->" + e.getMessage());
+            
             return 0;
         }
 
@@ -95,8 +97,8 @@ public class UsuarioRolDAO implements IUsuarioRolDao {
             return true;
 
         } catch (SQLException e) {
-            System.out.println("Error en UsuarioRolDAO Delete " + e.getMessage());
-            Logger.getLogger(UsuarioRolDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en UsuarioRolDAO Delete " + e.getMessage());
+            
             return false;
         }
 
@@ -120,8 +122,8 @@ public class UsuarioRolDAO implements IUsuarioRolDao {
             return true;
 
         } catch (SQLException e) {
-            System.out.println("Error en deleteRolesByUser " + e.getMessage());
-            Logger.getLogger(UsuarioRolDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en deleteRolesByUser " + e.getMessage());
+            
             return false;
         }
 
@@ -158,8 +160,8 @@ public class UsuarioRolDAO implements IUsuarioRolDao {
             return true;
 
         } catch (SQLException e) {
-            System.out.println("Error en UsuarioRolDAO UPDATE " + e.getMessage());
-            Logger.getLogger(UsuarioRolDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en UsuarioRolDAO UPDATE " + e.getMessage());
+            
             return false;
         }
 
@@ -196,8 +198,8 @@ public class UsuarioRolDAO implements IUsuarioRolDao {
 
             return list;
         } catch (SQLException e) {
-            System.out.println("Error en UsuarioRolDAO getAllUsuarioRol " + e.getMessage());
-            Logger.getLogger(UsuarioRolDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en UsuarioRolDAO getAllUsuarioRol " + e.getMessage());
+            
             return null;
         }
 
@@ -235,8 +237,8 @@ public class UsuarioRolDAO implements IUsuarioRolDao {
 
             return usuarioRol;
         } catch (SQLException e) {
-            System.out.println("Error en UsuarioRolDAO getUsuarioRolsById " + e.getMessage());
-            Logger.getLogger(UsuarioRolDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en UsuarioRolDAO getUsuarioRolsById " + e.getMessage());
+            
             return null;
         }
 

@@ -25,6 +25,7 @@ public class OferenteDao implements IOferenteDao{
 
     public OferenteDao(Connection connection) {
         this.connection = connection;
+        org.apache.log4j.BasicConfigurator.configure();
     }
     /**
      *
@@ -69,8 +70,9 @@ public class OferenteDao implements IOferenteDao{
 
             return codigo;
         } catch (SQLException e) {
-            System.out.println("Error en OferenteDAO Insert -->" + e.getMessage());
-            Logger.getLogger(OferenteDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+           
+             LOGGER.error("Error en OferenteDAO Insert -->" + e.getMessage());
+            
             return 0;
         }
 
@@ -93,8 +95,9 @@ public class OferenteDao implements IOferenteDao{
             return true;
 
         } catch (SQLException e) {
-            System.out.println("Error en Oferente DAO Delete " + e.getMessage());
-            Logger.getLogger(OferenteDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en Oferente DAO Delete " + e.getMessage());
+           
+            
             return false;
         }
 
@@ -132,8 +135,8 @@ public class OferenteDao implements IOferenteDao{
             return true;
 
         } catch (SQLException e) {
-            System.out.println("Error en Oferente DAO UPDATE " + e.getMessage());
-            Logger.getLogger(OferenteDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+             LOGGER.error("Error en Oferente DAO UPDATE " + e.getMessage());
+            
             return false;
         }
 
@@ -171,8 +174,8 @@ public class OferenteDao implements IOferenteDao{
 
             return list;
         } catch (SQLException e) {
-            System.out.println("Error en Oferentes DAO getAllOferentes " + e.getMessage());
-            Logger.getLogger(OferenteDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+             LOGGER.error("Error en Oferentes DAO getAllOferentes " + e.getMessage());
+            
             return null;
         }
 
@@ -212,7 +215,7 @@ public class OferenteDao implements IOferenteDao{
 
             return oferente;
         } catch (SQLException e) {
-            Logger.getLogger(OferenteDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+             LOGGER.error("Error getOferenteById "+e.getMessage());
             return null;
         }
 
@@ -252,7 +255,7 @@ public class OferenteDao implements IOferenteDao{
 
             return oferente;
         } catch (SQLException e) {
-            Logger.getLogger(OferenteDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+             LOGGER.error("Error OferenteDAO getOferenteByProyecto -> "+e.getMessage());
             return null;
         }
 

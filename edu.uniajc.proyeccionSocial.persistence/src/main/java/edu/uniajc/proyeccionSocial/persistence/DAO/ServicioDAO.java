@@ -10,10 +10,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IServicioDao;
 import java.sql.Connection;
+import org.apache.log4j.Logger;
+
 
 /**
  *
@@ -22,9 +23,11 @@ import java.sql.Connection;
 public class ServicioDAO implements IServicioDao {
 
     Connection connection;
+    private static final Logger LOGGER =  Logger.getLogger(ServicioDAO.class.getName());
 
     public ServicioDAO(Connection connection) {
         this.connection = connection;
+        org.apache.log4j.BasicConfigurator.configure();
     }
 
     /**
@@ -70,8 +73,8 @@ public class ServicioDAO implements IServicioDao {
 
             return codigo;
         } catch (SQLException e) {
-            System.out.println("Error en ServicioDAO insert -->" + e.getMessage());
-            Logger.getLogger(ServicioDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en ServicioDAO insert -->" + e.getMessage());
+            
             return 0;
         }
 
@@ -94,8 +97,8 @@ public class ServicioDAO implements IServicioDao {
             return true;
 
         } catch (SQLException e) {
-            System.out.println("Error en ServicioDAO Delete " + e.getMessage());
-            Logger.getLogger(ServicioDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en ServicioDAO Delete " + e.getMessage());
+            
             return false;
         }
 
@@ -131,8 +134,8 @@ public class ServicioDAO implements IServicioDao {
             return true;
 
         } catch (SQLException e) {
-            System.out.println("Error en ServicioDAO UPDATE " + e.getMessage());
-            Logger.getLogger(ServicioDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en ServicioDAO UPDATE " + e.getMessage());
+            
             return false;
         }
 
@@ -168,8 +171,8 @@ public class ServicioDAO implements IServicioDao {
 
             return list;
         } catch (SQLException e) {
-            System.out.println("Error en ServicioDAO getAllServicio " + e.getMessage());
-            Logger.getLogger(ServicioDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en ServicioDAO getAllServicio " + e.getMessage());
+            
             return null;
         }
 
@@ -209,8 +212,8 @@ public class ServicioDAO implements IServicioDao {
 
             return list;
         } catch (SQLException e) {
-            System.out.println("Error en ServicioDAO getAllServiciobyprog " + e.getMessage());
-            Logger.getLogger(ServicioDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en ServicioDAO getAllServiciobyprog " + e.getMessage());
+            
             return null;
         }
 
@@ -241,8 +244,8 @@ public class ServicioDAO implements IServicioDao {
 
             return result;
         } catch (SQLException e) {
-            System.out.println("Error en ServicioDAO isInProg " + e.getMessage());
-            Logger.getLogger(ServicioDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en ServicioDAO isInProg " + e.getMessage());
+            
             return result;
         }
 
@@ -279,8 +282,8 @@ public class ServicioDAO implements IServicioDao {
 
             return servicio;
         } catch (SQLException e) {
-            System.out.println("Error enServicioDAO getServiciosById " + e.getMessage());
-            Logger.getLogger(ServicioDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error enServicioDAO getServiciosById " + e.getMessage());
+            
             return null;
         }
 

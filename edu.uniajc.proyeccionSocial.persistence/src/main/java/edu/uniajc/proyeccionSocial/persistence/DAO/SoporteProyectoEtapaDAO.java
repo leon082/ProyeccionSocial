@@ -10,11 +10,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import edu.uniajc.proyeccionSocial.persistence.interfaces.ISoporteProyectoEtapaDao;
 import java.sql.Connection;
 import java.util.List;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -23,9 +23,11 @@ import java.util.List;
 public class SoporteProyectoEtapaDAO implements ISoporteProyectoEtapaDao {
 
     Connection connection;
+    private static final Logger LOGGER =  Logger.getLogger(SoporteProyectoEtapaDAO.class.getName());
 
     public SoporteProyectoEtapaDAO(Connection connection) {
         this.connection = connection;
+        org.apache.log4j.BasicConfigurator.configure();
     }
 
     /**
@@ -67,12 +69,12 @@ public class SoporteProyectoEtapaDAO implements ISoporteProyectoEtapaDao {
 
             ps.close();
 
-            System.out.println("Codigo de SoporteProyectoEtapa" + codigo);
+            LOGGER.debug("Codigo de SoporteProyectoEtapa" + codigo);
 
             return codigo;
         } catch (SQLException e) {
-            System.out.println("Error en SoporteProyectoEtapaDAO insert -->" + e.getMessage());
-            Logger.getLogger(SoporteProyectoEtapaDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en SoporteProyectoEtapaDAO insert -->" + e.getMessage());
+            
             return 0;
         }
 
@@ -109,8 +111,8 @@ public class SoporteProyectoEtapaDAO implements ISoporteProyectoEtapaDao {
             return true;
 
         } catch (SQLException e) {
-            System.out.println("Error en SoporteProyectoEtapaDAO UPDATE " + e.getMessage());
-            Logger.getLogger(SoporteProyectoEtapaDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en SoporteProyectoEtapaDAO UPDATE " + e.getMessage());
+            
             return false;
         }
 
@@ -147,8 +149,8 @@ public class SoporteProyectoEtapaDAO implements ISoporteProyectoEtapaDao {
 
             return list;
         } catch (SQLException e) {
-            System.out.println("Error en SoporteProyectoEtapaDAO getAllSoporteProyectoEtapa " + e.getMessage());
-            Logger.getLogger(SoporteProyectoEtapaDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en SoporteProyectoEtapaDAO getAllSoporteProyectoEtapa " + e.getMessage());
+            
             return null;
         }
 
@@ -192,8 +194,8 @@ public class SoporteProyectoEtapaDAO implements ISoporteProyectoEtapaDao {
 
             return list;
         } catch (SQLException e) {
-            System.out.println("Error en SoporteProyectoEtapaDAO getSoporteProyectoEtapasById " + e.getMessage());
-            Logger.getLogger(SoporteProyectoEtapaDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en SoporteProyectoEtapaDAO getSoporteProyectoEtapasById " + e.getMessage());
+            
             return null;
         }
 
@@ -230,8 +232,8 @@ public class SoporteProyectoEtapaDAO implements ISoporteProyectoEtapaDao {
 
             return soporteProyectoEtapa;
         } catch (SQLException e) {
-            System.out.println("Error en SoporteProyectoEtapaDAO getSoporteProyectoEtapasById " + e.getMessage());
-            Logger.getLogger(SoporteProyectoEtapaDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en SoporteProyectoEtapaDAO getSoporteProyectoEtapasById " + e.getMessage());
+            
             return null;
         }
 

@@ -11,10 +11,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IRolDao;
 import java.sql.Connection;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -23,9 +23,11 @@ import java.sql.Connection;
 public class RolDao implements IRolDao {
 
     Connection connection;
+    private static final Logger LOGGER =  Logger.getLogger(RolDao.class.getName());
 
     public RolDao(Connection connection) {
         this.connection = connection;
+        org.apache.log4j.BasicConfigurator.configure();
     }
 
     /**
@@ -72,8 +74,8 @@ public class RolDao implements IRolDao {
 
             return codigo;
         } catch (SQLException e) {
-            System.out.println("Error en RolDao Insert -->" + e.getMessage());
-            Logger.getLogger(RolDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+           LOGGER.error("Error en RolDao Insert -->" + e.getMessage());
+            
             return 0;
         }
 
@@ -96,8 +98,8 @@ public class RolDao implements IRolDao {
             return true;
 
         } catch (SQLException e) {
-            System.out.println("Error en Rol DAO Delete " + e.getMessage());
-            Logger.getLogger(RolDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en Rol DAO Delete " + e.getMessage());
+            
             return false;
         }
 
@@ -128,8 +130,8 @@ public class RolDao implements IRolDao {
             return true;
 
         } catch (SQLException e) {
-            System.out.println("Error en Rol DAO UPDATE " + e.getMessage());
-            Logger.getLogger(RolDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en Rol DAO UPDATE " + e.getMessage());
+            
             return false;
         }
 
@@ -162,8 +164,8 @@ public class RolDao implements IRolDao {
 
             return list;
         } catch (SQLException e) {
-            System.out.println("Error en Rol DAO getAllUsuarios" + e.getMessage());
-            Logger.getLogger(RolDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en Rol DAO getAllUsuarios" + e.getMessage());
+            
             return null;
         }
 
@@ -197,8 +199,8 @@ public class RolDao implements IRolDao {
 
             return rol;
         } catch (SQLException e) {
-            System.out.println("Error en Rol DAO getRolById " + e.getMessage());
-            Logger.getLogger(RolDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en Rol DAO getRolById " + e.getMessage());
+            
             return null;
         }
 
@@ -231,8 +233,8 @@ public class RolDao implements IRolDao {
 
             return listaRoles;
         } catch (SQLException e) {
-            System.out.println("Error en Rol DAO getRolesByUser " + e.getMessage());
-            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en Rol DAO getRolesByUser " + e.getMessage());
+            
             return null;
         }
     }

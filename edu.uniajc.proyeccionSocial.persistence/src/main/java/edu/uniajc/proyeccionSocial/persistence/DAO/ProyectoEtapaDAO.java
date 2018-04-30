@@ -10,10 +10,10 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IProyectoEtapaDao;
 import java.sql.Connection;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -22,9 +22,11 @@ import java.sql.Connection;
 public class ProyectoEtapaDAO implements IProyectoEtapaDao {
 
     Connection connection;
+    private static final Logger LOGGER =  Logger.getLogger(ProyectoEtapaDAO.class.getName());
 
     public ProyectoEtapaDAO(Connection connection) {
         this.connection = connection;
+        org.apache.log4j.BasicConfigurator.configure();
     }
 
     /**
@@ -69,12 +71,12 @@ public class ProyectoEtapaDAO implements IProyectoEtapaDao {
 
             ps.close();
 
-            System.out.println("Codigo de ProyectoEtapa" + codigo);
+            LOGGER.debug("Codigo de ProyectoEtapa" + codigo);
 
             return codigo;
         } catch (SQLException e) {
-            System.out.println("Error en ProyectoEtapa DAO" + e.getMessage());
-            Logger.getLogger(ProyectoEtapaDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+           LOGGER.error("Error en ProyectoEtapa DAO" + e.getMessage());
+            
             return 0;
         }
 
@@ -97,8 +99,8 @@ public class ProyectoEtapaDAO implements IProyectoEtapaDao {
             return true;
 
         } catch (SQLException e) {
-            System.out.println("Error en ProyectoEtapa DAO Delete " + e.getMessage());
-            Logger.getLogger(ProyectoEtapaDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en ProyectoEtapa DAO Delete " + e.getMessage());
+            
             return false;
         }
 
@@ -139,8 +141,8 @@ public class ProyectoEtapaDAO implements IProyectoEtapaDao {
             return true;
 
         } catch (SQLException e) {
-            System.out.println("Error en ProyectoEtapa DAO UPDATE " + e.getMessage());
-            Logger.getLogger(ProyectoEtapaDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en ProyectoEtapa DAO UPDATE " + e.getMessage());
+            
             return false;
         }
 
@@ -176,7 +178,7 @@ public class ProyectoEtapaDAO implements IProyectoEtapaDao {
 
             return list;
         } catch (SQLException e) {
-            Logger.getLogger(ProyectoEtapaDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en ProyectoEtapa DAO getAllProyectoEtapasAprobadasByProyecto " + e.getMessage());
             return null;
         }
 
@@ -216,7 +218,7 @@ public class ProyectoEtapaDAO implements IProyectoEtapaDao {
 
             return list;
         } catch (SQLException e) {
-            Logger.getLogger(ProyectoEtapaDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en ProyectoEtapa DAO getAllProyectoEtapaByProyecto " + e.getMessage());
             return null;
         }
 
@@ -257,7 +259,7 @@ public class ProyectoEtapaDAO implements IProyectoEtapaDao {
 
             return proyectoEtapa;
         } catch (SQLException e) {
-            Logger.getLogger(ProyectoEtapaDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en ProyectoEtapa DAO getProyectoEtapaById " + e.getMessage());
             return null;
         }
 

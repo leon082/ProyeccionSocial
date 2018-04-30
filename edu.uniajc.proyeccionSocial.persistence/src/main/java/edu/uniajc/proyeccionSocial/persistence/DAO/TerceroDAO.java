@@ -10,10 +10,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import edu.uniajc.proyeccionSocial.persistence.interfaces.ITerceroDao;
 import java.sql.Connection;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -22,9 +22,11 @@ import java.sql.Connection;
 public class TerceroDAO implements ITerceroDao {
 
     Connection connection;
+    private static final Logger LOGGER =  Logger.getLogger(TerceroDAO.class.getName());
 
     public TerceroDAO(Connection connection) {
         this.connection = connection;
+        org.apache.log4j.BasicConfigurator.configure();
     }
 
     /**
@@ -77,12 +79,12 @@ public class TerceroDAO implements ITerceroDao {
 
             ps.close();
 
-            System.out.println("Codigo de Tercero" + codigo);
+            LOGGER.debug("Codigo de Tercero" + codigo);
 
             return codigo;
         } catch (SQLException e) {
-            System.out.println("Error en TerceroDAO insert -->" + e.getMessage());
-            Logger.getLogger(TerceroDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en TerceroDAO insert -->" + e.getMessage());
+            
             return 0;
         }
 
@@ -105,8 +107,8 @@ public class TerceroDAO implements ITerceroDao {
             return true;
 
         } catch (SQLException e) {
-            System.out.println("Error en TerceroDAO Delete " + e.getMessage());
-            Logger.getLogger(TerceroDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en TerceroDAO Delete " + e.getMessage());
+            
             return false;
         }
 
@@ -153,8 +155,8 @@ public class TerceroDAO implements ITerceroDao {
             return true;
 
         } catch (SQLException e) {
-            System.out.println("Error en TerceroDAO UPDATE " + e.getMessage());
-            Logger.getLogger(TerceroDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en TerceroDAO UPDATE " + e.getMessage());
+            
             return false;
         }
 
@@ -199,8 +201,8 @@ public class TerceroDAO implements ITerceroDao {
 
             return list;
         } catch (SQLException e) {
-            System.out.println("Error en TerceroDAO getAllTercero " + e.getMessage());
-            Logger.getLogger(TerceroDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en TerceroDAO getAllTercero " + e.getMessage());
+            
             return null;
         }
 
@@ -245,8 +247,8 @@ public class TerceroDAO implements ITerceroDao {
 
             return list;
         } catch (SQLException e) {
-            System.out.println("Error en TerceroDAO getAllTercero " + e.getMessage());
-            Logger.getLogger(TerceroDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en TerceroDAO getAllTercero " + e.getMessage());
+            
             return null;
         }
 
@@ -292,8 +294,8 @@ public class TerceroDAO implements ITerceroDao {
 
             return tercero;
         } catch (SQLException e) {
-            System.out.println("Error en TerceroDAO getTercerosById " + e.getMessage());
-            Logger.getLogger(TerceroDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en TerceroDAO getTercerosById " + e.getMessage());
+            
             return null;
         }
 
@@ -340,8 +342,8 @@ public class TerceroDAO implements ITerceroDao {
 
             return tercero;
         } catch (SQLException e) {
-            System.out.println("Error en TerceroDAO getTerceroByIdentificacion " + e.getMessage());
-            Logger.getLogger(TerceroDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en TerceroDAO getTerceroByIdentificacion " + e.getMessage());
+            
             return null;
         }
     }

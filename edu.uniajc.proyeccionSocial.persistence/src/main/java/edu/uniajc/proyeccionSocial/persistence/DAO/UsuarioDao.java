@@ -10,10 +10,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IUsuarioDao;
 import java.sql.Connection;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -22,9 +22,11 @@ import java.sql.Connection;
 public class UsuarioDao implements IUsuarioDao {
 
     Connection connection;
+    private static final Logger LOGGER =  Logger.getLogger(UsuarioDao.class.getName());
 
     public UsuarioDao(Connection connection) {
         this.connection = connection;
+        org.apache.log4j.BasicConfigurator.configure();
     }
 
     /**
@@ -66,8 +68,8 @@ public class UsuarioDao implements IUsuarioDao {
 
             return codigo;
         } catch (SQLException e) {
-            System.out.println("Error en UsuarioDao Insert -->" + e.getMessage());
-            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en UsuarioDao Insert -->" + e.getMessage());
+            
             return 0;
         }
 
@@ -90,8 +92,8 @@ public class UsuarioDao implements IUsuarioDao {
             return true;
 
         } catch (SQLException e) {
-            System.out.println("Error en Usuario DAO Delete " + e.getMessage());
-            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en Usuario DAO Delete " + e.getMessage());
+            
             return false;
         }
 
@@ -123,8 +125,8 @@ public class UsuarioDao implements IUsuarioDao {
             return true;
 
         } catch (SQLException e) {
-            System.out.println("Error en Usuario DAO UPDATE " + e.getMessage());
-            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en Usuario DAO UPDATE " + e.getMessage());
+            
             return false;
         }
 
@@ -158,8 +160,8 @@ public class UsuarioDao implements IUsuarioDao {
 
             return list;
         } catch (SQLException e) {
-            System.out.println("Error en Usuario DAO getAllUsuarios" + e.getMessage());
-            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en Usuario DAO getAllUsuarios" + e.getMessage());
+            
             return null;
         }
 
@@ -195,8 +197,8 @@ public class UsuarioDao implements IUsuarioDao {
 
             return usuario;
         } catch (SQLException e) {
-            System.out.println("Error en usuario DAO getUserById " + e.getMessage());
-            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en usuario DAO getUserById " + e.getMessage());
+            
             return null;
         }
 
@@ -233,8 +235,8 @@ public class UsuarioDao implements IUsuarioDao {
 
             return usuario;
         } catch (SQLException e) {
-            System.out.println("Error en usuario DAO getUsuarioLogin " + e.getMessage());
-            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en usuario DAO getUsuarioLogin " + e.getMessage());
+            
             return null;
         }
 
@@ -270,8 +272,8 @@ public class UsuarioDao implements IUsuarioDao {
 
             return usuario;
         } catch (SQLException e) {
-            System.out.println("Error en usuario DAO getUserByUsername " + e.getMessage());
-            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en usuario DAO getUserByUsername " + e.getMessage());
+            
             return null;
         }
 
@@ -303,8 +305,8 @@ public class UsuarioDao implements IUsuarioDao {
 
             return correo;
         } catch (SQLException e) {
-            System.out.println("Error en usuario DAO getCorreoByUsername " + e.getMessage());
-            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en usuario DAO getCorreoByUsername " + e.getMessage());
+            
             return null;
         }
 

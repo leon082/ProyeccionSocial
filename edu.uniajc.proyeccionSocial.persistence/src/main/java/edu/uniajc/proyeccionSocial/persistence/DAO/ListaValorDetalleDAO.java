@@ -26,6 +26,7 @@ public class ListaValorDetalleDAO implements IListaValorDetalleDao {
 
     public ListaValorDetalleDAO(Connection connection) {
         this.connection = connection;
+        org.apache.log4j.BasicConfigurator.configure();
     }
 
     /**
@@ -71,8 +72,7 @@ public class ListaValorDetalleDAO implements IListaValorDetalleDao {
 
             return codigo;
         } catch (SQLException e) {
-            System.out.println("Error en ListaValorDetalleDAO insert -->" + e.getMessage());
-            Logger.getLogger(ListaValorDetalleDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en  ListaValorDetalleDAO insert -->" + e.getMessage() );
             return 0;
         }
 
@@ -95,8 +95,7 @@ public class ListaValorDetalleDAO implements IListaValorDetalleDao {
             return true;
 
         } catch (SQLException e) {
-            System.out.println("Error en ListaValorDetalleDAO Delete " + e.getMessage());
-            Logger.getLogger(ListaValorDetalleDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en  ListaValorDetalleDAO delete -->" + e.getMessage() );
             return false;
         }
 
@@ -133,9 +132,8 @@ public class ListaValorDetalleDAO implements IListaValorDetalleDao {
             return true;
 
         } catch (SQLException e) {
-            System.out.println("Error en ListaValorDetalleDAO UPDATE " + e.getMessage());
-            Logger.getLogger(ListaValorDetalleDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
-            return false;
+            LOGGER.error("Error en  ListaValorDetalleDAO delete  -->" + e.getMessage() );
+           return false;
         }
 
     }
@@ -173,8 +171,7 @@ public class ListaValorDetalleDAO implements IListaValorDetalleDao {
 
             return list;
         } catch (SQLException e) {
-            System.out.println("Error en ListaValorDetalleDAO getAllListaValorDetalle " + e.getMessage());
-            Logger.getLogger(ListaValorDetalleDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en  ListaValorDetalleDAO getAllListaValorDetalle -->" + e.getMessage() );
             return null;
         }
 
@@ -212,8 +209,7 @@ public class ListaValorDetalleDAO implements IListaValorDetalleDao {
 
             return listaValorDetalle;
         } catch (SQLException e) {
-            System.out.println("Error en ListaValorDetalleDAO getListaValorDetallesById " + e.getMessage());
-            Logger.getLogger(ListaValorDetalleDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en  ListaValorDetalleDAO getListaValorDetallesById -->" + e.getMessage() );
             return null;
         }
 

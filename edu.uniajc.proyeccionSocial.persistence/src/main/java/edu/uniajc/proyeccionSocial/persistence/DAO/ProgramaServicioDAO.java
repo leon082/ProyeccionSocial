@@ -10,10 +10,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IProgramaServicioDao;
 import java.sql.Connection;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -22,9 +22,11 @@ import java.sql.Connection;
 public class ProgramaServicioDAO implements IProgramaServicioDao {
 
     Connection connection;
+    private static final Logger LOGGER =  Logger.getLogger(ProgramaServicioDAO.class.getName());
 
     public ProgramaServicioDAO(Connection connection) {
         this.connection = connection;
+        org.apache.log4j.BasicConfigurator.configure();
     }
 
     /**
@@ -68,8 +70,8 @@ public class ProgramaServicioDAO implements IProgramaServicioDao {
 
             return codigo;
         } catch (SQLException e) {
-            System.out.println("Error en ProgramaServicioDAO Insert -->" + e.getMessage());
-            Logger.getLogger(ProgramaServicioDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+           LOGGER.error("Error en ProgramaServicioDAO Insert -->" + e.getMessage());
+            
             return 0;
         }
 
@@ -93,8 +95,8 @@ public class ProgramaServicioDAO implements IProgramaServicioDao {
             return true;
 
         } catch (SQLException e) {
-            System.out.println("Error en ProgramaServicio DAO Delete " + e.getMessage());
-            Logger.getLogger(ProgramaServicioDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+             LOGGER.error("Error en ProgramaServicio DAO Delete " + e.getMessage());
+            
             return false;
         }
 
@@ -118,8 +120,8 @@ public class ProgramaServicioDAO implements IProgramaServicioDao {
             return true;
 
         } catch (SQLException e) {
-            System.out.println("Error en ProgramaServicio DAO Delete " + e.getMessage());
-            Logger.getLogger(ProgramaServicioDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+             LOGGER.error("Error en ProgramaServicio DAO Delete " + e.getMessage());
+            
             return false;
         }
 
@@ -156,8 +158,8 @@ public class ProgramaServicioDAO implements IProgramaServicioDao {
             return true;
 
         } catch (SQLException e) {
-            System.out.println("Error en ProgramaServicio DAO UPDATE " + e.getMessage());
-            Logger.getLogger(ProgramaServicioDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en ProgramaServicio DAO UPDATE " + e.getMessage());
+            
             return false;
         }
 
@@ -195,8 +197,8 @@ public class ProgramaServicioDAO implements IProgramaServicioDao {
 
             return list;
         } catch (SQLException e) {
-            System.out.println("Error en ProgramaServicio DAO getAllProgramaServicioByPrograma " + e.getMessage());
-            Logger.getLogger(ProgramaServicioDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en ProgramaServicio DAO getAllProgramaServicioByPrograma " + e.getMessage());
+            
             return null;
         }
 
@@ -234,7 +236,7 @@ public class ProgramaServicioDAO implements IProgramaServicioDao {
 
             return progServi;
         } catch (SQLException e) {
-            Logger.getLogger(ProgramaServicioDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+             LOGGER.error("Error ProgramaServicioDAO getProgramaServicioById "+e.getMessage());
             return null;
         }
 

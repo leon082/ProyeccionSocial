@@ -26,6 +26,7 @@ public class EtapaDAO implements IEtapaDao{
 
     public EtapaDAO(Connection connection) {
         this.connection = connection;
+        org.apache.log4j.BasicConfigurator.configure();
     }
 
 
@@ -71,8 +72,9 @@ public class EtapaDAO implements IEtapaDao{
 
             return codigo;
         } catch (SQLException e) {
-            System.out.println("Error en EtapaDao Insert -->" + e.getMessage());
-            Logger.getLogger(EtapaDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            
+            LOGGER.error("Error en  EtapaDao Insert -->" + e.getMessage() );
+            
             return 0;
         }
 
@@ -95,9 +97,8 @@ public class EtapaDAO implements IEtapaDao{
             return true;
 
         } catch (SQLException e) {
-            System.out.println("Error en Etapa DAO Delete " + e.getMessage());
-            Logger.getLogger(EtapaDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
-            return false;
+            LOGGER.error("Error en  EtapaDao Delete -->" + e.getMessage() );
+           return false;
         }
 
     }
@@ -130,8 +131,7 @@ public class EtapaDAO implements IEtapaDao{
             return true;
 
         } catch (SQLException e) {
-            System.out.println("Error en Etapa DAO UPDATE " + e.getMessage());
-            Logger.getLogger(EtapaDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en  EtapaDao Update -->" + e.getMessage() );
             return false;
         }
 
@@ -167,9 +167,8 @@ public class EtapaDAO implements IEtapaDao{
 
             return list;
         } catch (SQLException e) {
-            System.out.println("Error en Etapa DAO getAllUsuarios" + e.getMessage());
-            Logger.getLogger(EtapaDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
-            return null;
+            LOGGER.error("Error en  EtapaDao getAllUsuarios -->" + e.getMessage() );
+           return null;
         }
 
     }
@@ -201,8 +200,7 @@ public class EtapaDAO implements IEtapaDao{
 
             return etapa;
         } catch (SQLException e) {
-            System.out.println("Error en Etapa DAO getEtapaById " + e.getMessage());
-            Logger.getLogger(EtapaDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en  EtapaDao getEtapaById -->" + e.getMessage() );
             return null;
         }
 
@@ -233,8 +231,8 @@ public class EtapaDAO implements IEtapaDao{
 
             return result;
         } catch (SQLException e) {
-            System.out.println("Error en EtapaDAO isInServ " + e.getMessage());
-            Logger.getLogger(ServicioDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en  EtapaDao isInServ -->" + e.getMessage() );
+           
             return result;
         }
 
@@ -274,8 +272,8 @@ public class EtapaDAO implements IEtapaDao{
 
             return list;
         } catch (SQLException e) {
-            System.out.println("Error en EtapaDAO getAllEtapaByServicio " + e.getMessage());
-            Logger.getLogger(ServicioDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en  EtapaDao getAllEtapaByServicio -->" + e.getMessage() );
+            
             return null;
         }
 

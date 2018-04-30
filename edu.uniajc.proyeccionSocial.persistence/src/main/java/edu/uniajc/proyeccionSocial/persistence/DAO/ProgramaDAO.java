@@ -10,10 +10,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IProgramaDao;
 import java.sql.Connection;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -22,9 +22,11 @@ import java.sql.Connection;
 public class ProgramaDAO implements IProgramaDao {
 
     Connection connection;
+    private static final Logger LOGGER =  Logger.getLogger(ProgramaDAO.class.getName());
 
     public ProgramaDAO(Connection connection) {
         this.connection = connection;
+        org.apache.log4j.BasicConfigurator.configure();
     }
 
     /**
@@ -69,8 +71,8 @@ public class ProgramaDAO implements IProgramaDao {
 
             return codigo;
         } catch (SQLException e) {
-            System.out.println("Error en ProgramaDAO insert -->" + e.getMessage());
-            Logger.getLogger(ProgramaDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en ProgramaDAO insert -->" + e.getMessage());
+            
             return 0;
         }
 
@@ -93,8 +95,8 @@ public class ProgramaDAO implements IProgramaDao {
             return true;
 
         } catch (SQLException e) {
-            System.out.println("Error en ProgramaDAO Delete " + e.getMessage());
-            Logger.getLogger(ProgramaDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+             LOGGER.error("Error en ProgramaDAO Delete " + e.getMessage());
+            
             return false;
         }
 
@@ -130,8 +132,8 @@ public class ProgramaDAO implements IProgramaDao {
             return true;
 
         } catch (SQLException e) {
-            System.out.println("Error en ProgramaDAO UPDATE " + e.getMessage());
-            Logger.getLogger(ProgramaDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en ProgramaDAO UPDATE " + e.getMessage());
+            
             return false;
         }
 
@@ -167,8 +169,8 @@ public class ProgramaDAO implements IProgramaDao {
 
             return list;
         } catch (SQLException e) {
-            System.out.println("Error en ProgramaDAO getAllPrograma " + e.getMessage());
-            Logger.getLogger(ProgramaDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en ProgramaDAO getAllPrograma " + e.getMessage());
+            
             return null;
         }
 
@@ -205,8 +207,8 @@ public class ProgramaDAO implements IProgramaDao {
 
             return programa;
         } catch (SQLException e) {
-            System.out.println("Error enProgramaDAO getProgramasById " + e.getMessage());
-            Logger.getLogger(ProgramaDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+             LOGGER.error("Error enProgramaDAO getProgramasById " + e.getMessage());
+            
             return null;
         }
 
@@ -235,8 +237,8 @@ public class ProgramaDAO implements IProgramaDao {
 
             return result;
         } catch (SQLException e) {
-            System.out.println("Error en ProgramaDAO isInProy " + e.getMessage());
-            Logger.getLogger(ServicioDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+             LOGGER.error("Error en ProgramaDAO isInProy " + e.getMessage());
+            
             return result;
         }
 

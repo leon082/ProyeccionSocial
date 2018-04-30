@@ -10,11 +10,11 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IProyectoDao;
 import java.sql.Connection;
 import java.util.List;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -23,9 +23,11 @@ import java.util.List;
 public class ProyectoDao implements IProyectoDao {
 
     Connection connection;
+    private static final Logger LOGGER =  Logger.getLogger(BeneficiarioDAO.class.getName());
 
     public ProyectoDao(Connection connection) {
         this.connection = connection;
+        org.apache.log4j.BasicConfigurator.configure();
     }
 
     /**
@@ -69,12 +71,12 @@ public class ProyectoDao implements IProyectoDao {
 
             ps.close();
 
-            System.out.println("Codigo de Proyecto" + codigo);
+           LOGGER.debug("Codigo de Proyecto" + codigo);
 
             return codigo;
         } catch (SQLException e) {
-            System.out.println("Error en Proyecto DAO" + e.getMessage());
-            Logger.getLogger(ProyectoDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en Proyecto DAO" + e.getMessage());
+            
             return 0;
         }
 
@@ -97,8 +99,8 @@ public class ProyectoDao implements IProyectoDao {
             return true;
 
         } catch (SQLException e) {
-            System.out.println("Error en Proyecto DAO Delete " + e.getMessage());
-            Logger.getLogger(ProyectoDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+           LOGGER.error("Error en Proyecto DAO Delete " + e.getMessage());
+            
             return false;
         }
 
@@ -139,8 +141,8 @@ public class ProyectoDao implements IProyectoDao {
             return true;
 
         } catch (SQLException e) {
-            System.out.println("Error en Proyecto DAO UPDATE " + e.getMessage());
-            Logger.getLogger(ProyectoDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error en Proyecto DAO UPDATE " + e.getMessage());
+            
             return false;
         }
 
@@ -181,7 +183,7 @@ public class ProyectoDao implements IProyectoDao {
 
             return list;
         } catch (SQLException e) {
-            Logger.getLogger(ProyectoDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error, ProyectoDAO, getAllProyectoPendiente "+e.getMessage());
             return null;
         }
 
@@ -222,7 +224,7 @@ public class ProyectoDao implements IProyectoDao {
 
             return list;
         } catch (SQLException e) {
-            Logger.getLogger(ProyectoDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error, ProyectoDAO, getAllProyectoAprobado "+e.getMessage());
             return null;
         }
 
@@ -263,7 +265,7 @@ public class ProyectoDao implements IProyectoDao {
 
             return list;
         } catch (SQLException e) {
-            Logger.getLogger(ProyectoDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error, ProyectoDAO, getAllProyectoFinalizad "+e.getMessage());
             return null;
         }
 
@@ -304,7 +306,7 @@ public class ProyectoDao implements IProyectoDao {
 
             return list;
         } catch (SQLException e) {
-            Logger.getLogger(ProyectoDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error, ProyectoDAO, getAllProyectoCancelado "+e.getMessage());
             return null;
         }
 
@@ -333,7 +335,7 @@ public class ProyectoDao implements IProyectoDao {
 
             return result;
         } catch (SQLException e) {
-            Logger.getLogger(ProyectoDao.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error, ProyectoDAO, getAllProyectoPendiente "+e.getMessage());
             return result;
         }
 
@@ -375,8 +377,8 @@ public class ProyectoDao implements IProyectoDao {
 
             return list;
         } catch (SQLException e) {
-            System.out.println("Error proyectoDao getProyectoByUser " + e.getMessage());
-            Logger.getLogger(ProgramaDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            LOGGER.error("Error proyectoDao getProyectoByUser " + e.getMessage());
+            
             return null;
         }
 
@@ -417,8 +419,8 @@ public class ProyectoDao implements IProyectoDao {
 
             return proyecto;
         } catch (SQLException e) {
-            System.out.println("Error proyectoDao getProyectoByUser " + e.getMessage());
-            Logger.getLogger(ProgramaDAO.class.getName()).log(Level.SEVERE, null, e.getMessage());
+           LOGGER.error("Error proyectoDao getProyectoByUser " + e.getMessage());
+            
             return null;
         }
 
