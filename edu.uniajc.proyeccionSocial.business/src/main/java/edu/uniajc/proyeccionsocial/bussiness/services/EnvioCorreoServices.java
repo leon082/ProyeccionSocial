@@ -32,7 +32,7 @@ public class EnvioCorreoServices implements IEnvioCorreo {
     Map<Integer, String> tiposCorreo;
     Properties propiedades;
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(EnvioCorreoServices.class.getName());
-    
+
 //No uso un static por que no lo necesito como constante que este en memoria siempre.
     /**
      *
@@ -60,7 +60,7 @@ public class EnvioCorreoServices implements IEnvioCorreo {
             tiposCorreo.put(8, propiedades.getProperty("getTextOfEmailRecuperarContraUser"));
             tiposCorreo.put(9, propiedades.getProperty("getTextOfEmailContrasenaCambiada"));
         } catch (IOException ex) {
-            
+
             Logger.getLogger(EnvioCorreoServices.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -119,7 +119,7 @@ public class EnvioCorreoServices implements IEnvioCorreo {
             } catch (MessagingException me) {
                 System.out.println("Error, no se pudo enviar el correo --> " + me.getMessage());
                 LOGGER.error("Error, no se pudo enviar el correo --> " + me.getMessage());
-                
+
                 result = false;
             }
         }
