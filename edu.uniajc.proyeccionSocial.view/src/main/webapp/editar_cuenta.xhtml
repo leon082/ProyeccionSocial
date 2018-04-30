@@ -22,7 +22,7 @@
                 <p:growl id="mensajes" showDetail="true" life="2000" />
                 <h:form>
                     <p:tabView id="tab">
-                        <p:tab title="Gestion Usuario">
+                        <p:tab title="Gestión Usuario">
 
 
                             <h:panelGrid columns="2" styleClass="panelDatosPersonales">
@@ -81,18 +81,18 @@
                                        
 
                                         
-                                            <p:outputLabel for="phoneFijo" value="Telefono:" />
+                                            <p:outputLabel for="phoneFijo" value="Teléfono:" />
                                             <p:inputMask id="phoneFijo" value="#{editarCuentaBean.tercero.telefonofijo}" mask="9999999" />
                                       
 
 
                                        
-                                            <p:outputLabel for="phoneCel" value="Telefono Celular" />
+                                            <p:outputLabel for="phoneCel" value="Teléfono Celular" />
                                             <p:inputMask id="phoneCel" value="#{editarCuentaBean.tercero.telefonocelular}" mask="(999) 999-9999"/>
                                      
 
                                        
-                                            <p:outputLabel for="correo" value="Correo Electronico:" />
+                                            <p:outputLabel for="correo" value="Correo Electrónico:" />
                                             <p:inputText id="correo" value="#{editarCuentaBean.tercero.correo}" required="true" requiredMessage="Correo requerido">
                                             <f:validateLength minimum="2" maximum="50"/>
                                             </p:inputText>

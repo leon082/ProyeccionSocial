@@ -24,9 +24,9 @@
                     <p:tabView id="tab">
 
 
-                        <p:tab title="Gestion Programas"> <!-- Nombre  -->
+                        <p:tab title="Gestión Programas"> <!-- Nombre  -->
                             <h:panelGrid columns="4" cellpadding="5">
-                                <p:outputLabel for="add_1" value="Descripcion :" />
+                                <p:outputLabel for="add_1" value="Descripción :" />
                                 <p:inputText   id="add_1" value="#{programaBean.programa.descripcion}" required="true" requiredMessage="Descripcion requerido">
                                 <f:validateLength minimum="2" maximum="100"/>
                                 </p:inputText>                       
@@ -57,7 +57,7 @@
 
                         <p:ajax event="rowEdit" listener="#{programaBean.modificar}" update=":forma:grow" />
 
-                        <p:column headerText="Codigo Programa">
+                        <p:column headerText="Código Programa">
                             <p:outputLabel value="#{programa.id_programa}"></p:outputLabel>
 
                         </p:column>

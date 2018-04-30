@@ -25,13 +25,13 @@
 
 
 
-                        <p:tab title="Aprobacion de Proyectos"> <!-- Nombre  -->
+                        <p:tab title="Aprobación de Proyectos"> <!-- Nombre  -->
                             <h3 style="margin-top: 0">Proyectos Pendientes</h3>
 
                             <p:dataTable id="listaProyectos" var="proyecto" value="#{proyectosAprobarBean.proyectosAprobar}" paginator="true" 
                                          paginatorPosition="bottom"
                                          rows="3">
-                                <p:column headerText="Titulo" groupRow="true">
+                                <p:column headerText="Título" groupRow="true">
                                     <h:outputText value="#{proyecto.tituloproyecto}" />
                                 </p:column>
                                 <p:column headerText="" style="width:30px" >
@@ -50,7 +50,7 @@
 
                             <p:separator />
                             <h:panelGrid columns="1" cellpadding="5">
-                                <p:outputLabel for="add_1" value="Titulo :" />
+                                <p:outputLabel for="add_1" value="Título :" />
                                 <p:inputText   id="add_1" value="#{proyectosAprobarBean.proyecto.tituloproyecto}" readonly="true"/>                       
                             </h:panelGrid>
                             <h:panelGrid columns="4" cellpadding="5">

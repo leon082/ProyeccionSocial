@@ -96,18 +96,18 @@
                                     </h:panelGrid>
 
                                     <h:panelGrid columns="1">
-                                        <p:outputLabel for="phoneFijo" value="Telefono:" />
+                                        <p:outputLabel for="phoneFijo" value="Teléfono:" />
                                         <p:inputMask id="phoneFijo" value="#{registrarBean.tercero.telefonofijo}" mask="9999999" />
                                     </h:panelGrid>
 
 
                                     <h:panelGrid columns="1">
-                                        <p:outputLabel for="phoneCel" value="Telefono Celular" />
+                                        <p:outputLabel for="phoneCel" value="Teléfono Celular" />
                                         <p:inputMask id="phoneCel" value="#{registrarBean.tercero.telefonocelular}" mask="(999) 999-9999"/>
                                     </h:panelGrid>
 
                                     <h:panelGrid columns="1">
-                                        <p:outputLabel for="correo" value="Correo Electronico:" />
+                                        <p:outputLabel for="correo" value="Correo Electrónico:" />
                                         <p:inputText id="correo" value="#{registrarBean.tercero.correo}" required="true" requiredMessage="Correo requerido">
                                             <f:validateLength minimum="2" maximum="50"/>
                                         </p:inputText>

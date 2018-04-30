@@ -155,7 +155,7 @@ public class EnvioCorreoServices implements IEnvioCorreo {
                 message.setFrom(new InternetAddress((String) properties.get("mail.smtp.mail.sender")));
                 message.addRecipient(Message.RecipientType.TO, new InternetAddress(receptor));
                 message.setSubject("Correo Prueba");
-                message.setText("Correo de prueba", "utf-8", "html");
+                message.setText("Correo de prueba título", "utf-8", "html");
                 Transport t = session.getTransport("smtp");
                 t.connect((String) properties.get("mail.smtp.user"), password);
                 t.sendMessage(message, message.getAllRecipients());

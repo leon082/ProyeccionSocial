@@ -24,11 +24,11 @@
                     <p:tabView id="tab">
 
 
-                        <p:tab title="Gestion Servicios"> <!-- Nombre  -->
+                        <p:tab title="Gestión Servicios"> <!-- Nombre  -->
                             <h:panelGrid columns="4" cellpadding="5">
 
 
-                                <p:outputLabel for="add_2" value="Descripcion :" />
+                                <p:outputLabel for="add_2" value="Descripción :" />
                                 <p:inputText   id="add_2" value="#{serviciosBean.servicio.descripcion}" required="true" requiredMessage="Descripcion requerido">
                                 <f:validateLength minimum="2" maximum="100"/>
                                 </p:inputText>                       
@@ -61,7 +61,7 @@
 
                         <p:ajax event="rowEdit" listener="#{serviciosBean.update}" update=":forma:grow" />
 
-                        <p:column headerText="Codigo Servicio">
+                        <p:column headerText="Código Servicio">
                             <p:outputLabel value="#{servicio.id_servicio}"></p:outputLabel>
 
                         </p:column>

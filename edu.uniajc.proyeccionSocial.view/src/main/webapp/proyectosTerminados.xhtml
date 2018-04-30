@@ -31,7 +31,7 @@
                             <p:dataTable id="listaProyectos" var="proyecto" value="#{proyectosTerminadosBean.proyectosAprobar}" paginator="true" 
                                          paginatorPosition="bottom"
                                          rows="3"  >
-                                <p:column headerText="Titulo" groupRow="true">
+                                <p:column headerText="Título" groupRow="true">
                                     <h:outputText value="#{proyecto.tituloproyecto}" />
                                 </p:column>
                                 <p:column headerText="" style="width:30px" >
@@ -59,7 +59,7 @@
                                 </h:panelGrid>
 
                                 <h:panelGrid columns="1" cellpadding="5">
-                                    <p:outputLabel for="add_1" value="Titulo :" />
+                                    <p:outputLabel for="add_1" value="Título :" />
                                     <p:inputText   id="add_1" value="#{proyectosTerminadosBean.proyecto.tituloproyecto}" readonly="true"/>                       
                                 </h:panelGrid>
 

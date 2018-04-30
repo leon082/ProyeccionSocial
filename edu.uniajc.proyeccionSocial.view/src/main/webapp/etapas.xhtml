@@ -24,9 +24,9 @@
                     <p:tabView id="tab">
 
 
-                        <p:tab title="Gestion Etapas"> <!-- Nombre  -->
+                        <p:tab title="Gestión Etapas"> <!-- Nombre  -->
                             <h:panelGrid columns="4" cellpadding="5">
-                                <p:outputLabel for="add_1" value="Descripcion :" />
+                                <p:outputLabel for="add_1" value="Descripción :" />
                                 <p:inputText   id="add_1" value="#{etapaBean.etapa.descripcion}" required="true" requiredMessage="Descripcion requerido">
                                 <f:validateLength minimum="2" maximum="100"/>
                                 </p:inputText>                       
@@ -56,7 +56,7 @@
 
                         <p:ajax event="rowEdit" listener="#{etapaBean.modificar}" update=":forma:grow" />
 
-                        <p:column headerText="Codigo Etapa">
+                        <p:column headerText="Código Etapa">
                             <p:outputLabel value="#{etapa.id_etapa}"></p:outputLabel>
 
                         </p:column>

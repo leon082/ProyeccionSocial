@@ -168,7 +168,7 @@ public class ProyectoBeanCopy {
     public String getTextOfEmail() {
         String text = "El sistema de Proyeccion Social le notifica que el usuario :usuario "
                 + "ha realizado la creacion de un proyecto para su aprobacion. ";
-        text += "Titulo del proyecto: :titulo";
+        text += "Título del proyecto: :titulo";
 
         return text;
     }
