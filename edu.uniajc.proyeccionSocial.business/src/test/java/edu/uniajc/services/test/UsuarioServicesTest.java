@@ -92,7 +92,7 @@ public class UsuarioServicesTest {
     public void DLogin() {
         
         
-        assertNotNull(services.getUsuarioLogin("lleon", "lleon123"));
+        assertNotNull(services.getUsuarioLogin("lleon", "lleon1234"));
 
     }
 
