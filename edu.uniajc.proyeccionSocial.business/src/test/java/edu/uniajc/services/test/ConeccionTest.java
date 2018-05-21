@@ -19,7 +19,7 @@ public class ConeccionTest {
         try{
             DriverManager.registerDriver (new oracle.jdbc.driver.OracleDriver());
              Connection conn = DriverManager.getConnection
-          ("jdbc:oracle:thin:@localhost:1521:XE", "system", "luisleon9");             
+          ("jdbc:oracle:thin:@localhost:1521:XE", "system", "luisleon99");             
              return conn;
         }catch(SQLException e){
             return null;
