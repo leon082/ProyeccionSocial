@@ -132,7 +132,7 @@ public class UsuarioServices implements IUsuario {
     
      public String generateHash(String password) throws RuntimeException, NoSuchAlgorithmException {
 
-        if (password == null && password.length() < 0) {
+        if (password == null || password.length() < 0) {
             System.err.println("String to MD5 digest should be first and only parameter");
             throw new RuntimeException();
         }

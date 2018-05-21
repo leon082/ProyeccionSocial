@@ -19,17 +19,15 @@ import org.apache.log4j.Logger;
  *
  * @author luis.leon
  */
-public class EtapaDAO implements IEtapaDao{
-    
+public class EtapaDAO implements IEtapaDao {
+
     Connection connection;
-    private static final Logger LOGGER =  Logger.getLogger(EtapaDAO.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(EtapaDAO.class.getName());
 
     public EtapaDAO(Connection connection) {
         this.connection = connection;
         org.apache.log4j.BasicConfigurator.configure();
     }
-
-
 
     /**
      *
@@ -38,16 +36,17 @@ public class EtapaDAO implements IEtapaDao{
      */
     @Override
     public int createEtapa(Etapa etapa) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
             etapa.setCreadoen(fechaSQL);
             etapa.setEstado(1);
-            PreparedStatement ps = null;
 
             String SQL = "select SQ_TB_Etapa.nextval ID from dual";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             int codigo = 0;
 
             if (rs.next()) {
@@ -68,14 +67,18 @@ public class EtapaDAO implements IEtapaDao{
 
             ps.execute();
 
-            ps.close();
+            
 
             return codigo;
         } catch (SQLException e) {
-            
-            LOGGER.error("Error en  EtapaDao Insert -->" + e.getMessage() );
-            
+
+            LOGGER.error("Error en  EtapaDao Insert -->" + e.getMessage());
+
             return 0;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -87,18 +90,24 @@ public class EtapaDAO implements IEtapaDao{
      */
     @Override
     public boolean deleteEtapa(int id) {
+        PreparedStatement ps = null;
+
         try {
 
             String SQL = "UPDATE TB_Etapa SET Estado=0 WHERE ID_Etapa =" + id + " ";
 
-            PreparedStatement ps = connection.prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ps.execute();
-            ps.close();
+            
             return true;
 
         } catch (SQLException e) {
-            LOGGER.error("Error en  EtapaDao Delete -->" + e.getMessage() );
-           return false;
+            LOGGER.error("Error en  EtapaDao Delete -->" + e.getMessage());
+            return false;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+            
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -110,12 +119,13 @@ public class EtapaDAO implements IEtapaDao{
      */
     @Override
     public boolean updateEtapa(Etapa etapa) {
+        PreparedStatement ps = null;
+
         try {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
             etapa.setModificadoen(fechaSQL);
 
-            PreparedStatement ps = null;
             String SQL = "UPDATE TB_Etapa SET Descripcion=?, Estado=? ,modificadopor =? , modificadoen =? "
                     + " where ID_Etapa = ?";
             ps = connection.prepareStatement(SQL);
@@ -127,12 +137,16 @@ public class EtapaDAO implements IEtapaDao{
             ps.setInt(5, etapa.getId_etapa());
 
             ps.execute();
-            ps.close();
+            
             return true;
 
         } catch (SQLException e) {
-            LOGGER.error("Error en  EtapaDao Update -->" + e.getMessage() );
+            LOGGER.error("Error en  EtapaDao Update -->" + e.getMessage());
             return false;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -143,14 +157,14 @@ public class EtapaDAO implements IEtapaDao{
      */
     @Override
     public ArrayList<Etapa> getAllEtapa() {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         ArrayList<Etapa> list = new ArrayList<>(0);
         try {
 
-            PreparedStatement ps = null;
-
             final String SQL = "SELECT * from TB_Etapa where estado = 1";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while (rs.next()) {
                 Etapa etapa = new Etapa();
                 etapa.setId_etapa(rs.getInt("ID_Etapa"));
@@ -163,12 +177,16 @@ public class EtapaDAO implements IEtapaDao{
 
                 list.add(etapa);
             }
-            ps.close();
+            
 
             return list;
         } catch (SQLException e) {
-            LOGGER.error("Error en  EtapaDao getAllUsuarios -->" + e.getMessage() );
-           return null;
+            LOGGER.error("Error en  EtapaDao getAllUsuarios -->" + e.getMessage());
+            return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -182,13 +200,13 @@ public class EtapaDAO implements IEtapaDao{
     public Etapa getEtapaById(int id) {
 
         Etapa etapa = new Etapa();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
-
-            PreparedStatement ps = null;
 
             String SQL = "select * from TB_Etapa where ID_Etapa =" + id + " and estado = 1";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             if (rs.next()) {
 
                 etapa.setId_etapa(rs.getInt("ID_Etapa"));
@@ -196,12 +214,16 @@ public class EtapaDAO implements IEtapaDao{
                 etapa.setEstado(rs.getInt("Estado"));
 
             }
-            ps.close();
+            
 
             return etapa;
         } catch (SQLException e) {
-            LOGGER.error("Error en  EtapaDao getEtapaById -->" + e.getMessage() );
+            LOGGER.error("Error en  EtapaDao getEtapaById -->" + e.getMessage());
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -215,25 +237,29 @@ public class EtapaDAO implements IEtapaDao{
     public boolean isInServ(int idEtapa) {
 
         boolean result = false;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
-
-            PreparedStatement ps = null;
 
             final String SQL = "select s.* from tb_etapa s \n"
                     + "inner join tb_servicioetapa ps on s.id_etapa = ps.id_etapa \n"
                     + "where ps.ESTADO = 1 and s.id_etapa = " + idEtapa + " ";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
 
             result = rs.next();
 
-            ps.close();
+            
 
             return result;
         } catch (SQLException e) {
-            LOGGER.error("Error en  EtapaDao isInServ -->" + e.getMessage() );
-           
+            LOGGER.error("Error en  EtapaDao isInServ -->" + e.getMessage());
+
             return result;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -247,15 +273,15 @@ public class EtapaDAO implements IEtapaDao{
     public ArrayList<Etapa> getAllEtapaByServicio(int idServicio) {
 
         ArrayList<Etapa> list = new ArrayList<>(0);
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
-
-            PreparedStatement ps = null;
 
             final String SQL = "select s.* from tb_etapa s \n"
                     + "inner join TB_SERVICIOetapa ps on s.id_etapa = ps.id_etapa \n"
                     + "where ps.ESTADO=1 and  ps.id_servicio= " + idServicio + " ";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while (rs.next()) {
                 Etapa etapa = new Etapa();
                 etapa.setId_etapa(rs.getInt("id_etapa"));
@@ -268,13 +294,17 @@ public class EtapaDAO implements IEtapaDao{
 
                 list.add(etapa);
             }
-            ps.close();
+            
 
             return list;
         } catch (SQLException e) {
-            LOGGER.error("Error en  EtapaDao getAllEtapaByServicio -->" + e.getMessage() );
-            
+            LOGGER.error("Error en  EtapaDao getAllEtapaByServicio -->" + e.getMessage());
+
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }

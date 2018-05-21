@@ -36,16 +36,18 @@ public class ProgramaServicioDAO implements IProgramaServicioDao {
      */
     @Override
     public int createProgramaServicio(ProgramaServicio progServi) {
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         try {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
             progServi.setCreadoen(fechaSQL);
             progServi.setEstado(1);
-            PreparedStatement ps = null;
+            
 
             String SQL = "select SQ_TB_ProgramaServicio.nextval ID from dual";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             int codigo = 0;
 
             if (rs.next()) {
@@ -66,13 +68,17 @@ public class ProgramaServicioDAO implements IProgramaServicioDao {
             ps.setDate(6, progServi.getCreadoen());
             ps.execute();
 
-            ps.close();
+            
 
             return codigo;
         } catch (SQLException e) {
            LOGGER.error("Error en ProgramaServicioDAO Insert -->" + e.getMessage());
             
             return 0;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -84,20 +90,26 @@ public class ProgramaServicioDAO implements IProgramaServicioDao {
      */
     @Override
     public boolean deleteProgramaServicio(int id) {
+        PreparedStatement ps =null;
+         
         try {
 
             String SQL = "UPDATE TB_ProgramaServicio SET Estado=0 WHERE "
                     + "ID_ProgramaServicio =" + id + " ";
 
-            PreparedStatement ps = connection.prepareStatement(SQL);
+             ps = connection.prepareStatement(SQL);
             ps.execute();
-            ps.close();
+            
             return true;
 
         } catch (SQLException e) {
              LOGGER.error("Error en ProgramaServicio DAO Delete " + e.getMessage());
             
             return false;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+           
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -109,20 +121,26 @@ public class ProgramaServicioDAO implements IProgramaServicioDao {
      */
     @Override
     public boolean deleteProgramaServicioByProg(int id) {
+        PreparedStatement ps =null;
+         
         try {
 
             String SQL = "DELETE FROM tb_programaservicio WHERE "
                     + "ID_Programa =" + id + " ";
 
-            PreparedStatement ps = connection.prepareStatement(SQL);
+             ps = connection.prepareStatement(SQL);
             ps.execute();
-            ps.close();
+            
             return true;
 
         } catch (SQLException e) {
              LOGGER.error("Error en ProgramaServicio DAO Delete " + e.getMessage());
             
             return false;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -134,13 +152,15 @@ public class ProgramaServicioDAO implements IProgramaServicioDao {
      */
     @Override
     public boolean updateProgramaServicio(ProgramaServicio progServi) {
+        PreparedStatement ps =null;
+         
         try {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
 
             progServi.setModificadoen(fechaSQL);
 
-            PreparedStatement ps = null;
+            
             String SQL = "UPDATE TB_ProgramaServicio SET "
                     + "ID_Programa=?, ID_Servicio=?, Estado=?, ModificadoPor=?, ModificadoEn=? "
                     + "where ID_ProgramaServicio = ?";
@@ -154,13 +174,17 @@ public class ProgramaServicioDAO implements IProgramaServicioDao {
             ps.setInt(6, progServi.getId_programaservicio());
 
             ps.execute();
-            ps.close();
+            
             return true;
 
         } catch (SQLException e) {
             LOGGER.error("Error en ProgramaServicio DAO UPDATE " + e.getMessage());
             
             return false;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+           
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -173,13 +197,15 @@ public class ProgramaServicioDAO implements IProgramaServicioDao {
     @Override
     public ArrayList<ProgramaServicio> getAllProgramaServicioByPrograma(int idPrograma) {
         ArrayList<ProgramaServicio> list = new ArrayList<>(0);
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         try {
 
-            PreparedStatement ps = null;
+            
 
             final String SQL = "SELECT * from TB_ProgramaServicio where ID_Programa = " + idPrograma + " and estado = 1";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while (rs.next()) {
                 ProgramaServicio progServi = new ProgramaServicio();
                 progServi.setId_programaservicio(rs.getInt("ID_ProgramaServicio"));
@@ -193,13 +219,17 @@ public class ProgramaServicioDAO implements IProgramaServicioDao {
 
                 list.add(progServi);
             }
-            ps.close();
+            
 
             return list;
         } catch (SQLException e) {
             LOGGER.error("Error en ProgramaServicio DAO getAllProgramaServicioByPrograma " + e.getMessage());
             
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -213,13 +243,15 @@ public class ProgramaServicioDAO implements IProgramaServicioDao {
     public ProgramaServicio getProgramaServicioById(int id) {
 
         ProgramaServicio progServi = new ProgramaServicio();
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         try {
 
-            PreparedStatement ps = null;
+            
 
             String SQL = "select * from TB_ProgramaServicio where ID_ProgramaServicio =" + id + " and estado = 1";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             if (rs.next()) {
 
                 progServi.setId_programaservicio(rs.getInt("ID_ProgramaServicio"));
@@ -232,12 +264,16 @@ public class ProgramaServicioDAO implements IProgramaServicioDao {
                 progServi.setModificadoen(rs.getDate("MODIFICADOEN"));
 
             }
-            ps.close();
+            
 
             return progServi;
         } catch (SQLException e) {
              LOGGER.error("Error ProgramaServicioDAO getProgramaServicioById "+e.getMessage());
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }

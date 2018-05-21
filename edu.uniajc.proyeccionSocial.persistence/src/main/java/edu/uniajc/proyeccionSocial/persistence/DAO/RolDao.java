@@ -37,6 +37,8 @@ public class RolDao implements IRolDao {
      */
     @Override
     public int createRol(Rol rol) {
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         try {
 
             java.util.Date fecha = new java.util.Date();
@@ -44,11 +46,11 @@ public class RolDao implements IRolDao {
             rol.setCreadoen(fechaSQL);
             rol.setEstado(1);
 
-            PreparedStatement ps = null;
+            
 
             String SQL = "select SQ_TB_Rol.nextval ID from dual";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             int codigo = 0;
 
             if (rs.next()) {
@@ -70,13 +72,17 @@ public class RolDao implements IRolDao {
 
             ps.execute();
 
-            ps.close();
+            
 
             return codigo;
         } catch (SQLException e) {
            LOGGER.error("Error en RolDao Insert -->" + e.getMessage());
             
             return 0;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -88,19 +94,25 @@ public class RolDao implements IRolDao {
      */
     @Override
     public boolean deleteRol(int id) {
+        PreparedStatement ps =null;
+         
         try {
 
             String SQL = "UPDATE TB_Rol SET Estado=0 WHERE ID_Rol =" + id + " ";
 
-            PreparedStatement ps = connection.prepareStatement(SQL);
+             ps = connection.prepareStatement(SQL);
             ps.execute();
-            ps.close();
+            
             return true;
 
         } catch (SQLException e) {
             LOGGER.error("Error en Rol DAO Delete " + e.getMessage());
             
             return false;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -112,9 +124,11 @@ public class RolDao implements IRolDao {
      */
     @Override
     public boolean updateRol(Rol rol) {
+        PreparedStatement ps =null;
+         
         try {
 
-            PreparedStatement ps = null;
+            
             String SQL = "UPDATE TB_Rol SET "
                     + " Valor=?, Descripcion=?, Estado=? "
                     + " where ID_Rol = ?";
@@ -126,13 +140,17 @@ public class RolDao implements IRolDao {
             ps.setInt(4, rol.getId_rol());
 
             ps.execute();
-            ps.close();
+            
             return true;
 
         } catch (SQLException e) {
             LOGGER.error("Error en Rol DAO UPDATE " + e.getMessage());
             
             return false;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+            
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -144,13 +162,15 @@ public class RolDao implements IRolDao {
     @Override
     public ArrayList<Rol> getAllRol() {
         ArrayList<Rol> list = new ArrayList<>(0);
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         try {
 
-            PreparedStatement ps = null;
+            
 
             final String SQL = "SELECT * from TB_Rol where estado = 1";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while (rs.next()) {
                 Rol rol = new Rol();
                 rol.setId_rol(rs.getInt("ID_Rol"));
@@ -160,13 +180,17 @@ public class RolDao implements IRolDao {
 
                 list.add(rol);
             }
-            ps.close();
+
 
             return list;
         } catch (SQLException e) {
             LOGGER.error("Error en Rol DAO getAllUsuarios" + e.getMessage());
             
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -180,13 +204,15 @@ public class RolDao implements IRolDao {
     public Rol getRolById(int id) {
 
         Rol rol = new Rol();
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         try {
 
-            PreparedStatement ps = null;
+            
 
             String SQL = "select * from TB_Rol where ID_Rol =" + id + " and estado = 1";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             if (rs.next()) {
 
                 rol.setId_rol(rs.getInt("ID_Rol"));
@@ -195,13 +221,17 @@ public class RolDao implements IRolDao {
                 rol.setEstado(rs.getInt("Estado"));
 
             }
-            ps.close();
+            
 
             return rol;
         } catch (SQLException e) {
             LOGGER.error("Error en Rol DAO getRolById " + e.getMessage());
             
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -214,13 +244,15 @@ public class RolDao implements IRolDao {
     @Override
     public List<Rol> getRolesByUser(int idUsuario) {
         List<Rol> listaRoles = new ArrayList<>();
+        PreparedStatement ps =null;
+         ResultSet rs = null;
 
         try {
-            PreparedStatement ps = null;
+            
 
             String SQL = "select TB_Rol.* from TB_ROL inner join TB_USUARIOROL on TB_ROL.ID_ROL = TB_USUARIOROL.ID_ROL and TB_USUARIOROL.ID_USUARIO = " + idUsuario + " and TB_ROL.estado = 1";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while (rs.next()) {
                 Rol rol = new Rol();
                 rol.setId_rol(rs.getInt("ID_Rol"));
@@ -229,13 +261,17 @@ public class RolDao implements IRolDao {
                 rol.setEstado(rs.getInt("Estado"));
                 listaRoles.add(rol);
             }
-            ps.close();
+            
 
             return listaRoles;
         } catch (SQLException e) {
             LOGGER.error("Error en Rol DAO getRolesByUser " + e.getMessage());
             
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
     }
 

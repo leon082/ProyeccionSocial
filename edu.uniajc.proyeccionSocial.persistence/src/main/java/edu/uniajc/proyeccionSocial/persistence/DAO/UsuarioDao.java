@@ -36,13 +36,15 @@ public class UsuarioDao implements IUsuarioDao {
      */
     @Override
     public int createUsuario(Usuario user) {
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         try {
             user.setEstado(1);
-            PreparedStatement ps = null;
+            
 
             String SQL = "select SQ_TB_Usuario.nextval ID from dual";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+             rs = ps.executeQuery();
             int codigo = 0;
 
             if (rs.next()) {
@@ -63,14 +65,17 @@ public class UsuarioDao implements IUsuarioDao {
 
             ps.execute();
 
-            ps.close();
-            rs.close();
+           
 
             return codigo;
         } catch (SQLException e) {
             LOGGER.error("Error en UsuarioDao Insert -->" + e.getMessage());
             
             return 0;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -82,19 +87,25 @@ public class UsuarioDao implements IUsuarioDao {
      */
     @Override
     public boolean deleteUsuario(int id) {
+        PreparedStatement ps =null;
+         
         try {
 
             String SQL = "UPDATE TB_Usuario SET Estado=0 WHERE ID_Usuario =" + id + " ";
 
-            PreparedStatement ps = connection.prepareStatement(SQL);
+             ps = connection.prepareStatement(SQL);
             ps.execute();
-            ps.close();
+            
             return true;
 
         } catch (SQLException e) {
             LOGGER.error("Error en Usuario DAO Delete " + e.getMessage());
             
             return false;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -106,9 +117,11 @@ public class UsuarioDao implements IUsuarioDao {
      */
     @Override
     public boolean updateUsuario(Usuario usuario) {
+        PreparedStatement ps =null;
+         
         try {
 
-            PreparedStatement ps = null;
+            
             String SQL = "UPDATE TB_Usuario SET "
                     + " ID_Tercero=?, Usuario=?, Estado=? , contrasena=? "
                     + " where ID_Usuario = ?";
@@ -121,13 +134,17 @@ public class UsuarioDao implements IUsuarioDao {
             ps.setInt(5, usuario.getId_usuario());
 
             ps.execute();
-            ps.close();
+            
             return true;
 
         } catch (SQLException e) {
             LOGGER.error("Error en Usuario DAO UPDATE " + e.getMessage());
             
             return false;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+            
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -138,14 +155,16 @@ public class UsuarioDao implements IUsuarioDao {
      */
     @Override
     public ArrayList<Usuario> getAllUsuario() {
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         ArrayList<Usuario> list = new ArrayList<>(0);
         try {
 
-            PreparedStatement ps = null;
+            
 
             final String SQL = "SELECT * from TB_Usuario where estado = 1";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while (rs.next()) {
                 Usuario usuario = new Usuario();
                 usuario.setId_usuario(rs.getInt("ID_Usuario"));
@@ -156,13 +175,17 @@ public class UsuarioDao implements IUsuarioDao {
 
                 list.add(usuario);
             }
-            ps.close();
+            
 
             return list;
         } catch (SQLException e) {
             LOGGER.error("Error en Usuario DAO getAllUsuarios" + e.getMessage());
             
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -176,13 +199,15 @@ public class UsuarioDao implements IUsuarioDao {
     public Usuario getUserById(int id) {
 
         Usuario usuario = null;
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         try {
 
-            PreparedStatement ps = null;
+            
 
             String SQL = "select * from TB_Usuario where ID_Usuario =" + id + " and estado = 1";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             if (rs.next()) {
 
                 usuario = new Usuario();
@@ -193,13 +218,17 @@ public class UsuarioDao implements IUsuarioDao {
                 usuario.setEstado(rs.getInt("Estado"));
 
             }
-            ps.close();
+            
 
             return usuario;
         } catch (SQLException e) {
             LOGGER.error("Error en usuario DAO getUserById " + e.getMessage());
             
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -214,13 +243,15 @@ public class UsuarioDao implements IUsuarioDao {
     public Usuario getUsuarioLogin(String user, String contrasena) {
 
         Usuario usuario = null;
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         try {
 
-            PreparedStatement ps = null;
+            
 
             String SQL = "select * from TB_Usuario where Usuario = '" + user + "' and Contrasena ='" + contrasena + "' and estado = 1";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             if (rs.next()) {
 
                 usuario = new Usuario();
@@ -231,13 +262,17 @@ public class UsuarioDao implements IUsuarioDao {
                 usuario.setEstado(rs.getInt("Estado"));
 
             }
-            ps.close();
+            
 
             return usuario;
         } catch (SQLException e) {
             LOGGER.error("Error en usuario DAO getUsuarioLogin " + e.getMessage());
             
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -251,13 +286,15 @@ public class UsuarioDao implements IUsuarioDao {
     public Usuario getUserByUsername(String user) {
 
         Usuario usuario = null;
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         try {
 
-            PreparedStatement ps = null;
+            
 
             String SQL = "select * from TB_Usuario where Usuario ='" + user + "' ";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             if (rs.next()) {
 
                 usuario = new Usuario();
@@ -268,13 +305,17 @@ public class UsuarioDao implements IUsuarioDao {
                 usuario.setContrasena(rs.getString("contrasena"));
 
             }
-            ps.close();
+            
 
             return usuario;
         } catch (SQLException e) {
             LOGGER.error("Error en usuario DAO getUserByUsername " + e.getMessage());
             
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -288,26 +329,32 @@ public class UsuarioDao implements IUsuarioDao {
     public String getEmailByUsername(String user) {
 
         String correo = null;
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         try {
 
-            PreparedStatement ps = null;
+            
 
             String SQL = "select tercero.correo from tb_usuario usuario inner join tb_tercero tercero on usuario.ID_TERCERO = tercero.ID_TERCERO "
                     + "where usuario.USUARIO = '" + user + "' ";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+             rs = ps.executeQuery();
             if (rs.next()) {
 
                 correo = rs.getString("correo");
 
             }
-            ps.close();
+            
 
             return correo;
         } catch (SQLException e) {
             LOGGER.error("Error en usuario DAO getCorreoByUsername " + e.getMessage());
             
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }

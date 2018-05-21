@@ -37,16 +37,18 @@ public class ProyectoDao implements IProyectoDao {
      */
     @Override
     public int createProyecto(Proyecto proyecto) {
+         PreparedStatement ps =null;
+         ResultSet rs = null;
         try {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
             proyecto.setCreadoen(fechaSQL);
             proyecto.setEstado(0);
-            PreparedStatement ps = null;
+            
 
             String SQL = "select SQ_TB_Proyecto.nextval ID from dual";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+             rs = ps.executeQuery();
             int codigo = 0;
 
             if (rs.next()) {
@@ -69,7 +71,7 @@ public class ProyectoDao implements IProyectoDao {
             ps.setInt(9, proyecto.getFacultad());
             ps.execute();
 
-            ps.close();
+            
 
            LOGGER.debug("Codigo de Proyecto" + codigo);
 
@@ -78,6 +80,10 @@ public class ProyectoDao implements IProyectoDao {
             LOGGER.error("Error en Proyecto DAO" + e.getMessage());
             
             return 0;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -89,19 +95,25 @@ public class ProyectoDao implements IProyectoDao {
      */
     @Override
     public boolean deleteProyecto(int id) {
+        PreparedStatement ps =null;
+         
         try {
 
             String SQL = "UPDATE TB_Proyecto SET Estado=0 WHERE ID_Proyecto =" + id + " ";
 
-            PreparedStatement ps = connection.prepareStatement(SQL);
+             ps = connection.prepareStatement(SQL);
             ps.execute();
-            ps.close();
+            
             return true;
 
         } catch (SQLException e) {
            LOGGER.error("Error en Proyecto DAO Delete " + e.getMessage());
             
             return false;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+            
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -113,13 +125,15 @@ public class ProyectoDao implements IProyectoDao {
      */
     @Override
     public boolean updateProyecto(Proyecto proyecto) {
+        PreparedStatement ps =null;
+         
         try {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
 
             proyecto.setModificadoen(fechaSQL);
 
-            PreparedStatement ps = null;
+            
             String SQL = "UPDATE TB_Proyecto SET "
                     + " TituloProyecto=?, ResumenProyecto=?, ID_Programa=?, id_servicio=?, "
                     + " Estado=?, ModificadoPor=?, ModificadoEn=? , facultad=?"
@@ -137,13 +151,17 @@ public class ProyectoDao implements IProyectoDao {
             ps.setInt(9, proyecto.getId_proyecto());
 
             ps.execute();
-            ps.close();
+            
             return true;
 
         } catch (SQLException e) {
             LOGGER.error("Error en Proyecto DAO UPDATE " + e.getMessage());
             
             return false;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+            
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -155,14 +173,16 @@ public class ProyectoDao implements IProyectoDao {
     @Override
     public ArrayList<Proyecto> getAllProyectoPendiente() {
         ArrayList<Proyecto> list = new ArrayList<>(0);
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         try {
 
-            PreparedStatement ps = null;
+            
 
             final String SQL = "SELECT * from TB_PROYECTO where estado = 0";
             ps = connection.prepareStatement(SQL);
 
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while (rs.next()) {
                 Proyecto proyecto = new Proyecto();
                 proyecto.setId_proyecto(rs.getInt("ID_Proyecto"));
@@ -179,12 +199,16 @@ public class ProyectoDao implements IProyectoDao {
 
                 list.add(proyecto);
             }
-            ps.close();
+            
 
             return list;
         } catch (SQLException e) {
             LOGGER.error("Error, ProyectoDAO, getAllProyectoPendiente "+e.getMessage());
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -195,15 +219,17 @@ public class ProyectoDao implements IProyectoDao {
      */
     @Override
     public ArrayList<Proyecto> getAllProyectoAprobado() {
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         ArrayList<Proyecto> list = new ArrayList<>(0);
         try {
 
-            PreparedStatement ps = null;
+            
 
             final String SQL = "SELECT * from TB_PROYECTO where estado = 1";
             ps = connection.prepareStatement(SQL);
 
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while (rs.next()) {
                 Proyecto proyecto = new Proyecto();
                 proyecto.setId_proyecto(rs.getInt("ID_Proyecto"));
@@ -220,12 +246,16 @@ public class ProyectoDao implements IProyectoDao {
 
                 list.add(proyecto);
             }
-            ps.close();
+            
 
             return list;
         } catch (SQLException e) {
             LOGGER.error("Error, ProyectoDAO, getAllProyectoAprobado "+e.getMessage());
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -237,14 +267,16 @@ public class ProyectoDao implements IProyectoDao {
     @Override
     public ArrayList<Proyecto> getAllProyectoFinalizado() {
         ArrayList<Proyecto> list = new ArrayList<>(0);
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         try {
 
-            PreparedStatement ps = null;
+            
 
             final String SQL = "SELECT * from TB_PROYECTO where estado = 3";
             ps = connection.prepareStatement(SQL);
 
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while (rs.next()) {
                 Proyecto proyecto = new Proyecto();
                 proyecto.setId_proyecto(rs.getInt("ID_Proyecto"));
@@ -261,12 +293,16 @@ public class ProyectoDao implements IProyectoDao {
 
                 list.add(proyecto);
             }
-            ps.close();
+            
 
             return list;
         } catch (SQLException e) {
             LOGGER.error("Error, ProyectoDAO, getAllProyectoFinalizad "+e.getMessage());
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -278,14 +314,16 @@ public class ProyectoDao implements IProyectoDao {
     @Override
     public ArrayList<Proyecto> getAllProyectoCancelado() {
         ArrayList<Proyecto> list = new ArrayList<>(0);
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         try {
 
-            PreparedStatement ps = null;
+            
 
             final String SQL = "SELECT * from TB_PROYECTO where estado = 4";
             ps = connection.prepareStatement(SQL);
 
-            ResultSet rs = ps.executeQuery();
+             rs = ps.executeQuery();
             while (rs.next()) {
                 Proyecto proyecto = new Proyecto();
                 proyecto.setId_proyecto(rs.getInt("ID_Proyecto"));
@@ -302,12 +340,16 @@ public class ProyectoDao implements IProyectoDao {
 
                 list.add(proyecto);
             }
-            ps.close();
+            
 
             return list;
         } catch (SQLException e) {
             LOGGER.error("Error, ProyectoDAO, getAllProyectoCancelado "+e.getMessage());
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -321,22 +363,28 @@ public class ProyectoDao implements IProyectoDao {
     public boolean tieneProyectoPendiente(String usuario) {
         ArrayList<Proyecto> list = new ArrayList<>(0);
         boolean result = false;
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         try {
 
-            PreparedStatement ps = null;
+            
 
             final String SQL = "SELECT * from TB_PROYECTO where creadopor = ? and (estado = 0 or estado = 1)";
             ps = connection.prepareStatement(SQL);
             ps.setString(1, usuario);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             result = rs.next();
 
-            ps.close();
+            
 
             return result;
         } catch (SQLException e) {
             LOGGER.error("Error, ProyectoDAO, getAllProyectoPendiente "+e.getMessage());
             return result;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -348,15 +396,17 @@ public class ProyectoDao implements IProyectoDao {
      */
     @Override
     public List<Proyecto> getProyectoByUser(String user) {
+        PreparedStatement ps =null;
+         ResultSet rs = null;
 
        List<Proyecto> list = new ArrayList<>(0);
         try {
 
-            PreparedStatement ps = null;
+            
 
             String SQL = "select * from TB_Proyecto where creadopor = '" + user + "' and estado = 1";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while (rs.next()) {
                 Proyecto proyecto = new Proyecto();
                 proyecto.setId_proyecto(rs.getInt("ID_Proyecto"));
@@ -373,13 +423,17 @@ public class ProyectoDao implements IProyectoDao {
 
                 list.add(proyecto);
             }
-            ps.close();
+
 
             return list;
         } catch (SQLException e) {
             LOGGER.error("Error proyectoDao getProyectoByUser " + e.getMessage());
             
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -393,13 +447,15 @@ public class ProyectoDao implements IProyectoDao {
     public Proyecto getProyectoById(int id) {
 
         Proyecto proyecto = new Proyecto();
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         try {
 
-            PreparedStatement ps = null;
+            
 
             String SQL = "select * from TB_Proyecto where id_proyecto = " + id + " ";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             if (rs.next()) {
 
                 proyecto.setId_proyecto(rs.getInt("ID_Proyecto"));
@@ -415,13 +471,17 @@ public class ProyectoDao implements IProyectoDao {
                 proyecto.setModificadoen(rs.getDate("MODIFICADOEN"));
 
             }
-            ps.close();
+            
 
             return proyecto;
         } catch (SQLException e) {
            LOGGER.error("Error proyectoDao getProyectoByUser " + e.getMessage());
             
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }

@@ -24,7 +24,7 @@ import org.apache.log4j.Logger;
 public class Opciones_menuDAO implements IOpciones_menuDao {
 
     Connection connection;
-    private static final Logger LOGGER =  Logger.getLogger(Opciones_menuDAO.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(Opciones_menuDAO.class.getName());
 
     public Opciones_menuDAO(Connection connection) {
         this.connection = connection;
@@ -33,24 +33,29 @@ public class Opciones_menuDAO implements IOpciones_menuDao {
 
     public List<Integer> cargarRoles(int idUsuario) {
         List<Integer> listaRoles = new ArrayList<>();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
 
         try {
-            PreparedStatement ps = null;
 
             String SQL = "select id_rol from TB_USUARIOROL where id_usuario = " + idUsuario + " and estado = 1";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while (rs.next()) {
                 int rol = rs.getInt("ID_ROL");
                 listaRoles.add(rol);
             }
-            ps.close();
+            
 
             return listaRoles;
         } catch (SQLException e) {
-             LOGGER.error("Error en Opcionoes Menu DAO cargarRoles " + e.getMessage());
-            
+            LOGGER.error("Error en Opcionoes Menu DAO cargarRoles " + e.getMessage());
+
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
     }
 
@@ -62,21 +67,22 @@ public class Opciones_menuDAO implements IOpciones_menuDao {
     @Override
     public List<Opciones_menu> getMenuCuentaByUser(Usuario user) {
         List<Opciones_menu> listaModulos = new ArrayList<>();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
 
         try {
             List<Integer> roles = cargarRoles(user.getId_usuario());
-            PreparedStatement ps = null;
+
             for (int rol : roles) {
                 String SQL = "select id_modulo, descripcion , ruta from TB_MODULO where id_rol = " + rol + " and menu = 'cuenta'";
                 ps = connection.prepareStatement(SQL);
-                ResultSet rs = ps.executeQuery();
+                rs = ps.executeQuery();
                 while (rs.next()) {
-                    
 
                     String ruta = rs.getString("RUTA");
 
                     if (!validarRepetido(listaModulos, ruta)) {
-                        
+
                         Opciones_menu menu = new Opciones_menu();
                         menu.setDescripcion(rs.getString("DESCRIPCION"));
                         menu.setRuta(rs.getString("RUTA"));
@@ -87,13 +93,17 @@ public class Opciones_menuDAO implements IOpciones_menuDao {
                 }
             }
 
-            ps.close();
+            
 
             return listaModulos;
         } catch (SQLException e) {
-             LOGGER.error("Error en Menu DAO getMenuByUser " + e.getMessage());
-            
+            LOGGER.error("Error en Menu DAO getMenuByUser " + e.getMessage());
+
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -115,14 +125,16 @@ public class Opciones_menuDAO implements IOpciones_menuDao {
     @Override
     public List<Opciones_menu> getMenuParametrizarByUser(Usuario user) {
         List<Opciones_menu> listaModulos = new ArrayList<>();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
 
         try {
             List<Integer> roles = cargarRoles(user.getId_usuario());
-            PreparedStatement ps = null;
+
             for (int rol : roles) {
                 String SQL = "select id_modulo, descripcion , ruta from TB_MODULO where id_rol = " + rol + " and menu = 'parametrizar'";
                 ps = connection.prepareStatement(SQL);
-                ResultSet rs = ps.executeQuery();
+                rs = ps.executeQuery();
                 while (rs.next()) {
 
                     String ruta = rs.getString("RUTA");
@@ -138,13 +150,17 @@ public class Opciones_menuDAO implements IOpciones_menuDao {
                 }
             }
 
-            ps.close();
+            
 
             return listaModulos;
         } catch (SQLException e) {
-             LOGGER.error("Error en Menu DAO getMenuByUser " + e.getMessage());
-            
+            LOGGER.error("Error en Menu DAO getMenuByUser " + e.getMessage());
+
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -152,14 +168,15 @@ public class Opciones_menuDAO implements IOpciones_menuDao {
     @Override
     public List<Opciones_menu> getMenuProyectosByUser(Usuario user) {
         List<Opciones_menu> listaModulos = new ArrayList<>();
-
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             List<Integer> roles = cargarRoles(user.getId_usuario());
-            PreparedStatement ps = null;
+
             for (int rol : roles) {
                 String SQL = "select id_modulo, descripcion , ruta from TB_MODULO where id_rol = " + rol + " and menu = 'proyectos'";
                 ps = connection.prepareStatement(SQL);
-                ResultSet rs = ps.executeQuery();
+                rs = ps.executeQuery();
                 while (rs.next()) {
 
                     String ruta = rs.getString("RUTA");
@@ -175,13 +192,17 @@ public class Opciones_menuDAO implements IOpciones_menuDao {
                 }
             }
 
-            ps.close();
+            
 
             return listaModulos;
         } catch (SQLException e) {
-             LOGGER.error("Error en Menu DAO getMenuByUser " + e.getMessage());
-            
+            LOGGER.error("Error en Menu DAO getMenuByUser " + e.getMessage());
+
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -189,14 +210,16 @@ public class Opciones_menuDAO implements IOpciones_menuDao {
     @Override
     public List<Opciones_menu> getMenuUsuariosByUser(Usuario user) {
         List<Opciones_menu> listaModulos = new ArrayList<>();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
 
         try {
             List<Integer> roles = cargarRoles(user.getId_usuario());
-            PreparedStatement ps = null;
+
             for (int rol : roles) {
                 String SQL = "select id_modulo, descripcion , ruta from TB_MODULO where id_rol = " + rol + " and menu = 'usuarios'";
                 ps = connection.prepareStatement(SQL);
-                ResultSet rs = ps.executeQuery();
+                rs = ps.executeQuery();
                 while (rs.next()) {
 
                     String ruta = rs.getString("RUTA");
@@ -212,13 +235,17 @@ public class Opciones_menuDAO implements IOpciones_menuDao {
                 }
             }
 
-            ps.close();
+            
 
             return listaModulos;
         } catch (SQLException e) {
-             LOGGER.error("Error en Menu DAO getMenuByUser " + e.getMessage());
-            
+            LOGGER.error("Error en Menu DAO getMenuByUser " + e.getMessage());
+
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }

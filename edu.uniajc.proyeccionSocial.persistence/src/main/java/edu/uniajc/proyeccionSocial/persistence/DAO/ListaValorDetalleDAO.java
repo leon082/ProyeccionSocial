@@ -22,7 +22,7 @@ import org.apache.log4j.Logger;
 public class ListaValorDetalleDAO implements IListaValorDetalleDao {
 
     Connection connection;
-    private static final Logger LOGGER =  Logger.getLogger(ListaValorDetalleDAO.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ListaValorDetalleDAO.class.getName());
 
     public ListaValorDetalleDAO(Connection connection) {
         this.connection = connection;
@@ -36,16 +36,17 @@ public class ListaValorDetalleDAO implements IListaValorDetalleDao {
      */
     @Override
     public int createListaValorDetalle(ListaValorDetalle listaValorDetalle) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
             listaValorDetalle.setCreadoen(fechaSQL);
             listaValorDetalle.setEstado(1);
-            PreparedStatement ps = null;
 
             String SQL = "select SQ_TB_ListaValorDetalle.nextval ID from dual";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             int codigo = 0;
 
             if (rs.next()) {
@@ -66,14 +67,18 @@ public class ListaValorDetalleDAO implements IListaValorDetalleDao {
             ps.setDate(6, listaValorDetalle.getCreadoen());
             ps.execute();
 
-            ps.close();
+            
 
             System.out.println("Codigo de ListaValorDetalle" + codigo);
 
             return codigo;
         } catch (SQLException e) {
-            LOGGER.error("Error en  ListaValorDetalleDAO insert -->" + e.getMessage() );
+            LOGGER.error("Error en  ListaValorDetalleDAO insert -->" + e.getMessage());
             return 0;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -85,18 +90,24 @@ public class ListaValorDetalleDAO implements IListaValorDetalleDao {
      */
     @Override
     public boolean deleteListaValorDetalle(int id) {
+        PreparedStatement ps = null;
+
         try {
 
             String SQL = "UPDATE TB_ListaValorDetalle SET Estado=0 WHERE ID_ListaValorDetalle =" + id + " ";
 
-            PreparedStatement ps = connection.prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ps.execute();
-            ps.close();
+            
             return true;
 
         } catch (SQLException e) {
-            LOGGER.error("Error en  ListaValorDetalleDAO delete -->" + e.getMessage() );
+            LOGGER.error("Error en  ListaValorDetalleDAO delete -->" + e.getMessage());
             return false;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+            
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -108,13 +119,14 @@ public class ListaValorDetalleDAO implements IListaValorDetalleDao {
      */
     @Override
     public boolean updateListaValorDetalle(ListaValorDetalle listaValorDetalle) {
+        PreparedStatement ps = null;
+
         try {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
 
             listaValorDetalle.setModificadoen(fechaSQL);
 
-            PreparedStatement ps = null;
             String SQL = "UPDATE TB_ListaValorDetalle SET "
                     + "ID_ListaValor=?, Valor=?, Estado=?, "
                     + "ModificadoPor=?, ModificadoEn=? where ID_ListaValorDetalle = ?";
@@ -127,33 +139,37 @@ public class ListaValorDetalleDAO implements IListaValorDetalleDao {
             ps.setDate(5, listaValorDetalle.getModificadoen());
             ps.setInt(6, listaValorDetalle.getId_listavalordetalle());
             ps.execute();
-            ps.close();
+            
 
             return true;
 
         } catch (SQLException e) {
-            LOGGER.error("Error en  ListaValorDetalleDAO delete  -->" + e.getMessage() );
-           return false;
+            LOGGER.error("Error en  ListaValorDetalleDAO delete  -->" + e.getMessage());
+            return false;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+            
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
 
     /**
      *
-     * @param agrupa     
+     * @param agrupa
      * @return
      */
     @Override
     public ArrayList<ListaValorDetalle> getAllListaValorDetalle(String agrupa) {
         ArrayList<ListaValorDetalle> list = new ArrayList<>(0);
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
 
-            PreparedStatement ps = null;
-
             final String SQL = "SELECT lvd.ID_LISTAVALORDETALLE , lvd.ID_LISTAVALOR , lvd.VALOR , lvd.ESTADO , lvd.CREADOPOR, lvd.MODIFICADOPOR, lvd.CREADOEN, lvd.MODIFICADOEN from TB_ListaValorDetalle lvd inner join TB_LISTAVALOR lv on lvd.ID_LISTAVALOR = lv.ID_LISTAVALOR\n"
-                    + " where upper (lv.AGRUPACION) = upper('"+agrupa+"') and lv.estado = 1";
+                    + " where upper (lv.AGRUPACION) = upper('" + agrupa + "') and lv.estado = 1";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while (rs.next()) {
                 ListaValorDetalle listaValorDetalle = new ListaValorDetalle();
                 listaValorDetalle.setId_listavalordetalle(rs.getInt("ID_ListaValorDetalle"));
@@ -167,12 +183,16 @@ public class ListaValorDetalleDAO implements IListaValorDetalleDao {
 
                 list.add(listaValorDetalle);
             }
-            ps.close();
+            
 
             return list;
         } catch (SQLException e) {
-            LOGGER.error("Error en  ListaValorDetalleDAO getAllListaValorDetalle -->" + e.getMessage() );
+            LOGGER.error("Error en  ListaValorDetalleDAO getAllListaValorDetalle -->" + e.getMessage());
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -186,13 +206,13 @@ public class ListaValorDetalleDAO implements IListaValorDetalleDao {
     public ListaValorDetalle getListaValorDetalleById(int id) {
 
         ListaValorDetalle listaValorDetalle = new ListaValorDetalle();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
-
-            PreparedStatement ps = null;
 
             String SQL = "select * from TB_ListaValorDetalle where ID_ListaValorDetalle =" + id + " and estado = 1";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             if (rs.next()) {
 
                 listaValorDetalle.setId_listavalordetalle(rs.getInt("ID_ListaValorDetalle"));
@@ -205,12 +225,16 @@ public class ListaValorDetalleDAO implements IListaValorDetalleDao {
                 listaValorDetalle.setModificadoen(rs.getDate("ModificadoEn"));
 
             }
-            ps.close();
+            
 
             return listaValorDetalle;
         } catch (SQLException e) {
-            LOGGER.error("Error en  ListaValorDetalleDAO getListaValorDetallesById -->" + e.getMessage() );
+            LOGGER.error("Error en  ListaValorDetalleDAO getListaValorDetallesById -->" + e.getMessage());
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }

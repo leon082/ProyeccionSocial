@@ -45,10 +45,12 @@ public class ReporteProyectoDAO implements IReporteProyectoDao {
     @Override
     public ArrayList<ReporteProyecto> getAllProyect(int idPrograma, int idServicio, int idTerceroOferente, int idTerceroCreadoPor, Date fechaDesde, Date fechaHasta, int estado, int facultad) {
         ArrayList<ReporteProyecto> listaProyectos = new ArrayList<>();
+        PreparedStatement ps =null;
+         ResultSet rs = null;
 
         try {
 
-            PreparedStatement ps = null;
+            
 
             String SQL = "select tb_proyecto.tituloProyecto,"
                     + " oferente.id_tercero idTerceroOferente,"
@@ -110,7 +112,7 @@ public class ReporteProyectoDAO implements IReporteProyectoDao {
             ps.setInt(13, facultad);
             ps.setInt(14, facultad);
             
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             
             while (rs.next()) {
                 
@@ -127,13 +129,17 @@ public class ReporteProyectoDAO implements IReporteProyectoDao {
 
             }
 
-            ps.close();
+            
             
             return listaProyectos;
         } catch (SQLException e) {
             LOGGER.error("Error en Menu DAO getMenuByUser " + e.getMessage());
             
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }

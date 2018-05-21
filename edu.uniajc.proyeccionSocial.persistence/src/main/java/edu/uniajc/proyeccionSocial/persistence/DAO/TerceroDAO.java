@@ -36,17 +36,19 @@ public class TerceroDAO implements ITerceroDao {
      */
     @Override
     public int createTercero(Tercero tercero) {
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         try {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
             tercero.setCreadoen(fechaSQL);
             tercero.setEstado(1);
 
-            PreparedStatement ps = null;
+            
 
             String SQL = "select SQ_TB_Tercero.nextval ID from dual";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             int codigo = 0;
 
             if (rs.next()) {
@@ -77,7 +79,7 @@ public class TerceroDAO implements ITerceroDao {
             ps.setDate(14, tercero.getCreadoen());
             ps.execute();
 
-            ps.close();
+            
 
             LOGGER.debug("Codigo de Tercero" + codigo);
 
@@ -86,6 +88,10 @@ public class TerceroDAO implements ITerceroDao {
             LOGGER.error("Error en TerceroDAO insert -->" + e.getMessage());
             
             return 0;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -97,19 +103,25 @@ public class TerceroDAO implements ITerceroDao {
      */
     @Override
     public boolean deleteTercero(int id) {
+        PreparedStatement ps =null;
+         
         try {
 
             String SQL = "UPDATE TB_Tercero SET Estado=0 WHERE ID_Tercero =" + id + " ";
 
-            PreparedStatement ps = connection.prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ps.execute();
-            ps.close();
+            
             return true;
 
         } catch (SQLException e) {
             LOGGER.error("Error en TerceroDAO Delete " + e.getMessage());
             
             return false;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+           
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -121,13 +133,15 @@ public class TerceroDAO implements ITerceroDao {
      */
     @Override
     public boolean updateTercero(Tercero tercero) {
+        PreparedStatement ps =null;
+         
         try {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
 
             tercero.setModificadoen(fechaSQL);
 
-            PreparedStatement ps = null;
+            
             String SQL = "UPDATE TB_Tercero SET "
                     + "ID_LV_TipoIdentificacion=?, NumIdentificacion=?, "
                     + "PrimerNombre=?, SegundoNombre=?, PrimerApellido=?, SegundoApellido=?, "
@@ -150,7 +164,7 @@ public class TerceroDAO implements ITerceroDao {
             ps.setDate(13, tercero.getModificadoen());
             ps.setInt(14, tercero.getId_tercero());
             ps.execute();
-            ps.close();
+            
 
             return true;
 
@@ -158,6 +172,10 @@ public class TerceroDAO implements ITerceroDao {
             LOGGER.error("Error en TerceroDAO UPDATE " + e.getMessage());
             
             return false;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+            
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -169,13 +187,15 @@ public class TerceroDAO implements ITerceroDao {
     @Override
     public ArrayList<Tercero> getAllTercero() {
         ArrayList<Tercero> list = new ArrayList<>(0);
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         try {
 
-            PreparedStatement ps = null;
+            
 
             final String SQL = "SELECT * from TB_Tercero where estado = 1";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while (rs.next()) {
                 Tercero tercero = new Tercero();
                 tercero.setId_tercero(rs.getInt("ID_Tercero"));
@@ -197,13 +217,17 @@ public class TerceroDAO implements ITerceroDao {
 
                 list.add(tercero);
             }
-            ps.close();
+            
 
             return list;
         } catch (SQLException e) {
             LOGGER.error("Error en TerceroDAO getAllTercero " + e.getMessage());
             
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -215,13 +239,15 @@ public class TerceroDAO implements ITerceroDao {
     @Override
     public ArrayList<Tercero> getAllTerceroUsuario() {
         ArrayList<Tercero> list = new ArrayList<>(0);
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         try {
 
-            PreparedStatement ps = null;
+            
 
             final String SQL = "select TB_tercero.* from TB_tercero inner join TB_usuario on tb_tercero.id_tercero = TB_USUARIO.ID_TERCERO";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while (rs.next()) {
                 Tercero tercero = new Tercero();
                 tercero.setId_tercero(rs.getInt("ID_Tercero"));
@@ -243,13 +269,17 @@ public class TerceroDAO implements ITerceroDao {
 
                 list.add(tercero);
             }
-            ps.close();
+            
 
             return list;
         } catch (SQLException e) {
             LOGGER.error("Error en TerceroDAO getAllTercero " + e.getMessage());
             
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -263,13 +293,15 @@ public class TerceroDAO implements ITerceroDao {
     public Tercero getTerceroById(int id) {
 
         Tercero tercero = new Tercero();
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         try {
 
-            PreparedStatement ps = null;
+            
 
             String SQL = "select * from TB_Tercero where ID_Tercero =" + id + " and estado = 1";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             if (rs.next()) {
 
                 tercero.setId_tercero(rs.getInt("ID_Tercero"));
@@ -290,13 +322,17 @@ public class TerceroDAO implements ITerceroDao {
                 tercero.setModificadoen(rs.getDate("ModificadoEn"));
 
             }
-            ps.close();
+            
 
             return tercero;
         } catch (SQLException e) {
             LOGGER.error("Error en TerceroDAO getTercerosById " + e.getMessage());
             
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -311,13 +347,15 @@ public class TerceroDAO implements ITerceroDao {
     public Tercero getTerceroByIdentificacion(int tipoDoc, String doc) {
 
         Tercero tercero = new Tercero();
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         try {
 
-            PreparedStatement ps = null;
+            
 
             String SQL = "select * from TB_Tercero where ID_LV_TipoIdentificacion =" + tipoDoc + " and NumIdentificacion='" + doc + "' ";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             if (rs.next()) {
 
                 tercero.setId_tercero(rs.getInt("ID_Tercero"));
@@ -338,13 +376,17 @@ public class TerceroDAO implements ITerceroDao {
                 tercero.setModificadoen(rs.getDate("ModificadoEn"));
 
             }
-            ps.close();
+            
 
             return tercero;
         } catch (SQLException e) {
             LOGGER.error("Error en TerceroDAO getTerceroByIdentificacion " + e.getMessage());
             
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
     }
 

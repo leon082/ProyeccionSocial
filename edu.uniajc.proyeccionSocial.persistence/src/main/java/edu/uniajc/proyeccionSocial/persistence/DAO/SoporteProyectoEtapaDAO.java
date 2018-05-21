@@ -37,16 +37,18 @@ public class SoporteProyectoEtapaDAO implements ISoporteProyectoEtapaDao {
      */
     @Override
     public int createSoporteProyectoEtapa(SoporteProyectoEtapa soporteProyectoEtapa) {
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         try {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
             soporteProyectoEtapa.setCreadoen(fechaSQL);
 
-            PreparedStatement ps = null;
+            
 
             String SQL = "select SQ_TB_SoporteProyectoEtapa.nextval ID from dual";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             int codigo = 0;
 
             if (rs.next()) {
@@ -67,7 +69,7 @@ public class SoporteProyectoEtapaDAO implements ISoporteProyectoEtapaDao {
             ps.setDate(5, soporteProyectoEtapa.getCreadoen());
             ps.execute();
 
-            ps.close();
+
 
             LOGGER.debug("Codigo de SoporteProyectoEtapa" + codigo);
 
@@ -76,6 +78,10 @@ public class SoporteProyectoEtapaDAO implements ISoporteProyectoEtapaDao {
             LOGGER.error("Error en SoporteProyectoEtapaDAO insert -->" + e.getMessage());
             
             return 0;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -87,13 +93,15 @@ public class SoporteProyectoEtapaDAO implements ISoporteProyectoEtapaDao {
      */
     @Override
     public boolean updateSoporteProyectoEtapa(SoporteProyectoEtapa soporteProyectoEtapa) {
+        PreparedStatement ps =null;
+         
         try {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
 
             soporteProyectoEtapa.setModificadoen(fechaSQL);
 
-            PreparedStatement ps = null;
+            
             String SQL = "UPDATE TB_SoporteProyectoEtapa SET "
                     + "id_proyectoetapa=?,archivo=?, "
                     + "ModificadoPor=?, ModificadoEn=? where ID_SoporteProyectoEtapa = ?";
@@ -106,7 +114,7 @@ public class SoporteProyectoEtapaDAO implements ISoporteProyectoEtapaDao {
             ps.setDate(4, soporteProyectoEtapa.getModificadoen());
             ps.setInt(5, soporteProyectoEtapa.getId_soporteproyectoetapa());
             ps.execute();
-            ps.close();
+            
 
             return true;
 
@@ -114,6 +122,10 @@ public class SoporteProyectoEtapaDAO implements ISoporteProyectoEtapaDao {
             LOGGER.error("Error en SoporteProyectoEtapaDAO UPDATE " + e.getMessage());
             
             return false;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+            
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -125,13 +137,15 @@ public class SoporteProyectoEtapaDAO implements ISoporteProyectoEtapaDao {
     @Override
     public ArrayList<SoporteProyectoEtapa> getAllSoporteProyectoEtapa() {
         ArrayList<SoporteProyectoEtapa> list = new ArrayList<>(0);
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         try {
 
-            PreparedStatement ps = null;
+            
 
             final String SQL = "SELECT * from TB_SoporteProyectoEtapa";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while (rs.next()) {
                 SoporteProyectoEtapa soporteProyectoEtapa = new SoporteProyectoEtapa();
                 soporteProyectoEtapa.setId_soporteproyectoetapa(rs.getInt("ID_SoporteProyectoEtapa"));
@@ -145,13 +159,17 @@ public class SoporteProyectoEtapaDAO implements ISoporteProyectoEtapaDao {
 
                 list.add(soporteProyectoEtapa);
             }
-            ps.close();
+            
 
             return list;
         } catch (SQLException e) {
             LOGGER.error("Error en SoporteProyectoEtapaDAO getAllSoporteProyectoEtapa " + e.getMessage());
             
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -167,13 +185,15 @@ public class SoporteProyectoEtapaDAO implements ISoporteProyectoEtapaDao {
     public List<SoporteProyectoEtapa> getSoporteProyectoEtapaByIdProyectoEtapa(int id) {
 
         List<SoporteProyectoEtapa> list = new ArrayList<>();
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         try {
 
-            PreparedStatement ps = null;
+            
 
             String SQL = "select * from TB_SoporteProyectoEtapa where ID_ProyectoEtapa =" + id + " ";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+             rs = ps.executeQuery();
             while (rs.next()) {
                 SoporteProyectoEtapa soporteProyectoEtapa = new SoporteProyectoEtapa();
                 soporteProyectoEtapa.setId_soporteproyectoetapa(rs.getInt("ID_SoporteProyectoEtapa"));
@@ -190,13 +210,17 @@ public class SoporteProyectoEtapaDAO implements ISoporteProyectoEtapaDao {
                 
 
             
-            ps.close();
+            
 
             return list;
         } catch (SQLException e) {
             LOGGER.error("Error en SoporteProyectoEtapaDAO getSoporteProyectoEtapasById " + e.getMessage());
             
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -210,13 +234,15 @@ public class SoporteProyectoEtapaDAO implements ISoporteProyectoEtapaDao {
     public SoporteProyectoEtapa getSoporteProyectoEtapaById(int id) {
 
         SoporteProyectoEtapa soporteProyectoEtapa = new SoporteProyectoEtapa();
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         try {
 
-            PreparedStatement ps = null;
+            
 
             String SQL = "select * from TB_SoporteProyectoEtapa where ID_SoporteProyectoEtapa =" + id + " ";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+             rs = ps.executeQuery();
             if (rs.next()) {
 
                 soporteProyectoEtapa.setId_soporteproyectoetapa(rs.getInt("ID_SoporteProyectoEtapa"));
@@ -228,13 +254,17 @@ public class SoporteProyectoEtapaDAO implements ISoporteProyectoEtapaDao {
                 soporteProyectoEtapa.setModificadoen(rs.getDate("ModificadoEn"));
 
             }
-            ps.close();
+            
 
             return soporteProyectoEtapa;
         } catch (SQLException e) {
             LOGGER.error("Error en SoporteProyectoEtapaDAO getSoporteProyectoEtapasById " + e.getMessage());
             
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }

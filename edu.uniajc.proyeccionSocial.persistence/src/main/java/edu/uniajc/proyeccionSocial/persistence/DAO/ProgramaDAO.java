@@ -36,16 +36,18 @@ public class ProgramaDAO implements IProgramaDao {
      */
     @Override
     public int createPrograma(Programa programa) {
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         try {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
             programa.setCreadoen(fechaSQL);
             programa.setEstado(1);
-            PreparedStatement ps = null;
+            
 
             String SQL = "select SQ_TB_Programa.nextval ID from dual";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+             rs = ps.executeQuery();
             int codigo = 0;
 
             if (rs.next()) {
@@ -65,7 +67,7 @@ public class ProgramaDAO implements IProgramaDao {
             ps.setDate(5, programa.getCreadoen());
             ps.execute();
 
-            ps.close();
+            
 
             System.out.println("Codigo de Programa" + codigo);
 
@@ -74,6 +76,10 @@ public class ProgramaDAO implements IProgramaDao {
             LOGGER.error("Error en ProgramaDAO insert -->" + e.getMessage());
             
             return 0;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -85,19 +91,25 @@ public class ProgramaDAO implements IProgramaDao {
      */
     @Override
     public boolean deletePrograma(int id) {
+        PreparedStatement ps =null;
+         
         try {
 
             String SQL = "UPDATE TB_Programa SET Estado=0 WHERE ID_Programa =" + id + " ";
 
-            PreparedStatement ps = connection.prepareStatement(SQL);
+             ps = connection.prepareStatement(SQL);
             ps.execute();
-            ps.close();
+            
             return true;
 
         } catch (SQLException e) {
              LOGGER.error("Error en ProgramaDAO Delete " + e.getMessage());
             
             return false;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+            
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -109,13 +121,15 @@ public class ProgramaDAO implements IProgramaDao {
      */
     @Override
     public boolean updatePrograma(Programa programa) {
+        PreparedStatement ps =null;
+         
         try {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
 
             programa.setModificadoen(fechaSQL);
 
-            PreparedStatement ps = null;
+            
             String SQL = "UPDATE TB_Programa SET "
                     + "Descripcion=?, Estado=?, ModificadoPor=?, ModificadoEn=? "
                     + "where ID_Programa = ?";
@@ -127,7 +141,7 @@ public class ProgramaDAO implements IProgramaDao {
             ps.setDate(4, programa.getModificadoen());
             ps.setInt(5, programa.getId_programa());
             ps.execute();
-            ps.close();
+            
 
             return true;
 
@@ -135,6 +149,10 @@ public class ProgramaDAO implements IProgramaDao {
             LOGGER.error("Error en ProgramaDAO UPDATE " + e.getMessage());
             
             return false;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -145,14 +163,16 @@ public class ProgramaDAO implements IProgramaDao {
      */
     @Override
     public ArrayList<Programa> getAllPrograma() {
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         ArrayList<Programa> list = new ArrayList<>(0);
         try {
 
-            PreparedStatement ps = null;
+            
 
             final String SQL = "SELECT * from TB_Programa where estado = 1";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while (rs.next()) {
                 Programa programa = new Programa();
                 programa.setId_programa(rs.getInt("ID_Programa"));
@@ -165,13 +185,17 @@ public class ProgramaDAO implements IProgramaDao {
 
                 list.add(programa);
             }
-            ps.close();
+            
 
             return list;
         } catch (SQLException e) {
             LOGGER.error("Error en ProgramaDAO getAllPrograma " + e.getMessage());
             
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -185,13 +209,15 @@ public class ProgramaDAO implements IProgramaDao {
     public Programa getProgramaById(int id) {
 
         Programa programa = new Programa();
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         try {
 
-            PreparedStatement ps = null;
+            
 
             String SQL = "select * from TB_Programa where ID_Programa =" + id + " and estado = 1";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             if (rs.next()) {
 
                 programa.setId_programa(rs.getInt("ID_Programa"));
@@ -203,13 +229,17 @@ public class ProgramaDAO implements IProgramaDao {
                 programa.setModificadoen(rs.getDate("ModificadoEn"));
 
             }
-            ps.close();
+            
 
             return programa;
         } catch (SQLException e) {
              LOGGER.error("Error enProgramaDAO getProgramasById " + e.getMessage());
             
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -223,23 +253,29 @@ public class ProgramaDAO implements IProgramaDao {
     public boolean isInProy(int idPrograma) {
 
         boolean result = false;
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         try {
 
-            PreparedStatement ps = null;
+            
 
             final String SQL = "select * from TB_PROYECTO where ID_PROGRAMA = " +idPrograma;
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
 
             result = rs.next();
 
-            ps.close();
+            
 
             return result;
         } catch (SQLException e) {
              LOGGER.error("Error en ProgramaDAO isInProy " + e.getMessage());
             
             return result;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }

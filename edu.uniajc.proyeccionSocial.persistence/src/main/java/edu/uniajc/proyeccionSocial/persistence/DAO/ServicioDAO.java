@@ -15,7 +15,6 @@ import edu.uniajc.proyeccionSocial.persistence.interfaces.IServicioDao;
 import java.sql.Connection;
 import org.apache.log4j.Logger;
 
-
 /**
  *
  * @author rlara
@@ -23,7 +22,7 @@ import org.apache.log4j.Logger;
 public class ServicioDAO implements IServicioDao {
 
     Connection connection;
-    private static final Logger LOGGER =  Logger.getLogger(ServicioDAO.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ServicioDAO.class.getName());
 
     public ServicioDAO(Connection connection) {
         this.connection = connection;
@@ -37,17 +36,17 @@ public class ServicioDAO implements IServicioDao {
      */
     @Override
     public int createServicio(Servicio servicio) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
             servicio.setCreadoen(fechaSQL);
             servicio.setEstado(1);
 
-            PreparedStatement ps = null;
-
             String SQL = "select SQ_TB_Servicio.nextval ID from dual";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             int codigo = 0;
 
             if (rs.next()) {
@@ -67,15 +66,17 @@ public class ServicioDAO implements IServicioDao {
             ps.setDate(5, servicio.getCreadoen());
             ps.execute();
 
-            ps.close();
-
             System.out.println("Codigo de Servicio" + codigo);
 
             return codigo;
         } catch (SQLException e) {
             LOGGER.error("Error en ServicioDAO insert -->" + e.getMessage());
-            
+
             return 0;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -87,19 +88,25 @@ public class ServicioDAO implements IServicioDao {
      */
     @Override
     public boolean deleteServicio(int id) {
+        PreparedStatement ps = null;
+
         try {
 
             String SQL = "UPDATE TB_Servicio SET Estado=0 WHERE ID_Servicio =" + id + " ";
 
-            PreparedStatement ps = connection.prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ps.execute();
-            ps.close();
+
             return true;
 
         } catch (SQLException e) {
             LOGGER.error("Error en ServicioDAO Delete " + e.getMessage());
-            
+
             return false;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+          
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -111,13 +118,14 @@ public class ServicioDAO implements IServicioDao {
      */
     @Override
     public boolean updateServicio(Servicio servicio) {
+        PreparedStatement ps = null;
+
         try {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
 
             servicio.setModificadoen(fechaSQL);
 
-            PreparedStatement ps = null;
             String SQL = "UPDATE TB_Servicio SET "
                     + "Descripcion=?, Estado=?, ModificadoPor=?, ModificadoEn=? "
                     + "where ID_Servicio = ?";
@@ -129,14 +137,17 @@ public class ServicioDAO implements IServicioDao {
             ps.setDate(4, servicio.getModificadoen());
             ps.setInt(5, servicio.getId_servicio());
             ps.execute();
-            ps.close();
 
             return true;
 
         } catch (SQLException e) {
             LOGGER.error("Error en ServicioDAO UPDATE " + e.getMessage());
-            
+
             return false;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+            
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -148,13 +159,13 @@ public class ServicioDAO implements IServicioDao {
     @Override
     public ArrayList<Servicio> getAllServicio() {
         ArrayList<Servicio> list = new ArrayList<>(0);
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
-
-            PreparedStatement ps = null;
 
             final String SQL = "SELECT * from TB_Servicio where estado = 1";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while (rs.next()) {
                 Servicio servicio = new Servicio();
                 servicio.setId_servicio(rs.getInt("ID_Servicio"));
@@ -167,13 +178,16 @@ public class ServicioDAO implements IServicioDao {
 
                 list.add(servicio);
             }
-            ps.close();
 
             return list;
         } catch (SQLException e) {
             LOGGER.error("Error en ServicioDAO getAllServicio " + e.getMessage());
-            
+
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -187,15 +201,15 @@ public class ServicioDAO implements IServicioDao {
     public ArrayList<Servicio> getAllServicioByProg(int idProg) {
         // getAllEtapaByServicio
         ArrayList<Servicio> list = new ArrayList<>(0);
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
-
-            PreparedStatement ps = null;
 
             final String SQL = "select s.* from tb_servicio s \n"
                     + "inner join TB_PROGRAMASERVICIO ps on s.ID_SERVICIO = ps.ID_SERVICIO\n"
                     + "where ps.ESTADO=1 and  ps.ID_PROGRAMA= " + idProg + " ";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while (rs.next()) {
                 Servicio servicio = new Servicio();
                 servicio.setId_servicio(rs.getInt("ID_Servicio"));
@@ -208,13 +222,16 @@ public class ServicioDAO implements IServicioDao {
 
                 list.add(servicio);
             }
-            ps.close();
 
             return list;
         } catch (SQLException e) {
             LOGGER.error("Error en ServicioDAO getAllServiciobyprog " + e.getMessage());
-            
+
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -226,27 +243,32 @@ public class ServicioDAO implements IServicioDao {
      */
     @Override
     public boolean isInProg(int idServicio) {
-
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         boolean result = false;
         try {
 
-            PreparedStatement ps = null;
+            
 
             final String SQL = "select s.* from tb_servicio s \n"
                     + "inner join TB_PROGRAMASERVICIO ps on s.ID_SERVICIO = ps.ID_SERVICIO\n"
                     + "where ps.ESTADO = 1 and s.ID_SERVICIO = " + idServicio + " ";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
 
             result = rs.next();
 
-            ps.close();
+            
 
             return result;
         } catch (SQLException e) {
             LOGGER.error("Error en ServicioDAO isInProg " + e.getMessage());
-            
+
             return result;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -260,13 +282,15 @@ public class ServicioDAO implements IServicioDao {
     public Servicio getServicioById(int id) {
 
         Servicio servicio = new Servicio();
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         try {
 
-            PreparedStatement ps = null;
+            
 
             String SQL = "select * from TB_Servicio where ID_Servicio =" + id + " and estado = 1";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             if (rs.next()) {
 
                 servicio.setId_servicio(rs.getInt("ID_Servicio"));
@@ -278,13 +302,17 @@ public class ServicioDAO implements IServicioDao {
                 servicio.setModificadoen(rs.getDate("ModificadoEn"));
 
             }
-            ps.close();
+            
 
             return servicio;
         } catch (SQLException e) {
             LOGGER.error("Error enServicioDAO getServiciosById " + e.getMessage());
-            
+
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }

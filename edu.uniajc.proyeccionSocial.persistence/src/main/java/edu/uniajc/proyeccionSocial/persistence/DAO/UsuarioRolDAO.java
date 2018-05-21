@@ -36,17 +36,19 @@ public class UsuarioRolDAO implements IUsuarioRolDao {
      */
     @Override
     public int createUsuarioRol(UsuarioRol usuarioRol) {
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         try {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
             usuarioRol.setCreadoen(fechaSQL);
             usuarioRol.setEstado(1);
 
-            PreparedStatement ps = null;
+            
 
             String SQL = "select SQ_TB_UsuarioRol.nextval ID from dual";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             int codigo = 0;
 
             if (rs.next()) {
@@ -67,7 +69,7 @@ public class UsuarioRolDAO implements IUsuarioRolDao {
             ps.setDate(6, usuarioRol.getCreadoen());
             ps.execute();
 
-            ps.close();
+            
 
             System.out.println("Codigo de UsuarioRol" + codigo);
 
@@ -76,6 +78,10 @@ public class UsuarioRolDAO implements IUsuarioRolDao {
             LOGGER.error("Error en UsuarioRolDAO insert -->" + e.getMessage());
             
             return 0;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -87,19 +93,25 @@ public class UsuarioRolDAO implements IUsuarioRolDao {
      */
     @Override
     public boolean deleteUsuarioRol(int id) {
+        PreparedStatement ps =null;
+         
         try {
 
             String SQL = "UPDATE TB_UsuarioRol SET Estado=0 WHERE ID_UsuarioRol =" + id + " ";
 
-            PreparedStatement ps = connection.prepareStatement(SQL);
+             ps = connection.prepareStatement(SQL);
             ps.execute();
-            ps.close();
+            
             return true;
 
         } catch (SQLException e) {
             LOGGER.error("Error en UsuarioRolDAO Delete " + e.getMessage());
             
             return false;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+            
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -111,20 +123,26 @@ public class UsuarioRolDAO implements IUsuarioRolDao {
      */
     @Override
     public boolean deleteRolesByUser(int idUser) {
+        PreparedStatement ps =null;
+         
         try {
 
             String SQL = "DELETE FROM TB_UsuarioRol WHERE "
                     + "ID_Usuario =" + idUser + " ";
 
-            PreparedStatement ps = connection.prepareStatement(SQL);
+             ps = connection.prepareStatement(SQL);
             ps.execute();
-            ps.close();
+            
             return true;
 
         } catch (SQLException e) {
             LOGGER.error("Error en deleteRolesByUser " + e.getMessage());
             
             return false;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -136,13 +154,15 @@ public class UsuarioRolDAO implements IUsuarioRolDao {
      */
     @Override
     public boolean updateUsuarioRol(UsuarioRol usuarioRol) {
+        PreparedStatement ps =null;
+         
         try {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
 
             usuarioRol.setModificadoen(fechaSQL);
 
-            PreparedStatement ps = null;
+            
             String SQL = "UPDATE TB_UsuarioRol SET "
                     + "ID_Usuario=?, ID_Rol=?, Estado=?, "
                     + "ModificadoPor=?, ModificadoEn=? where ID_UsuarioRol = ?";
@@ -155,7 +175,7 @@ public class UsuarioRolDAO implements IUsuarioRolDao {
             ps.setDate(5, usuarioRol.getModificadoen());
             ps.setInt(6, usuarioRol.getId_usuariorol());
             ps.execute();
-            ps.close();
+            
 
             return true;
 
@@ -163,6 +183,10 @@ public class UsuarioRolDAO implements IUsuarioRolDao {
             LOGGER.error("Error en UsuarioRolDAO UPDATE " + e.getMessage());
             
             return false;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+            
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -174,13 +198,15 @@ public class UsuarioRolDAO implements IUsuarioRolDao {
     @Override
     public ArrayList<UsuarioRol> getAllUsuarioRol() {
         ArrayList<UsuarioRol> list = new ArrayList<>(0);
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         try {
 
-            PreparedStatement ps = null;
+            
 
             final String SQL = "SELECT * from TB_UsuarioRol where estado = 1";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while (rs.next()) {
                 UsuarioRol usuarioRol = new UsuarioRol();
                 usuarioRol.setId_usuariorol(rs.getInt("ID_UsuarioRol"));
@@ -194,13 +220,17 @@ public class UsuarioRolDAO implements IUsuarioRolDao {
 
                 list.add(usuarioRol);
             }
-            ps.close();
+            
 
             return list;
         } catch (SQLException e) {
             LOGGER.error("Error en UsuarioRolDAO getAllUsuarioRol " + e.getMessage());
             
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -214,13 +244,15 @@ public class UsuarioRolDAO implements IUsuarioRolDao {
     public UsuarioRol getUsuarioRolById(int id) {
 
         UsuarioRol usuarioRol = new UsuarioRol();
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         try {
 
-            PreparedStatement ps = null;
+            
 
             String SQL = "select * from TB_UsuarioRol where ID_UsuarioRol =" + id + " and estado = 1";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+             rs = ps.executeQuery();
             if (rs.next()) {
 
                 usuarioRol.setId_usuariorol(rs.getInt("ID_UsuarioRol"));
@@ -233,13 +265,17 @@ public class UsuarioRolDAO implements IUsuarioRolDao {
                 usuarioRol.setModificadoen(rs.getDate("ModificadoEn"));
 
             }
-            ps.close();
+            
 
             return usuarioRol;
         } catch (SQLException e) {
             LOGGER.error("Error en UsuarioRolDAO getUsuarioRolsById " + e.getMessage());
             
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }

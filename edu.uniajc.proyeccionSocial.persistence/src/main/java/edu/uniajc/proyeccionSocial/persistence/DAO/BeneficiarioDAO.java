@@ -19,15 +19,16 @@ import org.apache.log4j.Logger;
  *
  * @author luis.leon
  */
-public class BeneficiarioDAO implements IBeneficiarioDao{
-    
+public class BeneficiarioDAO implements IBeneficiarioDao {
+
     Connection connection;
-    private static final Logger LOGGER =  Logger.getLogger(BeneficiarioDAO.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(BeneficiarioDAO.class.getName());
 
     public BeneficiarioDAO(Connection connection) {
         this.connection = connection;
         org.apache.log4j.BasicConfigurator.configure();
     }
+
     /**
      *
      * @param beneficiario
@@ -35,17 +36,17 @@ public class BeneficiarioDAO implements IBeneficiarioDao{
      */
     @Override
     public int createBeneficiario(Beneficiario beneficiario) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
             beneficiario.setCreadoen(fechaSQL);
             beneficiario.setEstado(1);
 
-            PreparedStatement ps = null;
-
             String SQL = "select SQ_TB_Beneficiario.nextval ID from dual";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             int codigo = 0;
 
             if (rs.next()) {
@@ -67,13 +68,15 @@ public class BeneficiarioDAO implements IBeneficiarioDao{
             ps.setDate(7, beneficiario.getCreadoen());
             ps.execute();
 
-            ps.close();
-
             return codigo;
         } catch (SQLException e) {
-            
-           LOGGER.error("Error en BeneficiarioDAO Insert -->" + e.getMessage() );
+
+            LOGGER.error("Error en BeneficiarioDAO Insert -->" + e.getMessage());
             return 0;
+        } finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -85,20 +88,27 @@ public class BeneficiarioDAO implements IBeneficiarioDao{
      */
     @Override
     public boolean deleteBeneficiario(int id) {
+        PreparedStatement ps = null;
+
         try {
 
-            String SQL = "UPDATE TB_Beneficiario SET Estado=0 WHERE ID_Beneficiario =" + id + " ";
+            String SQL = "UPDATE TB_Beneficiario SET Estado=0 WHERE ID_Beneficiario = ?";
 
-            PreparedStatement ps = connection.prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
+            ps.setInt(1,id);
             ps.execute();
-            ps.close();
+            
             return true;
 
         } catch (SQLException e) {
-            
-            LOGGER.error("Error en BeneficiarioDAO Delete -->" + e.getMessage() );
-           
+
+            LOGGER.error("Error en BeneficiarioDAO Delete -->" + e.getMessage());
+
             return false;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -110,13 +120,14 @@ public class BeneficiarioDAO implements IBeneficiarioDao{
      */
     @Override
     public boolean updateBeneficiario(Beneficiario beneficiario) {
+        PreparedStatement ps = null;
+
         try {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
 
             beneficiario.setModificadoen(fechaSQL);
 
-            PreparedStatement ps = null;
             String SQL = "UPDATE TB_Beneficiario SET "
                     + "ID_Proyecto=?, ID_Tercero=?, Estado=?, "
                     + "Observacion=?, ModificadoPor=?, ModificadoEn=? "
@@ -132,14 +143,18 @@ public class BeneficiarioDAO implements IBeneficiarioDao{
             ps.setInt(7, beneficiario.getId_beneficiario());
 
             ps.execute();
-            ps.close();
+            
             return true;
 
         } catch (SQLException e) {
-            
-            LOGGER.error("Error en BeneficiarioDAO Update -->" + e.getMessage() );
-            
+
+            LOGGER.error("Error en BeneficiarioDAO Update -->" + e.getMessage());
+
             return false;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -151,13 +166,13 @@ public class BeneficiarioDAO implements IBeneficiarioDao{
     @Override
     public ArrayList<Beneficiario> getAllBeneficiario() {
         ArrayList<Beneficiario> list = new ArrayList<>(0);
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
-
-            PreparedStatement ps = null;
 
             final String SQL = "SELECT * from TB_Beneficiario where estado = 1";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while (rs.next()) {
                 Beneficiario beneficiario = new Beneficiario();
                 beneficiario.setId_beneficiario(rs.getInt("ID_Beneficiario"));
@@ -172,12 +187,16 @@ public class BeneficiarioDAO implements IBeneficiarioDao{
 
                 list.add(beneficiario);
             }
-            ps.close();
+            
 
             return list;
         } catch (SQLException e) {
-            LOGGER.error("Error en BeneficiarioDAO getAllBeneficiario -->" + e.getMessage() );
+            LOGGER.error("Error en BeneficiarioDAO getAllBeneficiario -->" + e.getMessage());
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -190,13 +209,14 @@ public class BeneficiarioDAO implements IBeneficiarioDao{
     @Override
     public ArrayList<Beneficiario> getAllBeneficiarioByProyect(int idProyect) {
         ArrayList<Beneficiario> list = new ArrayList<>(0);
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
 
-            PreparedStatement ps = null;
-
-            final String SQL = "SELECT * from TB_Beneficiario where estado = 1 and id_proyecto = " + idProyect + " ";
+            final String SQL = "SELECT * from TB_Beneficiario where estado = 1 and id_proyecto = ?";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            ps.setInt(1, idProyect);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 Beneficiario beneficiario = new Beneficiario();
                 beneficiario.setId_beneficiario(rs.getInt("ID_Beneficiario"));
@@ -211,12 +231,16 @@ public class BeneficiarioDAO implements IBeneficiarioDao{
 
                 list.add(beneficiario);
             }
-            ps.close();
+            
 
             return list;
         } catch (SQLException e) {
-            LOGGER.error("Error en BeneficiarioDAO getAllBeneficiario -->" + e.getMessage() );
-             return null;
+            LOGGER.error("Error en BeneficiarioDAO getAllBeneficiario -->" + e.getMessage());
+            return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -230,13 +254,14 @@ public class BeneficiarioDAO implements IBeneficiarioDao{
     public Beneficiario getBeneficiarioById(int id) {
 
         Beneficiario beneficiario = new Beneficiario();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
 
-            PreparedStatement ps = null;
-
-            String SQL = "select * from TB_Beneficiario where ID_Beneficiario =" + id + " and estado = 1";
+            String SQL = "select * from TB_Beneficiario where ID_Beneficiario = ? and estado = 1";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
             if (rs.next()) {
 
                 beneficiario.setId_beneficiario(rs.getInt("ID_Beneficiario"));
@@ -250,17 +275,19 @@ public class BeneficiarioDAO implements IBeneficiarioDao{
                 beneficiario.setModificadoen(rs.getDate("ModificadoEn"));
 
             }
-            ps.close();
+            
 
             return beneficiario;
         } catch (SQLException e) {
-            LOGGER.error("Error en BeneficiarioDAO getBeneficiarioById -->" + e.getMessage() );
-           
+            LOGGER.error("Error en BeneficiarioDAO getBeneficiarioById -->" + e.getMessage());
+
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
-
- 
 
 }

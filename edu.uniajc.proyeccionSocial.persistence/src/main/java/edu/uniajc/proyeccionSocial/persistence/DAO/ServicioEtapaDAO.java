@@ -22,7 +22,7 @@ import org.apache.log4j.Logger;
 public class ServicioEtapaDAO implements IServicioEtapaDao {
 
     Connection connection;
-    private static final Logger LOGGER =  Logger.getLogger(BeneficiarioDAO.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(BeneficiarioDAO.class.getName());
 
     public ServicioEtapaDAO(Connection connection) {
         this.connection = connection;
@@ -36,17 +36,17 @@ public class ServicioEtapaDAO implements IServicioEtapaDao {
      */
     @Override
     public int createServicioEtapa(ServicioEtapa servicioEtapa) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
             servicioEtapa.setCreadoen(fechaSQL);
             servicioEtapa.setEstado(1);
 
-            PreparedStatement ps = null;
-
             String SQL = "select SQ_TB_ServicioEtapa.nextval ID from dual";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             int codigo = 0;
 
             if (rs.next()) {
@@ -67,13 +67,15 @@ public class ServicioEtapaDAO implements IServicioEtapaDao {
             ps.setDate(6, servicioEtapa.getCreadoen());
             ps.execute();
 
-            ps.close();
-
             return codigo;
         } catch (SQLException e) {
             LOGGER.error("Error en ServicioEtapaDAO Insert -->" + e.getMessage());
-            
+
             return 0;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -85,20 +87,26 @@ public class ServicioEtapaDAO implements IServicioEtapaDao {
      */
     @Override
     public boolean deleteServicioEtapa(int id) {
+        PreparedStatement ps = null;
+        
         try {
 
             String SQL = "UPDATE TB_ServicioEtapa SET Estado=0 WHERE "
                     + "ID_ServicioEtapa =" + id + " ";
 
-            PreparedStatement ps = connection.prepareStatement(SQL);
+            ps = connection.prepareStatement(SQL);
             ps.execute();
-            ps.close();
+            
             return true;
 
         } catch (SQLException e) {
             LOGGER.error("Error en ServicioEtapa DAO Delete " + e.getMessage());
-            
+
             return false;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+           
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -110,20 +118,26 @@ public class ServicioEtapaDAO implements IServicioEtapaDao {
      */
     @Override
     public boolean deleteEtapaServicioByServicio(int id) {
+        PreparedStatement ps =null;
+         
         try {
 
             String SQL = "DELETE FROM tb_servicioetapa WHERE "
                     + "id_servicio =" + id + " ";
 
-            PreparedStatement ps = connection.prepareStatement(SQL);
+             ps = connection.prepareStatement(SQL);
             ps.execute();
-            ps.close();
+            
             return true;
 
         } catch (SQLException e) {
             LOGGER.error("Error en deleteEtapaServicioByEtapa DAO Delete " + e.getMessage());
-            
+
             return false;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+            
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -135,13 +149,15 @@ public class ServicioEtapaDAO implements IServicioEtapaDao {
      */
     @Override
     public boolean updateServicioEtapa(ServicioEtapa servicioEtapa) {
+        PreparedStatement ps =null;
+         
         try {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
 
             servicioEtapa.setModificadoen(fechaSQL);
 
-            PreparedStatement ps = null;
+            
             String SQL = "UPDATE TB_ServicioEtapa SET "
                     + "ID_Servicio=?, ID_Etapa=?, Estado=?, ModificadoPor=?, ModificadoEn=? "
                     + "where ID_ServicioEtapa = ?";
@@ -155,13 +171,17 @@ public class ServicioEtapaDAO implements IServicioEtapaDao {
             ps.setInt(6, servicioEtapa.getId_servicioetapa());
 
             ps.execute();
-            ps.close();
+            
             return true;
 
         } catch (SQLException e) {
             LOGGER.error("Error en ServicioEtapa DAO UPDATE " + e.getMessage());
-            
+
             return false;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+          
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -173,13 +193,15 @@ public class ServicioEtapaDAO implements IServicioEtapaDao {
     @Override
     public ArrayList<ServicioEtapa> getAllServicioEtapa() {
         ArrayList<ServicioEtapa> list = new ArrayList<>(0);
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         try {
 
-            PreparedStatement ps = null;
+            
 
             final String SQL = "SELECT * from TB_ServicioEtapa where estado = 1";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+             rs = ps.executeQuery();
             while (rs.next()) {
                 ServicioEtapa servicioEtapa = new ServicioEtapa();
                 servicioEtapa.setId_servicioetapa(rs.getInt("ID_ServicioEtapa"));
@@ -193,13 +215,17 @@ public class ServicioEtapaDAO implements IServicioEtapaDao {
 
                 list.add(servicioEtapa);
             }
-            ps.close();
+            
 
             return list;
         } catch (SQLException e) {
             LOGGER.error("Error en ServicioEtapa DAO getAllServicioEtapaByPrograma " + e.getMessage());
-            
+
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -213,13 +239,15 @@ public class ServicioEtapaDAO implements IServicioEtapaDao {
     public ServicioEtapa getServicioEtapaById(int id) {
 
         ServicioEtapa servicioEtapa = new ServicioEtapa();
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         try {
 
-            PreparedStatement ps = null;
+            
 
             String SQL = "select * from TB_ServicioEtapa where ID_ServicioEtapa =" + id + " and estado = 1";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             if (rs.next()) {
 
                 servicioEtapa.setId_servicioetapa(rs.getInt("ID_ServicioEtapa"));
@@ -232,12 +260,16 @@ public class ServicioEtapaDAO implements IServicioEtapaDao {
                 servicioEtapa.setModificadoen(rs.getDate("MODIFICADOEN"));
 
             }
-            ps.close();
+            
 
             return servicioEtapa;
         } catch (SQLException e) {
             LOGGER.error("Error en ServicioEtapa DAO getServicioEtapaById " + e.getMessage());
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }

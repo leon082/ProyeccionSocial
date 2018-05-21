@@ -36,16 +36,18 @@ public class ProyectoEtapaDAO implements IProyectoEtapaDao {
      */
     @Override
     public int createProyectoEtapa(ProyectoEtapa proyectoEtapa) {
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         try {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
             proyectoEtapa.setCreadoen(fechaSQL);
             proyectoEtapa.setEstado(0);
-            PreparedStatement ps = null;
+            
 
             String SQL = "select SQ_TB_ProyectoEtapa.nextval ID from dual";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             int codigo = 0;
 
             if (rs.next()) {
@@ -69,7 +71,7 @@ public class ProyectoEtapaDAO implements IProyectoEtapaDao {
             ps.setDate(9, proyectoEtapa.getCreadoen());
             ps.execute();
 
-            ps.close();
+            
 
             LOGGER.debug("Codigo de ProyectoEtapa" + codigo);
 
@@ -78,6 +80,10 @@ public class ProyectoEtapaDAO implements IProyectoEtapaDao {
            LOGGER.error("Error en ProyectoEtapa DAO" + e.getMessage());
             
             return 0;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -89,19 +95,25 @@ public class ProyectoEtapaDAO implements IProyectoEtapaDao {
      */
     @Override
     public boolean deleteProyectoEtapa(int id) {
+        PreparedStatement ps =null;
+         
         try {
 
             String SQL = "UPDATE TB_ProyectoEtapa SET Estado=0 WHERE ID_ProyectoEtapa =" + id + " ";
 
-            PreparedStatement ps = connection.prepareStatement(SQL);
+             ps = connection.prepareStatement(SQL);
             ps.execute();
-            ps.close();
+            
             return true;
 
         } catch (SQLException e) {
             LOGGER.error("Error en ProyectoEtapa DAO Delete " + e.getMessage());
             
             return false;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -113,13 +125,16 @@ public class ProyectoEtapaDAO implements IProyectoEtapaDao {
      */
     @Override
     public boolean updateProyectoEtapa(ProyectoEtapa proyectoEtapa) {
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         try {
             java.util.Date fecha = new java.util.Date();
             java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
 
             proyectoEtapa.setModificadoen(fechaSQL);
 
-            PreparedStatement ps = null;
+            
+            
             String SQL = "UPDATE TB_ProyectoEtapa SET "
                     + "id_proyecto=?, id_etapa=?, estado=?, observacion=?, "
                     + "fechainicio=?, fechafin=?, ModificadoPor=?, ModificadoEn=? "
@@ -137,13 +152,17 @@ public class ProyectoEtapaDAO implements IProyectoEtapaDao {
             ps.setInt(9, proyectoEtapa.getId_proyectoetapa());
 
             ps.execute();
-            ps.close();
+            
             return true;
 
         } catch (SQLException e) {
             LOGGER.error("Error en ProyectoEtapa DAO UPDATE " + e.getMessage());
             
             return false;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -151,13 +170,15 @@ public class ProyectoEtapaDAO implements IProyectoEtapaDao {
          @Override
     public ArrayList<ProyectoEtapa> getAllProyectoEtapasAprobadasByProyecto(int idProyecto) {
         ArrayList<ProyectoEtapa> list = new ArrayList<>(0);
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         try {
 
-            PreparedStatement ps = null;
+            
 
             final String SQL = "SELECT * from TB_PROYECTOETAPA where ID_Proyecto = " + idProyecto + " and estado = 1 ";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while (rs.next()) {
                 ProyectoEtapa proyectoEtapa = new ProyectoEtapa();
                 proyectoEtapa.setId_proyectoetapa(rs.getInt("ID_ProyectoEtapa"));
@@ -174,12 +195,16 @@ public class ProyectoEtapaDAO implements IProyectoEtapaDao {
 
                 list.add(proyectoEtapa);
             }
-            ps.close();
+            
 
             return list;
         } catch (SQLException e) {
             LOGGER.error("Error en ProyectoEtapa DAO getAllProyectoEtapasAprobadasByProyecto " + e.getMessage());
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -191,13 +216,15 @@ public class ProyectoEtapaDAO implements IProyectoEtapaDao {
     @Override
     public ArrayList<ProyectoEtapa> getAllProyectoEtapaByProyecto(int idProyecto) {
         ArrayList<ProyectoEtapa> list = new ArrayList<>(0);
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         try {
 
-            PreparedStatement ps = null;
+            
 
             final String SQL = "SELECT * from TB_PROYECTOETAPA where ID_Proyecto = " + idProyecto + " ";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while (rs.next()) {
                 ProyectoEtapa proyectoEtapa = new ProyectoEtapa();
                 proyectoEtapa.setId_proyectoetapa(rs.getInt("ID_ProyectoEtapa"));
@@ -214,12 +241,16 @@ public class ProyectoEtapaDAO implements IProyectoEtapaDao {
 
                 list.add(proyectoEtapa);
             }
-            ps.close();
+            
 
             return list;
         } catch (SQLException e) {
             LOGGER.error("Error en ProyectoEtapa DAO getAllProyectoEtapaByProyecto " + e.getMessage());
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
@@ -233,13 +264,15 @@ public class ProyectoEtapaDAO implements IProyectoEtapaDao {
     public ProyectoEtapa getProyectoEtapaById(int id) {
 
         ProyectoEtapa proyectoEtapa = new ProyectoEtapa();
+        PreparedStatement ps =null;
+         ResultSet rs = null;
         try {
 
-            PreparedStatement ps = null;
+            
 
             String SQL = "select * from TB_ProyectoEtapa where ID_ProyectoEtapa =" + id + " ";
             ps = connection.prepareStatement(SQL);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             if (rs.next()) {
 
                 proyectoEtapa.setId_proyectoetapa(rs.getInt("ID_ProyectoEtapa"));
@@ -255,12 +288,16 @@ public class ProyectoEtapaDAO implements IProyectoEtapaDao {
                 proyectoEtapa.setModificadoen(rs.getDate("Modificadoen"));
 
             }
-            ps.close();
+            
 
             return proyectoEtapa;
         } catch (SQLException e) {
             LOGGER.error("Error en ProyectoEtapa DAO getProyectoEtapaById " + e.getMessage());
             return null;
+        }finally {// Cerramos las conexiones, en orden inverso a su apertura
+             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
+             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+
         }
 
     }
