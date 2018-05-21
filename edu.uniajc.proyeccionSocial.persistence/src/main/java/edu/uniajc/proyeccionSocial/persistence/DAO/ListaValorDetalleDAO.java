@@ -94,9 +94,10 @@ public class ListaValorDetalleDAO implements IListaValorDetalleDao {
 
         try {
 
-            String SQL = "UPDATE TB_ListaValorDetalle SET Estado=0 WHERE ID_ListaValorDetalle =" + id + " ";
+            String SQL = "UPDATE TB_ListaValorDetalle SET Estado=0 WHERE ID_ListaValorDetalle = ? ";
 
             ps = connection.prepareStatement(SQL);
+            ps.setInt(1, id);
             ps.execute();
             
             return true;
@@ -167,8 +168,9 @@ public class ListaValorDetalleDAO implements IListaValorDetalleDao {
         try {
 
             final String SQL = "SELECT lvd.ID_LISTAVALORDETALLE , lvd.ID_LISTAVALOR , lvd.VALOR , lvd.ESTADO , lvd.CREADOPOR, lvd.MODIFICADOPOR, lvd.CREADOEN, lvd.MODIFICADOEN from TB_ListaValorDetalle lvd inner join TB_LISTAVALOR lv on lvd.ID_LISTAVALOR = lv.ID_LISTAVALOR\n"
-                    + " where upper (lv.AGRUPACION) = upper('" + agrupa + "') and lv.estado = 1";
+                    + " where upper (lv.AGRUPACION) = ? and lv.estado = 1";
             ps = connection.prepareStatement(SQL);
+            ps.setString(1, agrupa.toUpperCase());
             rs = ps.executeQuery();
             while (rs.next()) {
                 ListaValorDetalle listaValorDetalle = new ListaValorDetalle();
@@ -210,8 +212,9 @@ public class ListaValorDetalleDAO implements IListaValorDetalleDao {
         ResultSet rs = null;
         try {
 
-            String SQL = "select * from TB_ListaValorDetalle where ID_ListaValorDetalle =" + id + " and estado = 1";
+            String SQL = "select * from TB_ListaValorDetalle where ID_ListaValorDetalle = ? and estado = 1";
             ps = connection.prepareStatement(SQL);
+            ps.setInt(1, id);
             rs = ps.executeQuery();
             if (rs.next()) {
 

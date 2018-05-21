@@ -107,9 +107,10 @@ public class TerceroDAO implements ITerceroDao {
          
         try {
 
-            String SQL = "UPDATE TB_Tercero SET Estado=0 WHERE ID_Tercero =" + id + " ";
+            String SQL = "UPDATE TB_Tercero SET Estado=0 WHERE ID_Tercero = ? ";
 
             ps = connection.prepareStatement(SQL);
+            ps.setInt(1, id);
             ps.execute();
             
             return true;
@@ -299,8 +300,9 @@ public class TerceroDAO implements ITerceroDao {
 
             
 
-            String SQL = "select * from TB_Tercero where ID_Tercero =" + id + " and estado = 1";
+            String SQL = "select * from TB_Tercero where ID_Tercero = ? and estado = 1";
             ps = connection.prepareStatement(SQL);
+            ps.setInt(1, id);
             rs = ps.executeQuery();
             if (rs.next()) {
 
@@ -353,8 +355,11 @@ public class TerceroDAO implements ITerceroDao {
 
             
 
-            String SQL = "select * from TB_Tercero where ID_LV_TipoIdentificacion =" + tipoDoc + " and NumIdentificacion='" + doc + "' ";
+            String SQL = "select * from TB_Tercero where ID_LV_TipoIdentificacion = ? and NumIdentificacion= ? ";
             ps = connection.prepareStatement(SQL);
+            ps.setInt(1, tipoDoc);
+            ps.setString(2, doc);
+            
             rs = ps.executeQuery();
             if (rs.next()) {
 

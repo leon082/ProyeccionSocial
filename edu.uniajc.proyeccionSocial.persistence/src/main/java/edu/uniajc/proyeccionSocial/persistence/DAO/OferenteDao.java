@@ -95,9 +95,10 @@ public class OferenteDao implements IOferenteDao {
 
         try {
 
-            String SQL = "UPDATE TB_Oferente SET Estado=0 WHERE ID_Oferente =" + id + " ";
+            String SQL = "UPDATE TB_Oferente SET Estado=0 WHERE ID_Oferente = ? ";
 
             ps = connection.prepareStatement(SQL);
+            ps.setInt(1, id);
             ps.execute();
             
             return true;
@@ -214,8 +215,9 @@ public class OferenteDao implements IOferenteDao {
         ResultSet rs = null;
         try {
 
-            String SQL = "select * from TB_Oferente where ID_Oferente =" + id + " and estado = 1";
+            String SQL = "select * from TB_Oferente where ID_Oferente = ? and estado = 1";
             ps = connection.prepareStatement(SQL);
+            ps.setInt(1, id);
             rs = ps.executeQuery();
             if (rs.next()) {
 
@@ -257,8 +259,9 @@ public class OferenteDao implements IOferenteDao {
         ResultSet rs = null;
         try {
 
-            String SQL = "select * from TB_Oferente where ID_Proyecto =" + id + " and estado = 1";
+            String SQL = "select * from TB_Oferente where ID_Proyecto = ? and estado = 1";
             ps = connection.prepareStatement(SQL);
+            ps.setInt(1, id);
             rs = ps.executeQuery();
             if (rs.next()) {
 

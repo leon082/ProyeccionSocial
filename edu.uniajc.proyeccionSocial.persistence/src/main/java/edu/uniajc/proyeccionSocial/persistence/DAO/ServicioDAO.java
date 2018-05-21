@@ -92,9 +92,10 @@ public class ServicioDAO implements IServicioDao {
 
         try {
 
-            String SQL = "UPDATE TB_Servicio SET Estado=0 WHERE ID_Servicio =" + id + " ";
+            String SQL = "UPDATE TB_Servicio SET Estado=0 WHERE ID_Servicio = ? ";
 
             ps = connection.prepareStatement(SQL);
+            ps.setInt(1, id);
             ps.execute();
 
             return true;
@@ -207,8 +208,9 @@ public class ServicioDAO implements IServicioDao {
 
             final String SQL = "select s.* from tb_servicio s \n"
                     + "inner join TB_PROGRAMASERVICIO ps on s.ID_SERVICIO = ps.ID_SERVICIO\n"
-                    + "where ps.ESTADO=1 and  ps.ID_PROGRAMA= " + idProg + " ";
+                    + "where ps.ESTADO=1 and  ps.ID_PROGRAMA= ? ";
             ps = connection.prepareStatement(SQL);
+            ps.setInt(1, idProg);
             rs = ps.executeQuery();
             while (rs.next()) {
                 Servicio servicio = new Servicio();
@@ -252,8 +254,9 @@ public class ServicioDAO implements IServicioDao {
 
             final String SQL = "select s.* from tb_servicio s \n"
                     + "inner join TB_PROGRAMASERVICIO ps on s.ID_SERVICIO = ps.ID_SERVICIO\n"
-                    + "where ps.ESTADO = 1 and s.ID_SERVICIO = " + idServicio + " ";
+                    + "where ps.ESTADO = 1 and s.ID_SERVICIO = ? ";
             ps = connection.prepareStatement(SQL);
+            ps.setInt(1, idServicio);
             rs = ps.executeQuery();
 
             result = rs.next();
@@ -288,8 +291,9 @@ public class ServicioDAO implements IServicioDao {
 
             
 
-            String SQL = "select * from TB_Servicio where ID_Servicio =" + id + " and estado = 1";
+            String SQL = "select * from TB_Servicio where ID_Servicio = ? and estado = 1";
             ps = connection.prepareStatement(SQL);
+            ps.setInt(1, id);
             rs = ps.executeQuery();
             if (rs.next()) {
 

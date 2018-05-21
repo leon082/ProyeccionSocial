@@ -92,9 +92,10 @@ public class ServicioEtapaDAO implements IServicioEtapaDao {
         try {
 
             String SQL = "UPDATE TB_ServicioEtapa SET Estado=0 WHERE "
-                    + "ID_ServicioEtapa =" + id + " ";
+                    + "ID_ServicioEtapa = ? ";
 
             ps = connection.prepareStatement(SQL);
+            ps.setInt(1, id);
             ps.execute();
             
             return true;
@@ -123,9 +124,10 @@ public class ServicioEtapaDAO implements IServicioEtapaDao {
         try {
 
             String SQL = "DELETE FROM tb_servicioetapa WHERE "
-                    + "id_servicio =" + id + " ";
+                    + "id_servicio = ? ";
 
              ps = connection.prepareStatement(SQL);
+             ps.setInt(1, id);
             ps.execute();
             
             return true;
@@ -245,8 +247,9 @@ public class ServicioEtapaDAO implements IServicioEtapaDao {
 
             
 
-            String SQL = "select * from TB_ServicioEtapa where ID_ServicioEtapa =" + id + " and estado = 1";
+            String SQL = "select * from TB_ServicioEtapa where ID_ServicioEtapa = ? and estado = 1";
             ps = connection.prepareStatement(SQL);
+            ps.setInt(1, id);
             rs = ps.executeQuery();
             if (rs.next()) {
 

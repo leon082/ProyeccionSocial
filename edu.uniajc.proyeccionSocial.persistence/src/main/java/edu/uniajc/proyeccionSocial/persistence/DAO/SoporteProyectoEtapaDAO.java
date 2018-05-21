@@ -191,8 +191,9 @@ public class SoporteProyectoEtapaDAO implements ISoporteProyectoEtapaDao {
 
             
 
-            String SQL = "select * from TB_SoporteProyectoEtapa where ID_ProyectoEtapa =" + id + " ";
+            String SQL = "select * from TB_SoporteProyectoEtapa where ID_ProyectoEtapa = ? ";
             ps = connection.prepareStatement(SQL);
+            ps.setInt(1, id);
              rs = ps.executeQuery();
             while (rs.next()) {
                 SoporteProyectoEtapa soporteProyectoEtapa = new SoporteProyectoEtapa();
@@ -240,8 +241,9 @@ public class SoporteProyectoEtapaDAO implements ISoporteProyectoEtapaDao {
 
             
 
-            String SQL = "select * from TB_SoporteProyectoEtapa where ID_SoporteProyectoEtapa =" + id + " ";
+            String SQL = "select * from TB_SoporteProyectoEtapa where ID_SoporteProyectoEtapa = ? ";
             ps = connection.prepareStatement(SQL);
+            ps.setInt(1, id);
              rs = ps.executeQuery();
             if (rs.next()) {
 

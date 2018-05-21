@@ -97,9 +97,10 @@ public class UsuarioRolDAO implements IUsuarioRolDao {
          
         try {
 
-            String SQL = "UPDATE TB_UsuarioRol SET Estado=0 WHERE ID_UsuarioRol =" + id + " ";
+            String SQL = "UPDATE TB_UsuarioRol SET Estado=0 WHERE ID_UsuarioRol = ? ";
 
              ps = connection.prepareStatement(SQL);
+             ps.setInt(1, id);
             ps.execute();
             
             return true;
@@ -128,9 +129,10 @@ public class UsuarioRolDAO implements IUsuarioRolDao {
         try {
 
             String SQL = "DELETE FROM TB_UsuarioRol WHERE "
-                    + "ID_Usuario =" + idUser + " ";
+                    + "ID_Usuario = ? ";
 
              ps = connection.prepareStatement(SQL);
+             ps.setInt(1, idUser);
             ps.execute();
             
             return true;
@@ -250,8 +252,9 @@ public class UsuarioRolDAO implements IUsuarioRolDao {
 
             
 
-            String SQL = "select * from TB_UsuarioRol where ID_UsuarioRol =" + id + " and estado = 1";
+            String SQL = "select * from TB_UsuarioRol where ID_UsuarioRol = ? and estado = 1";
             ps = connection.prepareStatement(SQL);
+            ps.setInt(1, id);
              rs = ps.executeQuery();
             if (rs.next()) {
 

@@ -91,9 +91,10 @@ public class UsuarioDao implements IUsuarioDao {
          
         try {
 
-            String SQL = "UPDATE TB_Usuario SET Estado=0 WHERE ID_Usuario =" + id + " ";
+            String SQL = "UPDATE TB_Usuario SET Estado=0 WHERE ID_Usuario = ? ";
 
              ps = connection.prepareStatement(SQL);
+             ps.setInt(1, id);
             ps.execute();
             
             return true;
@@ -205,8 +206,9 @@ public class UsuarioDao implements IUsuarioDao {
 
             
 
-            String SQL = "select * from TB_Usuario where ID_Usuario =" + id + " and estado = 1";
+            String SQL = "select * from TB_Usuario where ID_Usuario = ? and estado = 1";
             ps = connection.prepareStatement(SQL);
+            ps.setInt(1, id);
             rs = ps.executeQuery();
             if (rs.next()) {
 
@@ -249,8 +251,10 @@ public class UsuarioDao implements IUsuarioDao {
 
             
 
-            String SQL = "select * from TB_Usuario where Usuario = '" + user + "' and Contrasena ='" + contrasena + "' and estado = 1";
+            String SQL = "select * from TB_Usuario where Usuario = ? and Contrasena = ? and estado = 1";
             ps = connection.prepareStatement(SQL);
+            ps.setString(1, user);
+            ps.setString(2, contrasena);
             rs = ps.executeQuery();
             if (rs.next()) {
 
@@ -292,8 +296,9 @@ public class UsuarioDao implements IUsuarioDao {
 
             
 
-            String SQL = "select * from TB_Usuario where Usuario ='" + user + "' ";
+            String SQL = "select * from TB_Usuario where Usuario = ? ";
             ps = connection.prepareStatement(SQL);
+            ps.setString(1, user);
             rs = ps.executeQuery();
             if (rs.next()) {
 
@@ -336,8 +341,9 @@ public class UsuarioDao implements IUsuarioDao {
             
 
             String SQL = "select tercero.correo from tb_usuario usuario inner join tb_tercero tercero on usuario.ID_TERCERO = tercero.ID_TERCERO "
-                    + "where usuario.USUARIO = '" + user + "' ";
+                    + "where usuario.USUARIO = ? ";
             ps = connection.prepareStatement(SQL);
+            ps.setString(1, user);
              rs = ps.executeQuery();
             if (rs.next()) {
 

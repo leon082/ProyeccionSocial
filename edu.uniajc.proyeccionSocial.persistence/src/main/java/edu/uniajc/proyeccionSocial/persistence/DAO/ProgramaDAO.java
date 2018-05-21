@@ -95,9 +95,10 @@ public class ProgramaDAO implements IProgramaDao {
          
         try {
 
-            String SQL = "UPDATE TB_Programa SET Estado=0 WHERE ID_Programa =" + id + " ";
+            String SQL = "UPDATE TB_Programa SET Estado=0 WHERE ID_Programa = ? ";
 
              ps = connection.prepareStatement(SQL);
+             ps.setInt(1, id);
             ps.execute();
             
             return true;
@@ -215,9 +216,11 @@ public class ProgramaDAO implements IProgramaDao {
 
             
 
-            String SQL = "select * from TB_Programa where ID_Programa =" + id + " and estado = 1";
+            String SQL = "select * from TB_Programa where ID_Programa = ? and estado = 1";
             ps = connection.prepareStatement(SQL);
+            ps.setInt(1, id);
             rs = ps.executeQuery();
+            
             if (rs.next()) {
 
                 programa.setId_programa(rs.getInt("ID_Programa"));
@@ -259,8 +262,9 @@ public class ProgramaDAO implements IProgramaDao {
 
             
 
-            final String SQL = "select * from TB_PROYECTO where ID_PROGRAMA = " +idPrograma;
+            final String SQL = "select * from TB_PROYECTO where ID_PROGRAMA = ? ";
             ps = connection.prepareStatement(SQL);
+            ps.setInt(1, idPrograma);
             rs = ps.executeQuery();
 
             result = rs.next();

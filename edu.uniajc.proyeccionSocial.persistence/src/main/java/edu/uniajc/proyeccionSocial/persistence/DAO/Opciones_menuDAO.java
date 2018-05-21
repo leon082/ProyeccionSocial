@@ -38,8 +38,9 @@ public class Opciones_menuDAO implements IOpciones_menuDao {
 
         try {
 
-            String SQL = "select id_rol from TB_USUARIOROL where id_usuario = " + idUsuario + " and estado = 1";
+            String SQL = "select id_rol from TB_USUARIOROL where id_usuario = ? and estado = 1";
             ps = connection.prepareStatement(SQL);
+            ps.setInt(1, idUsuario);
             rs = ps.executeQuery();
             while (rs.next()) {
                 int rol = rs.getInt("ID_ROL");
@@ -74,8 +75,9 @@ public class Opciones_menuDAO implements IOpciones_menuDao {
             List<Integer> roles = cargarRoles(user.getId_usuario());
 
             for (int rol : roles) {
-                String SQL = "select id_modulo, descripcion , ruta from TB_MODULO where id_rol = " + rol + " and menu = 'cuenta'";
+                String SQL = "select id_modulo, descripcion , ruta from TB_MODULO where id_rol = ? and menu = 'cuenta'";
                 ps = connection.prepareStatement(SQL);
+                ps.setInt(1, rol);
                 rs = ps.executeQuery();
                 while (rs.next()) {
 
@@ -132,8 +134,9 @@ public class Opciones_menuDAO implements IOpciones_menuDao {
             List<Integer> roles = cargarRoles(user.getId_usuario());
 
             for (int rol : roles) {
-                String SQL = "select id_modulo, descripcion , ruta from TB_MODULO where id_rol = " + rol + " and menu = 'parametrizar'";
+                String SQL = "select id_modulo, descripcion , ruta from TB_MODULO where id_rol = ? and menu = 'parametrizar'";
                 ps = connection.prepareStatement(SQL);
+                ps.setInt(1, rol);
                 rs = ps.executeQuery();
                 while (rs.next()) {
 
@@ -174,8 +177,9 @@ public class Opciones_menuDAO implements IOpciones_menuDao {
             List<Integer> roles = cargarRoles(user.getId_usuario());
 
             for (int rol : roles) {
-                String SQL = "select id_modulo, descripcion , ruta from TB_MODULO where id_rol = " + rol + " and menu = 'proyectos'";
+                String SQL = "select id_modulo, descripcion , ruta from TB_MODULO where id_rol = ? and menu = 'proyectos'";
                 ps = connection.prepareStatement(SQL);
+                ps.setInt(1, rol);
                 rs = ps.executeQuery();
                 while (rs.next()) {
 
@@ -217,8 +221,9 @@ public class Opciones_menuDAO implements IOpciones_menuDao {
             List<Integer> roles = cargarRoles(user.getId_usuario());
 
             for (int rol : roles) {
-                String SQL = "select id_modulo, descripcion , ruta from TB_MODULO where id_rol = " + rol + " and menu = 'usuarios'";
+                String SQL = "select id_modulo, descripcion , ruta from TB_MODULO where id_rol = ? and menu = 'usuarios'";
                 ps = connection.prepareStatement(SQL);
+                ps.setInt(1, rol);
                 rs = ps.executeQuery();
                 while (rs.next()) {
 

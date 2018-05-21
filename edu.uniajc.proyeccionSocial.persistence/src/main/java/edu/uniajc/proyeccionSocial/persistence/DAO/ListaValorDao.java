@@ -93,9 +93,10 @@ public class ListaValorDao implements IListaValorDao {
 
         try {
 
-            String SQL = "UPDATE TB_ListaValor SET Estado=0 WHERE ID_ListaValor =" + id + " ";
+            String SQL = "UPDATE TB_ListaValor SET Estado=0 WHERE ID_ListaValor = ? ";
 
             ps = connection.prepareStatement(SQL);
+            ps.setInt(1, id);
             ps.execute();
             
             return true;
@@ -207,8 +208,9 @@ public class ListaValorDao implements IListaValorDao {
         ResultSet rs = null;
         try {
 
-            String SQL = "select * from TB_ListaValor where ID_ListaValor =" + id + " and estado = 1";
+            String SQL = "select * from TB_ListaValor where ID_ListaValor = ? and estado = 1";
             ps = connection.prepareStatement(SQL);
+            ps.setInt(1, id);
             rs = ps.executeQuery();
             if (rs.next()) {
 

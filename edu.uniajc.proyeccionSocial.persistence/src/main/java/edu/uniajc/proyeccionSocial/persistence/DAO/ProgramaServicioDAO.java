@@ -95,9 +95,10 @@ public class ProgramaServicioDAO implements IProgramaServicioDao {
         try {
 
             String SQL = "UPDATE TB_ProgramaServicio SET Estado=0 WHERE "
-                    + "ID_ProgramaServicio =" + id + " ";
+                    + "ID_ProgramaServicio = ? ";
 
              ps = connection.prepareStatement(SQL);
+             ps.setInt(1, id);
             ps.execute();
             
             return true;
@@ -126,9 +127,11 @@ public class ProgramaServicioDAO implements IProgramaServicioDao {
         try {
 
             String SQL = "DELETE FROM tb_programaservicio WHERE "
-                    + "ID_Programa =" + id + " ";
+                    + "ID_Programa = ? ";
 
              ps = connection.prepareStatement(SQL);
+             ps.setInt(1, id);
+             
             ps.execute();
             
             return true;
@@ -203,8 +206,9 @@ public class ProgramaServicioDAO implements IProgramaServicioDao {
 
             
 
-            final String SQL = "SELECT * from TB_ProgramaServicio where ID_Programa = " + idPrograma + " and estado = 1";
+            final String SQL = "SELECT * from TB_ProgramaServicio where ID_Programa = ? and estado = 1";
             ps = connection.prepareStatement(SQL);
+            ps.setInt(1, idPrograma);
             rs = ps.executeQuery();
             while (rs.next()) {
                 ProgramaServicio progServi = new ProgramaServicio();
@@ -249,8 +253,9 @@ public class ProgramaServicioDAO implements IProgramaServicioDao {
 
             
 
-            String SQL = "select * from TB_ProgramaServicio where ID_ProgramaServicio =" + id + " and estado = 1";
+            String SQL = "select * from TB_ProgramaServicio where ID_ProgramaServicio = ? and estado = 1";
             ps = connection.prepareStatement(SQL);
+            ps.setInt(1, id);
             rs = ps.executeQuery();
             if (rs.next()) {
 

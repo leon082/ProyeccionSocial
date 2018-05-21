@@ -99,9 +99,10 @@ public class ProyectoEtapaDAO implements IProyectoEtapaDao {
          
         try {
 
-            String SQL = "UPDATE TB_ProyectoEtapa SET Estado=0 WHERE ID_ProyectoEtapa =" + id + " ";
+            String SQL = "UPDATE TB_ProyectoEtapa SET Estado=0 WHERE ID_ProyectoEtapa = ? ";
 
              ps = connection.prepareStatement(SQL);
+             ps.setInt(1, id);
             ps.execute();
             
             return true;
@@ -176,8 +177,9 @@ public class ProyectoEtapaDAO implements IProyectoEtapaDao {
 
             
 
-            final String SQL = "SELECT * from TB_PROYECTOETAPA where ID_Proyecto = " + idProyecto + " and estado = 1 ";
+            final String SQL = "SELECT * from TB_PROYECTOETAPA where ID_Proyecto = ? and estado = 1 ";
             ps = connection.prepareStatement(SQL);
+            ps.setInt(1, idProyecto);
             rs = ps.executeQuery();
             while (rs.next()) {
                 ProyectoEtapa proyectoEtapa = new ProyectoEtapa();
@@ -222,8 +224,9 @@ public class ProyectoEtapaDAO implements IProyectoEtapaDao {
 
             
 
-            final String SQL = "SELECT * from TB_PROYECTOETAPA where ID_Proyecto = " + idProyecto + " ";
+            final String SQL = "SELECT * from TB_PROYECTOETAPA where ID_Proyecto = ? ";
             ps = connection.prepareStatement(SQL);
+            ps.setInt(1, idProyecto);
             rs = ps.executeQuery();
             while (rs.next()) {
                 ProyectoEtapa proyectoEtapa = new ProyectoEtapa();
@@ -270,8 +273,9 @@ public class ProyectoEtapaDAO implements IProyectoEtapaDao {
 
             
 
-            String SQL = "select * from TB_ProyectoEtapa where ID_ProyectoEtapa =" + id + " ";
+            String SQL = "select * from TB_ProyectoEtapa where ID_ProyectoEtapa = ? ";
             ps = connection.prepareStatement(SQL);
+            ps.setInt(1, id);
             rs = ps.executeQuery();
             if (rs.next()) {
 

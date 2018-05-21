@@ -98,9 +98,10 @@ public class RolDao implements IRolDao {
          
         try {
 
-            String SQL = "UPDATE TB_Rol SET Estado=0 WHERE ID_Rol =" + id + " ";
+            String SQL = "UPDATE TB_Rol SET Estado=0 WHERE ID_Rol = ? ";
 
              ps = connection.prepareStatement(SQL);
+             ps.setInt(1, id);
             ps.execute();
             
             return true;
@@ -210,8 +211,9 @@ public class RolDao implements IRolDao {
 
             
 
-            String SQL = "select * from TB_Rol where ID_Rol =" + id + " and estado = 1";
+            String SQL = "select * from TB_Rol where ID_Rol = ? and estado = 1";
             ps = connection.prepareStatement(SQL);
+            ps.setInt(1, id);
             rs = ps.executeQuery();
             if (rs.next()) {
 
@@ -250,8 +252,9 @@ public class RolDao implements IRolDao {
         try {
             
 
-            String SQL = "select TB_Rol.* from TB_ROL inner join TB_USUARIOROL on TB_ROL.ID_ROL = TB_USUARIOROL.ID_ROL and TB_USUARIOROL.ID_USUARIO = " + idUsuario + " and TB_ROL.estado = 1";
+            String SQL = "select TB_Rol.* from TB_ROL inner join TB_USUARIOROL on TB_ROL.ID_ROL = TB_USUARIOROL.ID_ROL and TB_USUARIOROL.ID_USUARIO = ? and TB_ROL.estado = 1";
             ps = connection.prepareStatement(SQL);
+            ps.setInt(1, idUsuario);
             rs = ps.executeQuery();
             while (rs.next()) {
                 Rol rol = new Rol();

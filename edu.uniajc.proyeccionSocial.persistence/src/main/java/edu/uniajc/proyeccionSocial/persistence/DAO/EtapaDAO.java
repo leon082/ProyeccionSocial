@@ -94,9 +94,10 @@ public class EtapaDAO implements IEtapaDao {
 
         try {
 
-            String SQL = "UPDATE TB_Etapa SET Estado=0 WHERE ID_Etapa =" + id + " ";
+            String SQL = "UPDATE TB_Etapa SET Estado=0 WHERE ID_Etapa = ? ";
 
             ps = connection.prepareStatement(SQL);
+            ps.setInt(1, id);
             ps.execute();
             
             return true;
@@ -204,8 +205,9 @@ public class EtapaDAO implements IEtapaDao {
         ResultSet rs = null;
         try {
 
-            String SQL = "select * from TB_Etapa where ID_Etapa =" + id + " and estado = 1";
+            String SQL = "select * from TB_Etapa where ID_Etapa = ? and estado = 1";
             ps = connection.prepareStatement(SQL);
+            ps.setInt(1, id);
             rs = ps.executeQuery();
             if (rs.next()) {
 
@@ -243,8 +245,9 @@ public class EtapaDAO implements IEtapaDao {
 
             final String SQL = "select s.* from tb_etapa s \n"
                     + "inner join tb_servicioetapa ps on s.id_etapa = ps.id_etapa \n"
-                    + "where ps.ESTADO = 1 and s.id_etapa = " + idEtapa + " ";
+                    + "where ps.ESTADO = 1 and s.id_etapa = ? ";
             ps = connection.prepareStatement(SQL);
+            ps.setInt(1, idEtapa);
             rs = ps.executeQuery();
 
             result = rs.next();
@@ -279,8 +282,9 @@ public class EtapaDAO implements IEtapaDao {
 
             final String SQL = "select s.* from tb_etapa s \n"
                     + "inner join TB_SERVICIOetapa ps on s.id_etapa = ps.id_etapa \n"
-                    + "where ps.ESTADO=1 and  ps.id_servicio= " + idServicio + " ";
+                    + "where ps.ESTADO=1 and  ps.id_servicio= ? ";
             ps = connection.prepareStatement(SQL);
+            ps.setInt(1, idServicio);
             rs = ps.executeQuery();
             while (rs.next()) {
                 Etapa etapa = new Etapa();

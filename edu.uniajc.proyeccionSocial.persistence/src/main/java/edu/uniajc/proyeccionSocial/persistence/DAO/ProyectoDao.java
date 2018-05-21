@@ -99,9 +99,10 @@ public class ProyectoDao implements IProyectoDao {
          
         try {
 
-            String SQL = "UPDATE TB_Proyecto SET Estado=0 WHERE ID_Proyecto =" + id + " ";
+            String SQL = "UPDATE TB_Proyecto SET Estado=0 WHERE ID_Proyecto = ? ";
 
              ps = connection.prepareStatement(SQL);
+             ps.setInt(1, id);
             ps.execute();
             
             return true;
@@ -404,8 +405,9 @@ public class ProyectoDao implements IProyectoDao {
 
             
 
-            String SQL = "select * from TB_Proyecto where creadopor = '" + user + "' and estado = 1";
+            String SQL = "select * from TB_Proyecto where creadopor = ? and estado = 1";
             ps = connection.prepareStatement(SQL);
+            ps.setString(1, user);
             rs = ps.executeQuery();
             while (rs.next()) {
                 Proyecto proyecto = new Proyecto();
@@ -453,8 +455,9 @@ public class ProyectoDao implements IProyectoDao {
 
             
 
-            String SQL = "select * from TB_Proyecto where id_proyecto = " + id + " ";
+            String SQL = "select * from TB_Proyecto where id_proyecto = ? ";
             ps = connection.prepareStatement(SQL);
+            ps.setInt(1, id);
             rs = ps.executeQuery();
             if (rs.next()) {
 
