@@ -12,15 +12,15 @@ package edu.uniajc.proyeccionSocial.persistence.Model;
 import java.sql.Date;
 public class ReporteProyecto {
     
-    String tituloProyecto;
-    String oferente;
-    String creadoPor;
-    Date creadoEn;
-    String fechaCreate;
-    String programa;
-    String servicio;
-    String estado;
-    String facultad;
+   private String tituloProyecto;
+    private String oferente;
+    private String creadoPor;
+    private Date creadoEn;
+    private String fechaCreate;
+    private String programa;
+    private String servicio;
+    private String estado;
+    private String facultad;
 
     public String getTituloProyecto() {
         return tituloProyecto;

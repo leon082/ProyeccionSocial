@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IProgramaServicioDao;
+import edu.uniajc.proyeccionSocial.persistence.utils.ConexionBD;
 import java.sql.Connection;
 import org.apache.log4j.Logger;
 
@@ -76,9 +77,7 @@ public class ProgramaServicioDAO implements IProgramaServicioDao {
             
             return 0;
         }finally {// Cerramos las conexiones, en orden inverso a su apertura
-             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
-
+              ConexionBD.cerrarConexiones(rs, ps);
         }
 
     }
@@ -109,7 +108,7 @@ public class ProgramaServicioDAO implements IProgramaServicioDao {
             return false;
         }finally {// Cerramos las conexiones, en orden inverso a su apertura
            
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+             ConexionBD.cerrarConexiones(null, ps);
 
         }
 
@@ -142,7 +141,7 @@ public class ProgramaServicioDAO implements IProgramaServicioDao {
             return false;
         }finally {// Cerramos las conexiones, en orden inverso a su apertura
              
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+              ConexionBD.cerrarConexiones(null, ps);
 
         }
 
@@ -186,7 +185,7 @@ public class ProgramaServicioDAO implements IProgramaServicioDao {
             return false;
         }finally {// Cerramos las conexiones, en orden inverso a su apertura
            
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+             ConexionBD.cerrarConexiones(null, ps);
 
         }
 
@@ -231,9 +230,7 @@ public class ProgramaServicioDAO implements IProgramaServicioDao {
             
             return null;
         }finally {// Cerramos las conexiones, en orden inverso a su apertura
-             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
-
+             ConexionBD.cerrarConexiones(rs, ps);
         }
 
     }
@@ -276,9 +273,7 @@ public class ProgramaServicioDAO implements IProgramaServicioDao {
              LOGGER.error("Error ProgramaServicioDAO getProgramaServicioById "+e.getMessage());
             return null;
         }finally {// Cerramos las conexiones, en orden inverso a su apertura
-             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
-
+             ConexionBD.cerrarConexiones(rs, ps);
         }
 
     }

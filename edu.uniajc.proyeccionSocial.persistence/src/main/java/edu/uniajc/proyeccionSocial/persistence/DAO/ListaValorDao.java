@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IListaValorDao;
+import edu.uniajc.proyeccionSocial.persistence.utils.ConexionBD;
 import java.sql.Connection;
 import org.apache.log4j.Logger;
 
@@ -75,9 +76,7 @@ public class ListaValorDao implements IListaValorDao {
             LOGGER.error("Error en  ListaValorDao Insert -->" + e.getMessage());
             return 0;
         }finally {// Cerramos las conexiones, en orden inverso a su apertura
-             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
-
+             ConexionBD.cerrarConexiones(rs, ps);
         }
 
     }
@@ -106,7 +105,7 @@ public class ListaValorDao implements IListaValorDao {
             return false;
         }finally {// Cerramos las conexiones, en orden inverso a su apertura
              
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+             ConexionBD.cerrarConexiones(null, ps);
 
         }
 
@@ -148,7 +147,7 @@ public class ListaValorDao implements IListaValorDao {
             return false;
         }finally {// Cerramos las conexiones, en orden inverso a su apertura
             
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+             ConexionBD.cerrarConexiones(null, ps);
 
         }
 
@@ -188,9 +187,7 @@ public class ListaValorDao implements IListaValorDao {
             LOGGER.error("Error en  ListaValorDao getAllListaValor -->" + e.getMessage());
             return null;
         }finally {// Cerramos las conexiones, en orden inverso a su apertura
-             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
-
+              ConexionBD.cerrarConexiones(rs, ps);
         }
 
     }
@@ -231,11 +228,10 @@ public class ListaValorDao implements IListaValorDao {
             LOGGER.error("Error en  ListaValorDao getListaValorById -->" + e.getMessage());
             return null;
         }finally {// Cerramos las conexiones, en orden inverso a su apertura
-             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
-
+              ConexionBD.cerrarConexiones(rs, ps);
         }
 
     }
+    
 
 }

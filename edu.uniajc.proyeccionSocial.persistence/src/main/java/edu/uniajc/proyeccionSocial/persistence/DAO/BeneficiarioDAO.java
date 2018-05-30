@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IBeneficiarioDao;
+import edu.uniajc.proyeccionSocial.persistence.utils.ConexionBD;
 import java.sql.Connection;
 import org.apache.log4j.Logger;
 
@@ -74,9 +75,7 @@ public class BeneficiarioDAO implements IBeneficiarioDao {
             LOGGER.error("Error en BeneficiarioDAO Insert -->" + e.getMessage());
             return 0;
         } finally {// Cerramos las conexiones, en orden inverso a su apertura
-             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
-
+            ConexionBD.cerrarConexiones(rs, ps);
         }
 
     }
@@ -95,9 +94,9 @@ public class BeneficiarioDAO implements IBeneficiarioDao {
             String SQL = "UPDATE TB_Beneficiario SET Estado=0 WHERE ID_Beneficiario = ?";
 
             ps = connection.prepareStatement(SQL);
-            ps.setInt(1,id);
+            ps.setInt(1, id);
             ps.execute();
-            
+
             return true;
 
         } catch (SQLException e) {
@@ -105,9 +104,9 @@ public class BeneficiarioDAO implements IBeneficiarioDao {
             LOGGER.error("Error en BeneficiarioDAO Delete -->" + e.getMessage());
 
             return false;
-        }finally {// Cerramos las conexiones, en orden inverso a su apertura
-             
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+        } finally {// Cerramos las conexiones, en orden inverso a su apertura
+
+           ConexionBD.cerrarConexiones(null, ps);
 
         }
 
@@ -143,7 +142,7 @@ public class BeneficiarioDAO implements IBeneficiarioDao {
             ps.setInt(7, beneficiario.getId_beneficiario());
 
             ps.execute();
-            
+
             return true;
 
         } catch (SQLException e) {
@@ -151,9 +150,9 @@ public class BeneficiarioDAO implements IBeneficiarioDao {
             LOGGER.error("Error en BeneficiarioDAO Update -->" + e.getMessage());
 
             return false;
-        }finally {// Cerramos las conexiones, en orden inverso a su apertura
-             
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+        } finally {// Cerramos las conexiones, en orden inverso a su apertura
+
+            ConexionBD.cerrarConexiones(null, ps);
 
         }
 
@@ -187,15 +186,13 @@ public class BeneficiarioDAO implements IBeneficiarioDao {
 
                 list.add(beneficiario);
             }
-            
 
             return list;
         } catch (SQLException e) {
             LOGGER.error("Error en BeneficiarioDAO getAllBeneficiario -->" + e.getMessage());
             return null;
-        }finally {// Cerramos las conexiones, en orden inverso a su apertura
-             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+        } finally {// Cerramos las conexiones, en orden inverso a su apertura
+         ConexionBD.cerrarConexiones(rs, ps);
 
         }
 
@@ -231,15 +228,13 @@ public class BeneficiarioDAO implements IBeneficiarioDao {
 
                 list.add(beneficiario);
             }
-            
 
             return list;
         } catch (SQLException e) {
             LOGGER.error("Error en BeneficiarioDAO getAllBeneficiario -->" + e.getMessage());
             return null;
-        }finally {// Cerramos las conexiones, en orden inverso a su apertura
-             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+        } finally {// Cerramos las conexiones, en orden inverso a su apertura
+           ConexionBD.cerrarConexiones(rs, ps);
 
         }
 
@@ -275,19 +270,19 @@ public class BeneficiarioDAO implements IBeneficiarioDao {
                 beneficiario.setModificadoen(rs.getDate("ModificadoEn"));
 
             }
-            
 
             return beneficiario;
         } catch (SQLException e) {
             LOGGER.error("Error en BeneficiarioDAO getBeneficiarioById -->" + e.getMessage());
 
             return null;
-        }finally {// Cerramos las conexiones, en orden inverso a su apertura
-             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+        } finally {// Cerramos las conexiones, en orden inverso a su apertura
+            ConexionBD.cerrarConexiones(rs, ps);
 
         }
 
     }
+
+  
 
 }

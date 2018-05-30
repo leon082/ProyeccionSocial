@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IUsuarioDao;
+import edu.uniajc.proyeccionSocial.persistence.utils.ConexionBD;
 import java.sql.Connection;
 import org.apache.log4j.Logger;
 
@@ -73,9 +74,7 @@ public class UsuarioDao implements IUsuarioDao {
             
             return 0;
         }finally {// Cerramos las conexiones, en orden inverso a su apertura
-             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
-
+            ConexionBD.cerrarConexiones(rs, ps);
         }
 
     }
@@ -105,7 +104,7 @@ public class UsuarioDao implements IUsuarioDao {
             return false;
         }finally {// Cerramos las conexiones, en orden inverso a su apertura
              
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+            ConexionBD.cerrarConexiones(null, ps);
 
         }
 
@@ -144,7 +143,7 @@ public class UsuarioDao implements IUsuarioDao {
             return false;
         }finally {// Cerramos las conexiones, en orden inverso a su apertura
             
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+             ConexionBD.cerrarConexiones(null, ps);
 
         }
 
@@ -184,9 +183,7 @@ public class UsuarioDao implements IUsuarioDao {
             
             return null;
         }finally {// Cerramos las conexiones, en orden inverso a su apertura
-             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
-
+              ConexionBD.cerrarConexiones(rs, ps);
         }
 
     }
@@ -228,9 +225,7 @@ public class UsuarioDao implements IUsuarioDao {
             
             return null;
         }finally {// Cerramos las conexiones, en orden inverso a su apertura
-             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
-
+             ConexionBD.cerrarConexiones(rs, ps);
         }
 
     }
@@ -274,9 +269,7 @@ public class UsuarioDao implements IUsuarioDao {
             
             return null;
         }finally {// Cerramos las conexiones, en orden inverso a su apertura
-             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
-
+             ConexionBD.cerrarConexiones(rs, ps);
         }
 
     }
@@ -318,9 +311,7 @@ public class UsuarioDao implements IUsuarioDao {
             
             return null;
         }finally {// Cerramos las conexiones, en orden inverso a su apertura
-             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
-
+              ConexionBD.cerrarConexiones(rs, ps);
         }
 
     }
@@ -358,9 +349,7 @@ public class UsuarioDao implements IUsuarioDao {
             
             return null;
         }finally {// Cerramos las conexiones, en orden inverso a su apertura
-             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
-
+             ConexionBD.cerrarConexiones(rs, ps);
         }
 
     }

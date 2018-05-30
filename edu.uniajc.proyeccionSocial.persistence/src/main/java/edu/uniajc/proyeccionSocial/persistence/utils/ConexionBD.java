@@ -7,6 +7,8 @@ package edu.uniajc.proyeccionSocial.persistence.utils;
 
 import edu.uniajc.proyeccionSocial.persistence.DAO.EtapaDAO;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 
@@ -38,6 +40,24 @@ public class ConexionBD {
             System.out.println(e);
             LOGGER.error("Error en ConexionBD init -> " + e.getMessage() + " Error -> "+e);
         }
+    }
+     
+        public static void cerrarConexiones(ResultSet rs, PreparedStatement ps) {
+        try {
+            if (rs != null) {
+                rs.close();
+            }
+        } catch (Exception errorRS) {
+            errorRS.getMessage();
+        }
+        try {
+            if (ps != null) {
+                ps.close();
+            }
+        } catch (Exception errorST) {
+            errorST.getMessage();
+        }
+
     }
 
    /* public static synchronized ConexionBD getInstance() {

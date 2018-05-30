@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IProyectoDao;
+import edu.uniajc.proyeccionSocial.persistence.utils.ConexionBD;
 import java.sql.Connection;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -81,8 +82,7 @@ public class ProyectoDao implements IProyectoDao {
             
             return 0;
         }finally {// Cerramos las conexiones, en orden inverso a su apertura
-             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+              ConexionBD.cerrarConexiones(rs, ps);
 
         }
 
@@ -113,7 +113,7 @@ public class ProyectoDao implements IProyectoDao {
             return false;
         }finally {// Cerramos las conexiones, en orden inverso a su apertura
             
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+             ConexionBD.cerrarConexiones(null, ps);
 
         }
 
@@ -161,7 +161,7 @@ public class ProyectoDao implements IProyectoDao {
             return false;
         }finally {// Cerramos las conexiones, en orden inverso a su apertura
             
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+            ConexionBD.cerrarConexiones(null, ps);
 
         }
 
@@ -207,9 +207,7 @@ public class ProyectoDao implements IProyectoDao {
             LOGGER.error("Error, ProyectoDAO, getAllProyectoPendiente "+e.getMessage());
             return null;
         }finally {// Cerramos las conexiones, en orden inverso a su apertura
-             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
-
+              ConexionBD.cerrarConexiones(rs, ps);
         }
 
     }
@@ -254,9 +252,7 @@ public class ProyectoDao implements IProyectoDao {
             LOGGER.error("Error, ProyectoDAO, getAllProyectoAprobado "+e.getMessage());
             return null;
         }finally {// Cerramos las conexiones, en orden inverso a su apertura
-             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
-
+             ConexionBD.cerrarConexiones(rs, ps);
         }
 
     }
@@ -301,9 +297,7 @@ public class ProyectoDao implements IProyectoDao {
             LOGGER.error("Error, ProyectoDAO, getAllProyectoFinalizad "+e.getMessage());
             return null;
         }finally {// Cerramos las conexiones, en orden inverso a su apertura
-             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
-
+             ConexionBD.cerrarConexiones(rs, ps);
         }
 
     }
@@ -348,9 +342,7 @@ public class ProyectoDao implements IProyectoDao {
             LOGGER.error("Error, ProyectoDAO, getAllProyectoCancelado "+e.getMessage());
             return null;
         }finally {// Cerramos las conexiones, en orden inverso a su apertura
-             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
-
+              ConexionBD.cerrarConexiones(rs, ps);
         }
 
     }
@@ -383,9 +375,7 @@ public class ProyectoDao implements IProyectoDao {
             LOGGER.error("Error, ProyectoDAO, getAllProyectoPendiente "+e.getMessage());
             return result;
         }finally {// Cerramos las conexiones, en orden inverso a su apertura
-             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
-
+             ConexionBD.cerrarConexiones(rs, ps);
         }
 
     }
@@ -433,9 +423,7 @@ public class ProyectoDao implements IProyectoDao {
             
             return null;
         }finally {// Cerramos las conexiones, en orden inverso a su apertura
-             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
-
+            ConexionBD.cerrarConexiones(rs, ps);
         }
 
     }
@@ -482,9 +470,7 @@ public class ProyectoDao implements IProyectoDao {
             
             return null;
         }finally {// Cerramos las conexiones, en orden inverso a su apertura
-             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
-
+              ConexionBD.cerrarConexiones(rs, ps);
         }
 
     }

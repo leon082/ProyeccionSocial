@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IEtapaDao;
+import edu.uniajc.proyeccionSocial.persistence.utils.ConexionBD;
 import java.sql.Connection;
 import org.apache.log4j.Logger;
 
@@ -76,9 +77,7 @@ public class EtapaDAO implements IEtapaDao {
 
             return 0;
         }finally {// Cerramos las conexiones, en orden inverso a su apertura
-             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
-
+              ConexionBD.cerrarConexiones(rs, ps);
         }
 
     }
@@ -107,7 +106,7 @@ public class EtapaDAO implements IEtapaDao {
             return false;
         }finally {// Cerramos las conexiones, en orden inverso a su apertura
             
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+              ConexionBD.cerrarConexiones(null, ps);
 
         }
 
@@ -146,7 +145,7 @@ public class EtapaDAO implements IEtapaDao {
             return false;
         }finally {// Cerramos las conexiones, en orden inverso a su apertura
              
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
+             ConexionBD.cerrarConexiones(null, ps);
 
         }
 
@@ -185,9 +184,7 @@ public class EtapaDAO implements IEtapaDao {
             LOGGER.error("Error en  EtapaDao getAllUsuarios -->" + e.getMessage());
             return null;
         }finally {// Cerramos las conexiones, en orden inverso a su apertura
-             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
-
+             ConexionBD.cerrarConexiones(rs, ps);
         }
 
     }
@@ -223,9 +220,7 @@ public class EtapaDAO implements IEtapaDao {
             LOGGER.error("Error en  EtapaDao getEtapaById -->" + e.getMessage());
             return null;
         }finally {// Cerramos las conexiones, en orden inverso a su apertura
-             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
-
+               ConexionBD.cerrarConexiones(rs, ps);
         }
 
     }
@@ -260,9 +255,7 @@ public class EtapaDAO implements IEtapaDao {
 
             return result;
         }finally {// Cerramos las conexiones, en orden inverso a su apertura
-             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
-
+             ConexionBD.cerrarConexiones(rs, ps);
         }
 
     }
@@ -306,11 +299,11 @@ public class EtapaDAO implements IEtapaDao {
 
             return null;
         }finally {// Cerramos las conexiones, en orden inverso a su apertura
-             try { if (rs != null) rs.close(); } catch (Exception errorRS) { errorRS.getMessage(); }
-             try { if (ps != null) ps.close(); } catch (Exception errorST) { errorST.getMessage(); }
-
+              ConexionBD.cerrarConexiones(rs, ps);
         }
 
     }
+    
+   
 
 }

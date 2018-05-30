@@ -11,10 +11,10 @@ package edu.uniajc.proyeccionSocial.persistence.Model;
  */
  public class EtapasEntregas {
 
-        public String nombreEtapa;
-        public String estado;
-        public int idProyectoEtapa;
-        public boolean flag;
+        private String nombreEtapa;
+        private String estado;
+        private int idProyectoEtapa;
+        private boolean flag;
 
         public String getNombreEtapa() {
             return nombreEtapa;
