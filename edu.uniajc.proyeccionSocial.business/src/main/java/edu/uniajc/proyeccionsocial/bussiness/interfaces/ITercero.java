@@ -7,6 +7,7 @@ package edu.uniajc.proyeccionsocial.bussiness.interfaces;
 
 import edu.uniajc.proyeccionSocial.persistence.Model.Tercero;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -20,12 +21,12 @@ public interface ITercero {
 
     public boolean updateTercero(Tercero tercero);
 
-    public ArrayList<Tercero> getAllTercero();
+    public List<Tercero> getAllTercero();
 
     public Tercero getTerceroById(int id);
 
     public Tercero getTerceroByIdentificacion(int tipoDoc, String doc);
     
-    public ArrayList<Tercero> getAllTerceroUsuario();
+    public List<Tercero> getAllTerceroUsuario();
 
 }

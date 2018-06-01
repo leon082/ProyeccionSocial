@@ -7,6 +7,7 @@ package edu.uniajc.proyeccionsocial.bussiness.interfaces;
 
 import edu.uniajc.proyeccionSocial.persistence.Model.ListaValor;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -20,7 +21,7 @@ public interface IListaValor {
 
     public boolean updateListaValor(ListaValor listaValor);
 
-    public ArrayList<ListaValor> getAllListaValor();
+    public List<ListaValor> getAllListaValor();
 
     public ListaValor getListaValorById(int id);
 

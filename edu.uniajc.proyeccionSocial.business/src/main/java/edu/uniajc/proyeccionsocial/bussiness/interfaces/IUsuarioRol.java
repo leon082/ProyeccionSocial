@@ -7,6 +7,7 @@ package edu.uniajc.proyeccionsocial.bussiness.interfaces;
 
 import edu.uniajc.proyeccionSocial.persistence.Model.UsuarioRol;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -20,7 +21,7 @@ public interface IUsuarioRol {
 
     public boolean updateUsuarioRol(UsuarioRol usuarioRol);
 
-    public ArrayList<UsuarioRol> getAllUsuarioRol();
+    public List<UsuarioRol> getAllUsuarioRol();
 
     public UsuarioRol getUsuarioRolById(int id);
     

@@ -51,6 +51,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import org.apache.log4j.Logger;
 import org.primefaces.event.FileUploadEvent;
 
 /**
@@ -109,8 +110,11 @@ public class ProyectoGestionBean {
 
     private List<Proyecto> proyectos;
 
+    private static final Logger LOGGER = Logger.getLogger(ProyectoGestionBean.class.getName());
+
     @PostConstruct
     public void init() {
+        org.apache.log4j.BasicConfigurator.configure();
         correos = new ArrayList<>();
         emisor = new ArrayList<>();
         servicioProyectoEtapa = new ProyectoEtapaServices(Utilidades.getConnection());
@@ -153,7 +157,7 @@ public class ProyectoGestionBean {
     }
 
     public void buscar(Proyecto p) {
-        
+
         proyecto = p;
 
         facultad = proyecto.getFacultad();
@@ -230,35 +234,46 @@ public class ProyectoGestionBean {
     }
 
     public void handleFileUpload(FileUploadEvent event) throws IOException, Exception {
+        OutputStream out = null;
+        InputStream is =null;
+        try {
+            String name = "_" + 4 + event.getFile().getFileName();
+            // String ruta = Utilidades.leerArchivo("ruta");
+            String ruta = Utilidades.getRuta();
 
-        
+            String retorno = ruta + name;
 
-        String name = "_" + 4 + event.getFile().getFileName();
-        // String ruta = Utilidades.leerArchivo("ruta");
-        String ruta = Utilidades.getRuta();
+            File filePrueba = new File(ruta);
+            //pregunto si el directorio existe sino lo creo
+            if (!filePrueba.exists()) {
+                filePrueba.mkdirs();
+            }
+            filePrueba = new File(retorno);
+            //luego adiciono el archivo y lo mando a crear
+            is = event.getFile().getInputstream();
+            out = new FileOutputStream(filePrueba);
+            byte buf[] = new byte[1024];
+            int len;
+            while ((len = is.read(buf)) > 0) {
+                out.write(buf, 0, len);
+            }
+            is.close();
+            out.close();
+            rutaArchivo = name;
+            if (!"".equals(rutaArchivo)) {
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Archivo subido, no olvide guardar.");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+            }
 
-        String retorno = ruta + name;
-
-        File filePrueba = new File(ruta);
-        //pregunto si el directorio existe sino lo creo
-        if (!filePrueba.exists()) {
-            filePrueba.mkdirs();
-        }
-        filePrueba = new File(retorno);
-        //luego adiciono el archivo y lo mando a crear
-        InputStream is = event.getFile().getInputstream();
-        OutputStream out = new FileOutputStream(filePrueba);
-        byte buf[] = new byte[1024];
-        int len;
-        while ((len = is.read(buf)) > 0) {
-            out.write(buf, 0, len);
-        }
-        is.close();
-        out.close();
-        rutaArchivo = name;
-        if (!"".equals(rutaArchivo)) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Archivo subido, no olvide guardar.");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+        } catch (Exception e) {
+            LOGGER.error("Error Subiendo el archivo" + e.getMessage());
+        } finally {
+            if (out != null) {
+                out.close();
+            }
+            if (is != null) {
+                is.close();
+            } // Multiple streams were opened. Only the last is closed.
         }
 
     }
@@ -284,7 +299,7 @@ public class ProyectoGestionBean {
         if (!"".equals(rutaArchivo)) {
             int result = guardarSoporte(etapaEntrega.getIdProyectoEtapa());
             envioCorreo(result);
-           
+
             ProyectoEtapa proyectoE = servicioProyectoEtapa.getProyectoEtapaById(etapaEntrega.getIdProyectoEtapa());
             proyectoE.setEstado(2);
             servicioProyectoEtapa.updateProyectoEtapa(proyectoE);

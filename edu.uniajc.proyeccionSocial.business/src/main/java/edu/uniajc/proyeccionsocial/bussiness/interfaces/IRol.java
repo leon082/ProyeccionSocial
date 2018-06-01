@@ -21,7 +21,7 @@ public interface IRol {
 
     public boolean updateRol(Rol rol);
 
-    public ArrayList<Rol> getAllRol();
+    public List<Rol> getAllRol();
 
     public Rol getRolById(int id);
     

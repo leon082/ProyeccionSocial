@@ -10,20 +10,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Emmanuel Barrera - IRIS 12/05/2017 Nombre Clase:Iproyecto
- * Descripcion: Tabla que contiene todo el DAS
+ * @author Luis Leon - PSUNIAJC
+ *
  */
 public interface IProyecto {
 
     public int createProyecto(Proyecto proyecto);
 
-    public boolean deleteProyecto(int ID);
+    public boolean deleteProyecto(int id);
 
     public boolean updateProyecto(Proyecto proyecto);
 
-    public ArrayList<Proyecto> getAllProyectoPendiente();
+    public List<Proyecto> getAllProyectoPendiente();
     
-    public ArrayList<Proyecto> getAllProyectoAprobado();
+    public List<Proyecto> getAllProyectoAprobado();
     
      public ArrayList<Proyecto> getAllProyectoFinalizado();
       public ArrayList<Proyecto> getAllProyectoCancelado();

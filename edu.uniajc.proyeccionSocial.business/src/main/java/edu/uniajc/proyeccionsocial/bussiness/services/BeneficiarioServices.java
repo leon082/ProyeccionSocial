@@ -10,8 +10,10 @@ import edu.uniajc.proyeccionsocial.bussiness.interfaces.IBeneficiario;
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IBeneficiarioDao;
 
 import edu.uniajc.proyeccionSocial.persistence.Model.Beneficiario;
+import edu.uniajc.proyeccionsocial.bussiness.util.Constantes;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.List;
 import org.apache.log4j.Logger;
 
 /**
@@ -21,8 +23,8 @@ import org.apache.log4j.Logger;
 public class BeneficiarioServices implements IBeneficiario {
 
     IBeneficiarioDao dao;
-    
-private static final Logger LOGGER =  Logger.getLogger(BeneficiarioServices.class.getName());
+
+    private static final Logger LOGGER = Logger.getLogger(BeneficiarioServices.class.getName());
 
     public BeneficiarioServices(Connection connection) {
         org.apache.log4j.BasicConfigurator.configure();
@@ -32,21 +34,15 @@ private static final Logger LOGGER =  Logger.getLogger(BeneficiarioServices.clas
     @Override
     public int createBeneficiario(Beneficiario beneficiario) {
         try {
-
-            // validacion de Data
             if (beneficiario != null) {
+                return dao.createBeneficiario(beneficiario);
 
-                int flag = dao.createBeneficiario(beneficiario);
-
-                return flag;
             } else {
-                LOGGER.error("Faltan Datos en pantalla" );
-                
+                LOGGER.error(Constantes.MENSAJEDATOSFALTANTES);
                 return 0;
-
             }
         } catch (Exception e) {
-            LOGGER.error("Error Beneficiario Services "+e.getMessage() );
+            LOGGER.error(Constantes.ERRORBENEFICIARIO + e.getMessage());
             return 0;
         }
     }
@@ -54,12 +50,10 @@ private static final Logger LOGGER =  Logger.getLogger(BeneficiarioServices.clas
     @Override
     public boolean deleteBeneficiario(int id) {
         try {
-
             return dao.deleteBeneficiario(id);
 
         } catch (Exception e) {
-            LOGGER.error("Error BeneficiarioServices "+e.getMessage() );
-            
+            LOGGER.error(Constantes.ERRORBENEFICIARIO + e.getMessage());
             return false;
         }
     }
@@ -67,25 +61,19 @@ private static final Logger LOGGER =  Logger.getLogger(BeneficiarioServices.clas
     @Override
     public boolean updateBeneficiario(Beneficiario beneficiario) {
         try {
-
             return dao.updateBeneficiario(beneficiario);
         } catch (Exception e) {
-            LOGGER.error("Error BeneficiarioServices "+e.getMessage() );
-            
+            LOGGER.error(Constantes.ERRORBENEFICIARIO + e.getMessage());
             return false;
         }
     }
 
     @Override
-    public ArrayList<Beneficiario> getAllBeneficiario() {
+    public List<Beneficiario> getAllBeneficiario() {
         try {
-
-            ArrayList<Beneficiario> list = dao.getAllBeneficiario();
-
-            return list;
-
+            return dao.getAllBeneficiario();
         } catch (Exception e) {
-            LOGGER.error("Error BeneficiarioServices "+e.getMessage() );
+            LOGGER.error(Constantes.ERRORBENEFICIARIO + e.getMessage());
             return null;
         }
     }
@@ -93,29 +81,20 @@ private static final Logger LOGGER =  Logger.getLogger(BeneficiarioServices.clas
     @Override
     public Beneficiario getBeneficiarioById(int id) {
         try {
-
-            Beneficiario beneficiario = dao.getBeneficiarioById(id);
-
-            return beneficiario;
-
+            return dao.getBeneficiarioById(id);
         } catch (Exception e) {
-            LOGGER.error("Error BeneficiarioServices "+e.getMessage() );
+            LOGGER.error(Constantes.ERRORBENEFICIARIO + e.getMessage());
             return null;
         }
     }
 
     @Override
-    public ArrayList<Beneficiario> getAllBeneficiarioByProyect(int idProyect) {
+    public List<Beneficiario> getAllBeneficiarioByProyect(int idProyect) {
         try {
-
-            ArrayList<Beneficiario> list = dao.getAllBeneficiarioByProyect(idProyect);
-
-            return list;
-
+            return dao.getAllBeneficiarioByProyect(idProyect);
         } catch (Exception e) {
-            LOGGER.error("Error BeneficiarioServices "+e.getMessage() );
+            LOGGER.error(Constantes.ERRORBENEFICIARIO + e.getMessage());
             return null;
         }
     }
-
 }

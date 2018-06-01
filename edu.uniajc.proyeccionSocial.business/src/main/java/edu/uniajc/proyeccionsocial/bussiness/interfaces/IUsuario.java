@@ -7,6 +7,7 @@ package edu.uniajc.proyeccionsocial.bussiness.interfaces;
 
 import edu.uniajc.proyeccionSocial.persistence.Model.Usuario;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -20,7 +21,7 @@ public interface IUsuario {
 
     public boolean updateUsuario(Usuario usuario);
 
-    public ArrayList<Usuario> getAllUsuario();
+    public List<Usuario> getAllUsuario();
 
     public Usuario getUserById(int id);
 

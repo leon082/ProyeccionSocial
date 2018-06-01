@@ -6,7 +6,7 @@
 package edu.uniajc.proyeccionsocial.bussiness.interfaces;
 
 import edu.uniajc.proyeccionSocial.persistence.Model.ListaValorDetalle;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -20,7 +20,7 @@ public interface IListaValorDetalle {
 
     public boolean updateListaValorDetalle(ListaValorDetalle listaValorDetalle);
 
-    public ArrayList<ListaValorDetalle> getAllListaValorDetalle(String agrupa);
+    public List<ListaValorDetalle> getAllListaValorDetalle(String agrupa);
 
     public ListaValorDetalle getListaValorDetalleById(int id);
 

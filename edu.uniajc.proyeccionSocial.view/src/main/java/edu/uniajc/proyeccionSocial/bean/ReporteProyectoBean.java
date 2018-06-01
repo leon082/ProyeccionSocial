@@ -17,6 +17,7 @@ import edu.uniajc.proyeccionsocial.bussiness.interfaces.IServicio;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.ITercero;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -43,7 +44,7 @@ public class ReporteProyectoBean {
     int facultad;
 
     //tabla
-    ArrayList<ReporteProyecto> listaReporte;
+    List<ReporteProyecto> listaReporte;
 
     //Combos
     private ArrayList<SelectItem> programas;
@@ -104,14 +105,14 @@ public class ReporteProyectoBean {
 
     public void findReport() {
         listaReporte = new ArrayList<>();
-       
+
         listaReporte = reporteServices.getAllProyect(idPrograma, idServicio, idTerceroOferente, idTerceroCreadoPor, Utilidades.dateToSql(fechaDesde), Utilidades.dateToSql(fechaHasta), estado, facultad);
-        if(listaReporte.isEmpty()){
+        if (listaReporte.isEmpty()) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "No se encontraron Proyectos para esta consulta.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            
+
         }
-        
+
     }
 
     public int getIdPrograma() {
@@ -170,11 +171,11 @@ public class ReporteProyectoBean {
         this.estado = estado;
     }
 
-    public ArrayList<ReporteProyecto> getListaReporte() {
+    public List<ReporteProyecto> getListaReporte() {
         return listaReporte;
     }
 
-    public void setListaReporte(ArrayList<ReporteProyecto> listaReporte) {
+    public void setListaReporte(List<ReporteProyecto> listaReporte) {
         this.listaReporte = listaReporte;
     }
 

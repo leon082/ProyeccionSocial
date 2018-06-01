@@ -7,6 +7,7 @@ package edu.uniajc.proyeccionsocial.bussiness.interfaces;
 
 import edu.uniajc.proyeccionSocial.persistence.Model.ServicioEtapa;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -20,7 +21,7 @@ public interface IServicioEtapa {
 
     public boolean updateServicioEtapa(ServicioEtapa servicioEtapa);
 
-    public ArrayList<ServicioEtapa> getAllServicioEtapa();
+    public List<ServicioEtapa> getAllServicioEtapa();
 
     public ServicioEtapa getServicioEtapaById(int id);
 

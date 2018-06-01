@@ -6,7 +6,7 @@
 package edu.uniajc.proyeccionsocial.bussiness.interfaces;
 
 import edu.uniajc.proyeccionSocial.persistence.Model.Oferente;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -20,7 +20,7 @@ public interface IOferente {
 
     public boolean updateOferente(Oferente oferente);
 
-    public ArrayList<Oferente> getAllOferente();
+    public List<Oferente> getAllOferente();
 
     public Oferente getOferenteById(int id);
 

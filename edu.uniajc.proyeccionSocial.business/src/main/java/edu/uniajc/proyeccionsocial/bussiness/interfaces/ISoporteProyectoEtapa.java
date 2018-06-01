@@ -20,7 +20,7 @@ public interface ISoporteProyectoEtapa {
 
     public boolean updateSoporteProyectoEtapa(SoporteProyectoEtapa soporteProyectoEtapa);
 
-    public ArrayList<SoporteProyectoEtapa> getAllSoporteProyectoEtapa();
+    public List<SoporteProyectoEtapa> getAllSoporteProyectoEtapa();
 
     public SoporteProyectoEtapa getSoporteProyectoEtapaById(int id);
 

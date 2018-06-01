@@ -7,6 +7,7 @@ package edu.uniajc.proyeccionsocial.bussiness.interfaces;
 
 import edu.uniajc.proyeccionSocial.persistence.Model.ProyectoEtapa;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -20,8 +21,8 @@ public interface IProyectoEtapa {
 
     public boolean updateProyectoEtapa(ProyectoEtapa proyectoEtapa);
 
-    public ArrayList<ProyectoEtapa> getAllProyectoEtapaByProyecto(int idProyecto);
-    public ArrayList<ProyectoEtapa> getAllProyectoEtapasAprobadasByProyecto(int idProyecto);
+    public List<ProyectoEtapa> getAllProyectoEtapaByProyecto(int idProyecto);
+    public List<ProyectoEtapa> getAllProyectoEtapasAprobadasByProyecto(int idProyecto);
 
     public ProyectoEtapa getProyectoEtapaById(int id);
 

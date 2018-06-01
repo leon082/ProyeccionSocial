@@ -91,10 +91,10 @@ public class EnvioCorreoServices implements IEnvioCorreo {
             Properties properties = new Properties();
             Session session;
             String cuenta = "";
-            String password = "";
+            String key = "";
             if (emisor != null && emisor.size() > 0) {
                 cuenta = emisor.get(0);
-                password = emisor.get(1);
+                key = emisor.get(1);
             }
 
             properties.put("mail.smtp.host", "smtp.gmail.com");
@@ -112,7 +112,7 @@ public class EnvioCorreoServices implements IEnvioCorreo {
                 message.setSubject(asunto);
                 message.setText(text, "utf-8", "html");
                 Transport t = session.getTransport("smtp");
-                t.connect((String) properties.get("mail.smtp.user"), password);
+                t.connect((String) properties.get("mail.smtp.user"), key);
                 t.sendMessage(message, message.getAllRecipients());
                 t.close();
                 result = true;
@@ -136,10 +136,10 @@ public class EnvioCorreoServices implements IEnvioCorreo {
             Properties properties = new Properties();
             Session session;
             String cuenta = "";
-            String password = "";
+            String key = "";
             if (emisor != null && emisor.size() > 0) {
                 cuenta = emisor.get(0);
-                password = emisor.get(1);
+                key = emisor.get(1);
             }
 
             properties.put("mail.smtp.host", "smtp.gmail.com");
@@ -157,7 +157,7 @@ public class EnvioCorreoServices implements IEnvioCorreo {
                 message.setSubject("Correo Prueba");
                 message.setText("Correo de prueba título", "utf-8", "html");
                 Transport t = session.getTransport("smtp");
-                t.connect((String) properties.get("mail.smtp.user"), password);
+                t.connect((String) properties.get("mail.smtp.user"), key);
                 t.sendMessage(message, message.getAllRecipients());
                 t.close();
                 result = true;

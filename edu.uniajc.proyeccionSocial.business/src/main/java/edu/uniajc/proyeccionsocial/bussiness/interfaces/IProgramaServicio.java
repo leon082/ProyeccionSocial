@@ -7,6 +7,7 @@ package edu.uniajc.proyeccionsocial.bussiness.interfaces;
 
 import edu.uniajc.proyeccionSocial.persistence.Model.ProgramaServicio;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -20,7 +21,7 @@ public interface IProgramaServicio {
 
     public boolean updateProgramaServicio(ProgramaServicio progServi);
 
-    public ArrayList<ProgramaServicio> getAllProgramaServicioByPrograma(int idPrograma);
+    public List<ProgramaServicio> getAllProgramaServicioByPrograma(int idPrograma);
 
     public ProgramaServicio getProgramaServicioById(int id);
 

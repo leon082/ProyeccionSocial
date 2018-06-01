@@ -6,7 +6,7 @@
 package edu.uniajc.proyeccionsocial.bussiness.interfaces;
 
 import edu.uniajc.proyeccionSocial.persistence.Model.Beneficiario;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -20,9 +20,9 @@ public interface IBeneficiario {
 
     public boolean updateBeneficiario(Beneficiario beneficiario);
 
-    public ArrayList<Beneficiario> getAllBeneficiario();
+    public List<Beneficiario> getAllBeneficiario();
 
-    public ArrayList<Beneficiario> getAllBeneficiarioByProyect(int idProyect);
+    public List<Beneficiario> getAllBeneficiarioByProyect(int idProyect);
 
     public Beneficiario getBeneficiarioById(int id);
 
