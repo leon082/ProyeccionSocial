@@ -9,16 +9,16 @@ import edu.uniajc.proyeccionSocial.persistence.DAO.Opciones_menuDAO;
 import edu.uniajc.proyeccionSocial.persistence.interfaces.IOpciones_menuDao;
 import edu.uniajc.proyeccionSocial.persistence.Model.Opciones_menu;
 import edu.uniajc.proyeccionSocial.persistence.Model.Usuario;
-import edu.uniajc.proyeccionsocial.bussiness.interfaces.IOpciones_menu;
 import java.sql.Connection;
 import java.util.List;
 import org.apache.log4j.Logger;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IOpcionesMenu;
 
 /**
  *
  * @author luis.leon
  */
-public class MenuServices implements IOpciones_menu {
+public class MenuServices implements IOpcionesMenu {
 
     IOpciones_menuDao dao;
     private static final Logger LOGGER =  Logger.getLogger(MenuServices.class.getName());

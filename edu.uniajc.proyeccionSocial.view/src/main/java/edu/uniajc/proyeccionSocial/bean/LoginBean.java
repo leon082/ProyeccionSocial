@@ -14,7 +14,6 @@ import edu.uniajc.proyeccionSocial.view.util.Utilidades;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IEnvioCorreo;
 import edu.uniajc.proyeccionsocial.bussiness.services.MenuServices;
 import edu.uniajc.proyeccionsocial.bussiness.services.UsuarioServices;
-import edu.uniajc.proyeccionsocial.bussiness.interfaces.IOpciones_menu;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.ITercero;
 import edu.uniajc.proyeccionsocial.bussiness.interfaces.IUsuario;
 import edu.uniajc.proyeccionsocial.bussiness.services.EnvioCorreoServices;
@@ -33,6 +32,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
+import edu.uniajc.proyeccionsocial.bussiness.interfaces.IOpcionesMenu;
 
 /**
  *
@@ -45,7 +45,7 @@ public class LoginBean implements Serializable {
     private String nombre;
     private String clave;
     private IUsuario usuarioServices;
-    private IOpciones_menu menuServices;
+    private IOpcionesMenu menuServices;
     private Usuario user;
     private List<Opciones_menu> listaModuloCuenta;
     private List<Opciones_menu> listaModuloParametrizar;

@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author luis.leon
  */
-public interface IOpciones_menu {
+public interface IOpcionesMenu {
  public List<Opciones_menu> getMenuCuentaByUser(Usuario user);   
  public List<Opciones_menu> getMenuParametrizarByUser(Usuario user);   
  public List<Opciones_menu> getMenuProyectosByUser(Usuario user);   
